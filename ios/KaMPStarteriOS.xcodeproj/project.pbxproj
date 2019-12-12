@@ -1,0 +1,655 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F1E0D9B023A2D59D009CCF3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9AF23A2D59D009CCF3C /* AppDelegate.swift */; };
+		F1E0D9B223A2D59D009CCF3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9B123A2D59D009CCF3C /* SceneDelegate.swift */; };
+		F1E0D9B423A2D59D009CCF3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9B323A2D59D009CCF3C /* ContentView.swift */; };
+		F1E0D9B623A2D5A0009CCF3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1E0D9B523A2D5A0009CCF3C /* Assets.xcassets */; };
+		F1E0D9B923A2D5A0009CCF3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1E0D9B823A2D5A0009CCF3C /* Preview Assets.xcassets */; };
+		F1E0D9BC23A2D5A0009CCF3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E0D9BA23A2D5A0009CCF3C /* LaunchScreen.storyboard */; };
+		F1E0D9C723A2D5A0009CCF3C /* KaMPStarteriOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9C623A2D5A0009CCF3C /* KaMPStarteriOSTests.swift */; };
+		F1E0D9D223A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9D123A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift */; };
+		F1E0D9EA23A2E3D5009CCF3C /* SharedCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */; };
+		F1E0D9EB23A2E3D5009CCF3C /* SharedCode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F1E0D9C323A2D5A0009CCF3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1E0D9A423A2D59D009CCF3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1E0D9AB23A2D59D009CCF3C;
+			remoteInfo = KaMPStarteriOS;
+		};
+		F1E0D9CE23A2D5A0009CCF3C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1E0D9A423A2D59D009CCF3C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1E0D9AB23A2D59D009CCF3C;
+			remoteInfo = KaMPStarteriOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		F1E0D9EC23A2E3D5009CCF3C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F1E0D9EB23A2E3D5009CCF3C /* SharedCode.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F1E0D9AC23A2D59D009CCF3C /* KaMPStarteriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPStarteriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E0D9AF23A2D59D009CCF3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F1E0D9B123A2D59D009CCF3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F1E0D9B323A2D59D009CCF3C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F1E0D9B523A2D5A0009CCF3C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F1E0D9B823A2D5A0009CCF3C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F1E0D9BB23A2D5A0009CCF3C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F1E0D9BD23A2D5A0009CCF3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1E0D9C223A2D5A0009CCF3C /* KaMPStarteriOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaMPStarteriOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E0D9C623A2D5A0009CCF3C /* KaMPStarteriOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaMPStarteriOSTests.swift; sourceTree = "<group>"; };
+		F1E0D9C823A2D5A0009CCF3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1E0D9CD23A2D5A0009CCF3C /* KaMPStarteriOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaMPStarteriOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E0D9D123A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaMPStarteriOSUITests.swift; sourceTree = "<group>"; };
+		F1E0D9D323A2D5A0009CCF3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1E0D9E523A2DED1009CCF3C /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = "../../sharedcode/build/xcode-frameworks/SharedCode.framework"; sourceTree = "<group>"; };
+		F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = "../sharedcode/build/xcode-frameworks/SharedCode.framework"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F1E0D9A923A2D59D009CCF3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E0D9EA23A2E3D5009CCF3C /* SharedCode.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E0D9BF23A2D5A0009CCF3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E0D9CA23A2D5A0009CCF3C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F1E0D9A323A2D59D009CCF3C = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9AE23A2D59D009CCF3C /* KaMPStarteriOS */,
+				F1E0D9C523A2D5A0009CCF3C /* KaMPStarteriOSTests */,
+				F1E0D9D023A2D5A0009CCF3C /* KaMPStarteriOSUITests */,
+				F1E0D9AD23A2D59D009CCF3C /* Products */,
+				F1E0D9E423A2DED1009CCF3C /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F1E0D9AD23A2D59D009CCF3C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9AC23A2D59D009CCF3C /* KaMPStarteriOS.app */,
+				F1E0D9C223A2D5A0009CCF3C /* KaMPStarteriOSTests.xctest */,
+				F1E0D9CD23A2D5A0009CCF3C /* KaMPStarteriOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F1E0D9AE23A2D59D009CCF3C /* KaMPStarteriOS */ = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9AF23A2D59D009CCF3C /* AppDelegate.swift */,
+				F1E0D9B123A2D59D009CCF3C /* SceneDelegate.swift */,
+				F1E0D9B323A2D59D009CCF3C /* ContentView.swift */,
+				F1E0D9B523A2D5A0009CCF3C /* Assets.xcassets */,
+				F1E0D9BA23A2D5A0009CCF3C /* LaunchScreen.storyboard */,
+				F1E0D9BD23A2D5A0009CCF3C /* Info.plist */,
+				F1E0D9B723A2D5A0009CCF3C /* Preview Content */,
+			);
+			path = KaMPStarteriOS;
+			sourceTree = "<group>";
+		};
+		F1E0D9B723A2D5A0009CCF3C /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9B823A2D5A0009CCF3C /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F1E0D9C523A2D5A0009CCF3C /* KaMPStarteriOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9C623A2D5A0009CCF3C /* KaMPStarteriOSTests.swift */,
+				F1E0D9C823A2D5A0009CCF3C /* Info.plist */,
+			);
+			path = KaMPStarteriOSTests;
+			sourceTree = "<group>";
+		};
+		F1E0D9D023A2D5A0009CCF3C /* KaMPStarteriOSUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9D123A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift */,
+				F1E0D9D323A2D5A0009CCF3C /* Info.plist */,
+			);
+			path = KaMPStarteriOSUITests;
+			sourceTree = "<group>";
+		};
+		F1E0D9E423A2DED1009CCF3C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */,
+				F1E0D9E523A2DED1009CCF3C /* SharedCode.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F1E0D9AB23A2D59D009CCF3C /* KaMPStarteriOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1E0D9D623A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOS" */;
+			buildPhases = (
+				F1E0D9E123A2DBBE009CCF3C /* Run Script */,
+				F1E0D9A823A2D59D009CCF3C /* Sources */,
+				F1E0D9A923A2D59D009CCF3C /* Frameworks */,
+				F1E0D9AA23A2D59D009CCF3C /* Resources */,
+				F1E0D9EC23A2E3D5009CCF3C /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KaMPStarteriOS;
+			productName = KaMPStarteriOS;
+			productReference = F1E0D9AC23A2D59D009CCF3C /* KaMPStarteriOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F1E0D9C123A2D5A0009CCF3C /* KaMPStarteriOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1E0D9D923A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOSTests" */;
+			buildPhases = (
+				F1E0D9BE23A2D5A0009CCF3C /* Sources */,
+				F1E0D9BF23A2D5A0009CCF3C /* Frameworks */,
+				F1E0D9C023A2D5A0009CCF3C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1E0D9C423A2D5A0009CCF3C /* PBXTargetDependency */,
+			);
+			name = KaMPStarteriOSTests;
+			productName = KaMPStarteriOSTests;
+			productReference = F1E0D9C223A2D5A0009CCF3C /* KaMPStarteriOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F1E0D9CC23A2D5A0009CCF3C /* KaMPStarteriOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F1E0D9DC23A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOSUITests" */;
+			buildPhases = (
+				F1E0D9C923A2D5A0009CCF3C /* Sources */,
+				F1E0D9CA23A2D5A0009CCF3C /* Frameworks */,
+				F1E0D9CB23A2D5A0009CCF3C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F1E0D9CF23A2D5A0009CCF3C /* PBXTargetDependency */,
+			);
+			name = KaMPStarteriOSUITests;
+			productName = KaMPStarteriOSUITests;
+			productReference = F1E0D9CD23A2D5A0009CCF3C /* KaMPStarteriOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F1E0D9A423A2D59D009CCF3C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Kevin Schildhorn";
+				TargetAttributes = {
+					F1E0D9AB23A2D59D009CCF3C = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+					F1E0D9C123A2D5A0009CCF3C = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = F1E0D9AB23A2D59D009CCF3C;
+					};
+					F1E0D9CC23A2D5A0009CCF3C = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = F1E0D9AB23A2D59D009CCF3C;
+					};
+				};
+			};
+			buildConfigurationList = F1E0D9A723A2D59D009CCF3C /* Build configuration list for PBXProject "KaMPStarteriOS" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F1E0D9A323A2D59D009CCF3C;
+			productRefGroup = F1E0D9AD23A2D59D009CCF3C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F1E0D9AB23A2D59D009CCF3C /* KaMPStarteriOS */,
+				F1E0D9C123A2D5A0009CCF3C /* KaMPStarteriOSTests */,
+				F1E0D9CC23A2D5A0009CCF3C /* KaMPStarteriOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F1E0D9AA23A2D59D009CCF3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E0D9BC23A2D5A0009CCF3C /* LaunchScreen.storyboard in Resources */,
+				F1E0D9B923A2D5A0009CCF3C /* Preview Assets.xcassets in Resources */,
+				F1E0D9B623A2D5A0009CCF3C /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E0D9C023A2D5A0009CCF3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E0D9CB23A2D5A0009CCF3C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F1E0D9E123A2DBBE009CCF3C /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/../SharedCode/build/xcode-frameworks\"\n./gradlew :SharedCode:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F1E0D9A823A2D59D009CCF3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E0D9B023A2D59D009CCF3C /* AppDelegate.swift in Sources */,
+				F1E0D9B223A2D59D009CCF3C /* SceneDelegate.swift in Sources */,
+				F1E0D9B423A2D59D009CCF3C /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E0D9BE23A2D5A0009CCF3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E0D9C723A2D5A0009CCF3C /* KaMPStarteriOSTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F1E0D9C923A2D5A0009CCF3C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F1E0D9D223A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F1E0D9C423A2D5A0009CCF3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1E0D9AB23A2D59D009CCF3C /* KaMPStarteriOS */;
+			targetProxy = F1E0D9C323A2D5A0009CCF3C /* PBXContainerItemProxy */;
+		};
+		F1E0D9CF23A2D5A0009CCF3C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1E0D9AB23A2D59D009CCF3C /* KaMPStarteriOS */;
+			targetProxy = F1E0D9CE23A2D5A0009CCF3C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F1E0D9BA23A2D5A0009CCF3C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F1E0D9BB23A2D5A0009CCF3C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F1E0D9D423A2D5A0009CCF3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F1E0D9D523A2D5A0009CCF3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F1E0D9D723A2D5A0009CCF3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "KaMPStarteriOS/Preview\\ Content";
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../SharedCode/build/**",
+				);
+				INFOPLIST_FILE = KaMPStarteriOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchlab.KaMPStarter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F1E0D9D823A2D5A0009CCF3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "KaMPStarteriOS/Preview\\ Content";
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(SRCROOT)/../SharedCode/build/**",
+				);
+				INFOPLIST_FILE = KaMPStarteriOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.touchlab.KaMPStarter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F1E0D9DA23A2D5A0009CCF3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KaMPStarteriOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = touchlab.KaMPStarteriOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KaMPStarteriOS.app/KaMPStarteriOS";
+			};
+			name = Debug;
+		};
+		F1E0D9DB23A2D5A0009CCF3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KaMPStarteriOSTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = touchlab.KaMPStarteriOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KaMPStarteriOS.app/KaMPStarteriOS";
+			};
+			name = Release;
+		};
+		F1E0D9DD23A2D5A0009CCF3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KaMPStarteriOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = touchlab.KaMPStarteriOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KaMPStarteriOS;
+			};
+			name = Debug;
+		};
+		F1E0D9DE23A2D5A0009CCF3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = KaMPStarteriOSUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = touchlab.KaMPStarteriOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KaMPStarteriOS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F1E0D9A723A2D59D009CCF3C /* Build configuration list for PBXProject "KaMPStarteriOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E0D9D423A2D5A0009CCF3C /* Debug */,
+				F1E0D9D523A2D5A0009CCF3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1E0D9D623A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E0D9D723A2D5A0009CCF3C /* Debug */,
+				F1E0D9D823A2D5A0009CCF3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1E0D9D923A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E0D9DA23A2D5A0009CCF3C /* Debug */,
+				F1E0D9DB23A2D5A0009CCF3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F1E0D9DC23A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F1E0D9DD23A2D5A0009CCF3C /* Debug */,
+				F1E0D9DE23A2D5A0009CCF3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F1E0D9A423A2D59D009CCF3C /* Project object */;
+}
