@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.config.KotlinCompilerVersion
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -6,7 +8,7 @@ plugins {
 kotlin {
     jvm("android")
 
-    var buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
+    val buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
 
     if (buildForDevice) {
         iosArm64("ios64")
@@ -18,11 +20,11 @@ kotlin {
     version = "1.0"
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+        implementation(kotlin("stdlib-common", Versions.kotlin))
     }
 
     sourceSets["androidMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation(kotlin("stdlib", Versions.kotlin))
     }
 
     cocoapods {
