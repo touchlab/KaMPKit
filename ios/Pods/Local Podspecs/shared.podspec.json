@@ -1,18 +1,18 @@
 {
-  "name": "sharedcode",
+  "name": "shared",
   "version": "1.0",
   "homepage": "https://github.com/touchlab/KaMPStarter",
   "source": {
     "git": "Not Published",
-    "tag": "Cocoapods/sharedcode/1.0"
+    "tag": "Cocoapods/shared/1.0"
   },
   "authors": "",
   "license": "",
   "summary": "Lots of KaMP Stuff",
   "static_framework": true,
-  "vendored_frameworks": "build/cocoapods/framework/sharedcode.framework",
+  "vendored_frameworks": "build/cocoapods/framework/shared.framework",
   "libraries": "c++",
-  "module_name": "sharedcode_umbrella",
+  "module_name": "shared_umbrella",
   "pod_target_xcconfig": {
     "KOTLIN_TARGET[sdk=iphonesimulator*]": "ios_x64",
     "KOTLIN_TARGET[sdk=iphoneos*]": "ios_arm",
@@ -24,10 +24,10 @@
   },
   "script_phases": [
     {
-      "name": "Build sharedcode",
+      "name": "Build shared",
       "execution_position": "before_compile",
       "shell_path": "/bin/sh",
-      "script": "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :sharedcode:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n"
+      "script": "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :shared:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n"
     }
   ],
   "platforms": {

@@ -1,2 +1,2 @@
-include(":app", ":sharedcode")
+include(":app", ":shared")
 rootProject.name = "KaMP Starter"

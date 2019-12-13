@@ -1,6 +1,0 @@
-framework module sharedcode_umbrella {
-  umbrella header "sharedcode-umbrella.h"
-
-  export *
-  module * { export * }
-}
