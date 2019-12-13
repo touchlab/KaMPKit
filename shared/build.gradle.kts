@@ -1,3 +1,4 @@
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -19,10 +20,20 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+        implementation(Dependancies.ktor.commonCore)
+        implementation(Dependancies.ktor.commonJson)
     }
 
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation(Dependancies.ktor.jvmCore)
+        implementation(Dependancies.ktor.jvmJson)
+    }
+
+    sourceSets["iosMain"].dependencies {
+        implementation(Dependancies.ktor.ios)
+        implementation(Dependancies.ktor.iosCore)
+        implementation(Dependancies.ktor.iosJson)
     }
 
     cocoapods {
