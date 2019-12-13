@@ -2,6 +2,7 @@ package com.touchlab.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.touchlab.shared.NetworkHandler
 import com.touchlab.shared.createApplicationScreenMessage
 import com.touchlab.shared.ktorExample.KtorApiImpl
 import kotlinx.android.synthetic.main.activity_main.*
@@ -15,11 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         text_view.text = createApplicationScreenMessage()
-        networkRequest()
-    }
-
-    private fun networkRequest() = GlobalScope.launch{
-        val response = KtorApiImpl.getThingJson()
-        print(response)
+        NetworkHandler.getKtorExample()
     }
 }

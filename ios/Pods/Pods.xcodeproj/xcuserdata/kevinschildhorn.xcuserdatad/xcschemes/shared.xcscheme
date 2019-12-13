@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0000000000E0"
+               BlueprintIdentifier = "000000000100"
                BuildableName = "shared_umbrella.framework"
                BlueprintName = "shared"
                ReferencedContainer = "container:Pods.xcodeproj">

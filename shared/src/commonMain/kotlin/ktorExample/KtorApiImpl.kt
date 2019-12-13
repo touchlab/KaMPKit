@@ -17,11 +17,11 @@ object KtorApiImpl : KtorApiInterface {
         dogs("api/breeds/image/random")
     }
 
-    override suspend fun setThingJson(value: String): Boolean = client.submitForm(formParameters = Parameters.build {
+    override suspend fun setThingJson(value: String): Boolean = false /*client.submitForm(formParameters = Parameters.build {
         append("value",value)
     }, block = {
         dogs("")
-    })
+    })*/
 
     private fun HttpRequestBuilder.dogs(path: String) {
         url {
