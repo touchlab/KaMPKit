@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "000000000100"
-               BuildableName = "sharedcode_umbrella.framework"
-               BlueprintName = "sharedcode"
+               BuildableName = "shared_umbrella.framework"
+               BlueprintName = "shared"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

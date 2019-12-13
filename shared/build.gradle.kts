@@ -26,7 +26,7 @@ kotlin {
     }
 
     cocoapods {
-        summary = "Lots of KaMP Stuff"
+        summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPStarter"
     }
 }
