@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SharedCode
+import sharedcode
 
 struct ContentView: View {
     var body: some View {
