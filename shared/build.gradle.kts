@@ -7,7 +7,7 @@ plugins {
 kotlin {
     jvm("android")
 
-    var buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
+    val buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
 
     if (buildForDevice) {
         iosArm64("ios64")
@@ -19,13 +19,13 @@ kotlin {
     version = "1.0"
 
     sourceSets["commonMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
+        implementation(kotlin("stdlib-common", Versions.kotlin))
         implementation(Dependancies.ktor.commonCore)
         implementation(Dependancies.ktor.commonJson)
     }
 
     sourceSets["androidMain"].dependencies {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation(kotlin("stdlib", Versions.kotlin))
         implementation(Dependancies.ktor.jvmCore)
         implementation(Dependancies.ktor.jvmJson)
     }
