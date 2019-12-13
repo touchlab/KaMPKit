@@ -8,7 +8,7 @@
   },
   "authors": "",
   "license": "",
-  "summary": "Lots of KaMP Stuff",
+  "summary": "Common library for the KaMP starter kit",
   "static_framework": true,
   "vendored_frameworks": "build/cocoapods/framework/shared.framework",
   "libraries": "c++",

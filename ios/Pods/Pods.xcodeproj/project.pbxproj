@@ -7,62 +7,61 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0000000001B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000001A0 /* Foundation.framework */; };
-		000000000200 /* shared-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0000000001F0 /* shared-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		000000000230 /* shared-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000220 /* shared-dummy.m */; };
-		0000000002D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000001A0 /* Foundation.framework */; };
-		000000000340 /* Pods-KaMPStarteriOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000330 /* Pods-KaMPStarteriOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0000000003A0 /* Pods-KaMPStarteriOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000390 /* Pods-KaMPStarteriOS-dummy.m */; };
+		000000000190 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000180 /* Foundation.framework */; };
+		0000000001E0 /* shared-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0000000001D0 /* shared-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		000000000210 /* shared-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000200 /* shared-dummy.m */; };
+		0000000002B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000000000180 /* Foundation.framework */; };
+		000000000320 /* Pods-KaMPStarteriOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000310 /* Pods-KaMPStarteriOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		000000000380 /* Pods-KaMPStarteriOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000370 /* Pods-KaMPStarteriOS-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0000000003C0 /* PBXContainerItemProxy */ = {
+		0000000003A0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 000000000100;
+			remoteGlobalIDString = 0000000000E0;
 			remoteInfo = shared;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0000000000B0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		0000000000D0 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
-		0000000000F0 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		000000000140 /* shared_umbrella.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = shared_umbrella.framework; path = shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0000000001A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		0000000001D0 /* shared.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
-		0000000001E0 /* shared.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = shared.modulemap; sourceTree = "<group>"; };
-		0000000001F0 /* shared-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-umbrella.h"; sourceTree = "<group>"; };
-		000000000210 /* shared-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-prefix.pch"; sourceTree = "<group>"; };
-		000000000220 /* shared-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "shared-dummy.m"; sourceTree = "<group>"; };
-		000000000280 /* Pods_KaMPStarteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_KaMPStarteriOS.framework; path = "Pods-KaMPStarteriOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0000000002F0 /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
-		000000000300 /* Pods-KaMPStarteriOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KaMPStarteriOS.debug.xcconfig"; sourceTree = "<group>"; };
-		000000000310 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		000000000320 /* Pods-KaMPStarteriOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-KaMPStarteriOS.modulemap"; sourceTree = "<group>"; };
-		000000000330 /* Pods-KaMPStarteriOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-KaMPStarteriOS-umbrella.h"; sourceTree = "<group>"; };
-		000000000350 /* Pods-KaMPStarteriOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KaMPStarteriOS-frameworks.sh"; sourceTree = "<group>"; };
-		000000000360 /* Pods-KaMPStarteriOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KaMPStarteriOS-resources.sh"; sourceTree = "<group>"; };
-		000000000370 /* Pods-KaMPStarteriOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KaMPStarteriOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		000000000380 /* Pods-KaMPStarteriOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KaMPStarteriOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		000000000390 /* Pods-KaMPStarteriOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KaMPStarteriOS-dummy.m"; sourceTree = "<group>"; };
+		0000000000D0 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		000000000120 /* shared_umbrella.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = shared_umbrella.framework; path = shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000180 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		0000000001B0 /* shared.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
+		0000000001C0 /* shared.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = shared.modulemap; sourceTree = "<group>"; };
+		0000000001D0 /* shared-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-umbrella.h"; sourceTree = "<group>"; };
+		0000000001F0 /* shared-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-prefix.pch"; sourceTree = "<group>"; };
+		000000000200 /* shared-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "shared-dummy.m"; sourceTree = "<group>"; };
+		000000000260 /* Pods_KaMPStarteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_KaMPStarteriOS.framework; path = "Pods-KaMPStarteriOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0000000002D0 /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
+		0000000002E0 /* Pods-KaMPStarteriOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KaMPStarteriOS.debug.xcconfig"; sourceTree = "<group>"; };
+		0000000002F0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		000000000300 /* Pods-KaMPStarteriOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-KaMPStarteriOS.modulemap"; sourceTree = "<group>"; };
+		000000000310 /* Pods-KaMPStarteriOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-KaMPStarteriOS-umbrella.h"; sourceTree = "<group>"; };
+		000000000330 /* Pods-KaMPStarteriOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KaMPStarteriOS-frameworks.sh"; sourceTree = "<group>"; };
+		000000000340 /* Pods-KaMPStarteriOS-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KaMPStarteriOS-resources.sh"; sourceTree = "<group>"; };
+		000000000350 /* Pods-KaMPStarteriOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KaMPStarteriOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		000000000360 /* Pods-KaMPStarteriOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KaMPStarteriOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		000000000370 /* Pods-KaMPStarteriOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KaMPStarteriOS-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		000000000170 /* Frameworks */ = {
+		000000000150 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0000000001B0 /* Foundation.framework in Frameworks */,
+				000000000190 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0000000002B0 /* Frameworks */ = {
+		000000000290 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0000000002D0 /* Foundation.framework in Frameworks */,
+				0000000002B0 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,8 +82,8 @@
 		000000000020 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				000000000280 /* Pods_KaMPStarteriOS.framework */,
-				000000000140 /* shared_umbrella.framework */,
+				000000000260 /* Pods_KaMPStarteriOS.framework */,
+				000000000120 /* shared_umbrella.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,7 +91,7 @@
 		000000000060 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				000000000190 /* iOS */,
+				000000000170 /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,7 +99,7 @@
 		000000000070 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0000000002E0 /* Pods-KaMPStarteriOS */,
+				0000000002C0 /* Pods-KaMPStarteriOS */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -116,64 +115,55 @@
 		0000000000A0 /* shared */ = {
 			isa = PBXGroup;
 			children = (
-				0000000000C0 /* Frameworks */,
-				0000000000E0 /* Pod */,
-				0000000001C0 /* Support Files */,
+				0000000000C0 /* Pod */,
+				0000000001A0 /* Support Files */,
 			);
 			name = shared;
 			path = ../../shared;
 			sourceTree = "<group>";
 		};
-		0000000000C0 /* Frameworks */ = {
+		0000000000C0 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				0000000000D0 /* shared.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		0000000000E0 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				0000000000F0 /* shared.podspec */,
+				0000000000D0 /* shared.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		000000000190 /* iOS */ = {
+		000000000170 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				0000000001A0 /* Foundation.framework */,
+				000000000180 /* Foundation.framework */,
 			);
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		0000000001C0 /* Support Files */ = {
+		0000000001A0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0000000001E0 /* shared.modulemap */,
-				0000000001D0 /* shared.xcconfig */,
-				000000000220 /* shared-dummy.m */,
-				000000000210 /* shared-prefix.pch */,
-				0000000001F0 /* shared-umbrella.h */,
+				0000000001C0 /* shared.modulemap */,
+				0000000001B0 /* shared.xcconfig */,
+				000000000200 /* shared-dummy.m */,
+				0000000001F0 /* shared-prefix.pch */,
+				0000000001D0 /* shared-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../ios/Pods/Target Support Files/shared";
 			sourceTree = "<group>";
 		};
-		0000000002E0 /* Pods-KaMPStarteriOS */ = {
+		0000000002C0 /* Pods-KaMPStarteriOS */ = {
 			isa = PBXGroup;
 			children = (
-				000000000310 /* Info.plist */,
-				000000000320 /* Pods-KaMPStarteriOS.modulemap */,
-				000000000380 /* Pods-KaMPStarteriOS-acknowledgements.markdown */,
-				000000000370 /* Pods-KaMPStarteriOS-acknowledgements.plist */,
-				000000000390 /* Pods-KaMPStarteriOS-dummy.m */,
-				000000000350 /* Pods-KaMPStarteriOS-frameworks.sh */,
-				000000000360 /* Pods-KaMPStarteriOS-resources.sh */,
-				000000000330 /* Pods-KaMPStarteriOS-umbrella.h */,
-				000000000300 /* Pods-KaMPStarteriOS.debug.xcconfig */,
-				0000000002F0 /* Pods-KaMPStarteriOS.release.xcconfig */,
+				0000000002F0 /* Info.plist */,
+				000000000300 /* Pods-KaMPStarteriOS.modulemap */,
+				000000000360 /* Pods-KaMPStarteriOS-acknowledgements.markdown */,
+				000000000350 /* Pods-KaMPStarteriOS-acknowledgements.plist */,
+				000000000370 /* Pods-KaMPStarteriOS-dummy.m */,
+				000000000330 /* Pods-KaMPStarteriOS-frameworks.sh */,
+				000000000340 /* Pods-KaMPStarteriOS-resources.sh */,
+				000000000310 /* Pods-KaMPStarteriOS-umbrella.h */,
+				0000000002E0 /* Pods-KaMPStarteriOS.debug.xcconfig */,
+				0000000002D0 /* Pods-KaMPStarteriOS.release.xcconfig */,
 			);
 			name = "Pods-KaMPStarteriOS";
 			path = "Target Support Files/Pods-KaMPStarteriOS";
@@ -182,34 +172,34 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		000000000150 /* Headers */ = {
+		000000000130 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000200 /* shared-umbrella.h in Headers */,
+				0000000001E0 /* shared-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		000000000290 /* Headers */ = {
+		000000000270 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000340 /* Pods-KaMPStarteriOS-umbrella.h in Headers */,
+				000000000320 /* Pods-KaMPStarteriOS-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		000000000100 /* shared */ = {
+		0000000000E0 /* shared */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000000000110 /* Build configuration list for PBXNativeTarget "shared" */;
+			buildConfigurationList = 0000000000F0 /* Build configuration list for PBXNativeTarget "shared" */;
 			buildPhases = (
-				000000000150 /* Headers */,
-				0000000003B0 /* [CP-User] Build shared */,
-				000000000160 /* Sources */,
-				000000000170 /* Frameworks */,
-				000000000180 /* Resources */,
+				000000000130 /* Headers */,
+				000000000390 /* [CP-User] Build shared */,
+				000000000140 /* Sources */,
+				000000000150 /* Frameworks */,
+				000000000160 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -217,26 +207,26 @@
 			);
 			name = shared;
 			productName = shared;
-			productReference = 000000000140 /* shared_umbrella.framework */;
+			productReference = 000000000120 /* shared_umbrella.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		000000000240 /* Pods-KaMPStarteriOS */ = {
+		000000000220 /* Pods-KaMPStarteriOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000000000250 /* Build configuration list for PBXNativeTarget "Pods-KaMPStarteriOS" */;
+			buildConfigurationList = 000000000230 /* Build configuration list for PBXNativeTarget "Pods-KaMPStarteriOS" */;
 			buildPhases = (
-				000000000290 /* Headers */,
-				0000000002A0 /* Sources */,
-				0000000002B0 /* Frameworks */,
-				0000000002C0 /* Resources */,
+				000000000270 /* Headers */,
+				000000000280 /* Sources */,
+				000000000290 /* Frameworks */,
+				0000000002A0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0000000003D0 /* PBXTargetDependency */,
+				0000000003B0 /* PBXTargetDependency */,
 			);
 			name = "Pods-KaMPStarteriOS";
 			productName = "Pods-KaMPStarteriOS";
-			productReference = 000000000280 /* Pods_KaMPStarteriOS.framework */;
+			productReference = 000000000260 /* Pods_KaMPStarteriOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -260,21 +250,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				000000000240 /* Pods-KaMPStarteriOS */,
-				000000000100 /* shared */,
+				000000000220 /* Pods-KaMPStarteriOS */,
+				0000000000E0 /* shared */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		000000000180 /* Resources */ = {
+		000000000160 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0000000002C0 /* Resources */ = {
+		0000000002A0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -284,7 +274,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0000000003B0 /* [CP-User] Build shared */ = {
+		000000000390 /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -306,30 +296,30 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		000000000160 /* Sources */ = {
+		000000000140 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000230 /* shared-dummy.m in Sources */,
+				000000000210 /* shared-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0000000002A0 /* Sources */ = {
+		000000000280 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0000000003A0 /* Pods-KaMPStarteriOS-dummy.m in Sources */,
+				000000000380 /* Pods-KaMPStarteriOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0000000003D0 /* PBXTargetDependency */ = {
+		0000000003B0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
-			target = 000000000100 /* shared */;
-			targetProxy = 0000000003C0 /* PBXContainerItemProxy */;
+			target = 0000000000E0 /* shared */;
+			targetProxy = 0000000003A0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -457,9 +447,9 @@
 			};
 			name = Release;
 		};
-		000000000120 /* Release */ = {
+		000000000100 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000001D0 /* shared.xcconfig */;
+			baseConfigurationReference = 0000000001B0 /* shared.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -493,9 +483,9 @@
 			};
 			name = Release;
 		};
-		000000000130 /* Debug */ = {
+		000000000110 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000001D0 /* shared.xcconfig */;
+			baseConfigurationReference = 0000000001B0 /* shared.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -528,9 +518,9 @@
 			};
 			name = Debug;
 		};
-		000000000260 /* Release */ = {
+		000000000240 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000002F0 /* Pods-KaMPStarteriOS.release.xcconfig */;
+			baseConfigurationReference = 0000000002D0 /* Pods-KaMPStarteriOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -566,9 +556,9 @@
 			};
 			name = Release;
 		};
-		000000000270 /* Debug */ = {
+		000000000250 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 000000000300 /* Pods-KaMPStarteriOS.debug.xcconfig */;
+			baseConfigurationReference = 0000000002E0 /* Pods-KaMPStarteriOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -615,20 +605,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000110 /* Build configuration list for PBXNativeTarget "shared" */ = {
+		0000000000F0 /* Build configuration list for PBXNativeTarget "shared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				000000000130 /* Debug */,
-				000000000120 /* Release */,
+				000000000110 /* Debug */,
+				000000000100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000250 /* Build configuration list for PBXNativeTarget "Pods-KaMPStarteriOS" */ = {
+		000000000230 /* Build configuration list for PBXNativeTarget "Pods-KaMPStarteriOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				000000000270 /* Debug */,
-				000000000260 /* Release */,
+				000000000250 /* Debug */,
+				000000000240 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

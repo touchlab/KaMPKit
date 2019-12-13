@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "000000000240"
+               BlueprintIdentifier = "000000000220"
                BuildableName = "Pods_KaMPStarteriOS.framework"
                BlueprintName = "Pods-KaMPStarteriOS"
                ReferencedContainer = "container:Pods.xcodeproj">

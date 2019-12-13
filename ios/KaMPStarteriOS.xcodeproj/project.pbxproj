@@ -53,8 +53,6 @@
 		F1E0D9CD23A2D5A0009CCF3C /* KaMPStarteriOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaMPStarteriOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E0D9D123A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaMPStarteriOSUITests.swift; sourceTree = "<group>"; };
 		F1E0D9D323A2D5A0009CCF3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F1E0D9E523A2DED1009CCF3C /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = "../../sharedcode/build/xcode-frameworks/SharedCode.framework"; sourceTree = "<group>"; };
-		F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SharedCode.framework; path = "../sharedcode/build/xcode-frameworks/SharedCode.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,8 +155,6 @@
 		F1E0D9E423A2DED1009CCF3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */,
-				F1E0D9E523A2DED1009CCF3C /* SharedCode.framework */,
 				7B0819824EC0C2E3F07271C9 /* Pods_KaMPStarteriOS.framework */,
 			);
 			name = Frameworks;
