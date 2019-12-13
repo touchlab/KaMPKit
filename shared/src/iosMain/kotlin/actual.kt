@@ -1,4 +1,4 @@
-package com.touchlab.sharedcode
+package com.touchlab.shared
 
 import platform.UIKit.UIDevice
 
