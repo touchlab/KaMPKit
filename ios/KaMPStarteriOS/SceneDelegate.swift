@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftUI
+import shared
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -29,6 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             window.makeKeyAndVisible()
         }
+        networkRequest()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -59,6 +61,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
-
+    private func networkRequest() {
+        NetworkHandler().getKtorExample()
+    }
 }
 

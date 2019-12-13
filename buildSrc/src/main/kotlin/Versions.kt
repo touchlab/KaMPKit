@@ -1,3 +1,3 @@
 object Versions {
-    const val ktor = "1.2.4"
+    const val ktor = "1.1.4"
 }
