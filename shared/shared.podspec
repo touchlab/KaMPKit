@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
     spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Lots of KaMP Stuff'
+    spec.summary                  = 'Common library for the KaMP starter kit'
 
     spec.static_framework         = true
     spec.vendored_frameworks      = "build/cocoapods/framework/#{spec.name}.framework"
