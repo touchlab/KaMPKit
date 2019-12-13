@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.config.KotlinCompilerVersion
-
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
