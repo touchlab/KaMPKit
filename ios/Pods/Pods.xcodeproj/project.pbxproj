@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0000000001B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000001A0 /* Foundation.framework */; };
-		000000000200 /* sharedcode-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0000000001F0 /* sharedcode-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		000000000230 /* sharedcode-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000220 /* sharedcode-dummy.m */; };
+		000000000200 /* shared-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0000000001F0 /* shared-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		000000000230 /* shared-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000220 /* shared-dummy.m */; };
 		0000000002D0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0000000001A0 /* Foundation.framework */; };
 		000000000340 /* Pods-KaMPStarteriOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 000000000330 /* Pods-KaMPStarteriOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0000000003A0 /* Pods-KaMPStarteriOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 000000000390 /* Pods-KaMPStarteriOS-dummy.m */; };
@@ -21,21 +21,21 @@
 			containerPortal = 000000000000 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 000000000100;
-			remoteInfo = sharedcode;
+			remoteInfo = shared;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0000000000B0 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		0000000000D0 /* sharedcode.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sharedcode.framework; path = build/cocoapods/framework/sharedcode.framework; sourceTree = "<group>"; };
-		0000000000F0 /* sharedcode.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = sharedcode.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		000000000140 /* sharedcode_umbrella.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = sharedcode_umbrella.framework; path = sharedcode.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0000000000D0 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = build/cocoapods/framework/shared.framework; sourceTree = "<group>"; };
+		0000000000F0 /* shared.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = shared.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		000000000140 /* shared_umbrella.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = shared_umbrella.framework; path = shared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0000000001A0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		0000000001D0 /* sharedcode.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = sharedcode.xcconfig; sourceTree = "<group>"; };
-		0000000001E0 /* sharedcode.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = sharedcode.modulemap; sourceTree = "<group>"; };
-		0000000001F0 /* sharedcode-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "sharedcode-umbrella.h"; sourceTree = "<group>"; };
-		000000000210 /* sharedcode-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "sharedcode-prefix.pch"; sourceTree = "<group>"; };
-		000000000220 /* sharedcode-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "sharedcode-dummy.m"; sourceTree = "<group>"; };
+		0000000001D0 /* shared.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = shared.xcconfig; sourceTree = "<group>"; };
+		0000000001E0 /* shared.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = shared.modulemap; sourceTree = "<group>"; };
+		0000000001F0 /* shared-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-umbrella.h"; sourceTree = "<group>"; };
+		000000000210 /* shared-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "shared-prefix.pch"; sourceTree = "<group>"; };
+		000000000220 /* shared-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "shared-dummy.m"; sourceTree = "<group>"; };
 		000000000280 /* Pods_KaMPStarteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_KaMPStarteriOS.framework; path = "Pods-KaMPStarteriOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0000000002F0 /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
 		000000000300 /* Pods-KaMPStarteriOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-KaMPStarteriOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				000000000280 /* Pods_KaMPStarteriOS.framework */,
-				000000000140 /* sharedcode_umbrella.framework */,
+				000000000140 /* shared_umbrella.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,26 +108,26 @@
 		000000000090 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0000000000A0 /* sharedcode */,
+				0000000000A0 /* shared */,
 			);
 			name = "Development Pods";
 			sourceTree = "<group>";
 		};
-		0000000000A0 /* sharedcode */ = {
+		0000000000A0 /* shared */ = {
 			isa = PBXGroup;
 			children = (
 				0000000000C0 /* Frameworks */,
 				0000000000E0 /* Pod */,
 				0000000001C0 /* Support Files */,
 			);
-			name = sharedcode;
-			path = ../../sharedcode;
+			name = shared;
+			path = ../../shared;
 			sourceTree = "<group>";
 		};
 		0000000000C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0000000000D0 /* sharedcode.framework */,
+				0000000000D0 /* shared.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 		0000000000E0 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				0000000000F0 /* sharedcode.podspec */,
+				0000000000F0 /* shared.podspec */,
 			);
 			name = Pod;
 			sourceTree = "<group>";
@@ -151,14 +151,14 @@
 		0000000001C0 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				0000000001E0 /* sharedcode.modulemap */,
-				0000000001D0 /* sharedcode.xcconfig */,
-				000000000220 /* sharedcode-dummy.m */,
-				000000000210 /* sharedcode-prefix.pch */,
-				0000000001F0 /* sharedcode-umbrella.h */,
+				0000000001E0 /* shared.modulemap */,
+				0000000001D0 /* shared.xcconfig */,
+				000000000220 /* shared-dummy.m */,
+				000000000210 /* shared-prefix.pch */,
+				0000000001F0 /* shared-umbrella.h */,
 			);
 			name = "Support Files";
-			path = "../ios/Pods/Target Support Files/sharedcode";
+			path = "../ios/Pods/Target Support Files/shared";
 			sourceTree = "<group>";
 		};
 		0000000002E0 /* Pods-KaMPStarteriOS */ = {
@@ -186,7 +186,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000200 /* sharedcode-umbrella.h in Headers */,
+				000000000200 /* shared-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,12 +201,12 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		000000000100 /* sharedcode */ = {
+		000000000100 /* shared */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 000000000110 /* Build configuration list for PBXNativeTarget "sharedcode" */;
+			buildConfigurationList = 000000000110 /* Build configuration list for PBXNativeTarget "shared" */;
 			buildPhases = (
 				000000000150 /* Headers */,
-				0000000003B0 /* [CP-User] Build sharedcode */,
+				0000000003B0 /* [CP-User] Build shared */,
 				000000000160 /* Sources */,
 				000000000170 /* Frameworks */,
 				000000000180 /* Resources */,
@@ -215,9 +215,9 @@
 			);
 			dependencies = (
 			);
-			name = sharedcode;
-			productName = sharedcode;
-			productReference = 000000000140 /* sharedcode_umbrella.framework */;
+			name = shared;
+			productName = shared;
+			productReference = 000000000140 /* shared_umbrella.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		000000000240 /* Pods-KaMPStarteriOS */ = {
@@ -261,7 +261,7 @@
 			projectRoot = "";
 			targets = (
 				000000000240 /* Pods-KaMPStarteriOS */,
-				000000000100 /* sharedcode */,
+				000000000100 /* shared */,
 			);
 		};
 /* End PBXProject section */
@@ -284,7 +284,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0000000003B0 /* [CP-User] Build sharedcode */ = {
+		0000000003B0 /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,14 +293,14 @@
 			);
 			inputPaths = (
 			);
-			name = "[CP-User] Build sharedcode";
+			name = "[CP-User] Build shared";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :sharedcode:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
+			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :shared:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -310,7 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000230 /* sharedcode-dummy.m in Sources */,
+				000000000230 /* shared-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,8 +327,8 @@
 /* Begin PBXTargetDependency section */
 		0000000003D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = sharedcode;
-			target = 000000000100 /* sharedcode */;
+			name = shared;
+			target = 000000000100 /* shared */;
 			targetProxy = 0000000003C0 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -459,7 +459,7 @@
 		};
 		000000000120 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000001D0 /* sharedcode.xcconfig */;
+			baseConfigurationReference = 0000000001D0 /* shared.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -470,7 +470,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/sharedcode/sharedcode-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/shared/shared-prefix.pch";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -479,9 +479,9 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/sharedcode/sharedcode.modulemap";
-				PRODUCT_MODULE_NAME = sharedcode_umbrella;
-				PRODUCT_NAME = sharedcode_umbrella;
+				MODULEMAP_FILE = "Target Support Files/shared/shared.modulemap";
+				PRODUCT_MODULE_NAME = shared_umbrella;
+				PRODUCT_NAME = shared_umbrella;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -495,7 +495,7 @@
 		};
 		000000000130 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0000000001D0 /* sharedcode.xcconfig */;
+			baseConfigurationReference = 0000000001D0 /* shared.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -506,7 +506,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/sharedcode/sharedcode-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/shared/shared-prefix.pch";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -515,9 +515,9 @@
 					"@loader_path/Frameworks",
 				);
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/sharedcode/sharedcode.modulemap";
-				PRODUCT_MODULE_NAME = sharedcode_umbrella;
-				PRODUCT_NAME = sharedcode_umbrella;
+				MODULEMAP_FILE = "Target Support Files/shared/shared.modulemap";
+				PRODUCT_MODULE_NAME = shared_umbrella;
+				PRODUCT_NAME = shared_umbrella;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -615,7 +615,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		000000000110 /* Build configuration list for PBXNativeTarget "sharedcode" */ = {
+		000000000110 /* Build configuration list for PBXNativeTarget "shared" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				000000000130 /* Debug */,

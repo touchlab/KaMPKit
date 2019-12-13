@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double sharedcode_umbrellaVersionNumber;
-FOUNDATION_EXPORT const unsigned char sharedcode_umbrellaVersionString[];
+FOUNDATION_EXPORT double shared_umbrellaVersionNumber;
+FOUNDATION_EXPORT const unsigned char shared_umbrellaVersionString[];
 
