@@ -2,7 +2,7 @@ package com.touchlab.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.touchlab.sharedcode.createApplicationScreenMessage
+import com.touchlab.shared.createApplicationScreenMessage
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
