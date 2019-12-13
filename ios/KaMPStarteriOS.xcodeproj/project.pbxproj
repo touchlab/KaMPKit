@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8AF1252EF7D38BB5CE25F67 /* Pods_KaMPStarteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B0819824EC0C2E3F07271C9 /* Pods_KaMPStarteriOS.framework */; };
 		F1E0D9B023A2D59D009CCF3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9AF23A2D59D009CCF3C /* AppDelegate.swift */; };
 		F1E0D9B223A2D59D009CCF3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9B123A2D59D009CCF3C /* SceneDelegate.swift */; };
 		F1E0D9B423A2D59D009CCF3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9B323A2D59D009CCF3C /* ContentView.swift */; };
@@ -15,8 +16,6 @@
 		F1E0D9BC23A2D5A0009CCF3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E0D9BA23A2D5A0009CCF3C /* LaunchScreen.storyboard */; };
 		F1E0D9C723A2D5A0009CCF3C /* KaMPStarteriOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9C623A2D5A0009CCF3C /* KaMPStarteriOSTests.swift */; };
 		F1E0D9D223A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E0D9D123A2D5A0009CCF3C /* KaMPStarteriOSUITests.swift */; };
-		F1E0D9EA23A2E3D5009CCF3C /* SharedCode.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */; };
-		F1E0D9EB23A2E3D5009CCF3C /* SharedCode.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,21 +35,10 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		F1E0D9EC23A2E3D5009CCF3C /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				F1E0D9EB23A2E3D5009CCF3C /* SharedCode.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		7B0819824EC0C2E3F07271C9 /* Pods_KaMPStarteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KaMPStarteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B2CE2C9AEA4EE99A8B1D4B3 /* Pods-KaMPStarteriOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.debug.xcconfig"; sourceTree = "<group>"; };
+		AEBA1AFBCE35FDAB80E1D40C /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
 		F1E0D9AC23A2D59D009CCF3C /* KaMPStarteriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPStarteriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E0D9AF23A2D59D009CCF3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E0D9B123A2D59D009CCF3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,7 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1E0D9EA23A2E3D5009CCF3C /* SharedCode.framework in Frameworks */,
+				A8AF1252EF7D38BB5CE25F67 /* Pods_KaMPStarteriOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57A23086E3C9C70F849DA3E7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8B2CE2C9AEA4EE99A8B1D4B3 /* Pods-KaMPStarteriOS.debug.xcconfig */,
+				AEBA1AFBCE35FDAB80E1D40C /* Pods-KaMPStarteriOS.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F1E0D9A323A2D59D009CCF3C = {
 			isa = PBXGroup;
 			children = (
@@ -103,6 +100,7 @@
 				F1E0D9D023A2D5A0009CCF3C /* KaMPStarteriOSUITests */,
 				F1E0D9AD23A2D59D009CCF3C /* Products */,
 				F1E0D9E423A2DED1009CCF3C /* Frameworks */,
+				57A23086E3C9C70F849DA3E7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,6 +159,7 @@
 			children = (
 				F1E0D9E923A2E3D5009CCF3C /* SharedCode.framework */,
 				F1E0D9E523A2DED1009CCF3C /* SharedCode.framework */,
+				7B0819824EC0C2E3F07271C9 /* Pods_KaMPStarteriOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -172,11 +171,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1E0D9D623A2D5A0009CCF3C /* Build configuration list for PBXNativeTarget "KaMPStarteriOS" */;
 			buildPhases = (
-				F1E0D9E123A2DBBE009CCF3C /* Run Script */,
+				362730637989DBC5F24CE8B6 /* [CP] Check Pods Manifest.lock */,
 				F1E0D9A823A2D59D009CCF3C /* Sources */,
 				F1E0D9A923A2D59D009CCF3C /* Frameworks */,
 				F1E0D9AA23A2D59D009CCF3C /* Resources */,
-				F1E0D9EC23A2E3D5009CCF3C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -294,7 +292,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		F1E0D9E123A2DBBE009CCF3C /* Run Script */ = {
+		362730637989DBC5F24CE8B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -302,15 +300,19 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
-			name = "Run Script";
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KaMPStarteriOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/../SharedCode/build/xcode-frameworks\"\n./gradlew :SharedCode:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -484,6 +486,7 @@
 		};
 		F1E0D9D723A2D5A0009CCF3C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B2CE2C9AEA4EE99A8B1D4B3 /* Pods-KaMPStarteriOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -492,7 +495,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(SRCROOT)/../SharedCode/build/**",
 				);
 				INFOPLIST_FILE = KaMPStarteriOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -508,6 +510,7 @@
 		};
 		F1E0D9D823A2D5A0009CCF3C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEBA1AFBCE35FDAB80E1D40C /* Pods-KaMPStarteriOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -516,7 +519,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(SRCROOT)/../SharedCode/build/**",
 				);
 				INFOPLIST_FILE = KaMPStarteriOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

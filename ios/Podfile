@@ -1,0 +1,9 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+install! 'cocoapods', :deterministic_uuids => false
+
+target 'KaMPStarteriOS' do
+    pod 'sharedcode', :path => '../sharedcode/'
+end
