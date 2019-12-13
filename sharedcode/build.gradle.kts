@@ -6,6 +6,17 @@ plugins {
 kotlin {
     jvm("android")
 
+    var buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
+
+    if (buildForDevice) {
+        iosArm64("ios64")
+        iosArm32("ios32")
+    } else {
+        iosX64("ios")
+    }
+
+    version = "1.0"
+
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
     }
