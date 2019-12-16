@@ -8,6 +8,7 @@ object Versions {
     val android_gradle_plugin = "3.5.3"
     val buildToolsVersion = "29.0.0"
     val junit = "4.12"
+    val sqlDelight = "1.2.1"
 }
 
 object Deps {
@@ -16,4 +17,12 @@ object Deps {
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"
+
+    object SqlDelight{
+        val gradle = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
+        val runtime = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
+        val runtimeJdk = "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
+        val driverIos = "com.squareup.sqldelight:ios-driver:${Versions.sqlDelight}"
+        val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
+    }
 }

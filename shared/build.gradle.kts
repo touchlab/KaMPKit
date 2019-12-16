@@ -1,6 +1,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -19,14 +20,26 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         implementation(kotlin("stdlib-common", Versions.kotlin))
+        implementation(Deps.SqlDelight.runtime)
     }
 
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
+        implementation(Deps.SqlDelight.driverAndroid)
+    }
+
+    sourceSets["iosMain"].dependencies {
+        implementation(Deps.SqlDelight.driverIos)
     }
 
     cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPStarter"
+    }
+}
+
+sqldelight {
+    database("KampstarterDb") {
+        packageName = "co.touchlab.droidcon.db"
     }
 }

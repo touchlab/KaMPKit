@@ -1,0 +1,13 @@
+CREATE TABLE table(
+id INTEGER NOT NULL PRIMARY KEY,
+value TEXT NOT NULL
+);
+
+insertRoot:
+INSERT OR REPLACE INTO table(id, value)VALUES(?,?);
+
+selectAll:
+SELECT * FROM table;
+
+selectById:
+SELECT * FROM table WHERE id = ?;
