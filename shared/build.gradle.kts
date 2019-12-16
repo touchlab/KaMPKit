@@ -20,20 +20,20 @@ kotlin {
 
     sourceSets["commonMain"].dependencies {
         implementation(kotlin("stdlib-common", Versions.kotlin))
-        implementation(Dependancies.ktor.commonCore)
-        implementation(Dependancies.ktor.commonJson)
+        implementation(Deps.ktor.commonCore)
+        implementation(Deps.ktor.commonJson)
     }
 
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
-        implementation(Dependancies.ktor.jvmCore)
-        implementation(Dependancies.ktor.jvmJson)
+        implementation(Deps.ktor.jvmCore)
+        implementation(Deps.ktor.jvmJson)
     }
 
     sourceSets["iosMain"].dependencies {
-        implementation(Dependancies.ktor.ios)
-        implementation(Dependancies.ktor.iosCore)
-        implementation(Dependancies.ktor.iosJson)
+        implementation(Deps.ktor.ios)
+        implementation(Deps.ktor.iosCore)
+        implementation(Deps.ktor.iosJson)
     }
 
     cocoapods {
