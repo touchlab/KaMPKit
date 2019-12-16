@@ -10,7 +10,7 @@ object Versions {
     val junit = "4.12"
 
     val ktor = "1.1.4"
-    val coroutines = "1.1.4"
+    val coroutines = "1.2.0"
 }
 
 object Deps {
@@ -20,6 +20,7 @@ object Deps {
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"
     val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    val androidCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     object ktor {
         val commonCore = "io.ktor:ktor-client-core:${Versions.ktor}"
@@ -30,5 +31,6 @@ object Deps {
         val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
         val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
         val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
+
     }
 }

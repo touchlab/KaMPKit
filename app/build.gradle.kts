@@ -37,8 +37,11 @@ dependencies {
     implementation(project(":shared"))
     implementation(Deps.app_compat_x)
     implementation(Deps.core_ktx)
+    implementation(Deps.ktor.androidCore)
     implementation(Deps.constraintlayout)
     implementation(Deps.coroutines)
+    implementation(Deps.androidCoroutines)
+
 
     testImplementation(Deps.junit)
 }
