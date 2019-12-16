@@ -38,5 +38,7 @@ dependencies {
     implementation(Deps.app_compat_x)
     implementation(Deps.core_ktx)
     implementation(Deps.constraintlayout)
+    implementation(Deps.coroutines)
+
     testImplementation(Deps.junit)
 }
