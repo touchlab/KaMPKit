@@ -2,8 +2,9 @@ package com.touchlab.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.touchlab.shared.NetworkHandler
+import android.util.Log
 import com.touchlab.shared.createApplicationScreenMessage
+import com.touchlab.shared.ktorExample.KtorApiImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,6 +14,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         text_view.text = createApplicationScreenMessage()
-        NetworkHandler.getKtorExample()
+        performNetworkRequest()
+    }
+
+    private fun performNetworkRequest() {
+        KtorApiImpl.getJsonFromApi{ result ->
+            Log.i("TAG",result)
+        }
     }
 }

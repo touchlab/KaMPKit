@@ -1,6 +1,6 @@
 package com.touchlab.shared.ktorExample
 
 interface KtorApiInterface {
-    suspend fun getThingJson(): String
-    suspend fun setThingJson(value: String): Boolean
+    fun getJsonFromApi(callback: (String) -> Unit)
+     fun setThingJson(value: String, callback: (Boolean) -> Unit)
 }
