@@ -26,6 +26,5 @@ struct ContentView_Previews: PreviewProvider {
 private func performNetworkRequest() {
     KtorApiImpl().getJsonFromApi{ result in
         NSLog(result)
-        return KotlinUnit()
     }
 }
