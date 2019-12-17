@@ -30,7 +30,7 @@ object KtorApiImpl : KtorApiInterface {
     override fun setThingJson(value: String, callback: (Boolean) -> Unit) {
         GlobalScope.launch(MainDispatcher) {
             client.submitForm<HttpResponse>(
-                formData = Parameters.build {
+                formParameters = Parameters.build {
                     append("value", value)
                 }, block = {
                     dogs("")
