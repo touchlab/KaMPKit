@@ -12,6 +12,7 @@ import shared
 struct ContentView: View {
     var body: some View {
         var temp = CommonKt.createApplicationScreenMessage()
+        performNetworkRequest()
         return Text(temp)
     }
 }
@@ -19,5 +20,11 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+private func performNetworkRequest() {
+    KtorApiImpl().getJsonFromApi{ result in
+        NSLog(result)
     }
 }
