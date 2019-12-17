@@ -11,5 +11,5 @@ actual fun platformName(): String {
             UIDevice.currentDevice.systemVersion
 }
 
-@Suppress("unused")
+@Throws
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
