@@ -27,14 +27,12 @@ private func getDatabaseRows(){
     do {
         let driver = try ActualKt.defaultDriver()
         let dbHelper = DatabaseHelper(sqlDriver:driver)
-        //dbHelper.doInitDatabase()
         dbHelper.setRow(id: 1,value: "Test")
         dbHelper.setRow(id: 2,value: "Test2")
         let queries = dbHelper.getTableQueries()
         let items = queries.executeAsList()
         print(items)
     }catch {
-        
         print("TEST")
     }
 }
