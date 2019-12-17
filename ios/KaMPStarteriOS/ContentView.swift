@@ -13,6 +13,7 @@ struct ContentView: View {
     var body: some View {
         let screenMessage = CommonKt.createApplicationScreenMessage()
         getDatabaseRows()
+        performNetworkRequest()
         return Text(screenMessage)
     }
 }
@@ -34,5 +35,11 @@ private func getDatabaseRows(){
         print(items)
     }catch {
         print("TEST")
+    }
+}
+
+private func performNetworkRequest() {
+    KtorApiImpl().getJsonFromApi{ result in
+        NSLog(result)
     }
 }

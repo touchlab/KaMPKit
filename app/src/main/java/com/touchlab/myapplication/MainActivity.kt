@@ -8,7 +8,9 @@ import co.touchlab.kampstarter.db.KampstarterDb
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.touchlab.shared.DatabaseHelper
+
 import com.touchlab.shared.createApplicationScreenMessage
+import com.touchlab.shared.ktorExample.KtorApiImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         text_view.text = createApplicationScreenMessage()
         getDatabaseRows()
+        performNetworkRequest()
     }
 
     private fun getDatabaseRows(){
@@ -28,5 +31,11 @@ class MainActivity : AppCompatActivity() {
         val queries: Query<Items> = dbHelper.selectAllItems()
         val items:List<Items> = queries.executeAsList()
         Log.i("DB",items.toString())
+    }
+
+    private fun performNetworkRequest() {
+        KtorApiImpl.getJsonFromApi{ result ->
+            Log.i("TAG",result)
+        }
     }
 }
