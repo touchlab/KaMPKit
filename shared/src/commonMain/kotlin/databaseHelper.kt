@@ -8,22 +8,17 @@ import com.squareup.sqldelight.db.SqlDriver
 
 class DatabaseHelper(val sqlDriver: SqlDriver) {
 
-    private var driverRef:SqlDriver? = null
-    private var dbRef:KampstarterDb? = null
-
-    init {
-        driverRef = sqlDriver
-        dbRef = KampstarterDb(sqlDriver)
-    }
+    private val driverRef:SqlDriver = sqlDriver
+    private val dbRef:KampstarterDb = KampstarterDb(sqlDriver)
 
     internal fun dbClear() {
-        driverRef?.close()
+        driverRef.close()
     }
 
-    fun getTableQueries(): Query<Items> = dbRef!!.tableQueries.selectAll()
+    fun selectAllItems(): Query<Items> = dbRef.tableQueries.selectAll()
 
-    fun getRowForIdQuery(id: Long): Query<Items> = dbRef!!.tableQueries.selectById(id)
+    fun selectItemById(id: Long): Query<Items> = dbRef.tableQueries.selectById(id)
 
-    fun setRow(id: Long, value: String) = dbRef!!.tableQueries.insertRoot(id,value)
+    fun insertItem(id: Long, value: String) = dbRef.tableQueries.insertRoot(id,value)
 
 }

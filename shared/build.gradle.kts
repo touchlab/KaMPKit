@@ -11,7 +11,6 @@ kotlin {
 
     if (buildForDevice) {
         iosArm64("ios64")
-        iosArm32("ios32")
     } else {
         iosX64("ios")
     }
