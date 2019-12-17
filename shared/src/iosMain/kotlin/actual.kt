@@ -3,6 +3,7 @@ package com.touchlab.shared
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import platform.UIKit.UIDevice
+import co.touchlab.kampstarter.db.KampstarterDb
 
 actual fun platformName(): String {
     return UIDevice.currentDevice.systemName() +
