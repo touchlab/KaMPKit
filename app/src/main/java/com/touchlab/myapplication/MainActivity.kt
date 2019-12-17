@@ -23,9 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDatabaseRows(){
         val dbHelper = DatabaseHelper(AndroidSqliteDriver(KampstarterDb.Schema, this, "KampStarterDb"))
-        dbHelper.setRow(1,"Test")
-        dbHelper.setRow(2,"Test2")
-        val queries: Query<Items> = dbHelper.getTableQueries()
+        dbHelper.insertItem(1,"Test")
+        dbHelper.insertItem(2,"Test2")
+        val queries: Query<Items> = dbHelper.selectAllItems()
         val items:List<Items> = queries.executeAsList()
         Log.i("DB",items.toString())
     }

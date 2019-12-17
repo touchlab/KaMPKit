@@ -27,9 +27,9 @@ private func getDatabaseRows(){
     do {
         let driver = try ActualKt.defaultDriver()
         let dbHelper = DatabaseHelper(sqlDriver:driver)
-        dbHelper.setRow(id: 1,value: "Test")
-        dbHelper.setRow(id: 2,value: "Test2")
-        let queries = dbHelper.getTableQueries()
+        dbHelper.insertItem(id: 1,value: "Test")
+        dbHelper.insertItem(id: 2,value: "Test2")
+        let queries = dbHelper.selectAllItems()
         let items = queries.executeAsList()
         print(items)
     }catch {
