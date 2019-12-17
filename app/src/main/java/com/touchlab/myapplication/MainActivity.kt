@@ -2,8 +2,9 @@ package com.touchlab.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import co.touchlab.droidcon.db.KampstarterDb
+import android.util.Log
 import co.touchlab.kampstarter.db.Items
+import co.touchlab.kampstarter.db.KampstarterDb
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.touchlab.shared.DatabaseHelper
@@ -26,6 +27,6 @@ class MainActivity : AppCompatActivity() {
         dbHelper.setRow(2,"Test2")
         val queries: Query<Items> = dbHelper.getTableQueries()
         val items:List<Items> = queries.executeAsList()
-        print(items)
+        Log.i("DB",items.toString())
     }
 }

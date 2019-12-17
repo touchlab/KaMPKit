@@ -1,5 +1,6 @@
 package com.touchlab.shared
-import co.touchlab.droidcon.db.KampstarterDb
+
+import co.touchlab.kampstarter.db.KampstarterDb
 import co.touchlab.kampstarter.db.Items
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
