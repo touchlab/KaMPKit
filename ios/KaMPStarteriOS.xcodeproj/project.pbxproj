@@ -497,6 +497,16 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"shared\"",
+					"-framework",
+					"\"shared_umbrella\"",
+					"-lsqlite3",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchlab.KaMPStarter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -520,6 +530,16 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"c++\"",
+					"-framework",
+					"\"shared\"",
+					"-framework",
+					"\"shared_umbrella\"",
+					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.touchlab.KaMPStarter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
