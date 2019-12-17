@@ -40,6 +40,6 @@ kotlin {
 
 sqldelight {
     database("KampstarterDb") {
-        packageName = "co.touchlab.droidcon.db"
+        packageName = "co.touchlab.kampstarter.db"
     }
 }

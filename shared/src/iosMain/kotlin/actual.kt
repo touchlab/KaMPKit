@@ -1,6 +1,5 @@
 package com.touchlab.shared
 
-import co.touchlab.droidcon.db.KampstarterDb
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import platform.UIKit.UIDevice
