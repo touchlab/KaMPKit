@@ -1,7 +1,9 @@
 package com.touchlab.shared
 
-import platform.Foundation.NSLog
+import com.squareup.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import platform.UIKit.UIDevice
+import co.touchlab.kampstarter.db.KampstarterDb
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Runnable
 import platform.darwin.dispatch_async
@@ -14,6 +16,8 @@ actual fun platformName(): String {
             " " +
             UIDevice.currentDevice.systemVersion
 }
+
+fun defaultDriver(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
 
 internal actual val MainDispatcher:CoroutineDispatcher = object : CoroutineDispatcher() {
     override fun dispatch(context: CoroutineContext, block: Runnable) {

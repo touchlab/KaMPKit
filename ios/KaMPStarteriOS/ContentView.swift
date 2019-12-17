@@ -11,15 +11,30 @@ import shared
 
 struct ContentView: View {
     var body: some View {
-        var temp = CommonKt.createApplicationScreenMessage()
+        let screenMessage = CommonKt.createApplicationScreenMessage()
+        getDatabaseRows()
         performNetworkRequest()
-        return Text(temp)
+        return Text(screenMessage)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+private func getDatabaseRows(){
+    do {
+        let driver = try ActualKt.defaultDriver()
+        let dbHelper = DatabaseHelper(sqlDriver:driver)
+        dbHelper.insertItem(id: 1,value: "Test")
+        dbHelper.insertItem(id: 2,value: "Test2")
+        let queries = dbHelper.selectAllItems()
+        let items = queries.executeAsList()
+        print(items)
+    }catch {
+        print("TEST")
     }
 }
 

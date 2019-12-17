@@ -39,9 +39,9 @@ dependencies {
     implementation(Deps.core_ktx)
     implementation(Deps.ktor.androidCore)
     implementation(Deps.constraintlayout)
+    implementation(Deps.SqlDelight.runtimeJdk)
+    implementation(Deps.SqlDelight.driverAndroid)
     implementation(Deps.coroutines)
     implementation(Deps.androidCoroutines)
-
-
     testImplementation(Deps.junit)
 }

@@ -1,0 +1,13 @@
+CREATE TABLE Items (
+id INTEGER NOT NULL PRIMARY KEY,
+value TEXT NOT NULL
+);
+
+insertRoot:
+INSERT OR REPLACE INTO Items(id, value)VALUES(?,?);
+
+selectAll:
+SELECT * FROM Items;
+
+selectById:
+SELECT * FROM Items WHERE id = ?;
