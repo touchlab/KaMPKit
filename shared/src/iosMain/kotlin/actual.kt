@@ -4,8 +4,6 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import platform.UIKit.UIDevice
 import co.touchlab.kampstarter.db.KampstarterDb
-import platform.Foundation.NSLog
-import platform.UIKit.UIDevice
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Runnable
 import platform.darwin.dispatch_async
