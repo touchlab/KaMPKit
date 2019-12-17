@@ -1,21 +1,28 @@
 package com.touchlab.shared
+import co.touchlab.droidcon.db.KampstarterDb
+import co.touchlab.kampstarter.db.Items
+import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 
 
-object DatabaseHelper {
+class DatabaseHelper(val sqlDriver: SqlDriver) {
 
-    fun initDatabase(sqlDriver: SqlDriver) {
+    private var driverRef:SqlDriver? = null
+    private var dbRef:KampstarterDb? = null
 
-        /*
-        driverRef.value = sqlDriver.freeze()
-        dbRef.value = DroidconDb(sqlDriver, Session.Adapter(
-            startsAtAdapter = DateAdapter(), endsAtAdapter = DateAdapter()
-        )).freeze()*/
+    init {
+        driverRef = sqlDriver
+        dbRef = KampstarterDb(sqlDriver)
     }
 
     internal fun dbClear() {
-        //dbRef.value = null
-        //driverRef.value?.close()
-        //driverRef.value = null
+        driverRef?.close()
     }
+
+    fun getTableQueries(): Query<Items> = dbRef!!.tableQueries.selectAll()
+
+    fun getRowForIdQuery(id: Long): Query<Items> = dbRef!!.tableQueries.selectById(id)
+
+    fun setRow(id: Long, value: String) = dbRef!!.tableQueries.insertRoot(id,value)
+
 }
