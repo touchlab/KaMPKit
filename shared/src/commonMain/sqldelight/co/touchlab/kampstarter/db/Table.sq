@@ -1,13 +1,13 @@
-CREATE TABLE table(
+CREATE TABLE Items (
 id INTEGER NOT NULL PRIMARY KEY,
 value TEXT NOT NULL
 );
 
 insertRoot:
-INSERT OR REPLACE INTO table(id, value)VALUES(?,?);
+INSERT OR REPLACE INTO Items(id, value)VALUES(?,?);
 
 selectAll:
-SELECT * FROM table;
+SELECT * FROM Items;
 
 selectById:
-SELECT * FROM table WHERE id = ?;
+SELECT * FROM Items WHERE id = ?;
