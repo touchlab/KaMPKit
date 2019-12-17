@@ -17,11 +17,18 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    packagingOptions {
+        exclude("META-INF/*.kotlin_module")
+    }
     buildTypes {
         getByName("release")  {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
@@ -30,8 +37,11 @@ dependencies {
     implementation(project(":shared"))
     implementation(Deps.app_compat_x)
     implementation(Deps.core_ktx)
+    implementation(Deps.ktor.androidCore)
     implementation(Deps.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
+    implementation(Deps.coroutines)
+    implementation(Deps.androidCoroutines)
     testImplementation(Deps.junit)
 }
