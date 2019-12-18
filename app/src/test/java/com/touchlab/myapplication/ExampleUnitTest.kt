@@ -1,4 +1,4 @@
-package com.touchlab.myapplication
+package co.touchlab.myapplication
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.touchlab.myapplication
+package co.touchlab.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.touchlab.shared
+package co.touchlab.shared
 
 import org.junit.Test
 
