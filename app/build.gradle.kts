@@ -10,7 +10,7 @@ android {
     compileSdkVersion(Versions.compile_sdk)
     buildToolsVersion = Versions.buildToolsVersion
     defaultConfig {
-        applicationId = "com.touchlab.kampstarter"
+        applicationId = "co.touchlab.kampstarter"
         minSdkVersion(Versions.min_sdk)
         targetSdkVersion(Versions.target_sdk)
         versionCode = 1
