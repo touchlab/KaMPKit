@@ -23,6 +23,8 @@ kotlin {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.ktor.commonCore)
         implementation(Deps.ktor.commonJson)
+        implementation(Deps.coroutine_worker)
+        implementation(Deps.Coroutines.common)
     }
 
     sourceSets["androidMain"].dependencies {
@@ -30,6 +32,8 @@ kotlin {
         implementation(Deps.SqlDelight.driverAndroid)
         implementation(Deps.ktor.jvmCore)
         implementation(Deps.ktor.jvmJson)
+        implementation(Deps.Coroutines.jdk)
+        implementation(Deps.Coroutines.android)
     }
 
     sourceSets["iosMain"].dependencies {
@@ -37,6 +41,7 @@ kotlin {
         implementation(Deps.ktor.ios)
         implementation(Deps.ktor.iosCore)
         implementation(Deps.ktor.iosJson)
+        implementation(Deps.Coroutines.native)
     }
 
     cocoapods {
