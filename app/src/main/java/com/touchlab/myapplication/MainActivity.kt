@@ -21,8 +21,8 @@ class MainActivity : AppCompatActivity() {
 
         model = SampleModel()
 
-        model.performNetworkRequest {
-            Log.i("MainActivity", it)
+        model.performNetworkRequest {result ->
+            Log.i("MainActivity", result)
         }
 //        text_view.text = createApplicationScreenMessage()
         getDatabaseRows()
