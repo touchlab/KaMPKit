@@ -10,7 +10,7 @@ import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import co.touchlab.kampstarter.DatabaseHelper
 
-import co.touchlab.kampstarter.SampleModel
+import co.touchlab.kampstarter.models.SampleModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val TAG = MainActivity::class.java.simpleName
     }
 
-    private lateinit var model:SampleModel
+    private lateinit var model: SampleModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

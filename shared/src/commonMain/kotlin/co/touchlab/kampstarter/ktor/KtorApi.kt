@@ -1,4 +1,4 @@
-package co.touchlab.kampstarter
+package co.touchlab.kampstarter.ktor
 
 interface KtorApi {
     suspend fun getJsonFromApi():String
