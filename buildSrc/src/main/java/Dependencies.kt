@@ -24,14 +24,21 @@ object Deps {
     val junit = "junit:junit:${Versions.junit}"
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
-
     val coroutine_worker = "com.autodesk:coroutineworker:${Versions.coroutine_worker}"
 
+    object Test {
+        val common =      "org.jetbrains.kotlin:kotlin-test-common:${Versions.kotlin}"
+        val annotations = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.kotlin}"
+        val jvm =         "org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}"
+        val junit =       "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
+        val reflect =     "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+    }
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
         val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
         val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+        val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
     object SqlDelight{
         val gradle =        "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"

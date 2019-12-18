@@ -30,6 +30,11 @@ kotlin {
 
     sourceSets["commonTest"].dependencies {
         implementation(Deps.multiplatformSettingsTest)
+        implementation(Deps.Test.common)
+        implementation(Deps.Test.annotations)
+        implementation(Deps.Coroutines.jdk)
+        implementation(Deps.Coroutines.common)
+        implementation(Deps.Coroutines.test)
     }
 
     sourceSets["androidMain"].dependencies {
@@ -39,6 +44,12 @@ kotlin {
         implementation(Deps.ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
+    }
+
+    sourceSets["androidTest"].dependencies {
+        implementation(Deps.Test.jvm)
+        implementation(Deps.Test.junit)
+        implementation(Deps.Coroutines.jdk)
     }
 
     sourceSets["iosMain"].dependencies {
