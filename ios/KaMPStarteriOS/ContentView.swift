@@ -15,7 +15,6 @@ struct ContentView: View {
 
         let screenMessage = "Removed this"
         getDatabaseRows()
-        getSettings()
         return Text(screenMessage)
     }
 }
@@ -38,11 +37,4 @@ private func getDatabaseRows(){
     }catch {
         print("TEST")
     }
-}
-
-private func getSettings(){
-    let settings = ActualKt.defaultSettings()
-    settings.putBoolean(key: "TEMP",value: true)
-    let temp = settings.getBoolean(key: "TEMP", defaultValue: false)
-    NSLog("@b",temp)
 }
