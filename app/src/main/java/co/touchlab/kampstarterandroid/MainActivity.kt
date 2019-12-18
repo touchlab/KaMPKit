@@ -1,4 +1,4 @@
-package co.touchlab.myapplication
+package co.touchlab.kampstarterandroid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +8,9 @@ import co.touchlab.kampstarter.db.KampstarterDb
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
-import co.touchlab.kmp.DatabaseHelper
+import co.touchlab.kampstarter.DatabaseHelper
 
-import co.touchlab.kmp.SampleModel
+import co.touchlab.kampstarter.SampleModel
 
 class MainActivity : AppCompatActivity() {
 

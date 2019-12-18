@@ -1,4 +1,4 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter
 
 import kotlinx.atomicfu.atomic
 

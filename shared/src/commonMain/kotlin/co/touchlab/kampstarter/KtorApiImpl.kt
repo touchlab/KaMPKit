@@ -1,4 +1,4 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter
 
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder

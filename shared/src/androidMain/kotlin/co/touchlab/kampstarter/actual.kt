@@ -1,4 +1,4 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter
 
 import com.squareup.sqldelight.Query
 import kotlinx.coroutines.CoroutineDispatcher

@@ -1,4 +1,4 @@
-package co.touchlab.myapplication
+package co.touchlab.kampstarterandroid
 
 import org.junit.Test
 
