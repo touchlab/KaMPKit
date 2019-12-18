@@ -26,6 +26,10 @@ kotlin {
         implementation(Deps.multiplatformSettings)
     }
 
+    sourceSets["commonTest"].dependencies {
+        implementation(Deps.multiplatformSettingsTest)
+    }
+
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
         implementation(Deps.SqlDelight.driverAndroid)
