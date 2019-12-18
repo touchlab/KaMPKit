@@ -2,8 +2,8 @@
 //  KaMPStarteriOSTests.swift
 //  KaMPStarteriOSTests
 //
-//  Created by Kevin Schildhorn on 12/12/19.
-//  Copyright © 2019 Kevin Schildhorn. All rights reserved.
+//  Created by Kevin Schildhorn on 12/18/19.
+//  Copyright © 2019 Touchlab. All rights reserved.
 //
 
 import XCTest
