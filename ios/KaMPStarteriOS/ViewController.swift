@@ -22,7 +22,7 @@ class ViewController: UIViewController {
             print("The result \(result)")
         }
         
-        model?.doInitSettings(platformSettings: ActualKt.defaultSettings())
+        model?.doInitSettings(platformSettings: PlatformiOSKt.defaultSettings())
         if let boolsetting = model?.getBooleanSetting() {
             NSLog(boolsetting ? "true" : "false")
         }
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     }
 
     private func getDatabaseRows(){
-        let driver = ActualKt.defaultDriver()
+        let driver = PlatformiOSKt.defaultDriver()
         let dbHelper = DatabaseHelper(sqlDriver:driver)
         dbHelper.insertItem(id: 1,value: "Test")
         dbHelper.insertItem(id: 2,value: "Test2")
