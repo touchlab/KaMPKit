@@ -9,6 +9,7 @@ import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import co.touchlab.kampstarter.DatabaseHelper
+import co.touchlab.kampstarter.ktor.KtorApiImpl
 
 import co.touchlab.kampstarter.models.SampleModel
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        model = SampleModel()
+        model = SampleModel(KtorApiImpl)
 
         model.performNetworkRequest {result ->
             Log.i("MainActivity", result)
