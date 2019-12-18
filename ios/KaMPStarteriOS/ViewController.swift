@@ -22,6 +22,11 @@ class ViewController: UIViewController {
             print("The result \(result)")
         }
         
+        model?.doInitSettings(platformSettings: ActualKt.defaultSettings())
+        if let boolsetting = model?.getBooleanSetting() {
+            NSLog(boolsetting ? "true" : "false")
+        }
+        
         getDatabaseRows()
     }
 
