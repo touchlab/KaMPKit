@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 internal actual val MainDispatcher: CoroutineDispatcher = Dispatchers.Main
+
 internal actual fun printThrowable(t: Throwable) {
     t.printStackTrace()
 }
