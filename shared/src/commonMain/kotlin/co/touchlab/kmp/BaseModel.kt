@@ -2,11 +2,12 @@ package co.touchlab.kmp
 
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlin.coroutines.CoroutineContext
 
 open class BaseModel {
-    internal val mainScope = MainScope(MainDispatcher)
+    internal val mainScope = MainScope(Dispatchers.Main)
 
     open fun onDestroy() {
         mainScope.job.cancel()

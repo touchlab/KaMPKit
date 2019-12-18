@@ -1,3 +1,6 @@
+import org.gradle.api.artifacts.ExternalModuleDependency
+import org.gradle.kotlin.dsl.exclude
+
 object Versions {
     val min_sdk = 21
     val target_sdk = 29
@@ -10,10 +13,9 @@ object Versions {
     val junit = "4.12"
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
+    val stately = "0.9.5"
     val multiplatformSettings = "0.5"
-    val coroutines = "1.3.3"
-
-    val coroutine_worker = "0.4.0"
+    val coroutines = "1.3.3-native-mt"
 }
 
 object Deps {
@@ -22,10 +24,9 @@ object Deps {
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"
+    val stately =  "co.touchlab:stately:${Versions.stately}"
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
-
-    val coroutine_worker = "com.autodesk:coroutineworker:${Versions.coroutine_worker}"
 
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
@@ -49,5 +50,10 @@ object Deps {
         val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
         val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
         val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
+    }
+
+
+    val coroutinesExcludeNative: ExternalModuleDependency.() -> Unit = {
+        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core-native")
     }
 }
