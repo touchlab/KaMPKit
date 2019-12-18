@@ -4,6 +4,8 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
 import platform.UIKit.UIDevice
 import co.touchlab.kampstarter.db.KampstarterDb
+import com.russhwolf.settings.AppleSettings
+import com.russhwolf.settings.Settings
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Runnable
 import platform.darwin.dispatch_async
@@ -18,6 +20,8 @@ actual fun platformName(): String {
 }
 
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
+
+fun defaultSettings(): Settings = AppleSettings.Factory().create("KAMPSTARTER_SETTINGS")
 
 internal actual val MainDispatcher:CoroutineDispatcher = object : CoroutineDispatcher() {
     override fun dispatch(context: CoroutineContext, block: Runnable) {

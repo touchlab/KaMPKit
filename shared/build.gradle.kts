@@ -23,6 +23,7 @@ kotlin {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.ktor.commonCore)
         implementation(Deps.ktor.commonJson)
+        implementation(Deps.multiplatformSettings)
     }
 
     sourceSets["androidMain"].dependencies {

@@ -11,6 +11,7 @@ object Versions {
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
     val coroutines = "1.2.0"
+    val multiplatformSettings = "0.5"
 }
 
 object Deps {
@@ -21,6 +22,8 @@ object Deps {
     val junit = "junit:junit:${Versions.junit}"
     val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     val androidCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
+
 
     object SqlDelight{
         val gradle =        "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
