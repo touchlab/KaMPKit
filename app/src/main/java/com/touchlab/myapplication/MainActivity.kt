@@ -11,41 +11,51 @@ import com.russhwolf.settings.SettingsListener
 import com.russhwolf.settings.boolean
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
-import com.touchlab.shared.DatabaseHelper
+import co.touchlab.kmp.DatabaseHelper
 
-import com.touchlab.shared.createApplicationScreenMessage
-import com.touchlab.shared.ktorExample.KtorApiImpl
-import kotlinx.android.synthetic.main.activity_main.*
+import co.touchlab.kmp.SampleModel
 
 class MainActivity : AppCompatActivity() {
+
 
     companion object {
         val TAG = MainActivity::class.java.simpleName
     }
 
+    private lateinit var model:SampleModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        text_view.text = createApplicationScreenMessage()
+        model = SampleModel()
+
+        model.performNetworkRequest {
+            Log.i("MainActivity", it)
+        }
+//        text_view.text = createApplicationScreenMessage()
         getDatabaseRows()
-        performNetworkRequest()
         getSettings()
     }
 
     private fun getDatabaseRows(){
-        val dbHelper = DatabaseHelper(AndroidSqliteDriver(KampstarterDb.Schema, this, "KampStarterDb"))
+        val dbHelper = DatabaseHelper(
+            AndroidSqliteDriver(
+                KampstarterDb.Schema,
+                this,
+                "KampStarterDb"
+            )
+        )
         dbHelper.insertItem(1,"Test")
         dbHelper.insertItem(2,"Test2")
         val queries: Query<Items> = dbHelper.selectAllItems()
         val items:List<Items> = queries.executeAsList()
         Log.i(TAG,items.toString())
     }
-
-    private fun performNetworkRequest() {
-        KtorApiImpl.getJsonFromApi{ result ->
-            Log.i(TAG,result)
-        }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        model.onDestroy()
     }
 
     private fun getSettings(){
