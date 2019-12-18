@@ -21,10 +21,6 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.native.concurrent.ensureNeverFrozen
 import kotlin.native.concurrent.freeze
 
-fun defaultDriver(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
-
-fun defaultSettings(): Settings = AppleSettings.Factory().create("KAMPSTARTER_SETTINGS")
-
 internal actual val MainDispatcher:CoroutineDispatcher = object : CoroutineDispatcher() {
     override fun dispatch(context: CoroutineContext, block: Runnable) {
         dispatch_async(dispatch_get_main_queue().freeze()) {
@@ -74,3 +70,7 @@ actual fun <T : Any, R> Query<T>.asFlowWithTransform(transform:(Query<T>)->R): F
 
     return flowDef
 }
+
+fun defaultDriver(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
+
+fun defaultSettings(): Settings = AppleSettings.Factory().create("KAMPSTARTER_SETTINGS")
