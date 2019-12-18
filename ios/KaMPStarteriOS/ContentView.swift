@@ -10,9 +10,9 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    
+
     var body: some View {
-        
+
         let screenMessage = "Removed this"
         getDatabaseRows()
         return Text(screenMessage)

@@ -25,6 +25,11 @@ kotlin {
         implementation(Deps.ktor.commonJson)
         implementation(Deps.coroutine_worker)
         implementation(Deps.Coroutines.common)
+        implementation(Deps.multiplatformSettings)
+    }
+
+    sourceSets["commonTest"].dependencies {
+        implementation(Deps.multiplatformSettingsTest)
     }
 
     sourceSets["androidMain"].dependencies {
