@@ -41,7 +41,7 @@ dependencies {
     implementation(Deps.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
-    implementation(Deps.coroutines)
-    implementation(Deps.androidCoroutines)
+    implementation(Deps.Coroutines.jdk)
+    implementation(Deps.Coroutines.android)
     testImplementation(Deps.junit)
 }
