@@ -14,6 +14,7 @@ struct ContentView: View {
         let screenMessage = CommonKt.createApplicationScreenMessage()
         getDatabaseRows()
         performNetworkRequest()
+        getSettings()
         return Text(screenMessage)
     }
 }
@@ -42,4 +43,11 @@ private func performNetworkRequest() {
     KtorApiImpl().getJsonFromApi{ result in
         NSLog(result)
     }
+}
+
+private func getSettings(){
+    let settings = ActualKt.defaultSettings()
+    settings.putBoolean(key: "TEMP",value: true)
+    let temp = settings.getBoolean(key: "TEMP", defaultValue: false)
+    NSLog("@b",temp)
 }
