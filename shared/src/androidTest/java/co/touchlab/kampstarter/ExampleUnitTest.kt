@@ -1,4 +1,4 @@
-package co.touchlab.shared
+package co.touchlab.kampstarter
 
 import org.junit.Test
 

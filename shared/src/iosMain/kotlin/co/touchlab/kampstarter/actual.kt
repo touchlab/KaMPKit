@@ -1,4 +1,4 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.db.KampstarterDb
 import com.autodesk.coroutineworker.CoroutineWorker
