@@ -10,6 +10,7 @@ object Versions {
     val junit = "4.12"
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
+    val multiplatformSettings = "0.5"
     val coroutines = "1.3.3"
 
     val coroutine_worker = "0.4.0"
@@ -21,6 +22,8 @@ object Deps {
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"
+    val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
+    val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
 
     val coroutine_worker = "com.autodesk:coroutineworker:${Versions.coroutine_worker}"
 
