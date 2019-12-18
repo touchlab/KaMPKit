@@ -2,6 +2,8 @@ package co.touchlab.kmp
 
 import co.touchlab.kampstarter.db.KampstarterDb
 import com.autodesk.coroutineworker.CoroutineWorker
+import com.russhwolf.settings.AppleSettings
+import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.ios.NativeSqliteDriver
@@ -20,6 +22,8 @@ import kotlin.native.concurrent.ensureNeverFrozen
 import kotlin.native.concurrent.freeze
 
 fun defaultDriver(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
+
+fun defaultSettings(): Settings = AppleSettings.Factory().create("KAMPSTARTER_SETTINGS")
 
 internal actual val MainDispatcher:CoroutineDispatcher = object : CoroutineDispatcher() {
     override fun dispatch(context: CoroutineContext, block: Runnable) {
