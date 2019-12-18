@@ -1,5 +1,7 @@
-package co.touchlab.kampstarter
+package co.touchlab.kampstarter.models
 
+import co.touchlab.kampstarter.ServiceRegistry
+import co.touchlab.kampstarter.asFlowWithTransform
 import co.touchlab.kampstarter.db.Items
 
 class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
