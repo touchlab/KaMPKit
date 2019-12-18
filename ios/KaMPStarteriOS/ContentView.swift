@@ -10,10 +10,11 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
+    
     var body: some View {
-        let screenMessage = CommonKt.createApplicationScreenMessage()
+        
+        let screenMessage = "Removed this"
         getDatabaseRows()
-        performNetworkRequest()
         return Text(screenMessage)
     }
 }
@@ -35,11 +36,5 @@ private func getDatabaseRows(){
         print(items)
     }catch {
         print("TEST")
-    }
-}
-
-private func performNetworkRequest() {
-    KtorApiImpl().getJsonFromApi{ result in
-        NSLog(result)
     }
 }
