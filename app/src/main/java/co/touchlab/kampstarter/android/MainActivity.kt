@@ -1,4 +1,4 @@
-package co.touchlab.kampstarterandroid
+package co.touchlab.kampstarter.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
