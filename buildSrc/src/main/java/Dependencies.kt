@@ -10,8 +10,10 @@ object Versions {
     val junit = "4.12"
     val sqlDelight = "1.2.1"
     val ktor = "1.2.6"
-    val coroutines = "1.2.0"
     val multiplatformSettings = "0.5"
+    val coroutines = "1.3.3"
+
+    val coroutine_worker = "0.4.0"
 }
 
 object Deps {
@@ -20,12 +22,23 @@ object Deps {
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"
-    val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-    val androidCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
 
+    val coroutine_worker = "com.autodesk:coroutineworker:${Versions.coroutine_worker}"
 
+    object Coroutines {
+        /*
+        'common' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${versions.kotlinCoroutines}",
+                            'jdk'    : "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kotlinCoroutines}",
+                            'native' : "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${versions.kotlinCoroutines}",
+                            'android': "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kotlinCoroutines}",
+         */
+        val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
+        val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
+        val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    }
     object SqlDelight{
         val gradle =        "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
         val runtime =       "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
