@@ -26,6 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("The result \(result)")
         }
         
+        model?.doInitSettings(platformSettings: ActualKt.defaultSettings())
+        if let boolsetting = model?.getBooleanSetting() {
+            NSLog(boolsetting ? "true" : "false")
+        }
+        
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
 

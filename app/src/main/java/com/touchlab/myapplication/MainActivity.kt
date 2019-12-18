@@ -32,7 +32,9 @@ class MainActivity : AppCompatActivity() {
         }
 //        text_view.text = createApplicationScreenMessage()
         getDatabaseRows()
-        getSettings()
+
+        model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
+        Log.i(TAG,model.getBooleanSetting().toString())
     }
 
     private fun getDatabaseRows(){
@@ -53,12 +55,5 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         model.onDestroy()
-    }
-
-    private fun getSettings(){
-        val settings = AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS")
-        settings.putBoolean("TEMP",true)
-        val temp = settings.getBoolean("TEMP")
-        Log.i(TAG,temp.toString())
     }
 }
