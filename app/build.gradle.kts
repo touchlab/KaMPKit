@@ -43,6 +43,6 @@ dependencies {
     implementation(Deps.SqlDelight.driverAndroid)
     implementation(Deps.Coroutines.jdk)
     implementation(Deps.Coroutines.android)
-        implementation(Deps.multiplatformSettings)
+    implementation(Deps.multiplatformSettings)
     testImplementation(Deps.junit)
 }

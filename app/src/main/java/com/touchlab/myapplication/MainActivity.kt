@@ -6,9 +6,6 @@ import android.util.Log
 import co.touchlab.kampstarter.db.Items
 import co.touchlab.kampstarter.db.KampstarterDb
 import com.russhwolf.settings.AndroidSettings
-import com.russhwolf.settings.ExperimentalListener
-import com.russhwolf.settings.SettingsListener
-import com.russhwolf.settings.boolean
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import co.touchlab.kmp.DatabaseHelper
