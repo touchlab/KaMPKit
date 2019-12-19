@@ -1,5 +1,6 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter.models
 
+import co.touchlab.kampstarter.ktor.KtorApiImpl
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
 

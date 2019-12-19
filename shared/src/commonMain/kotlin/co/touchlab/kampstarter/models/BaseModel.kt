@@ -1,5 +1,6 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter.models
 
+import co.touchlab.kampstarter.printThrowable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

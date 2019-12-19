@@ -1,4 +1,4 @@
-package co.touchlab.kmp
+package co.touchlab.kampstarter
 
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
