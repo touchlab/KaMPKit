@@ -44,5 +44,6 @@ dependencies {
     implementation(Deps.Coroutines.jdk)
     implementation(Deps.Coroutines.android)
     implementation(Deps.multiplatformSettings)
+    implementation(Deps.koinCore)
     testImplementation(Deps.junit)
 }

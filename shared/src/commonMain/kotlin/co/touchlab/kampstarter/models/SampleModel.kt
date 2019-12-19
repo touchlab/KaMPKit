@@ -13,6 +13,7 @@ class SampleModel : BaseModel(){
             onResult(result)
         }
     }
+
     fun initSettings(platformSettings: Settings){
         settings = platformSettings
         settings.putBoolean("TEMP",true)
