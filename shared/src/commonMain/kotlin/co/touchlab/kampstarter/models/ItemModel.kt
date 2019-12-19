@@ -1,7 +1,7 @@
 package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.DatabaseHelper
-import co.touchlab.kampstarter.db.Items
+import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.sqldelight.asFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -28,4 +28,4 @@ class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     }
 }
 
-data class ItemDataSummary(val longestItem:Items?, val allItems:List<Items>)
+data class ItemDataSummary(val longestItem:Breed?, val allItems:List<Breed>)
