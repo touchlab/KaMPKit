@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		02DADDE22D3E22346969F0D2 /* Pods_KaMPStarteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C53F211127B87EFD39C9D65 /* Pods_KaMPStarteriOS.framework */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
-		F1465F0323AA94BF0055F7C3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0223AA94BF0055F7C3 /* SceneDelegate.swift */; };
 		F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0423AA94BF0055F7C3 /* ViewController.swift */; };
 		F1465F0823AA94BF0055F7C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0623AA94BF0055F7C3 /* Main.storyboard */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
@@ -40,7 +39,6 @@
 		1DFCC00C8DAA719770A18D1A /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* KaMPStarteriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPStarteriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F1465F0223AA94BF0055F7C3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F1465F0423AA94BF0055F7C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F1465F0723AA94BF0055F7C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -124,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
-				F1465F0223AA94BF0055F7C3 /* SceneDelegate.swift */,
 				F1465F0423AA94BF0055F7C3 /* ViewController.swift */,
 				F1465F0623AA94BF0055F7C3 /* Main.storyboard */,
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
@@ -311,7 +308,6 @@
 			files = (
 				F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */,
 				F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */,
-				F1465F0323AA94BF0055F7C3 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
