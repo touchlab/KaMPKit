@@ -3,7 +3,7 @@ package co.touchlab.kampstarter.models
 import co.touchlab.kampstarter.ServiceRegistry
 import co.touchlab.kampstarter.asFlowWithTransform
 import co.touchlab.kampstarter.db.Items
-import co.touchlab.kmp.sqldelight.asFlow
+import co.touchlab.kampstarter.sqldelight.asFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
