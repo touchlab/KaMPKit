@@ -1,5 +1,5 @@
 CREATE TABLE Breed (
-id INTEGER NOT NULL PRIMARY KEY,
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 name TEXT NOT NULL,
 favorite INTEGER NOT NULL DEFAULT 0
 );
@@ -10,9 +10,12 @@ SELECT * FROM Breed;
 selectById:
 SELECT * FROM Breed WHERE id = ?;
 
+selectByName:
+SELECT * FROM Breed WHERE name = ?;
+
 insertBreed:
-INSERT INTO Breed(id, name)
-VALUES (?,?);
+INSERT OR REPLACE INTO Breed(id, name, favorite)
+VALUES (?,?,?);
 
 deleteAll:
 DELETE FROM Breed;

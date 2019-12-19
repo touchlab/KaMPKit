@@ -16,7 +16,7 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     fun selectItemById(id: Long): Query<Breed> = dbRef.tableQueries.selectById(id)
 
-    fun insertItem(id: Long, value: String) = dbRef.tableQueries.insertBreed(id,value)
+    fun insertBreed(name: String) = dbRef.tableQueries.insertBreed(null,name,0)
 
     fun deleteAll(){
         dbRef.tableQueries.deleteAll()
