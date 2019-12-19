@@ -26,31 +26,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        model = SampleModel(KtorApiImpl)
+        model = SampleModel(KtorApiImpl,
+            AndroidSqliteDriver(
+                KampstarterDb.Schema,
+                this,
+                "KampStarterDb"
+            ),
+            AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
 
         model.performNetworkRequest {result ->
             Log.i("MainActivity", result)
         }
 //        text_view.text = createApplicationScreenMessage()
-        getDatabaseRows()
+        model.getDatabaseRows()
 
-        model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
         Log.i(TAG,model.getBooleanSetting().toString())
-    }
-
-    private fun getDatabaseRows(){
-        val dbHelper = DatabaseHelper(
-            AndroidSqliteDriver(
-                KampstarterDb.Schema,
-                this,
-                "KampStarterDb"
-            )
-        )
-        dbHelper.insertItem(1,"Test")
-        dbHelper.insertItem(2,"Test2")
-        val queries: Query<Items> = dbHelper.selectAllItems()
-        val items:List<Items> = queries.executeAsList()
-        Log.i(TAG,items.toString())
     }
     
     override fun onDestroy() {
