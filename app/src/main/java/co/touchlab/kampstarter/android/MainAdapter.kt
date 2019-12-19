@@ -1,32 +1,47 @@
 package co.touchlab.kampstarter.android
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import co.touchlab.kampstarter.jsondata.Breed
+import co.touchlab.kampstarter.db.Breed
 
 class MainAdapter : ListAdapter<Breed, MainViewHolder>(breedCallback) {
 
+    var data:List<Breed> = listOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(parent)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_breed, parent, false)
+        return MainViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bindTo(getItem(position))
+        holder.bindTo(data[position])
+    }
+
+    override fun getItemCount(): Int {
+        return data.size
     }
 }
 
 class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    init {
-        //nameTextView = itemView.findViewById(R.id.contact_name) as TextView
-        //messageButton = itemView.findViewById(R.id.message_button) as Button
-    }
+    private val nameTextView = itemView.findViewById<TextView>(R.id.breed_name_text_view)
+    private val favoriteButton = itemView.findViewById<ImageButton>(R.id.favorite_button)
 
     fun bindTo(breed:Breed){
+        nameTextView.text = breed.name
+        /*
+        favoriteButton.setImageBitmap(
+        if(breed.favorite){
 
+        }else{
+
+        })*/
     }
 }
 
