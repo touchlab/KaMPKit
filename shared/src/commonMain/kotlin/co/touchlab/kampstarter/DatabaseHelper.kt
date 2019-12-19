@@ -4,8 +4,6 @@ import co.touchlab.kampstarter.db.Items
 import co.touchlab.kampstarter.db.KampstarterDb
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.coroutines.flow.Flow
-import kotlin.jvm.JvmName
 
 class DatabaseHelper(private val sqlDriver: SqlDriver) {
     private val dbRef:KampstarterDb = KampstarterDb(sqlDriver)
@@ -21,6 +19,3 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
     fun insertItem(id: Long, value: String) = dbRef.tableQueries.insertRoot(id,value)
 
 }
-
-@JvmName("toFlow")
-expect fun <T : Any, R> Query<T>.asFlowWithTransform(transform:(Query<T>)->R): Flow<R>

@@ -4,11 +4,13 @@ import co.touchlab.kampstarter.MainDispatcher
 import co.touchlab.kampstarter.printThrowable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
-open class BaseModel {
-    internal val mainScope = MainScope(MainDispatcher)
+open class BaseModel: KoinComponent {
+    internal val mainScope = MainScope(Dispatchers.Main)
 
     open fun onDestroy() {
         mainScope.job.cancel()

@@ -23,9 +23,10 @@ kotlin {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.ktor.commonCore)
         implementation(Deps.ktor.commonJson)
-        implementation(Deps.coroutine_worker)
         implementation(Deps.Coroutines.common)
+        implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
+        implementation(Deps.koinCore)
     }
 
     sourceSets["commonTest"].dependencies {
@@ -43,9 +44,9 @@ kotlin {
 
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.ktor.ios)
-        implementation(Deps.ktor.iosCore)
-        implementation(Deps.ktor.iosJson)
+        implementation(Deps.ktor.ios, Deps.coroutinesExcludeNative)
+        implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
+        implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
         implementation(Deps.Coroutines.native)
     }
 
