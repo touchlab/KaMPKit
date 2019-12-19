@@ -2,6 +2,7 @@ package co.touchlab.kampstarter.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import co.touchlab.kampstarter.db.Items
 import co.touchlab.kampstarter.db.KampstarterDb
@@ -9,17 +10,17 @@ import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import co.touchlab.kampstarter.DatabaseHelper
+import co.touchlab.kampstarter.models.ItemModel
 
 import co.touchlab.kampstarter.models.SampleModel
 
 class MainActivity : AppCompatActivity() {
-
-
     companion object {
         val TAG = MainActivity::class.java.simpleName
     }
 
     private lateinit var model: SampleModel
+    private lateinit var itemModel: ItemModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,27 +32,27 @@ class MainActivity : AppCompatActivity() {
             Log.i("MainActivity", result)
         }
 //        text_view.text = createApplicationScreenMessage()
-        getDatabaseRows()
 
-        model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
+        model.initSettings()
         Log.i(TAG,model.getBooleanSetting().toString())
+
+        itemModel = ItemModel(){summary ->
+            Log.e(TAG, summary.toString())
+        }
+
+        val handler = Handler()
+
+        handler.post {
+            itemModel.insertSomeData()
+        }
+
+        //This should obviously be different, but wanted to see that
+        //Flow gets shut down properly
+        Handler().postDelayed({
+            itemModel.onDestroy()
+        }, 2000)
     }
 
-    private fun getDatabaseRows(){
-        val dbHelper = DatabaseHelper(
-            AndroidSqliteDriver(
-                KampstarterDb.Schema,
-                this,
-                "KampStarterDb"
-            )
-        )
-        dbHelper.insertItem(1,"Test")
-        dbHelper.insertItem(2,"Test2")
-        val queries: Query<Items> = dbHelper.selectAllItems()
-        val items:List<Items> = queries.executeAsList()
-        Log.i(TAG,items.toString())
-    }
-    
     override fun onDestroy() {
         super.onDestroy()
         model.onDestroy()

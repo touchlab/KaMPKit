@@ -12,6 +12,7 @@ import shared
 class ViewController: UIViewController {
 
     private var model: SampleModel?
+    private var itemModel: ItemModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +23,22 @@ class ViewController: UIViewController {
             print("The result \(result)")
         }
         
-        model?.doInitSettings(platformSettings: PlatformiOSKt.defaultSettings())
+        model?.doInitSettings()
         if let boolsetting = model?.getBooleanSetting() {
             NSLog(boolsetting ? "true" : "false")
         }
         
-        getDatabaseRows()
+        itemModel = ItemModel(){summary in
+            print("Summary: \(summary)")
+        }
+        
+        itemModel?.insertSomeData()
+        
+        //Just testing Flow. This is not how you should use the model classes
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            itemModel?.onDestroy()
+            itemModel = nil
+        })
     }
 
     private func getDatabaseRows(){

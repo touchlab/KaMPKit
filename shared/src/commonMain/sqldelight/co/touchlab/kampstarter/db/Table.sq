@@ -12,3 +12,6 @@ SELECT * FROM Items;
 
 selectById:
 SELECT * FROM Items WHERE id = ?;
+
+deleteAll:
+DELETE FROM Items;

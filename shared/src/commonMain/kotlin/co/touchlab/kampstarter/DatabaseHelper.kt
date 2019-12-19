@@ -18,4 +18,7 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     fun insertItem(id: Long, value: String) = dbRef.tableQueries.insertRoot(id,value)
 
+    fun deleteAll(){
+        dbRef.tableQueries.deleteAll()
+    }
 }
