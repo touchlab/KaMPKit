@@ -1,6 +1,6 @@
 CREATE TABLE Breed (
 id INTEGER NOT NULL PRIMARY KEY,
-value TEXT NOT NULL,
+name TEXT NOT NULL,
 favorite INTEGER NOT NULL DEFAULT 0
 );
 
@@ -11,5 +11,5 @@ selectById:
 SELECT * FROM Breed WHERE id = ?;
 
 insertBreed:
-INSERT INTO Breed(id, value)
+INSERT INTO Breed(id, name)
 VALUES (?,?);

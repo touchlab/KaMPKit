@@ -17,6 +17,8 @@ object Versions {
     val multiplatformSettings = "0.5"
     val coroutines = "1.3.3-native-mt"
     val koin = "2.1.7-mp"
+    val serialization = "0.11.0"
+
 }
 
 object Deps {
@@ -52,6 +54,11 @@ object Deps {
         val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
         val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
         val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
+    }
+    object serialization {
+        val commonRuntime = "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Versions.serialization}"
+        val jvmRuntime =    "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.serialization}"
+        val iosRuntime =    "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${Versions.serialization}"
     }
 
 

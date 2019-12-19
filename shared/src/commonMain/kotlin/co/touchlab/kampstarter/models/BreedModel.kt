@@ -2,15 +2,18 @@ package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.db.Breed
+import co.touchlab.kampstarter.ktor.KtorDogApiImpl
 import co.touchlab.kampstarter.sqldelight.asFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.list
 import org.koin.core.inject
 
-class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
+class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     private val dbHelper: DatabaseHelper by inject()
 
     init {
@@ -24,6 +27,15 @@ class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
                 .collect { summary ->
                     viewUpdate(summary)
                 }
+        }
+    }
+
+    fun getBreedsFromNetwork(onResult:(String)->Unit) {
+        mainScope.launch {
+            val result = KtorDogApiImpl.getJsonFromApi()
+            val speakers = Json.nonstrict.parse(co.touchlab.kampstarter.jsondata.Breed.serializer().list, result)
+
+            onResult(result)
         }
     }
 }

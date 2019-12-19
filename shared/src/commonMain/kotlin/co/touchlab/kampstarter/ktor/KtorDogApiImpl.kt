@@ -12,13 +12,14 @@ import kotlinx.io.core.use
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
-object KtorApiImpl : KtorApi {
+object KtorDogApiImpl : KtorApi {
     private val client = HttpClient()
 
     override suspend fun getJsonFromApi(): String =
         client.get<String> {
-            dogs("api/breeds/image/random")
+            dogs("api/breeds/list/all")
         }
+
 
     override suspend fun setThingJson(value: String): Boolean = client.submitForm<HttpResponse>(
         formParameters = Parameters.build {

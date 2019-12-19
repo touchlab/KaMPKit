@@ -3,14 +3,9 @@ package co.touchlab.kampstarter.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import co.touchlab.kampstarter.db.KampstarterDb
 import com.russhwolf.settings.AndroidSettings
-import com.squareup.sqldelight.Query
-import com.squareup.sqldelight.android.AndroidSqliteDriver
-import co.touchlab.kampstarter.DatabaseHelper
-import co.touchlab.kampstarter.db.Breed
+import co.touchlab.kampstarter.models.BreedModel
 
-import co.touchlab.kampstarter.models.SampleModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,24 +14,25 @@ class MainActivity : AppCompatActivity() {
         val TAG = MainActivity::class.java.simpleName
     }
 
-    private lateinit var model: SampleModel
+    //private lateinit var model: SampleModel
+    private lateinit var model: BreedModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        model = SampleModel()
+        model = BreedModel {
 
-        model.performNetworkRequest {result ->
-            Log.i("MainActivity", result)
         }
-//        text_view.text = createApplicationScreenMessage()
-        getDatabaseRows()
+
+        model.getBreedsFromNetwork{
+
+        }
 
         model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
         Log.i(TAG,model.getBooleanSetting().toString())
     }
-
+/*
     private fun getDatabaseRows(){
         val dbHelper = DatabaseHelper(
             AndroidSqliteDriver(
@@ -50,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         val queries: Query<Breed> = dbHelper.selectAllItems()
         val items:List<Breed> = queries.executeAsList()
         Log.i(TAG,items.toString())
-    }
+    }*/
     
     override fun onDestroy() {
         super.onDestroy()
