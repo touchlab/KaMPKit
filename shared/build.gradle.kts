@@ -54,6 +54,7 @@ kotlin {
         implementation(Deps.ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
+        implementation(Deps.serialization.commonRuntime)
         implementation(Deps.serialization.jvmRuntime)
     }
 

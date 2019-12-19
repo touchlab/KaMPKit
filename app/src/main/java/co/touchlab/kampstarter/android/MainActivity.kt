@@ -29,8 +29,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
-        Log.i(TAG,model.getBooleanSetting().toString())
+        //model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
+        //Log.i(TAG,model.getBooleanSetting().toString())
     }
 /*
     private fun getDatabaseRows(){
