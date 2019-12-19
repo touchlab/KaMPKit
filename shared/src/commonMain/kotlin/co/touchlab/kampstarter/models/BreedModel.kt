@@ -4,18 +4,20 @@ import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.ktor.KtorDogApiImpl
 import co.touchlab.kampstarter.sqldelight.asFlow
+import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.list
-import kotlinx.coroutines.withContext
 import org.koin.core.inject
 
 class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     private val dbHelper: DatabaseHelper by inject()
+    private val settings: Settings by inject()
+
+    private val DB_TIMESTAMP_KEY = "DbTimestampKey"
 
     init {
         mainScope.launch {
@@ -31,16 +33,34 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
         }
     }
 
-    fun getBreedsFromNetwork(onResult:(String)->Unit) {
-        mainScope.launch {
-            val result = KtorDogApiImpl.getJsonFromApi()
-            val speakers = Json.nonstrict.parse(co.touchlab.kampstarter.jsondata.Breed.serializer().list, result)
+    fun isBreedListStale(currentTimeMS:Long) : Boolean{
+        val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
+        val oneHourMS = 60 * 60 * 1000
+        return (lastDownloadTimeMS + oneHourMS < currentTimeMS)
+    }
 
-            onResult(result)
+    fun getBreedsFromNetwork(currentTimeMS:Long) {
+        if(isBreedListStale(currentTimeMS)) {
+            mainScope.launch {
+                val jsonResult = KtorDogApiImpl.getJsonFromApi()
+                val breedResult = Json.nonstrict.parse(
+                    co.touchlab.kampstarter.jsondata.BreedResult.serializer(),
+                    jsonResult
+                )
+                val breedList = breedResult.message.keys.toList()
+                insertBreedData(breedList)
+                settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
+            }
         }
     }
 
-    fun insertSomeData(){
+    private fun insertBreedData(breeds: List<String>){
+        breeds.forEach {  breed ->
+            dbHelper.insertBreed(breed)
+        }
+    }
+/*
+    suspend fun insertBreedData(){
         mainScope.launch {
             withContext(Dispatchers.Default){
                 //This should all be in a transaction
@@ -50,6 +70,7 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
             }
         }
     }
+    */
 }
 
 data class ItemDataSummary(val longestItem:Breed?, val allItems:List<Breed>)
