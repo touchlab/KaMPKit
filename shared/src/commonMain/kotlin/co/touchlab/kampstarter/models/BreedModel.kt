@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.list
+import kotlinx.coroutines.withContext
 import org.koin.core.inject
 
 class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
@@ -36,6 +37,17 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
             val speakers = Json.nonstrict.parse(co.touchlab.kampstarter.jsondata.Breed.serializer().list, result)
 
             onResult(result)
+        }
+    }
+
+    fun insertSomeData(){
+        mainScope.launch {
+            withContext(Dispatchers.Default){
+                //This should all be in a transaction
+                dbHelper.deleteAll()
+                dbHelper.insertItem(1, "Hello 1")
+                dbHelper.insertItem(2, "Hello 2")
+            }
         }
     }
 }
