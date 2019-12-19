@@ -2,14 +2,16 @@ package co.touchlab.kampstarter.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import com.russhwolf.settings.AndroidSettings
-import co.touchlab.kampstarter.models.BreedModel
+import com.squareup.sqldelight.Query
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import co.touchlab.kampstarter.DatabaseHelper
+import co.touchlab.kampstarter.models.ItemModel
 
 
 class MainActivity : AppCompatActivity() {
-
-
     companion object {
         val TAG = MainActivity::class.java.simpleName
     }
@@ -24,30 +26,28 @@ class MainActivity : AppCompatActivity() {
         model = BreedModel {
 
         }
+//        text_view.text = createApplicationScreenMessage()
 
-        model.getBreedsFromNetwork{
+        model.initSettings()
+        Log.i(TAG,model.getBooleanSetting().toString())
 
+        itemModel = ItemModel(){summary ->
+            Log.e(TAG, summary.toString())
         }
 
-        //model.initSettings(AndroidSettings.Factory(this).create("KAMPSTARTER_SETTINGS"))
-        //Log.i(TAG,model.getBooleanSetting().toString())
+        val handler = Handler()
+
+        handler.post {
+            itemModel.insertSomeData()
+        }
+
+        //This should obviously be different, but wanted to see that
+        //Flow gets shut down properly
+        Handler().postDelayed({
+            itemModel.onDestroy()
+        }, 2000)
     }
-/*
-    private fun getDatabaseRows(){
-        val dbHelper = DatabaseHelper(
-            AndroidSqliteDriver(
-                KampstarterDb.Schema,
-                this,
-                "KampStarterDb"
-            )
-        )
-        dbHelper.insertItem(1,"Test")
-        dbHelper.insertItem(2,"Test2")
-        val queries: Query<Breed> = dbHelper.selectAllItems()
-        val items:List<Breed> = queries.executeAsList()
-        Log.i(TAG,items.toString())
-    }*/
-    
+
     override fun onDestroy() {
         super.onDestroy()
         model.onDestroy()

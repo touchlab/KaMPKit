@@ -13,3 +13,6 @@ SELECT * FROM Breed WHERE id = ?;
 insertBreed:
 INSERT INTO Breed(id, name)
 VALUES (?,?);
+
+deleteAll:
+DELETE FROM Breed;
