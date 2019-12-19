@@ -7,11 +7,14 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.core.inject
 
 class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
+    private val dbHelper:DatabaseHelper by inject()
+
     init {
         mainScope.launch {
-            ServiceRegistry.helper.selectAllItems().asFlow()
+            dbHelper.selectAllItems().asFlow()
                 .map {q ->
                     val itemList = q.executeAsList()
                     ItemDataSummary(itemList.maxBy { it.value.length }, itemList)

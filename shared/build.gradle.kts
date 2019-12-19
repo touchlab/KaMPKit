@@ -26,6 +26,7 @@ kotlin {
         implementation(Deps.Coroutines.common)
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
+        implementation(Deps.koinCore)
     }
 
     sourceSets["commonTest"].dependencies {

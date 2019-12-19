@@ -16,6 +16,7 @@ object Versions {
     val stately = "0.9.5"
     val multiplatformSettings = "0.5"
     val coroutines = "1.3.3-native-mt"
+    val koin = "2.1.7-mp"
 }
 
 object Deps {
@@ -27,6 +28,7 @@ object Deps {
     val stately =  "co.touchlab:stately:${Versions.stately}"
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
+    val koinCore = "co.touchlab:koin-core:${Versions.koin}"
 
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
