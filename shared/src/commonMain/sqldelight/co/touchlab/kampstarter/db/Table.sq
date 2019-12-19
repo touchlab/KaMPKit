@@ -1,14 +1,15 @@
-CREATE TABLE Items (
+CREATE TABLE Breed (
 id INTEGER NOT NULL PRIMARY KEY,
-value TEXT NOT NULL
+value TEXT NOT NULL,
+favorite INTEGER NOT NULL DEFAULT 0
 );
 
-
-insertRoot:
-INSERT OR REPLACE INTO Items(id, value)VALUES(?,?);
-
 selectAll:
-SELECT * FROM Items;
+SELECT * FROM Breed;
 
 selectById:
-SELECT * FROM Items WHERE id = ?;
+SELECT * FROM Breed WHERE id = ?;
+
+insertBreed:
+INSERT INTO Breed(id, value)
+VALUES (?,?);
