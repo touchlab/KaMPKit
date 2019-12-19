@@ -36,8 +36,8 @@ class ViewController: UIViewController {
         
         //Just testing Flow. This is not how you should use the model classes
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            itemModel?.onDestroy()
-            itemModel = nil
+            self.itemModel?.onDestroy()
+            self.itemModel = nil
         })
     }
 

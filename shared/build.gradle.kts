@@ -2,11 +2,23 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
+android {
+    compileSdkVersion(28)
+    defaultConfig {
+        minSdkVersion(Versions.min_sdk)
+        targetSdkVersion(Versions.target_sdk)
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
 kotlin {
-    jvm("android")
+    android()
 
     val buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
 
