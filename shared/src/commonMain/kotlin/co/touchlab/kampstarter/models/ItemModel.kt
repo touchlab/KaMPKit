@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.inject
 
 class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
@@ -24,6 +25,17 @@ class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
                 .collect { summary ->
                     viewUpdate(summary)
                 }
+        }
+    }
+
+    fun insertSomeData(){
+        mainScope.launch {
+            withContext(Dispatchers.Default){
+                //This should all be in a transaction
+                dbHelper.deleteAll()
+                dbHelper.insertItem(1, "Hello 1")
+                dbHelper.insertItem(2, "Hello 2")
+            }
         }
     }
 }
