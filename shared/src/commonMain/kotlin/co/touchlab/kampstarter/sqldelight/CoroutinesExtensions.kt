@@ -1,4 +1,4 @@
-package co.touchlab.kmp.sqldelight
+package co.touchlab.kampstarter.sqldelight
 
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query

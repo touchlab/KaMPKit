@@ -1,4 +1,4 @@
-package com.touchlab.myapplication
+package co.touchlab.kampstarter.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +8,9 @@ import co.touchlab.kampstarter.db.KampstarterDb
 import com.russhwolf.settings.AndroidSettings
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.android.AndroidSqliteDriver
-import co.touchlab.kmp.DatabaseHelper
+import co.touchlab.kampstarter.DatabaseHelper
 
-import co.touchlab.kmp.SampleModel
+import co.touchlab.kampstarter.models.SampleModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val TAG = MainActivity::class.java.simpleName
     }
 
-    private lateinit var model:SampleModel
+    private lateinit var model: SampleModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
