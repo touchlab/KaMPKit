@@ -1,7 +1,6 @@
 package co.touchlab.kampstarter.models
 
-import co.touchlab.kampstarter.ServiceRegistry
-import co.touchlab.kampstarter.asFlowWithTransform
+import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.db.Items
 import co.touchlab.kampstarter.sqldelight.asFlow
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.koin.core.inject
 
 class ItemModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
-    private val dbHelper:DatabaseHelper by inject()
+    private val dbHelper: DatabaseHelper by inject()
 
     init {
         mainScope.launch {
