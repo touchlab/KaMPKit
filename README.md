@@ -85,17 +85,18 @@ the future isn’t that important if you can reduce the cost of being “wrong�
 
 # Very, Very Important Message!
 
-You have likely been skimming the last section, but please read this carefully. Because of the current documentation 
-situation, it is very important that you stick to curated info. That means this “Kit”, and possibly links from people in 
-the community who know what they’re talking about. Google does not know what KMP docs are current.
+You have likely been skimming the last section, *but please read this carefully*. Because of the current KMP
+ documentation situation, it is very important that you stick to curated info. That means this “Kit”, and possibly links 
+ from people in the community who know what they’re talking about. *Google does not know what KMP docs are current*.
 
-Stick to this kit until you have something running. If you start browsing other tutorials or docs while setting things 
-up, you can easily get confused.
+**Stick to this kit until you have something running. If you start browsing other tutorials or docs while setting
+ things 
+up, you can easily get confused.**
 
-Config settings and patterns have changed over the past year, so various blogs and versions of documentation will be 
-conflicting. That’s what makes a quick setup take hours or days.
+Config settings and patterns have changed over the past year, so various blog posts and versions of documentation will
+ be conflicting. That’s what makes a quick setup take hours or days.
 
-*TL;DR ignore the rest of the world until your project builds.*
+**TL;DR ignore the rest of the world until your project builds.**
 
 # The Starter App
 
