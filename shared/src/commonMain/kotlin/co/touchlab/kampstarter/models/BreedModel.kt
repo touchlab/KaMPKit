@@ -59,6 +59,10 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
             dbHelper.insertBreed(breed)
         }
     }
+
+    fun updateBreedFavorite(breedId:Long, favorite: Boolean){
+        dbHelper.updateFavorite(breedId, favorite)
+    }
 /*
     suspend fun insertBreedData(){
         mainScope.launch {

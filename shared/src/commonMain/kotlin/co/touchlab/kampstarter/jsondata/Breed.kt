@@ -7,10 +7,3 @@ data class BreedResult(
     val message: HashMap<String,List<String>>,
     var status: String
 )
-
-@Serializable
-data class Breed(
-    val id: String,
-    val breedName: String,
-    var favorite: Boolean
-)

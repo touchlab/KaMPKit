@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.kampstarter.db.Breed
+import co.touchlab.kampstarter.isFavorited
+import co.touchlab.kampstarter.models.BreedModel
 
 class MainAdapter : ListAdapter<Breed, MainViewHolder>(breedCallback) {
 
@@ -35,13 +37,15 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bindTo(breed:Breed){
         nameTextView.text = breed.name
-        /*
-        favoriteButton.setImageBitmap(
-        if(breed.favorite){
-
+        if(breed.favorite == 0L){
+            favoriteButton.setBackgroundResource(R.drawable.ic_favorite_border_24px)
         }else{
-
-        })*/
+            favoriteButton.setBackgroundResource(R.drawable.ic_favorite_24px)
+        }
+        favoriteButton.setOnClickListener {
+            val isFavorite = !breed.isFavorited()
+            BreedModel{}.updateBreedFavorite(breed.id,isFavorite)
+        }
     }
 }
 

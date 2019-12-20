@@ -18,7 +18,12 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     fun insertBreed(name: String) = dbRef.tableQueries.insertBreed(null,name,0)
 
+    fun updateFavorite(breedId: Long, favorite: Boolean) = dbRef.tableQueries.updateFavorite(favorite.toLong(),breedId)
+
     fun deleteAll(){
         dbRef.tableQueries.deleteAll()
     }
 }
+
+fun Breed.isFavorited(): Boolean = this.favorite != 0L
+fun Boolean.toLong(): Long = if(this) 1L else 0L
