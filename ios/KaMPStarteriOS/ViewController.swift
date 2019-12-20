@@ -56,13 +56,28 @@ class BreedCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
+    var breed:Breed?
     
     func bind(breed:Breed){
+        self.breed = breed
         nameLabel.text = breed.name
         if(breed.favorite == 0) {
             favoriteButton.setImage(UIImage(named: "heart"), for: UIControl.State.normal)
         }else {
             favoriteButton.setImage(UIImage(named: "heart.fill"), for: UIControl.State.normal)
         }
+    }
+    
+    @IBAction func favoriteButtonPressed(_ sender: Any) {
+        if let breedActual = breed {
+            let isFavorite = !breedActual.isFavorited()
+            BreedModel{_ in }.updateBreedFavorite(breedId: breedActual.id,favorite: isFavorite)
+        }
+    }
+}
+
+extension Breed {
+    func isFavorited() -> Bool {
+        return favorite != 0
     }
 }
