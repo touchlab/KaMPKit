@@ -58,13 +58,6 @@ object Deps {
         val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
         val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
     }
-    object serialization {
-        val commonRuntime = "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Versions.serialization}"
-        val jvmRuntime =    "org.jetbrains.kotlinx:kotlinx-serialization-runtime:${Versions.serialization}"
-        val iosRuntime =    "org.jetbrains.kotlinx:kotlinx-serialization-runtime-native:${Versions.serialization}"
-    }
-
-
     val coroutinesExcludeNative: ExternalModuleDependency.() -> Unit = {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core-native")
     }
