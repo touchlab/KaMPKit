@@ -6,7 +6,7 @@ object Versions {
     val target_sdk = 29
     val compile_sdk = 29
 
-    val kotlin = "1.3.60"
+    val kotlin = "1.3.61"
     val android_x = "1.1.0"
     val android_gradle_plugin = "3.4.1"
     val buildToolsVersion = "29.0.0"
@@ -17,7 +17,7 @@ object Versions {
     val multiplatformSettings = "0.5"
     val coroutines = "1.3.3-native-mt"
     val koin = "2.1.7-mp"
-    val serialization = "0.11.0"
+    val serialization = "0.14.0"
 
 }
 
