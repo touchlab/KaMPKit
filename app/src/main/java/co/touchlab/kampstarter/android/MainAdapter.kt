@@ -11,8 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.isFavorited
 import co.touchlab.kampstarter.models.BreedModel
+import kotlinx.coroutines.launch
 
-class MainAdapter : ListAdapter<Breed, MainViewHolder>(breedCallback) {
+class MainAdapter(private val model: BreedModel) : ListAdapter<Breed, MainViewHolder>(breedCallback) {
 
     var data:List<Breed> = listOf()
 
@@ -22,7 +23,7 @@ class MainAdapter : ListAdapter<Breed, MainViewHolder>(breedCallback) {
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bindTo(data[position])
+        holder.bindTo(data[position],model)
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +36,7 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val nameTextView = itemView.findViewById<TextView>(R.id.breed_name_text_view)
     private val favoriteButton = itemView.findViewById<ImageButton>(R.id.favorite_button)
 
-    fun bindTo(breed:Breed){
+    fun bindTo(breed:Breed,model: BreedModel){
         nameTextView.text = breed.name
         if(breed.favorite == 0L){
             favoriteButton.setBackgroundResource(R.drawable.ic_favorite_border_24px)
@@ -44,7 +45,7 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         }
         favoriteButton.setOnClickListener {
             val isFavorite = !breed.isFavorited()
-            BreedModel{}.updateBreedFavorite(breed.id,isFavorite)
+            model.updateBreedFavorite(breed.id, isFavorite)
         }
     }
 }

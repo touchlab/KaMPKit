@@ -4,6 +4,7 @@ import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.ktor.KtorDogApiImpl
 import co.touchlab.kampstarter.sqldelight.asFlow
+import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,6 +23,7 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     private val DB_TIMESTAMP_KEY = "DbTimestampKey"
 
     init {
+        ensureNeverFrozen()
         mainScope.launch {
             dbHelper.selectAllItems().asFlow()
                 .map {q ->
@@ -63,7 +65,9 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     }
 
     fun updateBreedFavorite(breedId:Long, favorite: Boolean){
-        dbHelper.updateFavorite(breedId, favorite)
+        mainScope.launch {
+            dbHelper.updateFavorite(breedId, favorite)
+        }
     }
 /*
     suspend fun insertBreedData(){
