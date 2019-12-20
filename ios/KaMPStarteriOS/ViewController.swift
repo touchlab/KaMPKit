@@ -12,7 +12,7 @@ import shared
 class ViewController: UIViewController {
 
     private var model: SampleModel?
-    private var itemModel: ItemModel?
+    private var itemModel: BreedModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
