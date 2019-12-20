@@ -19,3 +19,6 @@ VALUES (?,?,?);
 
 deleteAll:
 DELETE FROM Breed;
+
+updateFavorite:
+UPDATE Breed SET favorite = ? WHERE id = ?;
