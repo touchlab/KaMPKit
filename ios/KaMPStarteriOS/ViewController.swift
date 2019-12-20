@@ -21,15 +21,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         model = BreedModel(){summary in
             print("Summary: \(summary)")
-            //self.data = summary.allItems
-            //self.breedTableView.reloadData()
+            self.data = summary.allItems
+            self.breedTableView.reloadData()
         }
         
-        /*
-        let currentTimeMS = Date().timeIntervalSince1970
+        
+        let currentTimeMS = PlatformiOSKt.currentTimeMillis()
         if(model!.isBreedListStale(currentTimeMS: Int64(currentTimeMS))){
             model!.getBreedsFromNetwork(currentTimeMS: Int64(currentTimeMS))
-        }*/
+        }
     
     }
     
