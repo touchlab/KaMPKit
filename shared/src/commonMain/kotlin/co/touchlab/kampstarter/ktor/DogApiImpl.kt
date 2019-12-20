@@ -13,7 +13,7 @@ import kotlinx.io.core.use
 import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
-object KtorDogApiImpl : KtorApi {
+object DogApiImpl : KtorApi {
     private val client = HttpClient()
 
     init {

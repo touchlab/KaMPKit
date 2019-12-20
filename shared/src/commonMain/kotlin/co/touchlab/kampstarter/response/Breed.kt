@@ -1,4 +1,4 @@
-package co.touchlab.kampstarter.jsondata
+package co.touchlab.kampstarter.response
 
 import kotlinx.serialization.Serializable
 

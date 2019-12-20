@@ -2,7 +2,7 @@ package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.db.Breed
-import co.touchlab.kampstarter.ktor.KtorDogApiImpl
+import co.touchlab.kampstarter.ktor.DogApiImpl
 import co.touchlab.kampstarter.sqldelight.asFlow
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
@@ -46,9 +46,9 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     fun getBreedsFromNetwork(currentTimeMS:Long) {
         if(isBreedListStale(currentTimeMS)) {
             mainScope.launch {
-                val jsonResult = KtorDogApiImpl.getJsonFromApi()
+                val jsonResult = DogApiImpl.getJsonFromApi()
                 val breedResult = Json.nonstrict.parse(
-                    co.touchlab.kampstarter.jsondata.BreedResult.serializer(),
+                    co.touchlab.kampstarter.response.BreedResult.serializer(),
                     jsonResult
                 )
                 val breedList = breedResult.message.keys.toList()

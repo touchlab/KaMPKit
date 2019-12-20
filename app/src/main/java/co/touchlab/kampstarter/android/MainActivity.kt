@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         model = BreedModel {
             print(it)
-            adapter.data = it.allItems
-            adapter.notifyDataSetChanged()
+            adapter.submitList(it.allItems)
         }
 
         adapter = MainAdapter(model)
