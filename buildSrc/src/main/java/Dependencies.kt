@@ -54,6 +54,9 @@ object Deps {
         val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
         val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
         val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
+        val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
+        val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
+        val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
     }
     object serialization {
         val commonRuntime = "org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:${Versions.serialization}"

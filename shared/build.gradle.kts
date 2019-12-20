@@ -41,6 +41,8 @@ kotlin {
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
         implementation(Deps.serialization.commonRuntime)
+        implementation(Deps.ktor.commonSerialization)
+
     }
 
     sourceSets["commonTest"].dependencies {
@@ -56,6 +58,7 @@ kotlin {
         implementation(Deps.Coroutines.android)
         implementation(Deps.serialization.commonRuntime)
         implementation(Deps.serialization.jvmRuntime)
+        implementation(Deps.ktor.androidSerialization)
     }
 
     sourceSets["iosMain"].dependencies {
@@ -65,6 +68,7 @@ kotlin {
         implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
         implementation(Deps.Coroutines.native)
         implementation(Deps.serialization.iosRuntime)
+        implementation(Deps.ktor.iosSerialization)
     }
 
     cocoapods {

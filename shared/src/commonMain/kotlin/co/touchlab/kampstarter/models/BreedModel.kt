@@ -46,11 +46,7 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     fun getBreedsFromNetwork(currentTimeMS:Long) {
         if(isBreedListStale(currentTimeMS)) {
             mainScope.launch {
-                val jsonResult = DogApiImpl.getJsonFromApi()
-                val breedResult = Json.nonstrict.parse(
-                    co.touchlab.kampstarter.response.BreedResult.serializer(),
-                    jsonResult
-                )
+                val breedResult = DogApiImpl.getJsonFromApi()
                 val breedList = breedResult.message.keys.toList()
                 insertBreedData(breedList)
                 settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)

@@ -1,7 +1,10 @@
 package co.touchlab.kampstarter.ktor
 
+import co.touchlab.kampstarter.response.BreedResult
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
+import io.ktor.client.features.json.JsonFeature
+import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.forms.submitForm
 import io.ktor.client.request.get
@@ -14,14 +17,18 @@ import kotlin.native.concurrent.ThreadLocal
 
 @ThreadLocal
 object DogApiImpl : KtorApi {
-    private val client = HttpClient()
+    private val client = HttpClient{
+        install(JsonFeature) {
+            serializer = KotlinxSerializer()
+        }
+    }
 
     init {
         ensureNeverFrozen()
     }
 
-    override suspend fun getJsonFromApi(): String =
-        client.get<String> {
+    override suspend fun getJsonFromApi(): BreedResult =
+        client.get<BreedResult> {
             dogs("api/breeds/list/all")
         }
 
