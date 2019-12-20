@@ -15,19 +15,17 @@ import kotlinx.coroutines.launch
 
 class MainAdapter(private val model: BreedModel) : ListAdapter<Breed, MainViewHolder>(breedCallback) {
 
-    var data:List<Breed> = listOf()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_breed, parent, false)
         return MainViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bindTo(data[position],model)
+        holder.bindTo(currentList[position],model)
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return currentList.size
     }
 }
 
@@ -52,7 +50,8 @@ class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 private val breedCallback = object : DiffUtil.ItemCallback<Breed>(){
     override fun areContentsTheSame(oldItem: Breed, newItem: Breed): Boolean =
-        oldItem.id == newItem.id
+        (oldItem.id == newItem.id) &&
+        (oldItem.favorite == newItem.favorite)
 
     override fun areItemsTheSame(oldItem: Breed, newItem: Breed): Boolean =
         oldItem.id == newItem.id
