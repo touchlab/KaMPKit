@@ -6,6 +6,7 @@ import co.touchlab.kampstarter.ktor.KtorDogApiImpl
 import co.touchlab.kampstarter.sqldelight.asFlow
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -13,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import org.koin.core.inject
 
+@ExperimentalCoroutinesApi
 class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
