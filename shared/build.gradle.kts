@@ -40,7 +40,6 @@ kotlin {
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
-        implementation(Deps.serialization.commonRuntime)
         implementation(Deps.ktor.commonSerialization)
 
     }
@@ -56,8 +55,6 @@ kotlin {
         implementation(Deps.ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
-        implementation(Deps.serialization.commonRuntime)
-        implementation(Deps.serialization.jvmRuntime)
         implementation(Deps.ktor.androidSerialization)
     }
 
@@ -67,7 +64,6 @@ kotlin {
         implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
         implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
         implementation(Deps.Coroutines.native)
-        implementation(Deps.serialization.iosRuntime)
         implementation(Deps.ktor.iosSerialization)
     }
 
