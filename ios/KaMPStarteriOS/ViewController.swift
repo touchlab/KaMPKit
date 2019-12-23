@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        breedTableView.delegate = self
+        breedTableView.dataSource = self
         
         model = BreedModel(){summary in
             print("Summary: \(summary)")
@@ -28,6 +30,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let currentTimeMS = PlatformiOSKt.currentTimeMillis()
         if(model!.isBreedListStale(currentTimeMS: Int64(currentTimeMS))){
             model!.getBreedsFromNetwork(currentTimeMS: Int64(currentTimeMS))
+        }else{
+            model!.requestBreedsFromDatabaseAsFlow()
         }
     }
     
@@ -60,9 +64,9 @@ class BreedCell: UITableViewCell {
         self.breed = breed
         nameLabel.text = breed.name
         if(breed.favorite == 0) {
-            favoriteButton.setImage(UIImage(named: "heart"), for: UIControl.State.normal)
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
         }else {
-            favoriteButton.setImage(UIImage(named: "heart.fill"), for: UIControl.State.normal)
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: UIControl.State.normal)
         }
     }
     

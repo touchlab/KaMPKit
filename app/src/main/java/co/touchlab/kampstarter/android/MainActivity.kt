@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
             print(it)
             adapter.submitList(it.allItems)
         }
+        model.requestBreedsFromDatabaseAsFlow()
 
         adapter = MainAdapter(model)
         breed_list.adapter = adapter
