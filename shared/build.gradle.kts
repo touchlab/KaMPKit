@@ -46,8 +46,9 @@ kotlin {
 
     sourceSets["commonTest"].dependencies {
         implementation(Deps.multiplatformSettingsTest)
-        implementation(Deps.Test.common)
-        implementation(Deps.Test.annotations)
+        implementation(Deps.SqlDelight.runtime)
+        implementation(Deps.KotlinTest.common)
+        implementation(Deps.KotlinTest.annotations)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.common)
         implementation(Deps.Coroutines.test)
@@ -64,9 +65,14 @@ kotlin {
     }
 
     sourceSets["androidTest"].dependencies {
-        implementation(Deps.Test.jvm)
-        implementation(Deps.Test.junit)
+        implementation(Deps.KotlinTest.jvm)
+        implementation(Deps.KotlinTest.junit)
         implementation(Deps.Coroutines.jdk)
+        implementation(Deps.AndroidXTest.core)
+        implementation(Deps.AndroidXTest.junit)
+        implementation(Deps.AndroidXTest.runner)
+        implementation(Deps.AndroidXTest.rules)
+        implementation("org.robolectric:robolectric:4.0")
     }
 
     sourceSets["iosMain"].dependencies {
