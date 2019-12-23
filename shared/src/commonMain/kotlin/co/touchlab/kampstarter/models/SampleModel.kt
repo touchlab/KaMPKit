@@ -1,32 +1,25 @@
 package co.touchlab.kampstarter.models
 
-import co.touchlab.kampstarter.DatabaseHelper
-import co.touchlab.kampstarter.db.Items
-import co.touchlab.kampstarter.db.KampstarterDb
-import co.touchlab.kampstarter.ktor.KtorApi
+import co.touchlab.kampstarter.ktor.DogApiImpl
+import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.launch
+import org.koin.core.inject
 
-class SampleModel(private val ktorApiImpl: KtorApi,
-                  private val sqlDriver: SqlDriver,
-                  private val settings:Settings ) : BaseModel(){
+class SampleModel : BaseModel(){
+    private val settings: Settings by inject()
 
-    val dbHelper = DatabaseHelper(sqlDriver)
-
-    init {
-        // TEMP
-        settings.putBoolean("TEMP",true)
-        dbHelper.insertItem(1,"Test")
-        dbHelper.insertItem(2,"Test2")
-    }
-
-    fun performNetworkRequest(onResult:(String)->Unit) {
+    fun performNetworkRequest(onResult:(BreedResult)->Unit) {
         mainScope.launch {
-            val result = ktorApiImpl.getJsonFromApi()
+            val result = DogApiImpl.getJsonFromApi()
             onResult(result)
         }
+    }
+
+    fun initSettings(){
+        settings.putBoolean("TEMP",true)
     }
 
     fun getBooleanSetting(): Boolean = settings.getBoolean("TEMP")

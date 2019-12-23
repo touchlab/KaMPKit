@@ -2,11 +2,24 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("kotlinx-serialization")
+    id("com.android.library")
     id("com.squareup.sqldelight")
 }
 
+android {
+    compileSdkVersion(28)
+    defaultConfig {
+        minSdkVersion(Versions.min_sdk)
+        targetSdkVersion(Versions.target_sdk)
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+}
+
 kotlin {
-    jvm("android")
+    android()
 
     val buildForDevice = project.findProperty("kotlin.native.cocoapods.target") == "ios_arm"
 
@@ -23,9 +36,12 @@ kotlin {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.ktor.commonCore)
         implementation(Deps.ktor.commonJson)
-        implementation(Deps.coroutine_worker)
         implementation(Deps.Coroutines.common)
+        implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
+        implementation(Deps.koinCore)
+        implementation(Deps.ktor.commonSerialization)
+
     }
 
     sourceSets["commonTest"].dependencies {
@@ -44,6 +60,7 @@ kotlin {
         implementation(Deps.ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
+        implementation(Deps.ktor.androidSerialization)
     }
 
     sourceSets["androidTest"].dependencies {
@@ -54,10 +71,11 @@ kotlin {
 
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.ktor.ios)
-        implementation(Deps.ktor.iosCore)
-        implementation(Deps.ktor.iosJson)
+        implementation(Deps.ktor.ios, Deps.coroutinesExcludeNative)
+        implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
+        implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
         implementation(Deps.Coroutines.native)
+        implementation(Deps.ktor.iosSerialization)
     }
 
     cocoapods {

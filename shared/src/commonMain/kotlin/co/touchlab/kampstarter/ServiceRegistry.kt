@@ -1,13 +1,16 @@
 package co.touchlab.kampstarter
 
-import kotlinx.atomicfu.atomic
+import com.russhwolf.settings.Settings
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 
 object ServiceRegistry {
-    private val _helper = atomic<DatabaseHelper?>(null)
-    fun appStart(helper: DatabaseHelper){
-        _helper.value = helper
-    }
+    fun appStart(helper: DatabaseHelper, settings: Settings){
+        val coreModule = module {
+            single { helper }
+            single { settings }
+        }
 
-    val helper: DatabaseHelper
-        get() = _helper.value!!
+        startKoin { modules(coreModule) }
+    }
 }

@@ -1,7 +1,5 @@
 package co.touchlab.kampstarter
 
-import kotlinx.coroutines.CoroutineDispatcher
-
-internal expect val MainDispatcher: CoroutineDispatcher
+expect fun currentTimeMillis(): Long
 
 internal expect fun printThrowable(t:Throwable)
