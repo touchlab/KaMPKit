@@ -1,6 +1,7 @@
 package co.touchlab.kampstarter.models
 
-import co.touchlab.kampstarter.ktor.KtorApiImpl
+import co.touchlab.kampstarter.ktor.DogApiImpl
+import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.launch
 import org.koin.core.inject
@@ -8,9 +9,9 @@ import org.koin.core.inject
 class SampleModel : BaseModel(){
     private val settings: Settings by inject()
 
-    fun performNetworkRequest(onResult:(String)->Unit) {
+    fun performNetworkRequest(onResult:(BreedResult)->Unit) {
         mainScope.launch {
-            val result = KtorApiImpl.getJsonFromApi()
+            val result = DogApiImpl.getJsonFromApi()
             onResult(result)
         }
     }

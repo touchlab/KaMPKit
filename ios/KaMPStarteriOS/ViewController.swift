@@ -9,46 +9,77 @@
 import UIKit
 import shared
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private var model: SampleModel?
-    private var itemModel: ItemModel?
+    @IBOutlet weak var breedTableView: UITableView!
+    var data:[Breed] = []
+    
+    private var model: BreedModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        breedTableView.delegate = self
+        breedTableView.dataSource = self
         
-        model = SampleModel()
-        
-        model?.performNetworkRequest() {result in
-            print("The result \(result)")
-        }
-        
-        model?.doInitSettings()
-        if let boolsetting = model?.getBooleanSetting() {
-            NSLog(boolsetting ? "true" : "false")
-        }
-        
-        itemModel = ItemModel(){summary in
+        model = BreedModel(){summary in
             print("Summary: \(summary)")
+            self.data = summary.allItems
+            self.breedTableView.reloadData()
         }
         
-        itemModel?.insertSomeData()
-        
-        //Just testing Flow. This is not how you should use the model classes
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            self.itemModel?.onDestroy()
-            self.itemModel = nil
-        })
+        let currentTimeMS = PlatformiOSKt.currentTimeMillis()
+        if(model!.isBreedListStale(currentTimeMS: Int64(currentTimeMS))){
+            model!.getBreedsFromNetwork(currentTimeMS: Int64(currentTimeMS))
+        }else{
+            model!.requestBreedsFromDatabaseAsFlow()
+        }
     }
-
-    private func getDatabaseRows(){
-        let driver = PlatformiOSKt.defaultDriver()
-        let dbHelper = DatabaseHelper(sqlDriver:driver)
-        dbHelper.insertItem(id: 1,value: "Test")
-        dbHelper.insertItem(id: 2,value: "Test2")
-        let queries = dbHelper.selectAllItems()
-        let items = queries.executeAsList()
-        print(items)
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.model?.onDestroy()
+        self.model = nil
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BreedCell", for: indexPath)
+        if let breedCell = cell as? BreedCell {
+            let breed = data[indexPath.row]
+            breedCell.bind(breed: breed)
+        }
+        return cell
     }
 }
 
+class BreedCell: UITableViewCell {
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
+    var breed:Breed?
+    
+    func bind(breed:Breed){
+        self.breed = breed
+        nameLabel.text = breed.name
+        if(breed.favorite == 0) {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
+        }else {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: UIControl.State.normal)
+        }
+    }
+    
+    @IBAction func favoriteButtonPressed(_ sender: Any) {
+        if let breedActual = breed {
+            let isFavorite = !breedActual.isFavorited()
+            BreedModel{_ in }.updateBreedFavorite(breedId: breedActual.id,favorite: isFavorite)
+        }
+    }
+}
+
+extension Breed {
+    func isFavorited() -> Bool {
+        return favorite != 0
+    }
+}
