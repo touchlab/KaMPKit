@@ -24,17 +24,6 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
 
     init {
         ensureNeverFrozen()
-        mainScope.launch {
-            dbHelper.selectAllItems().asFlow()
-                .map {q ->
-                    val itemList = q.executeAsList()
-                    ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
-                }
-                .flowOn(Dispatchers.Default)
-                .collect { summary ->
-                    viewUpdate(summary)
-                }
-        }
     }
 
     fun isBreedListStale(currentTimeMS:Long) : Boolean{
@@ -50,7 +39,31 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
                 val breedList = breedResult.message.keys.toList()
                 insertBreedData(breedList)
                 settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
+
+                // TEMP to fix iOS
+                requestBreedsFromDatabase()
             }
+        }
+    }
+
+    private fun requestBreedsFromDatabase(){
+        val items = dbHelper.selectAllItems().executeAsList()
+        val summary = ItemDataSummary(items.maxBy { it.name.length }, items)
+        viewUpdate(summary)
+    }
+
+    // TEMP To get iOS working
+    fun requestBreedsFromDatabaseAsFlow(){
+        mainScope.launch {
+            dbHelper.selectAllItems().asFlow()
+                .map {q ->
+                    val itemList = q.executeAsList()
+                    ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
+                }
+                .flowOn(Dispatchers.Default)
+                .collect { summary ->
+                    viewUpdate(summary)
+                }
         }
     }
 
