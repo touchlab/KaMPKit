@@ -1,6 +1,6 @@
 package co.touchlab.kampstarter
 
-import co.touchlab.kampstarter.db.Items
+import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.db.KampstarterDb
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
@@ -12,13 +12,18 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
         sqlDriver.close()
     }
 
-    fun selectAllItems(): Query<Items> = dbRef.tableQueries.selectAll()
+    fun selectAllItems(): Query<Breed> = dbRef.tableQueries.selectAll()
 
-    fun selectItemById(id: Long): Query<Items> = dbRef.tableQueries.selectById(id)
+    fun selectItemById(id: Long): Query<Breed> = dbRef.tableQueries.selectById(id)
 
-    fun insertItem(id: Long, value: String) = dbRef.tableQueries.insertRoot(id,value)
+    fun insertBreed(name: String) = dbRef.tableQueries.insertBreed(null,name,0)
+
+    fun updateFavorite(breedId: Long, favorite: Boolean) = dbRef.tableQueries.updateFavorite(favorite.toLong(),breedId)
 
     fun deleteAll(){
         dbRef.tableQueries.deleteAll()
     }
 }
+
+fun Breed.isFavorited(): Boolean = this.favorite != 0L
+fun Boolean.toLong(): Long = if(this) 1L else 0L

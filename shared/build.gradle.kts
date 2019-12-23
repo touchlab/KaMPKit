@@ -2,6 +2,7 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
 }
@@ -39,6 +40,8 @@ kotlin {
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
+        implementation(Deps.ktor.commonSerialization)
+
     }
 
     sourceSets["commonTest"].dependencies {
@@ -52,6 +55,7 @@ kotlin {
         implementation(Deps.ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
+        implementation(Deps.ktor.androidSerialization)
     }
 
     sourceSets["iosMain"].dependencies {
@@ -60,6 +64,7 @@ kotlin {
         implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
         implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
         implementation(Deps.Coroutines.native)
+        implementation(Deps.ktor.iosSerialization)
     }
 
     cocoapods {

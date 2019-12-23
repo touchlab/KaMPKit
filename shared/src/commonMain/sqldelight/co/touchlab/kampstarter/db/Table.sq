@@ -1,17 +1,24 @@
-CREATE TABLE Items (
-id INTEGER NOT NULL PRIMARY KEY,
-value TEXT NOT NULL
+CREATE TABLE Breed (
+id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+name TEXT NOT NULL,
+favorite INTEGER NOT NULL DEFAULT 0
 );
 
-
-insertRoot:
-INSERT OR REPLACE INTO Items(id, value)VALUES(?,?);
-
 selectAll:
-SELECT * FROM Items;
+SELECT * FROM Breed;
 
 selectById:
-SELECT * FROM Items WHERE id = ?;
+SELECT * FROM Breed WHERE id = ?;
+
+selectByName:
+SELECT * FROM Breed WHERE name = ?;
+
+insertBreed:
+INSERT OR REPLACE INTO Breed(id, name, favorite)
+VALUES (?,?,?);
 
 deleteAll:
-DELETE FROM Items;
+DELETE FROM Breed;
+
+updateFavorite:
+UPDATE Breed SET favorite = ? WHERE id = ?;
