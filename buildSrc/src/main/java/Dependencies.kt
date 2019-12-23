@@ -30,10 +30,17 @@ object Deps {
     val stately =  "co.touchlab:stately:${Versions.stately}"
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
-    val coroutine_worker = "com.autodesk:coroutineworker:${Versions.coroutine_worker}"
     val koinCore = "co.touchlab:koin-core:${Versions.koin}"
 
-    object Test {
+
+    object AndroidXTest {
+        val core =  "androidx.test:core:${Versions.android_x}"
+        val junit =  "androidx.test.ext:junit:${Versions.android_x}"
+        val runner = "androidx.test:runner:${Versions.android_x}"
+        val rules = "androidx.test:rules:${Versions.android_x}"
+    }
+
+    object KotlinTest {
         val common =      "org.jetbrains.kotlin:kotlin-test-common:${Versions.kotlin}"
         val annotations = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.kotlin}"
         val jvm =         "org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}"

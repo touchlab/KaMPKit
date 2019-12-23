@@ -23,6 +23,4 @@ class SampleModel : BaseModel(){
     }
 
     fun getBooleanSetting(): Boolean = settings.getBoolean("TEMP")
-
-    fun getDatabaseRows() = dbHelper.selectAllItems().executeAsList()
 }
