@@ -6,7 +6,7 @@ Kotlin is generally seen as a replacement JVM language, and by many as an “And
 Kotlin team have much bigger goals in mind. The ultimate goal of “Kotlin” is a portable platform suitable for any project. 
 You can transfer your skills and code to any task at hand.
 
-(Insert Kotlinconf Keynote)
+> To see more about Kotlin's Multiplatform vision, watch the [Kotlinconf Keynote](https://youtu.be/0xKTM0A8gdI)
 
 Kotlin can output JVM bytecode, Javascript, and an array of LLVM-based native executable code. Describing the entiretly 
 of KMP would take some time, but the KaMP KIt is focused on native mobile development, so we’ll speak to that specifiically.
