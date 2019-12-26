@@ -20,7 +20,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         breedTableView.delegate = self
         breedTableView.dataSource = self
-        
+
         model = BreedModel(){summary in
             print("Summary: \(summary)")
             self.data = summary.allItems

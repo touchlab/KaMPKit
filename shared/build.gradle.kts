@@ -5,6 +5,7 @@ plugins {
     id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
+    id("co.touchlab.kotlinxcodesync")
 }
 
 android {
@@ -70,6 +71,11 @@ kotlin {
     cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPStarter"
+    }
+
+    xcodeSync {
+        projectPath = "../ios/KaMPStarteriOS.xcodeproj"
+        target = "KaMPStarteriOS"
     }
 }
 
