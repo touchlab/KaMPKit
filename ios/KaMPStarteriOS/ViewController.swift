@@ -20,19 +20,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         breedTableView.delegate = self
         breedTableView.dataSource = self
-        
+
         model = BreedModel(){summary in
             print("Summary: \(summary)")
             self.data = summary.allItems
             self.breedTableView.reloadData()
         }
         
-        let currentTimeMS = PlatformiOSKt.currentTimeMillis()
-        if(model!.isBreedListStale(currentTimeMS: Int64(currentTimeMS))){
-            model!.getBreedsFromNetwork(currentTimeMS: Int64(currentTimeMS))
-        }else{
-            model!.requestBreedsFromDatabaseAsFlow()
-        }
+        //We check for stalk data in this method
+        model!.getBreedsFromNetwork()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
