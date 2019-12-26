@@ -25,16 +25,12 @@ class MainActivity : AppCompatActivity() {
             print(it)
             adapter.submitList(it.allItems)
         }
-        model.requestBreedsFromDatabaseAsFlow()
 
         adapter = MainAdapter(model)
         breed_list.adapter = adapter
         breed_list.layoutManager = LinearLayoutManager(this)
 
-        val currentTimeMS = currentTimeMillis()
-            Date().time
-        if(model.isBreedListStale(currentTimeMS))
-            model.getBreedsFromNetwork(currentTimeMS)
+        model.getBreedsFromNetwork()
     }
 
     override fun onDestroy() {
