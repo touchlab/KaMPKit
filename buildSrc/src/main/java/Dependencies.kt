@@ -18,6 +18,7 @@ object Versions {
     val coroutines = "1.3.3-native-mt"
     val koin = "2.1.7-mp"
     val serialization = "0.14.0"
+    val xcodesync = "0.2"
 
 }
 
@@ -31,6 +32,7 @@ object Deps {
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val koinCore = "co.touchlab:koin-core:${Versions.koin}"
+    val xcodesync = "co.touchlab:kotlinxcodesync:${Versions.xcodesync}"
 
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"

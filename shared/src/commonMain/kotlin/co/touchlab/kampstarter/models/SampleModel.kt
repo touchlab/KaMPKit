@@ -9,7 +9,7 @@ class SampleModel : BaseModel(){
     private val settings: Settings by inject()
 
     fun performNetworkRequest(onResult:(String)->Unit) {
-        mainScope.launch {
+        ktorScope.launch {
             val result = KtorDogApiImpl.getJsonFromApi()
             onResult(result)
         }
