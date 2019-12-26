@@ -10,9 +10,11 @@ import kotlin.coroutines.CoroutineContext
 
 open class BaseModel: KoinComponent {
     internal val mainScope = MainScope(Dispatchers.Main)
+    internal val ktorScope = MainScope(Dispatchers.Main)
 
     open fun onDestroy() {
         mainScope.job.cancel()
+        ktorScope.job.cancel()
     }
 }
 
