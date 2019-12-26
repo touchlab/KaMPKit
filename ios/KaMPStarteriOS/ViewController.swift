@@ -27,12 +27,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.breedTableView.reloadData()
         }
         
-        let currentTimeMS = PlatformiOSKt.currentTimeMillis()
-        if(model!.isBreedListStale(currentTimeMS: Int64(currentTimeMS))){
-            model!.getBreedsFromNetwork(currentTimeMS: Int64(currentTimeMS))
-        }else{
-            model!.requestBreedsFromDatabaseAsFlow()
-        }
+        //We check for stalk data in this method
+        model!.getBreedsFromNetwork()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
