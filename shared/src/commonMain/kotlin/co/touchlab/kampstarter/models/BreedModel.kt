@@ -1,6 +1,7 @@
 package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.DatabaseHelper
+import co.touchlab.kampstarter.currentTimeMillis
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kampstarter.sqldelight.asFlow
@@ -26,36 +27,6 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
 
     init {
         ensureNeverFrozen()
-    }
-
-    fun isBreedListStale(currentTimeMS:Long) : Boolean{
-        val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
-        val oneHourMS = 60 * 60 * 1000
-        return (lastDownloadTimeMS + oneHourMS < currentTimeMS)
-    }
-
-    fun getBreedsFromNetwork(currentTimeMS:Long) {
-        if(isBreedListStale(currentTimeMS)) {
-            mainScope.launch {
-                val breedResult = ktorApi.getJsonFromApi()
-                val breedList = breedResult.message.keys.toList()
-                insertBreedData(breedList)
-                settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
-
-                // TEMP to fix iOS
-                requestBreedsFromDatabase()
-            }
-        }
-    }
-
-    private fun requestBreedsFromDatabase(){
-        val items = dbHelper.selectAllItems().executeAsList()
-        val summary = ItemDataSummary(items.maxBy { it.name.length }, items)
-        viewUpdate(summary)
-    }
-
-    // TEMP To get iOS working
-    fun requestBreedsFromDatabaseAsFlow(){
         mainScope.launch {
             dbHelper.selectAllItems().asFlow()
                 .map {q ->
@@ -66,6 +37,24 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
                 .collect { summary ->
                     viewUpdate(summary)
                 }
+        }
+    }
+
+    fun getBreedsFromNetwork() {
+        fun isBreedListStale(currentTimeMS:Long) : Boolean{
+            val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
+            val oneHourMS = 60 * 60 * 1000
+            return (lastDownloadTimeMS + oneHourMS < currentTimeMS)
+        }
+
+        val currentTimeMS = currentTimeMillis()
+        if(isBreedListStale(currentTimeMS)) {
+            ktorScope.launch {
+                val breedResult = DogApiImpl.getJsonFromApi()
+                val breedList = breedResult.message.keys.toList()
+                insertBreedData(breedList)
+                settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
+            }
         }
     }
 
@@ -80,18 +69,6 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
             dbHelper.updateFavorite(breedId, favorite)
         }
     }
-/*
-    suspend fun insertBreedData(){
-        mainScope.launch {
-            withContext(Dispatchers.Default){
-                //This should all be in a transaction
-                dbHelper.deleteAll()
-                dbHelper.insertItem(1, "Hello 1")
-                dbHelper.insertItem(2, "Hello 2")
-            }
-        }
-    }
-    */
 }
 
 data class ItemDataSummary(val longestItem:Breed?, val allItems:List<Breed>)
