@@ -21,35 +21,23 @@ abstract class BreedModelTest {
     }
 
     @Test
-    fun `Breed List is Stale`() = runTest {
-        assertTrue(model.isBreedListStale(currentTimeMillis()))
-    }
-
-    @Test
-    fun `Breed List is not stale`() = runTest {
-        model.getBreedsFromNetwork(currentTimeMillis())
-        assertFalse(model.isBreedListStale(currentTimeMillis()))
-    }
-
-    @Test
     fun `Get Breed List Success`() = runTest {
         assertFalse(ktorApi.getJsonCalled)
-        model.getBreedsFromNetwork(currentTimeMillis())
+        model.getBreedsFromNetwork()
         assertTrue(ktorApi.getJsonCalled)
     }
 
     @Test
     fun `Get Breed List Failure`() = runTest {
-        val currentTime = currentTimeMillis()
-        settings.putLong(BreedModel.DB_TIMESTAMP_KEY,currentTime)
+        settings.putLong(BreedModel.DB_TIMESTAMP_KEY,currentTimeMillis())
         assertFalse(ktorApi.getJsonCalled)
-        model.getBreedsFromNetwork(currentTime)
+        model.getBreedsFromNetwork()
         assertFalse(ktorApi.getJsonCalled)
     }
 
     @Test
     fun `Update Breed Favorite`() = runTest {
-        model.getBreedsFromNetwork(currentTimeMillis())
+        model.getBreedsFromNetwork()
         val breedOld = dbHelper.selectAllItems().executeAsList().first()
         model.updateBreedFavorite(breedOld.id,true)
         val breedNew = dbHelper.selectItemById(breedOld.id).executeAsOne()
