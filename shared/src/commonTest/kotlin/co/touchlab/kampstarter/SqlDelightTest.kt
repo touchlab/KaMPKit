@@ -44,7 +44,7 @@ abstract class SqlDelightTest {
         val newBreed = dbHelper.selectItemById(firstBreed.id).executeAsOneOrNull()
         assertNotNull(newBreed,
             "Could not retrieve Breed by Id")
-        assertTrue(newBreed.favorite == 1L,
+        assertTrue(newBreed.isFavorited(),
             "Favorite Did Not Save")
     }
 
