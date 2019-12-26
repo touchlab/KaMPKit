@@ -18,3 +18,9 @@ actual fun testDbConnection(): SqlDriver {
 
 @RunWith(AndroidJUnit4::class)
 class SqlDelightTestJvm : SqlDelightTest()
+
+@RunWith(AndroidJUnit4::class)
+class KtorTestJvm: KtorTest()
+
+@RunWith(AndroidJUnit4::class)
+class BreedModelTestJvm: BreedModelTest()
