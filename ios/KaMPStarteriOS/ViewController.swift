@@ -24,13 +24,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.data = summary.allItems
             self.breedTableView.reloadData()
         }
-        
-        
-        let currentTimeMS = PlatformiOSKt.currentTimeMillis()
-        if(model!.isBreedListStale(currentTimeMS: Int64(currentTimeMS))){
-            model!.getBreedsFromNetwork(currentTimeMS: Int64(currentTimeMS))
-        }
-    
+
+        model!.getBreedsFromNetwork()
     }
     
     override func viewWillDisappear(_ animated: Bool) {

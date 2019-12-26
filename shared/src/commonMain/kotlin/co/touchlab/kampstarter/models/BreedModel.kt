@@ -1,6 +1,7 @@
 package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.DatabaseHelper
+import co.touchlab.kampstarter.currentTimeMillis
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.ktor.KtorDogApiImpl
 import co.touchlab.kampstarter.sqldelight.asFlow
@@ -43,9 +44,10 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
         return (lastDownloadTimeMS + oneHourMS < currentTimeMS)
     }
 
-    fun getBreedsFromNetwork(currentTimeMS:Long) {
+    fun getBreedsFromNetwork() {
+        val currentTimeMS = currentTimeMillis()
         if(isBreedListStale(currentTimeMS)) {
-            mainScope.launch {
+            ktorScope.launch {
                 val jsonResult = KtorDogApiImpl.getJsonFromApi()
                 val breedResult = Json.nonstrict.parse(
                     co.touchlab.kampstarter.jsondata.BreedResult.serializer(),
