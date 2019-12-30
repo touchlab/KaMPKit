@@ -5,7 +5,6 @@ buildscript {
     repositories {
         google()
         jcenter()
-        mavenLocal()
     }
     dependencies {
         classpath(Deps.android_gradle_plugin)
@@ -23,8 +22,8 @@ allprojects {
     repositories {
         google()
         jcenter()
-        mavenLocal()
         maven(url = "https://kotlin.bintray.com/kotlinx")
+        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 
