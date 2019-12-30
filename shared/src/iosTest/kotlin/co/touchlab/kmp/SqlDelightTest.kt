@@ -8,3 +8,9 @@ import kotlinx.coroutines.runBlocking
 actual fun testDbConnection(): SqlDriver = NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb")
 
 actual fun <T> runTest(block: suspend () -> T) { runBlocking { block() } }
+
+class SqlDelightTestJvm : SqlDelightTest()
+
+class KtorTestJvm: KtorTest()
+
+class BreedModelTestJvm: BreedModelTest()
