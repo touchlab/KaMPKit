@@ -4,9 +4,11 @@ import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.db.KampstarterDb
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class DatabaseHelper(private val sqlDriver: SqlDriver) {
-    private val dbRef:KampstarterDb = KampstarterDb(sqlDriver)
+    private val dbRef: KampstarterDb = KampstarterDb(sqlDriver)
 
     internal fun dbClear() {
         sqlDriver.close()
@@ -14,16 +16,18 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
 
     fun selectAllItems(): Query<Breed> = dbRef.tableQueries.selectAll()
 
-    fun selectItemById(id: Long): Query<Breed> = dbRef.tableQueries.selectById(id)
+    suspend fun insertBreeds(breedNames: List<String>) = withContext(Dispatchers.Default) {
+        dbRef.transaction {
+            breedNames.forEach { name ->
+                dbRef.tableQueries.insertBreed(null, name, 0)
+            }
+        }
+    }
 
-    fun insertBreed(name: String) = dbRef.tableQueries.insertBreed(null,name,0)
-
-    fun updateFavorite(breedId: Long, favorite: Boolean) = dbRef.tableQueries.updateFavorite(favorite.toLong(),breedId)
-
-    fun deleteAll(){
-        dbRef.tableQueries.deleteAll()
+    suspend fun updateFavorite(breedId: Long, favorite: Boolean) = withContext(Dispatchers.Default) {
+        dbRef.tableQueries.updateFavorite(favorite.toLong(), breedId)
     }
 }
 
 fun Breed.isFavorited(): Boolean = this.favorite != 0L
-fun Boolean.toLong(): Long = if(this) 1L else 0L
+fun Boolean.toLong(): Long = if (this) 1L else 0L
