@@ -22,17 +22,17 @@ abstract class BreedModelTest {
 
     @Test
     fun `Get Breed List Success`() = runTest {
-        assertFalse(ktorApi.getJsonCalled)
+        assertFalse(ktorApi.jsonRequested)
         model.getBreedsFromNetwork()
-        assertTrue(ktorApi.getJsonCalled)
+        assertTrue(ktorApi.jsonRequested)
     }
 
     @Test
     fun `Get Breed List Failure`() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY,currentTimeMillis())
-        assertFalse(ktorApi.getJsonCalled)
+        assertFalse(ktorApi.jsonRequested)
         model.getBreedsFromNetwork()
-        assertFalse(ktorApi.getJsonCalled)
+        assertFalse(ktorApi.jsonRequested)
     }
 
     @Test

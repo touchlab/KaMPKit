@@ -26,10 +26,10 @@ abstract class KtorTest {
 
 class KtorApiMock : KtorApi {
 
-    var getJsonCalled = false
+    var jsonRequested = false
 
     override suspend fun getJsonFromApi(): BreedResult {
-        getJsonCalled = true
+        jsonRequested = true
         val map = mutableMapOf<String,List<String>>()
         map["appenzeller"] = listOf()
         map["australian"] = listOf("shepherd")
