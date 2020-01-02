@@ -16,7 +16,7 @@ object Versions {
     val stately = "0.9.5"
     val multiplatformSettings = "0.5"
     val coroutines = "1.3.3-native-mt"
-    val koin = "2.1.7-mp"
+    val koin = "3.0.1-khan-SNAPSHOT"
     val serialization = "0.14.0"
     val xcodesync = "0.2"
 

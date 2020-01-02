@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import org.koin.core.inject
 
 @ExperimentalCoroutinesApi
@@ -57,8 +56,8 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     }
 
     private fun insertBreedData(breeds: List<String>){
-        breeds.forEach {  breed ->
-            dbHelper.insertBreed(breed)
+        mainScope.launch {
+            dbHelper.insertBreeds(breeds)
         }
     }
 

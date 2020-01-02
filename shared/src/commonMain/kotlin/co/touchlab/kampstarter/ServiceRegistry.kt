@@ -5,7 +5,7 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
 object ServiceRegistry {
-    fun appStart(helper: DatabaseHelper, settings: Settings){
+    fun appStart(helper: DatabaseHelper, settings: Settings) {
         val coreModule = module {
             single { helper }
             single { settings }

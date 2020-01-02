@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "BreedCell", for: indexPath)
         if let breedCell = cell as? BreedCell {
             let breed = data[indexPath.row]
-            breedCell.bind(breed: breed)
+            breedCell.bind(breed: breed, model: model!)
         }
         return cell
     }
@@ -55,9 +55,11 @@ class BreedCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     var breed:Breed?
+    var model:BreedModel?
     
-    func bind(breed:Breed){
+    func bind(breed:Breed, model: BreedModel){
         self.breed = breed
+        self.model = model
         nameLabel.text = breed.name
         if(breed.favorite == 0) {
             favoriteButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
@@ -69,7 +71,7 @@ class BreedCell: UITableViewCell {
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         if let breedActual = breed {
             let isFavorite = !breedActual.isFavorited()
-            BreedModel{_ in }.updateBreedFavorite(breedId: breedActual.id,favorite: isFavorite)
+            model!.updateBreedFavorite(breedId: breedActual.id,favorite: isFavorite)
         }
     }
 }
