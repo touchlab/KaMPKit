@@ -21,7 +21,7 @@ Finally the shared directory holds the shared code. The shared directory is actu
   * commonTest
   
 Each of these directories has the same folder structure: the language type, then the package name.
-  i.e. "kotlin/co/touchlab/kampstarter/"
+  i.e. *"kotlin/co/touchlab/kampstarter/"*
 
 ## Libraries and Dependencies
 
