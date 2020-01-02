@@ -2,6 +2,7 @@
 
 TODO Walk through cloning app. If Android Studio or Intellij not installed, link to other doc.
 
+## Directories
 
 The KaMPStarter kit is broken up into three different directories: 
 * shared
