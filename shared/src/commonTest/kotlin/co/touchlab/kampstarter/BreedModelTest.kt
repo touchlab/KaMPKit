@@ -39,8 +39,8 @@ abstract class BreedModelTest {
     fun `Update Breed Favorite`() = runTest {
         model.getBreedsFromNetwork()
         val breedOld = dbHelper.selectAllItems().executeAsList().first()
-        model.updateBreedFavorite(breedOld.id,true)
-        val breedNew = dbHelper.selectItemById(breedOld.id).executeAsOne()
+        model.updateBreedFavorite(breedOld)
+        val breedNew = dbHelper.selectById(breedOld.id).executeAsOne()
         assertTrue(breedNew.isFavorited())
     }
 

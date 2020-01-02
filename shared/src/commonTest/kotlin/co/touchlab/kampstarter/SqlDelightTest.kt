@@ -14,8 +14,12 @@ abstract class SqlDelightTest {
 
     private lateinit var dbHelper: DatabaseHelper
 
+    suspend fun DatabaseHelper.insertBreed(name:String){
+        insertBreeds(listOf(name))
+    }
+
     @BeforeTest
-    fun setup(){
+    fun setup() = runTest{
         dbHelper = DatabaseHelper(testDbConnection())
         dbHelper.deleteAll()
         dbHelper.insertBreed("Beagle")
@@ -32,7 +36,7 @@ abstract class SqlDelightTest {
     fun `Select Item by Id Success`() = runTest {
         val breeds = dbHelper.selectAllItems().executeAsList()
         val firstBreed = breeds.first()
-        assertNotNull(dbHelper.selectItemById(firstBreed.id).executeAsOneOrNull(),
+        assertNotNull(dbHelper.selectById(firstBreed.id).executeAsOneOrNull(),
             "Could not retrieve Breed by Id")
     }
 
@@ -41,7 +45,7 @@ abstract class SqlDelightTest {
         val breeds = dbHelper.selectAllItems().executeAsList()
         val firstBreed = breeds.first()
         dbHelper.updateFavorite(firstBreed.id,true)
-        val newBreed = dbHelper.selectItemById(firstBreed.id).executeAsOneOrNull()
+        val newBreed = dbHelper.selectById(firstBreed.id).executeAsOneOrNull()
         assertNotNull(newBreed,
             "Could not retrieve Breed by Id")
         assertTrue(newBreed.isFavorited(),
