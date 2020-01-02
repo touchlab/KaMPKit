@@ -1,5 +1,7 @@
 package co.touchlab.kampstarter
 
+import co.touchlab.kampstarter.ktor.DogApiImpl
+import co.touchlab.kampstarter.ktor.KtorApi
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.dsl.KoinAppDeclaration
@@ -12,6 +14,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 
 val coreModule = module {
     single { DatabaseHelper(get()) }
+    single<KtorApi> {DogApiImpl()}
 }
 
 expect val platformModule: Module
