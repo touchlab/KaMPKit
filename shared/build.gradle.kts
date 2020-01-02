@@ -47,6 +47,12 @@ kotlin {
 
     sourceSets["commonTest"].dependencies {
         implementation(Deps.multiplatformSettingsTest)
+        implementation(Deps.SqlDelight.runtime)
+        implementation(Deps.KotlinTest.common)
+        implementation(Deps.KotlinTest.annotations)
+        implementation(Deps.Coroutines.jdk)
+        implementation(Deps.Coroutines.common)
+        implementation(Deps.Coroutines.test)
     }
 
     sourceSets["androidMain"].dependencies {
@@ -57,6 +63,17 @@ kotlin {
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.ktor.androidSerialization)
+    }
+
+    sourceSets["androidTest"].dependencies {
+        implementation(Deps.KotlinTest.jvm)
+        implementation(Deps.KotlinTest.junit)
+        implementation(Deps.Coroutines.jdk)
+        implementation(Deps.AndroidXTest.core)
+        implementation(Deps.AndroidXTest.junit)
+        implementation(Deps.AndroidXTest.runner)
+        implementation(Deps.AndroidXTest.rules)
+        implementation("org.robolectric:robolectric:4.0")
     }
 
     sourceSets["iosMain"].dependencies {
@@ -82,5 +99,19 @@ kotlin {
 sqldelight {
     database("KampstarterDb") {
         packageName = "co.touchlab.kampstarter.db"
+    }
+}
+
+val iOSTest: Task by tasks.creating {
+    val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
+    dependsOn("linkDebugTestIos")
+    group = JavaBasePlugin.VERIFICATION_GROUP
+    description = "Runs tests for target 'ios' on an iOS simulator"
+
+    doLast {
+        val binary = kotlin.targets.getByName<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>("ios").binaries.getTest("DEBUG").outputFile
+        exec {
+            commandLine("xcrun", "simctl", "spawn", "--standalone",device, binary.absolutePath)
+        }
     }
 }

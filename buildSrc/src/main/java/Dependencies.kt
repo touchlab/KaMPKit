@@ -34,11 +34,27 @@ object Deps {
     val koinCore = "co.touchlab:koin-core:${Versions.koin}"
     val xcodesync = "co.touchlab:kotlinxcodesync:${Versions.xcodesync}"
 
+
+    object AndroidXTest {
+        val core =  "androidx.test:core:${Versions.android_x}"
+        val junit =  "androidx.test.ext:junit:${Versions.android_x}"
+        val runner = "androidx.test:runner:${Versions.android_x}"
+        val rules = "androidx.test:rules:${Versions.android_x}"
+    }
+
+    object KotlinTest {
+        val common =      "org.jetbrains.kotlin:kotlin-test-common:${Versions.kotlin}"
+        val annotations = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.kotlin}"
+        val jvm =         "org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}"
+        val junit =       "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
+        val reflect =     "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
+    }
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
         val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
         val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+        val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
     object SqlDelight{
         val gradle =        "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
