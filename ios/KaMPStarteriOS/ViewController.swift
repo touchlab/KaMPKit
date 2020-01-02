@@ -70,8 +70,7 @@ class BreedCell: UITableViewCell {
     
     @IBAction func favoriteButtonPressed(_ sender: Any) {
         if let breedActual = breed {
-            let isFavorite = !breedActual.isFavorited()
-            model!.updateBreedFavorite(breedId: breedActual.id,favorite: isFavorite)
+            model!.updateBreedFavorite(breed: breedActual)
         }
     }
 }

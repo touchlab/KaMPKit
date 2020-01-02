@@ -3,18 +3,17 @@ package co.touchlab.kampstarter.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.touchlab.kampstarter.currentTimeMillis
+import co.touchlab.kampstarter.android.adapter.MainAdapter
 import co.touchlab.kampstarter.models.BreedModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.util.*
 
 @ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     companion object {
         val TAG = MainActivity::class.java.simpleName
     }
-    private lateinit var adapter:MainAdapter
+    private lateinit var adapter: MainAdapter
     private lateinit var model: BreedModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +25,8 @@ class MainActivity : AppCompatActivity() {
             adapter.submitList(it.allItems)
         }
 
-        adapter = MainAdapter(model)
+        adapter = MainAdapter(model::updateBreedFavorite)
+
         breed_list.adapter = adapter
         breed_list.layoutManager = LinearLayoutManager(this)
 
