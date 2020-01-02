@@ -64,9 +64,9 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
         }
     }
 
-    fun updateBreedFavorite(breedId:Long, favorite: Boolean){
+    fun updateBreedFavorite(breed:Breed){
         mainScope.launch {
-            dbHelper.updateFavorite(breedId, favorite)
+            dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
         }
     }
 }
