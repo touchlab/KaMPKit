@@ -33,15 +33,22 @@ Each part of the shared library can declare its own dependencies in these source
 Below is some information about some of the libraries used in the project.
 
 ### SqlDelight
-
 SqlDelight is a multiplatform SQL library that generates type-safe APIs from SQL Statements. Since it is a multiplatform library, it naturally uses code stored in commonMain. SQL statements are stored in the sqldelight directory, in .sq files.
 ex: "commonMain/sqldelight/co/touchlab/kampstarter/Table.sq"
+
+Even though the SQL queries and main bulk of the library are in the common code, there is some platform specific drivers required from Android and iOS in order to work correctly on each platform. These are the AndroidSqliteDriver and the NativeSqliteDriver (for iOS). These are passed in from platform specific code, in this case injected into the BreedModel.
+
 The APIs are stored in the build folder, and referenced from the DatabaseHelper (also in commonMain). Normally sql queries are called, and a result is given, but what if you want to get sql query as a flow? We've added Coroutine Extensions to the shared code, which adds the "asFlow" function that converts queries into flows. Behind the scenes this creates a Query Listener that when a query result has changed, emits the new value to the flow.
 
 If you have any more questions on SqlDelight, or want to know more you can find the project here: https://github.com/cashapp/sqldelight
 
 ### Ktor
-TODO Point out where Ktor call happens, and point to Ktor docs and/or tutorial.
+Ktor is a multiplatform networking library for building asynchronous clients. Again since it is a multiplatform library, it  uses code stored in commonMain, in this case "commonMain/../ktor/DogApiImpl.kt". Even though all of Ktors code is in commonMain, there are some platform specific dependencies needed in the build.gradle. 
+
+If you have any more questions on Ktor, or want to know more you can find the project here:
+https://ktor.io/
 
 ### Multiplatform Settings
-TODO Point out where multiplatform settings is being used. Link to those docs.
+Multiplatform settings really speaks for itself, it persists data by storing it in settings. It is being used in the BreedModel, and acts similarly to a HashMap or Dictionary. Much like SqlDelight the actual internals of the settings are platform specific, so the settings are passed in from the platform and all of the actual saving and loading is in the common code.
+
+If you have any more questions on Multiplatform Settings, or want to know more you can find the project here: https://github.com/russhwolf/multiplatform-settings
