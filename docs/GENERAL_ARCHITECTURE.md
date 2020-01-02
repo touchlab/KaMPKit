@@ -1,3 +1,22 @@
+# Architecture Overview
+
+This doc goes over the overall architecture of the app, the libraries usage and the locations of files and directories.
+
+## Overall Architecture
+
+The KaMPStarter kit, whether running in Android or iOS, starts with the platforms View (MainActivity / ViewController). There it creates the BreedModel, passes in a callback, and calls the BreedModel. The BreedModel is in the common MultiPlatform code.
+
+
+
+
+
+
+
+
+
+
+
+
 # Coroutines and Ktor
 
 The version of coroutines in the sample app are currently in development. Previous versions supported only single
