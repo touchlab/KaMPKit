@@ -3,7 +3,7 @@ package co.touchlab.kampstarter.models
 import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.currentTimeMillis
 import co.touchlab.kampstarter.db.Breed
-import co.touchlab.kampstarter.ktor.DogApiImpl
+import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kampstarter.sqldelight.asFlow
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
@@ -19,8 +19,11 @@ import org.koin.core.inject
 class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
+    private val ktorApi:KtorApi by inject()
 
-    private val DB_TIMESTAMP_KEY = "DbTimestampKey"
+    companion object {
+        internal val DB_TIMESTAMP_KEY = "DbTimestampKey"
+    }
 
     init {
         ensureNeverFrozen()
@@ -47,7 +50,7 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
         val currentTimeMS = currentTimeMillis()
         if(isBreedListStale(currentTimeMS)) {
             ktorScope.launch {
-                val breedResult = DogApiImpl.getJsonFromApi()
+                val breedResult = ktorApi.getJsonFromApi()
                 val breedList = breedResult.message.keys.toList()
                 insertBreedData(breedList)
                 settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
