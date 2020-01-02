@@ -15,8 +15,7 @@ import io.ktor.http.takeFrom
 import kotlinx.io.core.use
 import kotlin.native.concurrent.ThreadLocal
 
-@ThreadLocal
-object DogApiImpl : KtorApi {
+class DogApiImpl : KtorApi {
     private val client = HttpClient{
         install(JsonFeature) {
             serializer = KotlinxSerializer()
