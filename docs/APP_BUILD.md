@@ -1,8 +1,6 @@
 # Sample App Build
 
-TODO Walk through cloning app. If Android Studio or Intellij not installed, link to other doc.
-
-## Directories
+## Structure of the Project
 
 The KaMPStarter kit is broken up into three different directories: 
 * shared
