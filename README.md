@@ -1,6 +1,12 @@
 # KaMP Kit
 
-# What is KMP (Kotlin Multiplatform)?
+This github repo is the "KaMP Kit". The goal is to facilitate your evaluation of Kotlin Multiplatform. Our current focus in on native mobile specifically, but will expand to web, backend, and desktop platforms if useful in the future.
+
+## TL;DR
+
+If you are ready to start evaluating, you can skip the next few sections. Pick back up with the [Very Very Important Message](#very-very-important-message), and follow the roadmap from there.
+
+## What is KMP (Kotlin Multiplatform)?
 
 Kotlin is generally seen as a replacement JVM language, and by many as an “Android thing”. However, JetBrains and the 
 Kotlin team have much bigger goals in mind. The ultimate goal of “Kotlin” is a portable platform suitable for any project. 
@@ -18,7 +24,7 @@ Objective-C. Using a 3rd party plugin (*cough* by Touchlab *cough*) you can debu
 developers (soon to be “mobile developers”) can stick to the tools they currently use while learning Kotlin. 
 Integrating Kotlin is not an abrupt and dramatic (ie RISKY) change to your team’s development process.
 
-# What is this Kit?
+## What is this Kit?
 
 KMP is new tech, supporting many features and platforms, and has had rapid development over the past 2-3 years. As a 
 result, the documentation ecosystem right now can be difficult to navigate. The official Jetbrains docs cover a wide 
@@ -54,7 +60,7 @@ The “soft skills” info is focused around discussing KMP to your team and man
 everybody else will like it. This section will also evolve over time as more of the common concerns and pushback points 
 are addressed.
 
-# Why KMP?
+## Why KMP?
 
 The case for KMP is a longer discussion. I discuss it at some length in various talks (https://vimeo.com/371428809). 
 Over the past 2 years I’ve constructed a short definition of what we think separates KMP from other options:
@@ -86,16 +92,15 @@ the future isn’t that important if you can reduce the cost of being “wrong�
 # Very, Very Important Message!
 
 You have likely been skimming the last section, *but please read this carefully*. Because of the current KMP
- documentation situation, it is very important that you stick to curated info. That means this “Kit”, and possibly links 
- from people in the community who know what they’re talking about. *Google does not know what KMP docs are current*.
+ documentation situation, you must be very careful about which blog posts and samples you look at. Until you have something running, it is best to stick to just this kit, or links from developers familiar with the technology. *Google results for KMP will be conflicting and likely out of date. Be careful!*.
 
 **Stick to this kit until you have something running. If you start browsing other tutorials or docs while setting
  things 
 up, you can easily get confused.**
 
 Config settings and patterns have changed over the past year, so various blog posts and versions of documentation will
- be conflicting. That’s what makes a quick setup take hours or days.
-
+ be conflicting. Browsing other samples and tutorials will likely extend your startup time.
+ 
 **TL;DR ignore the rest of the world until your project builds.**
 
 # The Starter App
@@ -110,8 +115,9 @@ a very simple feature to demonstrate the libraries. Currently we are including:
 * Multiplatform-Settings - Simple data storage
 * Koin - Dependency Injection
 
-The project is also configured to allow Xcode debugging of Kotlin code, and there will be some optional additions. These 
-include analytics, crash reporting, and possibly other features as the app evolves.
+## Getting Started
+
+You first need to decide if you're going to clone the app directly or attempt to include shared code into your existing applications. 
 
 For simplicity, it would be better to clone this starter app and work with it directly for your evaluation. If you simply 
 clone this app and do not try to integrate it with your team’s production apps, you will be up and running in no time.
