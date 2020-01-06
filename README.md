@@ -91,29 +91,25 @@ the future isn’t that important if you can reduce the cost of being “wrong�
 
 # Very, Very Important Message!
 
-You have likely been skimming the last section, *but please read this carefully*. Because of the current KMP
- documentation situation, you must be very careful about which blog posts and samples you look at. Until you have something running, it is best to stick to just this kit, or links from developers familiar with the technology. *Google results for KMP will be conflicting and likely out of date. Be careful!*.
+You may have been skimming the intro sections, *but please read this part carefully*. Because of the current KMP
+ documentation situation, you must be very careful about which blog posts and samples you look at. Until you have something compiling and running, it is best to stick to just this kit, or links from developers familiar with the technology. *Google results for KMP will be conflicting and likely out of date. Be careful!*.
+ 
+Again... 
 
-**Stick to this kit until you have something running. If you start browsing other tutorials or docs while setting
- things 
-up, you can easily get confused.**
+**Stick to this kit until you have something running. It is easy to get confused.**
 
 Config settings and patterns have changed over the past year, so various blog posts and versions of documentation will
  be conflicting. Browsing other samples and tutorials will likely extend your startup time.
  
-**TL;DR ignore the rest of the world until your project builds.**
+# Getting Help
+
+You should create an account in the [Kotlin Slack](http://slack.kotlinlang.org/?_ga=2.90769053.684071413.1577996668-1257544081.1543638011). Look for the `multiplatform` and `kotlin-native` channels, and ping me directly (Kevin Galligan) if needed.
 
 # The Starter App
 
-The starter app is configured with some common libraries that many native mobile apps might use. We’ve also implemented 
-a very simple feature to demonstrate the libraries. Currently we are including:
+The central part of the "Kit" is the starter app. It includes a set of libraries that we use in our apps that provide for much of the architectural needs of a native mobile application. We've also included a simple set of features you can reference and build off of.
 
-* SQLDelight - Sqlite interaction library
-* Ktor - Networking
-* Coroutines - This includes the newer native mutlithreaded preview version
-* Stately - Concurrency support library
-* Multiplatform-Settings - Simple data storage
-* Koin - Dependency Injection
+The app gets dog breed info from an api and allows you to store it locally in a sqlite database. You can read more about it's general architecture and library usage [here](docs/APP_BUILD.md).
 
 ## Getting Started
 
