@@ -18,7 +18,7 @@ git clone https://github.com/touchlab/KaMPStarter.git
 ```
 1. Open the project in Android Studio/Intellij and wait for indexing to finish.
 1. Run the Android app in either the simulator or a phone. Show successful app screenshot.
-![](https://github.com/touchlab/KaMPStarter/blob/master/docs/Screenshots/kampScreenshotAndroid.png)
+![](https://github.com/touchlab/KaMPStarter/blob/ks/docs2/docs/Screenshots/kampScreenshotAndroid.png)
 1. Run gradle build, which builds the shared library.
 1. Open Xcode **workspace** project.
 1. Run the iOS app in either the simulator or a phone. Show successful app screenshot.
