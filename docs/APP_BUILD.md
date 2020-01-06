@@ -9,7 +9,7 @@ Before you build the app you will require these items:
 * Android SDK and Studio/Intellij
 * Xcode 11+ for the iOS build
 
-For more details, check out the iOS_Dev_Setup document [here](https://github.com/touchlab/KaMPStarter/blob/master/docs/IOS_DEV_SETUP.md)
+For more details, check out the iOS_Dev_Setup document [here](IOS_DEV_SETUP.md)
 
 ### Steps to Build
 1. Clone the project from github 
