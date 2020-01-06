@@ -119,7 +119,7 @@ The most important first step is to get the starter app building. From there, yo
 
 **iOS Developers!!!** If you are not familiar with building Android apps, there is some build environment you'll need to configure first. For Android developers, if you run into trouble, you may want to check this as well.
 
-[IOS_DEV_SETUP](IOS_DEV_SETUP.md)
+[IOS_DEV_SETUP](IOS_DEV_SETUP.html)
 
 ## 2 Clone and Build
 
