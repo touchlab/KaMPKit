@@ -145,8 +145,9 @@ Take a walk through the app's code and libraries included. Make changes, recompi
 
 If the app is building, it's a good time to take a break and get some background information.
 
-KMP Overview (to find)
-Mobile Dev with KMP (to find)
+**KMP Overview (to find)**
+
+**Mobile Dev with KMP (to find)**
 
 There's an important piece of the puzzle that you'll need to understand. Kotlin/Native's state and concurrency model is different than the JVM (which includes Android). In practice, if you're not writing custom concurrency logic, it's pretty simple, *but only if you understand it*. You must learn the basics.
 
