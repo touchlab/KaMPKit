@@ -101,3 +101,5 @@ them. This situation is exacerbated by the fact that often the engineer(s) evalu
 very little experience with iOS build tools.
 
 Understand that integrating anything new into a production build system can be tricky. 
+
+[IOS_PROJ_INTEGRATION](docs/IOS_PROJ_INTEGRATION.md)
