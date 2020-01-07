@@ -88,18 +88,10 @@ We cannot stress this enough. If you're going to build anything significant, you
 
 ### 5) To Integrate or Not To Integrate
 
-(Still TODO-ing this part...)
+As part of your evaluation, you'll need to decide if you're going to integrate KMP into existing apps. Some teams feel integrating with their production apps is a better demonstration of KMP's viability. While KMP's interop is great relative to other technologies, **integrating *anything* into a production app build process can be a difficult task**. Once integrated, development is generally smooth, but modifying production build systems can be a time consuming task.
 
-You first need to decide if you're going to clone the app directly or attempt to include shared code into your existing applications. 
+The Android side is somewhat more straightforward. Kotlin is the preffered language for Android, and the library can be integrated as just another module library.
 
-For simplicity, it would be better to clone this starter app and work with it directly for your evaluation. If you simply 
-clone this app and do not try to integrate it with your team’s production apps, you will be up and running in no time.
+For iOS, you can integrate with Cocoapods or by directly including the Xcode framework. If you are an Android developer without extensive iOS build experience, be aware that this is a risky option. Production build systems for any ecosystem tend to be complex. You'll almost certainly need to recruit somebody with experience maintaining your iOS build.
 
-However, the goal often is to prove that KMP will work well with your existing apps. Once configured, the process should 
-be smooth. However, production app build systems are often quite complex, with a lot of custom code written to support 
-them. This situation is exacerbated by the fact that often the engineer(s) evaluating KMP have an Android backgroud and 
-very little experience with iOS build tools.
-
-Understand that integrating anything new into a production build system can be tricky. 
-
-[IOS_PROJ_INTEGRATION](docs/IOS_PROJ_INTEGRATION.md)
+See [IOS_PROJ_INTEGRATION.md](docs/IOS_PROJ_INTEGRATION.md) for iOS integration information.
