@@ -10,14 +10,14 @@ Before you build the app you will require these items:
 For more details, check out the [IOS_DEV_SETUP](IOS_DEV_SETUP.md) document.
 
 ### 1) Clone the app
-Run the following on the command line 
+Run the following on the command line
 ```
 git clone https://github.com/touchlab/KaMPStarter.git
 ```
 
 ### 2) Build Android
 1. Open the project in Android Studio/IntelliJ and wait for indexing to finish.
-1. Make sure you see the run config for the Android app                               
+1. Make sure you see the run config for the Android app
 ![](runconfig.png)
 1. Run the Android app on either the Emulator or a phone. If the app builds correctly, you should see this:
 
@@ -25,7 +25,9 @@ git clone https://github.com/touchlab/KaMPStarter.git
 
 ### 3) Build iOS
 
-1. Run gradle build, which builds the shared library.
+1. Open a Terminal window or use the one at the bottom Android Studio/IntelliJ. Navigate to the project's root
+ directory (`KaMPStarter/` - not `KaMPStarter/ios/` - which is iOS project's root directory). Run the command
+  `./gradlew build` which will build the shared library.
 1. Open Xcode **workspace** project in the `ios/` folder: `KaMPStarteriOS.xcworkspace`.
 1. Run the iOS app on either the Simulator or a phone. If the app builds correctly, you should see this:
 
