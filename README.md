@@ -28,7 +28,11 @@ For a longer intro about what KMP is, why we like it, and more about the Kit's g
 
 ## Getting Help
 
-You should create an account in the [Kotlin Slack](http://slack.kotlinlang.org/?_ga=2.90769053.684071413.1577996668-1257544081.1543638011). Look for the `multiplatform` and `kotlin-native` channels, and ping me directly (Kevin Galligan) if needed.
+Please see the [CONTACT_US](CONTACT_US.md) page for the best ways to reach out directly if you're having issues
+ building the sapmle app. 
+
+You should also create an account in the [Kotlin Slack](http://slack.kotlinlang.org/). Look for the `multiplatform` and `kotlin-native` channels. You can also find various members
+ of the team hanging out there.
 
 # The Starter App
 
@@ -40,13 +44,13 @@ The app gets dog breed info from an api and allows you to store it locally in a 
 
 The most important first step is to get the starter app building. From there, you can make decisions about integrating KMP into other projects, but nothing will work if you can't get the basic app to build.
 
-### 1 Dev Environment and Build Setup
+### 1) Dev Environment and Build Setup
 
 **If you are primarily an iOS Developer** and you are not familiar with building Android apps, there is some build environment stuff you'll need to configure first. For Android developers, if you run into trouble, you may want to check this as well.
 
 [IOS_DEV_SETUP](docs/IOS_DEV_SETUP.md)
 
-### 2 Clone and Build
+### 2) Clone and Build
 
 Clone this repo
 
@@ -58,15 +62,15 @@ Then see the [APP_BUILD](docs/APP_BUILD.md) doc for more build instructions.
 
 ## Sanity Check
 
-At this point, you should be able to build Android and iOS apps. If you cannot build, you need to get help. This sample app is configured to run out of the box, so if it's not working, you have something wrong with your build setup or config. Please reach out to us or the Slack grould mentioned above.
+At this point, you should be able to build Android and iOS apps. **If you cannot build, you need to get help.** This sample app is configured to run out of the box, so if it's not working, you have something wrong with your build setup or config. Please [reach out to us](CONTACT_US.md) or the Slack group mentioned above.
 
-### 3 Walk Through App
+### 3) Walk Through App
 
 Take a walk through the app's code and libraries included. Make changes, recompile. See how it works.
 
 [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md)
 
-### 4 Background Education
+### 4) Background Education
 
 If the app is building, it's a good time to take a break and get some background information.
 
@@ -78,11 +82,13 @@ There's an important piece of the puzzle that you'll need to understand. Kotlin/
 
 [Practical Kotlin Native Concurrency](https://dev.to/touchlab/practical-kotlin-native-concurrency-ac7)
 
-We cannot stress this enough. If you're going to build anything significant, you need at least a working understanding of the concurrency model. (I would point out, same is true for new Android developers, so...)
+[Kotlinconf 2019: Kotlin Native Concurrency Explained](https://www.youtube.com/watch?v=oxQ6e1VeH4M)
 
-### 5 To Integrate or Not To Integrate
+We cannot stress this enough. If you're going to build anything significant, you need at least a working understanding of the concurrency model.
 
+### 5) To Integrate or Not To Integrate
 
+(Still TODO-ing this part...)
 
 You first need to decide if you're going to clone the app directly or attempt to include shared code into your existing applications. 
 
