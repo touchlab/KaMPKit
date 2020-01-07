@@ -4,23 +4,23 @@
 
 ***Welcome to the KaMP Kit!*** 
 
-This Github repo contains the docs and sample app that comprise the Kit.
+This Github repo contains the docs and sample app that comprise the Kotlin Multiplatform evaluation kit.
 
 ## Goal
 
-The goal of the KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, spend time with orgs looking at KMP and the primary stumbling block is just getting started.
+The goal of the KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMP, and have found that the **primary** stumbling block is simply getting started.
 
-This project, this "Kit", is designed to get you past that primary stumbling block. In our with with teams evaluating KMP, once they are set up, KMP is much more clear. Follow the steps here, and we'll get you there.
+This project, the "Kit", is designed to get you past that primary stumbling block. You should be able to set up your development environment, clone the repo, and have a running sample app very quickly. From there, you can focus on what you want to build.
 
 ## FYI
 
-We (Touchlab) are focused primarily on using KMP for native mobile code sharing. The sample app in this Kit currently is also. Our plan over time is to add some backend and web, but for today this is just native mobile (if you have a strong desire for other targets, please give feedback).
+We (Touchlab) are focused primarily on using KMP for native mobile development; i.e. Android and iOS. The sample app in this Kit currently is for native mobile. Backend and web samples will be added over time based on interest (let us know!)
 
 ## Very Important Message!!!
 
-This kit exists because the info you may find from Google about KMP is likely to be more confusing than helpful. To make sure you minimize the time spent trying to get started, it's important to ***stick to this kit exclusively until you get something running***. The sample project is set up to be run with minimal setup. If you run into issues just getting that to compile and run, it would be better to reach out to us so we can improve the docs than trying to fix the project based on other tutorials.
+This kit exists because the info you may find from Google about KMP is likely to be more confusing than helpful. To make sure you minimize the time spent trying to get started, it's important to ***stick to this kit exclusively until you get something running***. The sample project is designed to be run with minimal setup. If you run into issues building the sample project, please reach out directly so we can sort out your issue and improve our docs.
 
-Also, if you're an Android developer, it *might* be useful to find an interested iOS developer once you get to Xcode, but YMMV.
+Also, if you're an Android developer, it *might* be useful to find an interested iOS developer once you get to Xcode, depending on your experience and goals, but YMMV.
 
 ## About KMP and the "Kit"
 
