@@ -81,3 +81,17 @@ Documentation: https://github.com/russhwolf/multiplatform-settings
 Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/models/BreedModel.kt*
 
 Multiplatform settings really speaks for itself, it persists data by storing it in settings. It is being used in the BreedModel, and acts similarly to a `HashMap` or `Dictionary`. Much like SqlDelight the actual internals of the settings are platform specific, so the settings are passed in from the platform and all of the actual saving and loading is in the common code.
+
+
+
+### Koin
+Documentation: https://insert-koin.io/
+
+Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/Koin.kt*
+
+### Stately
+Documentation: https://github.com/touchlab/Stately
+
+Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/sqldelight/CoroutinesExtensions.kt*
+
+## Testing
