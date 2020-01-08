@@ -2,6 +2,18 @@
 
 This doc goes over the overall architecture of the app, the libraries usage and the locations of files and directories.
 
+* [Structure of the Project](#Structure-of-the-Project)
+* [Overall Architecture](#Overall-Architecture)
+* [Coroutines and Ktor](#Coroutines-and-Ktor)
+* [Libraries and Dependencies](#Libraries-and-Dependencies)
+  * [SqlDelight](#SqlDelight)
+  * [Ktor](#Ktor)
+  * [Multiplatform Settings](#Multiplatform-Settings)
+  * [Koin](#Koin)
+  * [Stately](#Stately)
+
+
+
 ## Structure of the Project
 
 The KaMPStarter kit is broken up into three different directories: 
@@ -38,7 +50,7 @@ In Short:
 
 You may be asking where the Multiplatform-settings comes in. When the BreedModel is told to get breeds from the network, it first checks to see if it's done a network request within the past hour. If it has then it decides not to update the breeds. 
 
-# Coroutines and Ktor
+## Coroutines and Ktor
 
 The version of coroutines in the sample app are currently in development. Previous versions supported only single
  threads on native, but this version supports crossing thread boundaries. However, because of the way the internals work
