@@ -6,6 +6,4 @@ actual fun <T> runTest(block: suspend () -> T) { runBlocking { block() } }
 
 class SqlDelightTestJvm : SqlDelightTest()
 
-class KtorTestJvm: KtorTest()
-
 class BreedModelTestJvm: BreedModelTest()

@@ -1,6 +1,8 @@
 package co.touchlab.kampstarter
 
+import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kampstarter.models.BreedModel
+import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.MockSettings
 import kotlin.test.*
 
@@ -48,4 +50,24 @@ abstract class BreedModelTest {
     fun breakdown(){
         TestingServiceRegistry.appEnd()
     }
+}
+
+class KtorApiMock : KtorApi {
+
+    var jsonRequested = false
+
+    override suspend fun getJsonFromApi(): BreedResult {
+        jsonRequested = true
+        val map = mutableMapOf<String,List<String>>()
+        map["appenzeller"] = listOf()
+        map["australian"] = listOf("shepherd")
+        return BreedResult(map as HashMap<String, List<String>>,"success")
+    }
+
+    override suspend fun setThingJson(value: String):Boolean {
+        return true
+    }
+
+
+
 }
