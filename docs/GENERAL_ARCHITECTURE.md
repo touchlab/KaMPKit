@@ -6,11 +6,11 @@ This doc goes over the overall architecture of the app, the libraries usage and 
 * [Overall Architecture](#Overall-Architecture)
 * [Coroutines and Ktor](#Coroutines-and-Ktor)
 * [Libraries and Dependencies](#Libraries-and-Dependencies)
-  * [SqlDelight](#SqlDelight)
-  * [Ktor](#Ktor)
-  * [Multiplatform Settings](#Multiplatform-Settings)
-  * [Koin](#Koin)
-  * [Stately](#Stately)
+  * [SqlDelight](#SqlDelight) - Database
+  * [Ktor](#Ktor) - Networking
+  * [Multiplatform Settings](#Multiplatform-Settings) - Settings
+  * [Koin](#Koin) - Dependency Injection
+  * [Stately](#Stately) - State Utility
 
 
 
