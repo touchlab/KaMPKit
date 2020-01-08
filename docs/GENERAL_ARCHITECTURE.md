@@ -2,6 +2,19 @@
 
 This doc goes over the overall architecture of the app, the libraries usage and the locations of files and directories.
 
+* [Structure of the Project](#Structure-of-the-Project)
+* [Overall Architecture](#Overall-Architecture)
+* [Coroutines and Ktor](#Coroutines-and-Ktor)
+* [Libraries and Dependencies](#Libraries-and-Dependencies)
+  * [SqlDelight](#SqlDelight) - Database
+  * [Ktor](#Ktor) - Networking
+  * [Multiplatform Settings](#Multiplatform-Settings) - Settings
+  * [Koin](#Koin) - Dependency Injection
+  * [Stately](#Stately) - State Utility
+* [Testing](#Testing)
+
+
+
 ## Structure of the Project
 
 The KaMPStarter kit is broken up into three different directories: 
@@ -38,7 +51,7 @@ In Short:
 
 You may be asking where the Multiplatform-settings comes in. When the BreedModel is told to get breeds from the network, it first checks to see if it's done a network request within the past hour. If it has then it decides not to update the breeds. 
 
-# Coroutines and Ktor
+## Coroutines and Ktor
 
 The version of coroutines in the sample app are currently in development. Previous versions supported only single
  threads on native, but this version supports crossing thread boundaries. However, because of the way the internals work
@@ -51,6 +64,12 @@ If you're familiar with Android projects then you know that the apps dependencie
 Each part of the shared library can declare its own dependencies in these source sets. For example the multiplatform-settings library is only declared in **commonMain** and **commonTest**, since the library uses gradle metadata to pull in the correct platform specific dependencies. Other libraries that may require platform specific variables, such as SqlDelight, require platform specific dependencies. With this example you can see that **commonMain** has `sqlDelight.runtime` and **androidMain** has `sqlDelight.driverAndroid`.
 
 Below is some information about some of the libraries used in the project.
+
+* [SqlDelight](#SqlDelight)
+* [Ktor](#Ktor)
+* [Multiplatform Settings](#Multiplatform-Settings)
+* [Koin](#Koin)
+* [Stately](#Stately)
 
 ### SqlDelight
 Documentation: https://github.com/cashapp/sqldelight
@@ -81,3 +100,39 @@ Documentation: https://github.com/russhwolf/multiplatform-settings
 Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/models/BreedModel.kt*
 
 Multiplatform settings really speaks for itself, it persists data by storing it in settings. It is being used in the BreedModel, and acts similarly to a `HashMap` or `Dictionary`. Much like SqlDelight the actual internals of the settings are platform specific, so the settings are passed in from the platform and all of the actual saving and loading is in the common code.
+
+### Koin
+Documentation: https://insert-koin.io/
+
+Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/Koin.kt*
+
+Koin is a lightweight dependency injection framework. It is being used in the *koin.kt* file to inject modules into the BreedModel. You can tell which variables are being injected in the BreedModel because they are being set using `by inject()`. In our implementation we are separating our injections into two different modules: the `coreModule` and the `platformModule`. As you can guess the platformModule contains injections requiring platform specific implementations (SqlDelight and Multiplatform Settings). The coreModule contains the Ktor implementation and the Database Helper, which actually takes from the platformModule.
+
+`
+Note: We are using a custom build of Koin for KaMP Kit. This forked version keeps the koin modules and definitions in the main thread, and prevents the modules from freezing. Also note that you can freeze these definitions, but by default they will not be frozen.
+`
+
+### Stately
+Documentation: https://github.com/touchlab/Stately
+
+Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/sqldelight/CoroutinesExtensions.kt*
+
+Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made by us!). Basically Kotlin/Native has a fairly different model of concurrency, and has different rules to reduce concurrency related issues. Objects in K/N can become `frozen`, which basically means they are immutable but can be shared across all threads. 
+
+**Note:** Threading in K/N can be hard to grasp at first and this document isn't the place to go into it
+in detail. If you want to find out more about thread check out this post 
+[here](https://medium.com/@kpgalligan/kotlin-native-stranger-threads-ep-2-208523d63c8f)
+
+In KaMPKit we are using `ensureNeverFrozen()` in the BreedModel and DogApiImpl because we don't want them frozen. What this does is it throws an exception if the object ever becomes frozen, so that we can know exactly when it freezes and don't run into issues later on. The other place we are using Stately is `freeze` in the CoroutinesExtensions. Here we are freezing the channel so that it can offer new Query Results on any thread. Since we are not modifying the channel, simply offering with it, this will not cause frozen issues.
+
+## Testing
+
+With KMP you can share tests between platforms, however since we have platform specific drivers and dependencies our tests need to be run by the individual platforms. In short we can share tests but we have to run them separately as android and iOS. The shared tests can be found in the commonTest directory, while the implementations can be found in the androidTest and iosTest directories, specifically with *PlatformTest.kt*. The PlatformTests contain classes for testing that are subclassing the abstract shared tests, so that they can be run in their platform. The function `runTest` is also implemented in PlatformTest, which makes sure the tests are running synchronously.
+
+You may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that is actually handled in the `TestingServiceRegistry` object in commonTest. In order to pass the platform specific libraries(SqlDelight requires a platform driver) into the BreedModel for testing we need to inject them. Before the tests in BreedModelTest we are calling `appStart` and passing in our libraries to be injected and starting Koin. Then after the tests we are stopping Koin by calling `appEnd`. Note that the actual `testDbConnection()` implementations are in the *SqlDelightTest.kt* files.
+
+#### Android
+On the android side we are using AndroidRunner to run the tests because we want to use android specifics in our tests. If you're not using android specific methods then you don't need to use AndroidRunner. The android tests are run can be easily run in Android Studio by right clicking on the shared folder, and selecting `Run 'All Tests'`.
+
+#### iOS
+The iOS side can seem a bit tricky at first, but is just as simple to test. The tests are not run from XCode, instead we've created an `iOSTest` task in the shared build.gradle.kts(located in the shared folder). You can simply go to the terminal and run `./gradlew iosTest`.
