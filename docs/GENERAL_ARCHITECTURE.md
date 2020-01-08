@@ -82,12 +82,12 @@ Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/models/BreedMod
 
 Multiplatform settings really speaks for itself, it persists data by storing it in settings. It is being used in the BreedModel, and acts similarly to a `HashMap` or `Dictionary`. Much like SqlDelight the actual internals of the settings are platform specific, so the settings are passed in from the platform and all of the actual saving and loading is in the common code.
 
-
-
 ### Koin
 Documentation: https://insert-koin.io/
 
 Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/Koin.kt*
+
+Koin is a lightweight dependency injection framework. It is being used in the *koin.kt* file to inject modules into the BreedModel. You can tell which variables are being injected in the BreedModel because they are being set using `by inject()`. In our implementation we are separating our injections into two different modules: the `coreModule` and the `platformModule`. As you can guess the platformModule contains injections requiring platform specific implementations (SqlDelight and Multiplatform Settings). The coreModule contains the Ktor implementation and the Database Helper, which actually takes from the platformModule.
 
 ### Stately
 Documentation: https://github.com/touchlab/Stately
