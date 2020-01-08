@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		02DADDE22D3E22346969F0D2 /* Pods_KaMPStarteriOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C53F211127B87EFD39C9D65 /* Pods_KaMPStarteriOS.framework */; };
-		63E50F5B23AD6C7F00E458F3 /* CancellableContinuation.kt in Resources */ = {isa = PBXBuildFile; fileRef = 63E50F5923AD6C7F00E458F3 /* CancellableContinuation.kt */; };
-		63E50F5C23AD6C7F00E458F3 /* CancellableContinuationImpl.kt in Resources */ = {isa = PBXBuildFile; fileRef = 63E50F5A23AD6C7F00E458F3 /* CancellableContinuationImpl.kt */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0423AA94BF0055F7C3 /* ViewController.swift */; };
 		F1465F0823AA94BF0055F7C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0623AA94BF0055F7C3 /* Main.storyboard */; };
@@ -37,22 +35,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		093A2237AC6CBF45A1D16BEE /* ExampleUnitTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = ExampleUnitTest.kt; path = ../shared/src/androidTest/java/co/touchlab/kampstarter/ExampleUnitTest.kt; sourceTree = "<group>"; };
+		093A2237AC6CBF45A1D16BEE /* ExampleUnitTest.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = ExampleUnitTest.kt; path = ../shared/src/androidTest/java/co/touchlab/kampstarter/ExampleUnitTest.kt; sourceTree = "<group>"; };
 		1C53F211127B87EFD39C9D65 /* Pods_KaMPStarteriOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KaMPStarteriOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D8B833EBF721694C8D055A0 /* ServiceRegistry.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = ServiceRegistry.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/ServiceRegistry.kt; sourceTree = "<group>"; };
+		1D8B833EBF721694C8D055A0 /* ServiceRegistry.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = ServiceRegistry.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/ServiceRegistry.kt; sourceTree = "<group>"; };
 		1DFCC00C8DAA719770A18D1A /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
-		3FDE597836BBF5D75310C250 /* DatabaseHelper.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = DatabaseHelper.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/DatabaseHelper.kt; sourceTree = "<group>"; };
-		568BD68B9CE4333E971CC240 /* PlatformAndroid.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = PlatformAndroid.kt; path = ../shared/src/androidMain/kotlin/co/touchlab/kampstarter/PlatformAndroid.kt; sourceTree = "<group>"; };
-		607A72A70F34B88818A0B62D /* PlatformiOS.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = PlatformiOS.kt; path = ../shared/src/iosMain/kotlin/co/touchlab/kampstarter/PlatformiOS.kt; sourceTree = "<group>"; };
-		63E50F5923AD6C7F00E458F3 /* CancellableContinuation.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CancellableContinuation.kt; path = "../../../kotlinx.coroutines/kotlinx-coroutines-core/common/src/CancellableContinuation.kt"; sourceTree = "<group>"; };
-		63E50F5A23AD6C7F00E458F3 /* CancellableContinuationImpl.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CancellableContinuationImpl.kt; path = "../../../kotlinx.coroutines/kotlinx-coroutines-core/common/src/CancellableContinuationImpl.kt"; sourceTree = "<group>"; };
-		89FA98AD31B7AA33C88550E3 /* Breed.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = Breed.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/jsondata/Breed.kt; sourceTree = "<group>"; };
-		99BF5A54AE1C1458F919DF18 /* KtorDogApiImpl.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = KtorDogApiImpl.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/ktor/KtorDogApiImpl.kt; sourceTree = "<group>"; };
-		9E4B5A064DC30D7639C44AEC /* SampleModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = SampleModel.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/SampleModel.kt; sourceTree = "<group>"; };
-		A36EB1CAAB8ECE66A86EEB3F /* BreedModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = BreedModel.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BreedModel.kt; sourceTree = "<group>"; };
-		C4BAA0CCB0363B847EFB4458 /* KtorApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = KtorApi.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/ktor/KtorApi.kt; sourceTree = "<group>"; };
-		CC9CEBFA7A1AEC2B4358EF80 /* Platform.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = Platform.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/Platform.kt; sourceTree = "<group>"; };
-		D52432F6ECA5F2D60BC5FEDB /* BaseModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = BaseModel.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BaseModel.kt; sourceTree = "<group>"; };
+		3FDE597836BBF5D75310C250 /* DatabaseHelper.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = DatabaseHelper.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/DatabaseHelper.kt; sourceTree = "<group>"; };
+		568BD68B9CE4333E971CC240 /* PlatformAndroid.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PlatformAndroid.kt; path = ../shared/src/androidMain/kotlin/co/touchlab/kampstarter/PlatformAndroid.kt; sourceTree = "<group>"; };
+		607A72A70F34B88818A0B62D /* PlatformiOS.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = PlatformiOS.kt; path = ../shared/src/iosMain/kotlin/co/touchlab/kampstarter/PlatformiOS.kt; sourceTree = "<group>"; };
+		89FA98AD31B7AA33C88550E3 /* Breed.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Breed.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/jsondata/Breed.kt; sourceTree = "<group>"; };
+		99BF5A54AE1C1458F919DF18 /* KtorDogApiImpl.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = KtorDogApiImpl.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/ktor/KtorDogApiImpl.kt; sourceTree = "<group>"; };
+		9E4B5A064DC30D7639C44AEC /* SampleModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = SampleModel.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/SampleModel.kt; sourceTree = "<group>"; };
+		A36EB1CAAB8ECE66A86EEB3F /* BreedModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BreedModel.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BreedModel.kt; sourceTree = "<group>"; };
+		C4BAA0CCB0363B847EFB4458 /* KtorApi.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = KtorApi.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/ktor/KtorApi.kt; sourceTree = "<group>"; };
+		CC9CEBFA7A1AEC2B4358EF80 /* Platform.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Platform.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/Platform.kt; sourceTree = "<group>"; };
+		D52432F6ECA5F2D60BC5FEDB /* BaseModel.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = BaseModel.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BaseModel.kt; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* KaMPStarteriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPStarteriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0423AA94BF0055F7C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +62,7 @@
 		F1465F1E23AA94C00055F7C3 /* KaMPStarteriOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaMPStarteriOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F2223AA94C00055F7C3 /* KaMPStarteriOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaMPStarteriOSUITests.swift; sourceTree = "<group>"; };
 		F1465F2423AA94C00055F7C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8BFA3B3C4E68F2F696B04FD /* CoroutinesExtensions.kt */ = {isa = PBXFileReference; includeInIndex = 1; name = CoroutinesExtensions.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/sqldelight/CoroutinesExtensions.kt; sourceTree = "<group>"; };
+		F8BFA3B3C4E68F2F696B04FD /* CoroutinesExtensions.kt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = CoroutinesExtensions.kt; path = ../shared/src/commonMain/kotlin/co/touchlab/kampstarter/sqldelight/CoroutinesExtensions.kt; sourceTree = "<group>"; };
 		F9C259C83C689DF8F4602F38 /* Pods-KaMPStarteriOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -219,15 +215,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		63E50F5823AD6C4B00E458F3 /* ManualKotlin */ = {
-			isa = PBXGroup;
-			children = (
-				63E50F5923AD6C7F00E458F3 /* CancellableContinuation.kt */,
-				63E50F5A23AD6C7F00E458F3 /* CancellableContinuationImpl.kt */,
-			);
-			path = ManualKotlin;
-			sourceTree = "<group>";
-		};
 		6CF74E1A2FCFD8DF3E2DE33F /* co */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,7 +332,6 @@
 		F1465EF423AA94BF0055F7C3 = {
 			isa = PBXGroup;
 			children = (
-				63E50F5823AD6C4B00E458F3 /* ManualKotlin */,
 				F1465EFF23AA94BF0055F7C3 /* KaMPStarteriOS */,
 				F1465F1623AA94C00055F7C3 /* KaMPStarteriOSTests */,
 				F1465F2123AA94C00055F7C3 /* KaMPStarteriOSUITests */,
@@ -542,9 +528,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63E50F5B23AD6C7F00E458F3 /* CancellableContinuation.kt in Resources */,
 				F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */,
-				63E50F5C23AD6C7F00E458F3 /* CancellableContinuationImpl.kt in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
 				F1465F0823AA94BF0055F7C3 /* Main.storyboard in Resources */,
 			);
