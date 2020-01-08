@@ -52,6 +52,12 @@ Each part of the shared library can declare its own dependencies in these source
 
 Below is some information about some of the libraries used in the project.
 
+* [SqlDelight](#SqlDelight)
+* [Ktor](#Ktor)
+* [Multiplatform Settings](#Multiplatform-Settings)
+* [Koin](#Koin)
+* [Stately](#Stately)
+
 ### SqlDelight
 Documentation: https://github.com/cashapp/sqldelight
 
