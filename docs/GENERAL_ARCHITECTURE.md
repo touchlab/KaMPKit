@@ -108,9 +108,9 @@ Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/Koin.kt*
 
 Koin is a lightweight dependency injection framework. It is being used in the *koin.kt* file to inject modules into the BreedModel. You can tell which variables are being injected in the BreedModel because they are being set using `by inject()`. In our implementation we are separating our injections into two different modules: the `coreModule` and the `platformModule`. As you can guess the platformModule contains injections requiring platform specific implementations (SqlDelight and Multiplatform Settings). The coreModule contains the Ktor implementation and the Database Helper, which actually takes from the platformModule.
 
-```
+`
 Note: We are using a custom build of Koin for KaMP Kit. This forked version keeps the koin modules and definitions in the main thread, and prevents the modules from freezing. Also note that you can freeze these definitions, but by default they will not be frozen.
-```
+`
 
 ### Stately
 Documentation: https://github.com/touchlab/Stately
