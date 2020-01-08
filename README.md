@@ -71,6 +71,8 @@ Take a walk through the app's code and libraries included. Make changes, recompi
 
 [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md)
 
+For information on how to debug kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc
+
 ### 4) Background Education
 
 If the app is building, it's a good time to take a break and get some background information.
