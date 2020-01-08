@@ -69,14 +69,6 @@ sdk.dir=/Users/[YOUR_USER_NAME]/Library/Android/sdk
  To learn more about Cocoapods and how to use them, check out [their official guide](https://guides.cocoapods.org/using/index.html).
 
 
-**Q:** iOS was working fine. Then I made some changes in the `commonMain` and/or `iosMain` Kotlin code. Now the Xcode
- project won't compile anymore and I'm getting "unresolved reference" errors.
-
-**A:** Building the Kotlin code is what generates the Objective-C framework. Rebuild the shared library in Android
- Studio/IntelliJ, then go back to Xcode and try to build again. Swift should now be able to recognize the changes
-  made to your Kotlin code.
-
-
 **Q:** The Xcode project won't compile. On the `import shared` line in Swift, I'm getting a compilation error "no
  such module: 'shared'".
 
