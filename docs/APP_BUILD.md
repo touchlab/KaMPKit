@@ -35,7 +35,7 @@ git clone https://github.com/touchlab/KaMPStarter.git
 
 ## Did that work?
 
-Congratulations! You have a functional sample app to start working from. Head back to the [README.md](../README.md#2)-Clone-and-Build) for next steps.
+Congratulations! You have a functional sample app to start working from. Head back to the [README.md](../README.md#Sanity-Check) for next steps.
 
 ### Common Issues
 
