@@ -11,6 +11,7 @@ This doc goes over the overall architecture of the app, the libraries usage and 
   * [Multiplatform Settings](#Multiplatform-Settings) - Settings
   * [Koin](#Koin) - Dependency Injection
   * [Stately](#Stately) - State Utility
+* [Testing](#Testing)
 
 
 
@@ -115,3 +116,13 @@ Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/sqldelight/Coro
 Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made by us!). Basically Kotlin/Native has a fairly different model of concurrency, and has different rules to reduce concurrency related issues. Objects in K/N can become `frozen`, which basically means they are immutable but can be shared across all threads. In KaMPKit we are using `ensureNeverFrozen()` in the BreedModel and DogApiImpl because we don't want them frozen. What this does is it throws an exception if the object ever becomes frozen, so that we can know exactly when it freezes and don't run into issues later on. The other place we are using Stately is `freeze` in the CoroutinesExtensions. Here we are freezing the channel so that it can offer new Query Results on any thread. Since we are not modifying the channel, simply offering with it, this will not cause frozen issues.
 
 ## Testing
+
+With KMP you can share tests between platforms, however since we have platform specific drivers and dependencies our tests need to be run by the individual platforms. In short we can share tests but we have to run them separately as android and iOS. The shared can be found in the commonTest directory, while the implementations can be found in the androidTest and iosTest directories, specifically with *PlatformTest.kt*. The `PlatformTest` implementations are subclassing the abstract shared tests, so that they can be run in their platform. The function `runTest` is also implemented in PlatformTest, which makes sure the tests are running synchronously.
+
+You may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that is actually handled in the `TestingServiceRegistry` object in commonTest. Before the tests in BreedModelTest we are calling `appStart` and passing in our libraries to be injected and starting Koin. Then after the tests we are stopping Koin by calling `appEnd`.
+
+#### Android
+On the android side we are using AndroidRunner to run the tests because we want to use android specifics in our tests. If you're not using android specific methods then you don't need to use AndroidRunner. The android tests are run can be easily run in Android Studio by right clicking on the shared folder, and selecting `Run 'All Tests'`.
+
+#### iOS
+The iOS side can seem a bit tricky at first, but is just as simple to test. The tests are not run from XCode, instead we've created an `iOSTest` task in the shared build.gradle.kts(located in the shared folder). You can simply go to the terminal and run `./gradlew iosTest`.
