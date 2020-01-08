@@ -24,7 +24,8 @@ Also, if you're an Android developer, it *might* be useful to find an interested
 
 ## About KMP and the "Kit"
 
-For a longer intro about what KMP is, why we like it, and more about the Kit's genesis, see [KMP: What and Why?](WHAT_AND_WHY.md). For the remainder of this doc, we're going to focus on getting started.
+For a longer intro about what KMP is, why we like it, and more about the Kit's genesis, see [KMP: What and Why
+?](docs/WHAT_AND_WHY.md). For the remainder of this doc, we're going to focus on getting started.
 
 ## Getting Help
 
