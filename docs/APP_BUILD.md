@@ -4,10 +4,10 @@
 Before you build the app you will require these items:
 
 * JVM 8
-* Android SDK and Studio/IntelliJ
-* Xcode 11+ for the iOS build
+* Android SDK and Android Studio or IntelliJ
+* Mac with Xcode 11+ for the iOS build
 
-For more details, check out the [IOS_DEV_SETUP](IOS_DEV_SETUP.md) document.
+For more details, check out the [DEV_SETUP](DEV_SETUP.md) document.
 
 ### 1) Clone the app
 Run the following on the command line
@@ -39,7 +39,7 @@ Congratulations! You have a functional sample app to start working from. Head ba
 
 ### Common Issues
 
-See [TROUBLESHOOTING](docs/TROUBLESHOOTING.md)
+See [TROUBLESHOOTING](TROUBLESHOOTING.md)
 
 ### Contact
 

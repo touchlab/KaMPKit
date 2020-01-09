@@ -1,4 +1,4 @@
-# Setup for iOS Developers
+# KMP Development Environment Setup
 
 Not assuming anything if you're an iOS developer. You may not have the Android/JVM setup necessary to run everything. 
 
@@ -51,7 +51,7 @@ You'll have a large choice of devices to choose from, but we recommend you insta
 
 ## Next Steps
 
-You're KMP development environment is ready now. Your next step should be to go to the [APP_BUILD.md doc](https://github.com/touchlab/KaMPStarter/blob/master/docs/APP_BUILD.md), which focuses on building this project, as well as running it on both Android and iOS.
+You're KMP development environment is ready now. Your next step should be to go to the [APP_BUILD.md doc](APP_BUILD.md), which focuses on building this project, as well as running it on both Android and iOS.
 
 
 
