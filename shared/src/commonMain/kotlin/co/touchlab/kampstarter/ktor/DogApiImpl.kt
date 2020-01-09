@@ -30,16 +30,6 @@ class DogApiImpl : KtorApi {
             dogs("api/breeds/list/all")
         }
 
-
-    override suspend fun setThingJson(value: String): Boolean = client.submitForm<HttpResponse>(
-        formParameters = Parameters.build {
-            append("value", value)
-        }, block = {
-            dogs("")
-        }).use {
-        it.status.isSuccess()
-    }
-
     private fun HttpRequestBuilder.dogs(path: String) {
         url {
             takeFrom("https://dog.ceo/")
