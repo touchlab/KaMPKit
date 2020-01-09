@@ -13,8 +13,6 @@ This doc goes over the overall architecture of the app, the libraries usage and 
   * [Stately](#Stately) - State Utility
 * [Testing](#Testing)
 
-
-
 ## Structure of the Project
 
 The KaMPStarter kit is broken up into three different directories: 
@@ -34,10 +32,10 @@ Finally the shared directory holds the shared code. The shared directory is actu
   * androidTest
   * iosTest
   * commonTest
-  
+
 Each of these directories has the same folder structure: the language type, then the package name.
   i.e. *"kotlin/co/touchlab/kampstarter/"*
-  
+
 ## Overall Architecture
 
 The KaMPStarter kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). There it creates the `BreedModel`, passes in a callback, and calls the BreedModel. The BreedModel is in the common MultiPlatform code, so we are already in the common code. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
@@ -51,11 +49,22 @@ In Short:
 
 You may be asking where the Multiplatform-settings comes in. When the BreedModel is told to get breeds from the network, it first checks to see if it's done a network request within the past hour. If it has then it decides not to update the breeds. 
 
-## Coroutines and Ktor
+## Kotlinx Coroutines
 
-The version of coroutines in the sample app are currently in development. Previous versions supported only single
- threads on native, but this version supports crossing thread boundaries. However, because of the way the internals work
- to use ktor, you'll need a separate scope. See [`ktorScope`](https://github.com/touchlab/KaMPStarter/blob/0473a6ebdd5e1293864cce107fa4af2089e48ef0/shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BaseModel.kt#L13) in `BaseModel.kt`. This is a temporary workaround.
+Because of Kotlin/Native's unique threading and state model, coroutines support has been limited to a single thread until very recently. Back in November, a [pull request](https://github.com/Kotlin/kotlinx.coroutines/pull/1648) arrived in the kotlinx.coroutines repo with support for multithreaded coroutines. That is still a PR and is still experimental, but we've included that version in the sample app because it'll be live in the near future. As an alternative, many applications are using [CoroutineWorker](https://github.com/Autodesk/coroutineworker) in production.
+
+So, to be clear, ***we're using a version of [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) that is still in development***. In our experience it works well, and will likely be merged into the main repo soon, so it makes sense to learn that version.
+
+### *... but Ktor*
+
+Ktor on iOS was designed to work with the single-threaded version of coroutines. We're using that version with the experimental coroutines. We've found a bug that we're reporting to Jetbrains. The current workaround is to have one scope for Ktor, and another for everything else.
+
+```kotlin
+internal val mainScope = MainScope(Dispatchers.Main)
+internal val ktorScope = MainScope(Dispatchers.Main)
+```
+
+See [BaseModel.kt](https://github.com/touchlab/KaMPStarter/blob/master/shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BaseModel.kt#L11)
 
 ## Libraries and Dependencies
 

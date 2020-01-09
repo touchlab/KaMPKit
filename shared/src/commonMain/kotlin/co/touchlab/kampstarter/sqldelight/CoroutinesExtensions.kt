@@ -14,7 +14,12 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.jvm.JvmName
 import kotlin.jvm.JvmOverloads
 
-/** Turns this [Query] into a [Flow] which emits whenever the underlying result set changes. */
+/**
+ * Turns this [Query] into a [Flow] which emits whenever the underlying result set changes.
+ *
+ * Note: We copied this from the sqldelight repo because we're using the new native coroutines draft version.
+ * When that is live, we'll be using the official sqldelight version.
+ */
 @JvmName("toFlow")
 fun <T : Any> Query<T>.asFlow(): Flow<Query<T>> = flow {
     emit(this@asFlow)

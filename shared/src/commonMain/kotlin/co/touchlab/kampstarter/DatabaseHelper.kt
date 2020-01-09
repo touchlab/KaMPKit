@@ -24,9 +24,10 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
         }
     }
 
-    suspend fun selectById(id: Long): Query<Breed> = withContext(Dispatchers.Default){ dbRef.tableQueries.selectById(id)}
+    suspend fun selectById(id: Long): Query<Breed> =
+        withContext(Dispatchers.Default) { dbRef.tableQueries.selectById(id) }
 
-    suspend fun deleteAll() = withContext(Dispatchers.Default){
+    suspend fun deleteAll() = withContext(Dispatchers.Default) {
         dbRef.tableQueries.deleteAll()
     }
 
