@@ -7,7 +7,7 @@ Before you build the app you will require these items:
 * Android SDK and Android Studio or IntelliJ
 * Mac with Xcode 11+ for the iOS build
 
-For more details, check out the [DEV_SETUP](DEV_SETUP.md) document.
+For more details, check out the [DETAILED_DEV_SETUP](DETAILED_DEV_SETUP.md) document.
 
 ### 1) Clone the app
 Run the following on the command line
@@ -17,7 +17,7 @@ git clone https://github.com/touchlab/KaMPStarter.git
 
 ### 2) Build Android
 1. Open the project in Android Studio/IntelliJ and wait for indexing to finish.
-1. Make sure you see the run config for the Android app
+1. Make sure you see the run config for the Android app                    
 ![](runconfig.png)
 1. Run the Android app on either the Emulator or a phone. If the app builds correctly, you should see this:
 
