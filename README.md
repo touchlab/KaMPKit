@@ -148,4 +148,4 @@ We talked to a few teams early on who got to do a "hack week" with KMP. A common
 
 We have made KMP the focus of Touchlab. We had possibly the first KMP* app published in the iOS App Store, and have extensive experience in building libraries and the Kotlin platform, including contributions to Kotlin/Native itself. We can establish and accelerate your adoption of shared Kotlin code. See [touchlab.co](https://touchlab.co) for more info.
 
-![Touchlab](tlspace.png)
+[![Touchlab](tl2.png)](https://touchlab.co)
