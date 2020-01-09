@@ -39,7 +39,7 @@ Congratulations! You have a functional sample app to start working from. Head ba
 
 ### Common Issues
 
-One of the first things to check if you have an issue is the `local.properties` file. Make sure that the sdk.dir variable is pointing to your Android SDK location.
+See [TROUBLESHOOTING](TROUBLESHOOTING.md)
 
 ### Contact
 
