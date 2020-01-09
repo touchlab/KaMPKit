@@ -8,7 +8,7 @@ import kotlinx.coroutines.Job
 import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
-open class BaseModel: KoinComponent {
+open class BaseModel : KoinComponent {
     internal val mainScope = MainScope(Dispatchers.Main)
     internal val ktorScope = MainScope(Dispatchers.Main)
 
@@ -18,7 +18,7 @@ open class BaseModel: KoinComponent {
     }
 }
 
-internal class MainScope(private val mainContext: CoroutineContext): CoroutineScope {
+internal class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
