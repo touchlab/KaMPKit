@@ -46,7 +46,6 @@ abstract class BreedModelTest {
 }
 
 class KtorApiMock : KtorApi {
-
     var jsonRequested = false
 
     override suspend fun getJsonFromApi(): BreedResult {
@@ -56,11 +55,4 @@ class KtorApiMock : KtorApi {
         map["australian"] = listOf("shepherd")
         return BreedResult(map as HashMap<String, List<String>>,"success")
     }
-
-    override suspend fun setThingJson(value: String):Boolean {
-        return true
-    }
-
-
-
 }

@@ -51,7 +51,7 @@ You will need the following:
 * Intellij Kotlin plugin with 1.3.61 support
 * Mac with Xcode 11+ for the iOS build
 
-We would highly recommend installing Intellij 2019.3.1 and using that until your local build is working. The KMP integration and tooling is generally further ahead in Intellij.
+We would highly recommend installing [Intellij 2019.3.1](https://www.jetbrains.com/idea/download/#section=mac) and using that until your local build is working. The KMP integration and tooling is generally further ahead in Intellij.
 
 Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
@@ -72,8 +72,6 @@ At this point, you should be able to build Android and iOS apps. **If you cannot
 Take a walk through the app's code and libraries. Make changes, recompile. See how it works.
 
 [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md)
-
-For information on how to debug kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc
 
 ## 4) Background Education
 
@@ -106,6 +104,10 @@ We should also point out, the version of coroutines we're using in native is sti
 ### "Selling" KMP
 
 *Coming soon. How to pitch to other team members and "management", who may be skeptical.*
+
+### Xcode Debugging
+
+For information on how to debug kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc. 
 
 ## 5) Integrating 'shared' With Existing Apps
 
