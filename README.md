@@ -42,27 +42,22 @@ You should also create an account in the [Kotlin Slack](http://slack.kotlinlang.
 
 The central part of the "Kit" is the starter app. It includes a set of libraries that we use in our apps that provide for much of the architectural needs of a native mobile application. We've also included a simple set of features you can use as a reference when adding your features.
 
-## Dev Environment and Build Setup
+## 1) Dev Environment and Build Setup
 
-### KMP and Android Environment
+You will need the following:
 
-You'll need a JVM and a recent version of Intellij or Android Studio. See [IOS_DEV_SETUP](IOS_DEV_SETUP.md) for details.
+* JVM 8
+* Android SDK and the latest stable Android Studio or IntelliJ
+* Intellij Kotlin plugin with 1.3.61 support
+* Mac with Xcode 11+ for the iOS build
 
-**Note:** *IOS_DEV_SETUP is written for an iOS developer who may have no JVM configured and no Jetbrains tooling experience. Android developers will likely be ready to build.*
+We would highly recommend installing Intellij 2019.3.1 and using that until your local build is working. The KMP integration and tooling is generally further ahead in Intellij.
 
-### iOS Development Environment
+Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
-Install Xcode 11+
+## 2) Clone and Build
 
-## Clone and Build
-
-### Clone this repo
-
-```
-git clone https://github.com/touchlab/KaMPStarter.git
-```
-
-See [APP_BUILD](docs/APP_BUILD.md) for detailed build instructions.
+See [APP_BUILD](docs/APP_BUILD.md) for detailed build instructions. By the end of that doc you should be able to build and run both Android and iOS apps.
 
 ---
 
@@ -72,7 +67,7 @@ At this point, you should be able to build Android and iOS apps. **If you cannot
 
 ---
 
-## Walk Through App
+## 3) Walk Through App
 
 Take a walk through the app's code and libraries. Make changes, recompile. See how it works.
 
@@ -80,7 +75,7 @@ Take a walk through the app's code and libraries. Make changes, recompile. See h
 
 For information on how to debug kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc
 
-## Background Education
+## 4) Background Education
 
 If the app is building, it's a good time to take a break and get some background information.
 
@@ -110,16 +105,9 @@ Kotlin/Native's state and concurrency model is different than the JVM (which inc
 
 *Coming soon. How to pitch to other team members and "management", who may be skeptical.*
 
-## Troubleshooting
+## 5) Integrating 'shared' With Existing Apps
 
-[TROUBLESHOOTING](docs/TROUBLESHOOTING.md) - We'll be growing this file over time, with your help. Please make sure
-to document any issues you run into and [let us know](CONTACT_US.md). 
-
----
-
-## Integrating 'shared' With Existing Apps
-
-As part of your evaluation, you'll need to decide if you're going to integrate KMP into existing apps. Some teams feel integrating with their production apps is a better demonstration of KMP's viability. While KMP's interop is great relative to other technologies, **integrating *anything* into a production app build process can be a difficult task**. Once integrated, development is generally smooth, but modifying production build systems can be a time consuming task.
+As part of your evaluation, you'll need to decide if you're going to integrate KMP into existing apps. Some teams feel integrating with their production apps is a better demonstration of KMP's viability. While KMP's interop is great, relative to other technologies, **integrating *anything* into a production app build process can be a difficult task**. Once integrated, development is generally smooth, but modifying production build systems can be a time consuming task.
 
 ### Android
 
@@ -132,6 +120,15 @@ The iOS integration process is relatively new and has been iterating fast. Be pr
 You can integrate with Cocoapods, or by directly including the Xcode framework. If you are an Android developer without extensive iOS build experience, be aware that this is a risky option. Production build systems, for any ecosystem, tend to be complex. You'll almost certainly need to recruit somebody with experience maintaining your iOS build.
 
 See [IOS_PROJ_INTEGRATION.md](docs/IOS_PROJ_INTEGRATION.md) for iOS integration information.
+
+If you are attempting to integrate your KMP project with a production iOS application, please let us know what issues you run into and reach out with questions if stuck. This is an ongoing area of improvement for the KMP platform and we'd like to help make this as smooth as possible.
+
+---
+
+## Troubleshooting
+
+[TROUBLESHOOTING](docs/TROUBLESHOOTING.md) - We'll be growing this file over time, with your help. Please make sure
+to document any issues you run into and [let us know](CONTACT_US.md). 
 
 ---
 
