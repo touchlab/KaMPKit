@@ -14,7 +14,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 
 val coreModule = module {
     single { DatabaseHelper(get()) }
-    single<KtorApi> {DogApiImpl()}
+    single<KtorApi> { DogApiImpl() }
 }
 
 expect val platformModule: Module

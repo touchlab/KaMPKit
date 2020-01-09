@@ -16,10 +16,10 @@ import kotlinx.coroutines.launch
 import org.koin.core.inject
 
 @ExperimentalCoroutinesApi
-class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
+class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit) : BaseModel() {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
-    private val ktorApi:KtorApi by inject()
+    private val ktorApi: KtorApi by inject()
 
     companion object {
         internal val DB_TIMESTAMP_KEY = "DbTimestampKey"
@@ -29,7 +29,7 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
         ensureNeverFrozen()
         mainScope.launch {
             dbHelper.selectAllItems().asFlow()
-                .map {q ->
+                .map { q ->
                     val itemList = q.executeAsList()
                     ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
                 }
@@ -41,14 +41,14 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
     }
 
     fun getBreedsFromNetwork() {
-        fun isBreedListStale(currentTimeMS:Long) : Boolean{
+        fun isBreedListStale(currentTimeMS: Long): Boolean {
             val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
             val oneHourMS = 60 * 60 * 1000
             return (lastDownloadTimeMS + oneHourMS < currentTimeMS)
         }
 
         val currentTimeMS = currentTimeMillis()
-        if(isBreedListStale(currentTimeMS)) {
+        if (isBreedListStale(currentTimeMS)) {
             ktorScope.launch {
                 val breedResult = ktorApi.getJsonFromApi()
                 val breedList = breedResult.message.keys.toList()
@@ -58,17 +58,17 @@ class BreedModel(private val viewUpdate:(ItemDataSummary)->Unit): BaseModel(){
         }
     }
 
-    private fun insertBreedData(breeds: List<String>){
+    private fun insertBreedData(breeds: List<String>) {
         mainScope.launch {
             dbHelper.insertBreeds(breeds)
         }
     }
 
-    fun updateBreedFavorite(breed:Breed){
+    fun updateBreedFavorite(breed: Breed) {
         mainScope.launch {
             dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
         }
     }
 }
 
-data class ItemDataSummary(val longestItem:Breed?, val allItems:List<Breed>)
+data class ItemDataSummary(val longestItem: Breed?, val allItems: List<Breed>)
