@@ -101,6 +101,8 @@ Kotlin/Native's state and concurrency model is different than the JVM (which inc
 
 **We cannot stress this enough. If you're going to build anything significant, you need at least a basic understanding of the concurrency model.**
 
+We should also point out, the version of coroutines we're using in native is still a preview release. We discuss that in the docs linked above, and more detail in [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md#Kotlinx-Coroutines).
+
 ### "Selling" KMP
 
 *Coming soon. How to pitch to other team members and "management", who may be skeptical.*
