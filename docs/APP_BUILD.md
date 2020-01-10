@@ -25,9 +25,10 @@ git clone https://github.com/touchlab/KaMPStarter.git
 
 ### 3) Build iOS
 
-1. Open a Terminal window or use the one at the bottom Android Studio/IntelliJ. Navigate to the project's root
- directory (`KaMPStarter/` - not `KaMPStarter/ios/` - which is iOS project's root directory). Run the command
-  `./gradlew build` which will build the shared library.
+1. [Optional] Run gradle build. This isn't necessary however it can sometimes be easier to interpret the errors when viewing from the command line.
+   1. Open a Terminal window or use the one at the bottom Android Studio/IntelliJ. 
+   1. Navigate to the project's root directory (`KaMPStarter/` - not `KaMPStarter/ios/` - which is iOS project's root directory). 
+   1. Run the command `./gradlew build` which will build the shared library.
 1. Open Xcode **workspace** project in the `ios/` folder: `KaMPStarteriOS.xcworkspace`.
 1. Run the iOS app on either the Simulator or a phone. If the app builds correctly, you should see this:
 
