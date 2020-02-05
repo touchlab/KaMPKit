@@ -34,9 +34,11 @@ Comprehensive guides, advanced tutorials, or generally support for fixing anythi
 
 ## Getting Help
 
-For support during setup and evaluation, see [CONTACT_US](CONTACT_US.md).
+KaMP Kit support can be found in the Kotlin Community slack. Look for the `kampkit-support` channel.
 
-You should also create an account in the [Kotlin Slack](http://slack.kotlinlang.org/). Look for the `multiplatform` and `kotlin-native` channels. 
+To join the Kotlin Community slack, [request access here](http://slack.kotlinlang.org/)
+
+For direct assistance, please [reach out to TouchLab](https://go.touchlab.co/contactkamp) to discuss support options.
 
 # The Starter App
 
@@ -133,6 +135,12 @@ If you are attempting to integrate your KMP project with a production iOS applic
 
 [TROUBLESHOOTING](docs/TROUBLESHOOTING.md) - We'll be growing this file over time, with your help. Please make sure
 to document any issues you run into and [let us know](CONTACT_US.md). 
+
+## More To Come!
+
+KaMP Kit is just the beginning. Our hope is that after KaMP Kit you’ll have a better sense of what a possible KMP implementation might look like.
+
+Register for our upcoming webinar, [“Next Steps with Kotlin Multiplatform”](https://go.touchlab.co/KaMP-Kit-GitHub-Webinar-Registration) and learn how other orgs are implementing KMP. You’ll also have the chance to ask questions and troubleshoot with us!
 
 ---
 
