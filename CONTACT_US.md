@@ -1,5 +1,7 @@
 # Contact Us
 
-KaMP Kit is currently in preview. For any support with the KaMP Kit you should check the touchlab slack. If you're not in the slack then you can ask for support at [info@touchlab.co](mailto:info@touchlab.co)
+KaMP Kit support can be found in the Kotlin Community slack. Look for the `kampkit-support` channel.
 
-Also feel free to create issues in github!
+To join the Kotlin Community slack, [request access here](http://slack.kotlinlang.org/)
+
+For direct assistance, please [reach out to TouchLab](https://go.touchlab.co/contactkamp) to discuss support options.
