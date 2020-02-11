@@ -53,7 +53,10 @@ You will need the following:
 * Intellij Kotlin plugin with 1.3.61 support
 * Mac with Xcode 11+ for the iOS build
 
-We would highly recommend installing [Intellij 2019.3.1](https://www.jetbrains.com/idea/download/#section=mac) and using that until your local build is working. The KMP integration and tooling is generally further ahead in Intellij.
+### Important Note (Feb 11)
+
+KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6 Release Candidate, or newer. Android Studio 3.5.3 may not
+properly resolved everything in gradle.
 
 Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
