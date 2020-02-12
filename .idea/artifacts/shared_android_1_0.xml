@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="shared-android-1.0">
-    <output-path>$PROJECT_DIR$/shared/build/libs</output-path>
-    <root id="archive" name="shared-android-1.0.jar">
-      <element id="module-output" name="KaMP_Starter.shared.androidMain" />
-    </root>
-  </artifact>
-</component>
