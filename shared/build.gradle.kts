@@ -21,7 +21,13 @@ android {
 
 kotlin {
     android()
-    ios()
+    //Revert to just ios() when gradle plugin can properly resolve it
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
+    if(onPhone){
+        iosArm64("ios")
+    }else{
+        iosX64("ios")
+    }
 
     version = "1.0"
 
@@ -97,12 +103,12 @@ sqldelight {
 
 val iOSTest: Task by tasks.creating {
     val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-    dependsOn("linkDebugTestIosX64")
+    dependsOn("linkDebugTestIos")
     group = JavaBasePlugin.VERIFICATION_GROUP
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        val binary = kotlin.targets.getByName<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>("iosX64").binaries.getTest("DEBUG").outputFile
+        val binary = kotlin.targets.getByName<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>("ios").binaries.getTest("DEBUG").outputFile
         exec {
             commandLine("xcrun", "simctl", "spawn", "--standalone",device, binary.absolutePath)
         }
