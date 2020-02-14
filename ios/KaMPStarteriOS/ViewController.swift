@@ -21,11 +21,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         breedTableView.delegate = self
         breedTableView.dataSource = self
 
-        model = BreedModel(){summary in
+        model = BreedModel(viewUpdate: {summary in
             print("Summary: \(summary)")
             self.data = summary.allItems
             self.breedTableView.reloadData()
-        }
+        },errorUpdate: { errorMessage in
+            let alertController = UIAlertController(title: "error", message: errorMessage, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+            self.present(alertController, animated: true, completion: nil)
+        })
         
         //We check for stalk data in this method
         model!.getBreedsFromNetwork()
