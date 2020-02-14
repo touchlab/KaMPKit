@@ -24,6 +24,7 @@ object Versions {
 
 object Deps {
     val app_compat_x = "androidx.appcompat:appcompat:${Versions.android_x}"
+    val material_x = "com.google.android.material:material:${Versions.android_x}"
     val core_ktx = "androidx.core:core-ktx:${Versions.android_x}"
     val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"

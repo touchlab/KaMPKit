@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.touchlab.kampstarter.android.adapter.MainAdapter
 import co.touchlab.kampstarter.models.BreedModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -20,10 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        model = BreedModel {
-            print(it)
-            adapter.submitList(it.allItems)
-        }
+        model = BreedModel(viewUpdate = { itemData ->
+            print(itemData)
+            adapter.submitList(itemData.allItems)
+        },errorUpdate = { errorMessage ->
+            Snackbar.make(breed_list, errorMessage, Snackbar.LENGTH_SHORT).show()
+        })
 
         adapter = MainAdapter(model::updateBreedFavorite)
 
