@@ -4,7 +4,7 @@ import co.touchlab.kampstarter.printThrowable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
@@ -22,7 +22,7 @@ internal class MainScope(private val mainContext: CoroutineContext) : CoroutineS
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
-    internal val job = Job()
+    internal val job = SupervisorJob()
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         showError(throwable)
     }
