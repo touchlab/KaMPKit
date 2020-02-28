@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 import org.koin.core.inject
 
 @ExperimentalCoroutinesApi
-class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit) : BaseModel() {
+class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
+                 private val errorUpdate: (String) -> Unit) : BaseModel() {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
@@ -50,10 +51,14 @@ class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit) : BaseModel(
         val currentTimeMS = currentTimeMillis()
         if (isBreedListStale(currentTimeMS)) {
             ktorScope.launch {
-                val breedResult = ktorApi.getJsonFromApi()
-                val breedList = breedResult.message.keys.toList()
-                insertBreedData(breedList)
-                settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
+                try {
+                    val breedResult = ktorApi.getJsonFromApi()
+                    val breedList = breedResult.message.keys.toList()
+                    insertBreedData(breedList)
+                    settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
+                } catch (e:Exception){
+                    errorUpdate("Unable to download breed list")
+                }
             }
         }
     }
