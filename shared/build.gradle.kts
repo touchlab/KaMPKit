@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
@@ -28,6 +29,7 @@ kotlin {
     }else{
         iosX64("ios")
     }
+    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs += "-Xobjc-generics"
 
     version = "1.0"
 
@@ -108,7 +110,7 @@ val iOSTest: Task by tasks.creating {
     description = "Runs tests for target 'ios' on an iOS simulator"
 
     doLast {
-        val binary = kotlin.targets.getByName<org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget>("ios").binaries.getTest("DEBUG").outputFile
+        val binary = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getTest("DEBUG").outputFile
         exec {
             commandLine("xcrun", "simctl", "spawn", "--standalone",device, binary.absolutePath)
         }
