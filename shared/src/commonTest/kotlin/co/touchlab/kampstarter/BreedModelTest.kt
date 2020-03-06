@@ -17,9 +17,11 @@ abstract class BreedModelTest {
     fun setup(){
         TestingServiceRegistry.appStart(dbHelper,settings,ktorApi)
 
-        model = BreedModel{
-
-        }
+        model = BreedModel(viewUpdate = { _ ->
+            // TODO: Test callback invocation
+        }, errorUpdate = { _ ->
+            // TODO: Test callback invocation
+        })
     }
 
     @Test
