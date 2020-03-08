@@ -13,14 +13,16 @@ abstract class BreedModelTest {
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
+    private var errorString: String? = null
+
     @BeforeTest
     fun setup(){
         TestingServiceRegistry.appStart(dbHelper,settings,ktorApi)
 
         model = BreedModel(viewUpdate = { _ ->
             // TODO: Test callback invocation
-        }, errorUpdate = { _ ->
-            // TODO: Test callback invocation
+        }, errorUpdate = { s ->
+            errorString = s
         })
     }
 
@@ -41,6 +43,13 @@ abstract class BreedModelTest {
         assertTrue(breedNew.isFavorited())
     }
 
+    @Test
+    fun `Should notify error update callback on exception`() = runTest {
+        ktorApi.thowOnRequest = true
+        model.getBreedsFromNetwork()
+        assertNotNull(errorString)
+    }
+
     @AfterTest
     fun breakdown(){
         TestingServiceRegistry.appEnd()
@@ -49,8 +58,13 @@ abstract class BreedModelTest {
 
 class KtorApiMock : KtorApi {
     var jsonRequested = false
+    var thowOnRequest = false
 
     override suspend fun getJsonFromApi(): BreedResult {
+        if (thowOnRequest) {
+            throw Exception()
+        }
+
         jsonRequested = true
         val map = mutableMapOf<String,List<String>>()
         map["appenzeller"] = listOf()
