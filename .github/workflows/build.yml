@@ -22,10 +22,6 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-
-    # Validate that we're using a known gradle wrapper
-    - name: Gradle Wrapper Validation
-      uses: gradle/wrapper-validation-action@v1
       
     # Builds kotlin project and runs unit tests
     - name: Run unit tests
