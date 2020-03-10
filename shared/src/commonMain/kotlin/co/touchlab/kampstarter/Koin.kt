@@ -10,6 +10,7 @@ import org.koin.dsl.module
 fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
     modules(platformModule, coreModule)
+    println("build my PR please")
 }
 
 val coreModule = module {
