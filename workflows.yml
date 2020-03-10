@@ -1,0 +1,34 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Triggers the workflow on push or pull request events but only for the master branch. Ignores docs changes.
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+    - 'docs/**'
+    - '*.md'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+    - 'docs/**'
+    - '*.md'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+
+    # Validate that we're using a known gradle wrapper
+    - name: Gradle Wrapper Validation
+      uses: gradle/wrapper-validation-action@v1
+      
+    # Builds kotlin project and runs unit tests
+    - name: Run unit tests
+      run: ./gradlew build check
+
+    
