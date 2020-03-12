@@ -2,8 +2,10 @@ package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kampstarter.models.BreedModel
+import co.touchlab.kampstarter.models.ItemDataSummary
 import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.MockSettings
+import kotlinx.coroutines.*
 import kotlin.test.*
 
 abstract class BreedModelTest {
@@ -13,14 +15,15 @@ abstract class BreedModelTest {
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
+    private var itemDataSummary: ItemDataSummary? = null
     private var errorString: String? = null
 
     @BeforeTest
     fun setup(){
         TestingServiceRegistry.appStart(dbHelper,settings,ktorApi)
 
-        model = BreedModel(viewUpdate = { _ ->
-            // TODO: Test callback invocation
+        model = BreedModel(viewUpdate = { summary ->
+            itemDataSummary = summary;
         }, errorUpdate = { s ->
             errorString = s
         })
@@ -48,6 +51,13 @@ abstract class BreedModelTest {
         ktorApi.thowOnRequest = true
         model.getBreedsFromNetwork()
         assertNotNull(errorString)
+    }
+
+    @Test
+    fun `Should notify view update callback on summary available`() = runTestWithFlow {
+        ktorApi.thowOnRequest = false
+        model.getBreedsFromNetwork()
+        assertNotNull(itemDataSummary)
     }
 
     @AfterTest

@@ -9,6 +9,7 @@ import kotlin.test.assertTrue
 expect fun testDbConnection(): SqlDriver
 
 expect fun <T> runTest(block: suspend () -> T)
+expect fun <T> runTestWithFlow(block: suspend () -> T)
 
 abstract class SqlDelightTest {
 
