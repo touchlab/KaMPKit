@@ -1,0 +1,27 @@
+name: iOS
+
+# Triggers the workflow on push or pull request events but only for the master branch. Ignores docs changes.
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build iOS project
+        run: |
+          xcodebuild -sdk iphonesimulator13.2 -configuration Debug \
+          -workspace ios/KaMPStarteriOS.xcworkspace -scheme KaMPStarteriOS \
+          build CODE_SIGNING_ALLOWED=NO
+

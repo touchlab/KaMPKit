@@ -1,3 +1,5 @@
+![Android](https://github.com/touchlab/KaMPKit/workflows/Android/badge.svg?branch=master) ![iOS](https://github.com/touchlab/KaMPKit/workflows/iOS/badge.svg?branch=master)
+
 # KaMP Kit
 
 ![KaMP Kit Image](kampkit.png)

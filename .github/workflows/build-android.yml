@@ -1,0 +1,24 @@
+name: Android
+
+# Triggers the workflow on push or pull request events but only for the master branch. Ignores docs changes.
+on:
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+  pull_request:
+    branches: [ master ]
+    paths-ignore:
+      - 'docs/**'
+      - '*.md'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # Builds Android project and runs unit tests
+      - name: Gradle build
+        run: ./gradlew build check
