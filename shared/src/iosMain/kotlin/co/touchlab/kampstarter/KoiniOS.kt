@@ -8,6 +8,6 @@ import org.koin.dsl.module
 
 fun initKoin() = initKoin{}
 actual val platformModule = module {
-    single<SqlDriver> { NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb") }
     single { AppleSettings.Factory().create("KAMPSTARTER_SETTINGS") }
+    single<SqlDriver> { NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb") }
 }
