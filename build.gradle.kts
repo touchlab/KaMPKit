@@ -3,8 +3,8 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath(Deps.android_gradle_plugin)
