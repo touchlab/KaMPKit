@@ -18,7 +18,7 @@ object Versions {
     val coroutines = "1.3.3-native-mt"
     val koin = "3.0.0-alpha-8"
     val serialization = "0.14.0"
-    val xcodesync = "0.2"
+    val cocoapodsext = "0.6"
 
 }
 
@@ -33,8 +33,7 @@ object Deps {
     val multiplatformSettings =  "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val koinCore = "org.koin:koin-core:${Versions.koin}"
-    val xcodesync = "co.touchlab:kotlinxcodesync:${Versions.xcodesync}"
-
+    val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
 
     object AndroidXTest {
         val core =  "androidx.test:core:${Versions.android_x}"

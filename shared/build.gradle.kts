@@ -2,11 +2,10 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
+    id("co.touchlab.native.cocoapods")
     id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
-    id("co.touchlab.kotlinxcodesync")
 }
 
 android {
@@ -29,9 +28,10 @@ kotlin {
     }else{
         iosX64("ios")
     }
-    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs += "-Xobjc-generics"
+    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
+        listOf("-Xobjc-generics", "-Xg0")
 
-    version = "1.0"
+    version = "1.1"
 
     sourceSets["commonMain"].dependencies {
         implementation(kotlin("stdlib-common", Versions.kotlin))
@@ -86,14 +86,10 @@ kotlin {
         implementation(Deps.ktor.iosSerialization)
     }
 
-    cocoapods {
+    cocoapodsext {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPStarter"
-    }
-
-    xcodeSync {
-        projectPath = "../ios/KaMPStarteriOS.xcodeproj"
-        target = "KaMPStarteriOS"
+        isStatic = false
     }
 }
 
