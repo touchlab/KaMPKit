@@ -6,7 +6,7 @@ import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.MockSettings
 import kotlin.test.*
 
-abstract class BreedModelTest {
+internal abstract class BreedModelTest {
 
     private lateinit var model:BreedModel
     private var dbHelper = DatabaseHelper(testDbConnection())

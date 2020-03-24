@@ -23,7 +23,7 @@ class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
     private val ktorApi: KtorApi by inject()
 
     companion object {
-        internal val DB_TIMESTAMP_KEY = "DbTimestampKey"
+        const val DB_TIMESTAMP_KEY = "DbTimestampKey"
     }
 
     init {

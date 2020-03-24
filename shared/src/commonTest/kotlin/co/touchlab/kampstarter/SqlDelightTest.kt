@@ -6,15 +6,15 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-expect fun testDbConnection(): SqlDriver
+internal expect fun testDbConnection(): SqlDriver
 
-expect fun <T> runTest(block: suspend () -> T)
+internal expect fun <T> runTest(block: suspend () -> T)
 
-abstract class SqlDelightTest {
+internal abstract class SqlDelightTest {
 
     private lateinit var dbHelper: DatabaseHelper
 
-    suspend fun DatabaseHelper.insertBreed(name:String){
+    private suspend fun DatabaseHelper.insertBreed(name:String){
         insertBreeds(listOf(name))
     }
 

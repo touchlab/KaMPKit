@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 class DatabaseHelper(private val sqlDriver: SqlDriver) {
     private val dbRef: KampstarterDb = KampstarterDb(sqlDriver)
 
-    internal fun dbClear() {
+    fun dbClear() {
         sqlDriver.close()
     }
 
@@ -37,4 +37,4 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
 }
 
 fun Breed.isFavorited(): Boolean = this.favorite != 0L
-fun Boolean.toLong(): Long = if (this) 1L else 0L
+internal fun Boolean.toLong(): Long = if (this) 1L else 0L
