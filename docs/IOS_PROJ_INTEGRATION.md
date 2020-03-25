@@ -1,12 +1,33 @@
 # Integrating with Existing iOS Projects
 
-There are two primary ways to add a KMP library to your existing iOS project: with or without Cocoapods. Because of
- its simplicity and ease-of-use, we recommend that you use Cocoapods.
+There are two primary ways to add a KMP library to your existing iOS project: with or without Cocoapods. Cocoapods is the much simpler method of adding your library. By generating a file in gradle you can easily insert your library into your iOS project without worrying about build phases or targets. It's simple and ease-of-use, and we recommend that you use Cocoapods. 
 
  If you don't want to use Cocoapods to add a KMP library to your iOS project, then you can follow the steps in [this
   guide](https://play.kotlinlang.org/hands-on/Targeting%20iOS%20and%20Android%20with%20Kotlin%20Multiplatform/01_Introduction) from Jetbrains about how to add the library to your iOS project manually.
 
 If you don't have Cocoapods installed, then follow the instructions in their [official installation guide](https://guides.cocoapods.org/using/getting-started.html).
+
+## Cocoapods Overview
+
+Explaining all of cocoapods is not within the scope of this document, however a basic introduction could be helpful in understanding how to integrate Kotlin Native into your iOS Project. In short, cocoapods is a dependency manager which uses a `Podfile` to reference a list of dependencies, or `pods`, that are to be injected. Each `pod` has a reference spec document, or a `podspec`, which details the pods name, version, source, and other information. By using cocoapods, we can reference our shared library and have it directly injected into the iOS Project. 
+
+
+## Cocoapods gradle Integration
+
+Starting with 1.3.30, gradle has added an integration that allows the Kotlin Native library to be referenced as a Cocoapods dependency (We are using this integration in the KaMP Kit and we recommend this method when using cocoapods). The integration adds a gradle task that generates a `podspec` that includes everything needed to be referenced by cocoapods. We are using the available cocoapods code block to customize our podspec, which is located in the `shared/build.gradle`.
+
+```
+cocoapods {
+    summary = "Common library for the KaMP starter kit"
+    homepage = "https://github.com/touchlab/KaMPStarter"
+    isStatic = false
+}
+```
+Note that you need to apply the `org.jetbrains.kotlin.native.cocoapods` plugin. 
+
+To generate the podspec, run the `podspec` command, or `./gradlew podspec`. This wil generate the podspec in the root library folder. 
+
+For more detailed information about the integration, [see more here](https://kotlinlang.org/docs/reference/native/cocoapods.html)
 
 
 ## Create Podfile
