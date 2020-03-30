@@ -14,7 +14,7 @@ Explaining all of cocoapods is not within the scope of this document, however a 
 
 ## Cocoapods gradle Integration
 
-Starting with 1.3.30, gradle has added an integration that allows the Kotlin Native library to be referenced as a Cocoapods dependency (We are using this integration in the KaMP Kit and we recommend this method when using cocoapods). The integration adds a gradle task that generates a `podspec` that includes everything needed to be referenced by cocoapods. We are using the available cocoapods code block to customize our podspec, which is located in the `shared/build.gradle`.
+Starting with 1.3.30, Kotlin has provided a gradle plugin which allows the Kotlin Native library to be referenced as a Cocoapods dependency (As of [#76](https://github.com/touchlab/KaMPKit/pull/76), KampKit uses a Touchlab fork of this plugin to expand it's capabilities). The integration adds a gradle task that generates a `podspec` that includes everything needed to be referenced by cocoapods. We are using the available cocoapods code block to customize our podspec, which is located in the `shared/build.gradle`.
 
 ```
 cocoapods {
