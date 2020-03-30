@@ -7,9 +7,7 @@ import co.touchlab.kampstarter.android.adapter.MainAdapter
 import co.touchlab.kampstarter.models.BreedModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     companion object {
         val TAG = MainActivity::class.java.simpleName
