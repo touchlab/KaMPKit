@@ -28,7 +28,7 @@ internal class MainScope(private val mainContext: CoroutineContext) : CoroutineS
     }
 
     //TODO: Some way of exposing this to the caller without trapping a reference and freezing it.
-    fun showError(t: Throwable) {
+    private fun showError(t: Throwable) {
         printThrowable(t)
     }
 }

@@ -12,7 +12,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     modules(platformModule, coreModule)
 }
 
-val coreModule = module {
+private val coreModule = module {
     single { DatabaseHelper(get()) }
     single<KtorApi> { DogApiImpl() }
 }

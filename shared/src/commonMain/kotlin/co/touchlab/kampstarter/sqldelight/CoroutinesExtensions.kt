@@ -21,7 +21,7 @@ import kotlin.jvm.JvmOverloads
  * When that is live, we'll be using the official sqldelight version.
  */
 @JvmName("toFlow")
-fun <T : Any> Query<T>.asFlow(): Flow<Query<T>> = flow {
+internal fun <T : Any> Query<T>.asFlow(): Flow<Query<T>> = flow {
     emit(this@asFlow)
 
     val channel = Channel<Unit>(CONFLATED).freeze()
@@ -43,7 +43,7 @@ fun <T : Any> Query<T>.asFlow(): Flow<Query<T>> = flow {
 }
 
 @JvmOverloads
-fun <T : Any> Flow<Query<T>>.mapToOne(
+internal fun <T : Any> Flow<Query<T>>.mapToOne(
     context: CoroutineContext = Dispatchers.Default
 ): Flow<T> = map {
     withContext(context) {
@@ -52,7 +52,7 @@ fun <T : Any> Flow<Query<T>>.mapToOne(
 }
 
 @JvmOverloads
-fun <T : Any> Flow<Query<T>>.mapToOneOrDefault(
+internal fun <T : Any> Flow<Query<T>>.mapToOneOrDefault(
     defaultValue: T,
     context: CoroutineContext = Dispatchers.Default
 ): Flow<T> = map {
@@ -62,7 +62,7 @@ fun <T : Any> Flow<Query<T>>.mapToOneOrDefault(
 }
 
 @JvmOverloads
-fun <T : Any> Flow<Query<T>>.mapToOneOrNull(
+internal fun <T : Any> Flow<Query<T>>.mapToOneOrNull(
     context: CoroutineContext = Dispatchers.Default
 ): Flow<T?> = map {
     withContext(context) {
@@ -71,7 +71,7 @@ fun <T : Any> Flow<Query<T>>.mapToOneOrNull(
 }
 
 @JvmOverloads
-fun <T : Any> Flow<Query<T>>.mapToOneNotNull(
+internal fun <T : Any> Flow<Query<T>>.mapToOneNotNull(
     context: CoroutineContext = Dispatchers.Default
 ): Flow<T> = mapNotNull {
     withContext(context) {
@@ -80,7 +80,7 @@ fun <T : Any> Flow<Query<T>>.mapToOneNotNull(
 }
 
 @JvmOverloads
-fun <T : Any> Flow<Query<T>>.mapToList(
+internal fun <T : Any> Flow<Query<T>>.mapToList(
     context: CoroutineContext = Dispatchers.Default
 ): Flow<List<T>> = map {
     withContext(context) {
