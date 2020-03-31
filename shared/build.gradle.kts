@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("multiplatform")
@@ -32,6 +33,14 @@ kotlin {
         listOf("-Xobjc-generics", "-Xg0")
 
     version = "1.1"
+
+    sourceSets {
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+    }
 
     sourceSets["commonMain"].dependencies {
         implementation(kotlin("stdlib-common", Versions.kotlin))
