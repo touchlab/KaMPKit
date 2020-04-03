@@ -4,6 +4,6 @@ import kotlinx.coroutines.runBlocking
 
 internal actual fun <T> runTest(block: suspend () -> T) { runBlocking { block() } }
 
-internal class SqlDelightTestJvm : SqlDelightTest()
+class SqlDelightTestIos : SqlDelightTest()
 
-internal class BreedModelTestJvm: BreedModelTest()
+class BreedModelTestIos : BreedModelTest()

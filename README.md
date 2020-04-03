@@ -20,10 +20,6 @@ The KaMP Kit is designed to get you past that primary stumbling block. You shoul
 
 This kit exists because the info you may find from Google about KMP is likely to be more confusing than helpful. To make sure you minimize the time spent trying to get started, it's important to ***stick to this kit exclusively until you get something running***. The sample project is designed to be run with minimal setup. If you run into issues building the sample project, please reach out directly so we can sort out your issue and improve our docs.
 
-#### *Another Important Message!!!*
-
-KaMP Kit currently is built against Kotlin version 1.3.61. It will get a version update when Kotlin 1.3.71 is released, because we are waiting on some external library dependencies.
-
 ### Audience
 
 We (Touchlab) are focused primarily on using KMP for native mobile development. As a result, this kit is primarily targeted at native mobile developers (Android or iOS), as well as engineering managers for native mobile teams. You should have little-to-no experience with KMP, although some of the information after setup may be useful if you do have KMP experience.
