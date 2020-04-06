@@ -20,10 +20,6 @@ The KaMP Kit is designed to get you past that primary stumbling block. You shoul
 
 This kit exists because the info you may find from Google about KMP is likely to be more confusing than helpful. To make sure you minimize the time spent trying to get started, it's important to ***stick to this kit exclusively until you get something running***. The sample project is designed to be run with minimal setup. If you run into issues building the sample project, please reach out directly so we can sort out your issue and improve our docs.
 
-#### *Another Important Message!!!*
-
-KaMP Kit currently is built against Kotlin version 1.3.61. It will get a version update when Kotlin 1.3.71 is released, because we are waiting on some external library dependencies.
-
 ### Audience
 
 We (Touchlab) are focused primarily on using KMP for native mobile development. As a result, this kit is primarily targeted at native mobile developers (Android or iOS), as well as engineering managers for native mobile teams. You should have little-to-no experience with KMP, although some of the information after setup may be useful if you do have KMP experience.
@@ -56,13 +52,12 @@ You will need the following:
 
 * JVM 8
 * Android SDK and the latest stable Android Studio or IntelliJ
-* Intellij Kotlin plugin with 1.3.61 support
+* Intellij Kotlin plugin with 1.3.71 support
 * Mac with Xcode 11+ for the iOS build
 
 ### Important Note (Feb 11)
 
-KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6 Release Candidate, or newer. Android Studio 3.5.3 may not
-properly resolved everything in gradle.
+KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6, or newer. 
 
 Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
@@ -92,7 +87,7 @@ If the app is building, it's a good time to take a break and get some background
 
 It's important to understand not just how to set up the platform, but to get a better perspective on what the tech can do and why we think it'll be very successful. KMP is distinct from other code sharing and "cross platform" systems, and understanding those distinctions is useful.
 
-[Longer intro to KaMP Kit](WHAT_AND_WHY.md) - Original version of this doc's intro. Cut because it was pretty long.
+[Longer intro to KaMP Kit](docs/WHAT_AND_WHY.md) - Original version of this doc's intro. Cut because it was pretty long.
 
 [Intro to Kotlin Multiplatform](https://vimeo.com/371428809) - General intro to KMP from Oredev in Nov 2019. Good overall summary of the platform.
 

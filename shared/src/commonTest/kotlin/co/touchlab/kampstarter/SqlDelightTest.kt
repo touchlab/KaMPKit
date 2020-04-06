@@ -10,16 +10,16 @@ internal expect fun testDbConnection(): SqlDriver
 
 internal expect fun <T> runTest(block: suspend () -> T)
 
-internal abstract class SqlDelightTest {
+abstract class SqlDelightTest {
 
     private lateinit var dbHelper: DatabaseHelper
 
-    private suspend fun DatabaseHelper.insertBreed(name:String){
+    private suspend fun DatabaseHelper.insertBreed(name: String) {
         insertBreeds(listOf(name))
     }
 
     @BeforeTest
-    fun setup() = runTest{
+    fun setup() = runTest {
         dbHelper = DatabaseHelper(testDbConnection())
         dbHelper.deleteAll()
         dbHelper.insertBreed("Beagle")

@@ -7,7 +7,7 @@ import org.junit.runner.RunWith
 internal actual fun <T> runTest(block: suspend () -> T) { runBlocking { block() } }
 
 @RunWith(AndroidJUnit4::class)
-internal class SqlDelightTestJvm : SqlDelightTest()
+class SqlDelightTestJvm : SqlDelightTest()
 
 @RunWith(AndroidJUnit4::class)
-internal class BreedModelTestJvm: BreedModelTest()
+class BreedModelTestJvm : BreedModelTest()

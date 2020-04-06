@@ -6,16 +6,16 @@ import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.MockSettings
 import kotlin.test.*
 
-internal abstract class BreedModelTest {
+abstract class BreedModelTest {
 
-    private lateinit var model:BreedModel
+    private lateinit var model: BreedModel
     private var dbHelper = DatabaseHelper(testDbConnection())
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
     @BeforeTest
-    fun setup(){
-        TestingServiceRegistry.appStart(dbHelper,settings,ktorApi)
+    fun setup() {
+        TestingServiceRegistry.appStart(dbHelper, settings, ktorApi)
 
         model = BreedModel(viewUpdate = { _ ->
             // TODO: Test callback invocation
