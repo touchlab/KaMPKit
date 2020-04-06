@@ -52,13 +52,12 @@ You will need the following:
 
 * JVM 8
 * Android SDK and the latest stable Android Studio or IntelliJ
-* Intellij Kotlin plugin with 1.3.61 support
+* Intellij Kotlin plugin with 1.3.71 support
 * Mac with Xcode 11+ for the iOS build
 
 ### Important Note (Feb 11)
 
-KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6 Release Candidate, or newer. Android Studio 3.5.3 may not
-properly resolved everything in gradle.
+KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6, or newer. 
 
 Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
@@ -88,7 +87,7 @@ If the app is building, it's a good time to take a break and get some background
 
 It's important to understand not just how to set up the platform, but to get a better perspective on what the tech can do and why we think it'll be very successful. KMP is distinct from other code sharing and "cross platform" systems, and understanding those distinctions is useful.
 
-[Longer intro to KaMP Kit](WHAT_AND_WHY.md) - Original version of this doc's intro. Cut because it was pretty long.
+[Longer intro to KaMP Kit](docs/WHAT_AND_WHY.md) - Original version of this doc's intro. Cut because it was pretty long.
 
 [Intro to Kotlin Multiplatform](https://vimeo.com/371428809) - General intro to KMP from Oredev in Nov 2019. Good overall summary of the platform.
 
