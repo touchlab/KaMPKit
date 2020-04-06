@@ -1,5 +1,3 @@
-import org.gradle.api.artifacts.ExternalModuleDependency
-
 object Versions {
     val min_sdk = 21
     val target_sdk = 29
@@ -74,9 +72,5 @@ object Deps {
         val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
         val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
         val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
-    }
-    val coroutinesExcludeNative: ExternalModuleDependency.() -> Unit = {
-        // TODO With this line included, linkDebugFrameworkIos task fails. Do we need it?
-//        exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core-native")
     }
 }

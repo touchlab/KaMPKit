@@ -82,10 +82,14 @@ kotlin {
 
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.ktor.ios, Deps.coroutinesExcludeNative)
-        implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
-        implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
-        implementation(Deps.Coroutines.native)
+        implementation(Deps.ktor.ios)
+        implementation(Deps.ktor.iosCore)
+        implementation(Deps.ktor.iosJson)
+        implementation(Deps.Coroutines.native) {
+            version {
+                strictly("1.3.5-native-mt")
+            }
+        }
         implementation(Deps.ktor.iosSerialization)
     }
 
