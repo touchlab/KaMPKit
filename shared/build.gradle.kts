@@ -77,6 +77,7 @@ kotlin {
         implementation(Deps.AndroidXTest.junit)
         implementation(Deps.AndroidXTest.runner)
         implementation(Deps.AndroidXTest.rules)
+        implementation(Deps.Coroutines.test)
         implementation("org.robolectric:robolectric:4.3")
     }
 
