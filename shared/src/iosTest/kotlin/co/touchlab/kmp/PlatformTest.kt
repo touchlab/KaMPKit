@@ -7,7 +7,6 @@ import platform.CoreFoundation.CFRunLoopStop
 
 internal actual fun <T> runTest(block: suspend CoroutineScope.() -> T) {
     GlobalScope.launch(Dispatchers.Main) {
-        runBlocking {  }
         try {
             block()
         }
