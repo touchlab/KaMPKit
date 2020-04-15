@@ -22,7 +22,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         breedTableView.dataSource = self
 
         model = BreedModel(viewUpdate: {summary in
-            print("Summary: \(summary)")
             self.data = summary.allItems
             self.breedTableView.reloadData()
         },errorUpdate: { errorMessage in

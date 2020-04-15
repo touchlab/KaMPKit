@@ -10,7 +10,7 @@ import kotlin.test.*
 
 abstract class BreedModelTest {
 
-    private lateinit var model:BreedModel
+    private lateinit var model: BreedModel
     private var dbHelper = DatabaseHelper(testDbConnection())
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
@@ -19,8 +19,8 @@ abstract class BreedModelTest {
     private var errorString: String? = null
 
     @BeforeTest
-    fun setup(){
-        TestingServiceRegistry.appStart(dbHelper,settings,ktorApi)
+    fun setup() {
+        TestingServiceRegistry.appStart(dbHelper, settings, ktorApi)
 
         model = BreedModel(viewUpdate = { summary ->
             itemDataSummary = summary;

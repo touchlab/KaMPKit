@@ -1,15 +1,14 @@
 {
   "name": "shared",
-  "version": "1.0",
+  "version": "1.1",
   "homepage": "https://github.com/touchlab/KaMPStarter",
   "source": {
     "git": "Not Published",
-    "tag": "Cocoapods/shared/1.0"
+    "tag": "Cocoapods/shared/1.1"
   },
   "authors": "",
   "license": "",
   "summary": "Common library for the KaMP starter kit",
-  "static_framework": true,
   "vendored_frameworks": "build/cocoapods/framework/shared.framework",
   "libraries": "c++",
   "module_name": "shared_umbrella",

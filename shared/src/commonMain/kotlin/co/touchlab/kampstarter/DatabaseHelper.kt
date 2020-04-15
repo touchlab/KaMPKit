@@ -7,12 +7,8 @@ import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class DatabaseHelper(private val sqlDriver: SqlDriver) {
+class DatabaseHelper(sqlDriver: SqlDriver) {
     private val dbRef: KampstarterDb = KampstarterDb(sqlDriver)
-
-    internal fun dbClear() {
-        sqlDriver.close()
-    }
 
     fun selectAllItems(): Query<Breed> = dbRef.tableQueries.selectAll()
 
@@ -37,4 +33,4 @@ class DatabaseHelper(private val sqlDriver: SqlDriver) {
 }
 
 fun Breed.isFavorited(): Boolean = this.favorite != 0L
-fun Boolean.toLong(): Long = if (this) 1L else 0L
+internal fun Boolean.toLong(): Long = if (this) 1L else 0L

@@ -8,14 +8,12 @@ import co.touchlab.kampstarter.sqldelight.asFlow
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
-@ExperimentalCoroutinesApi
 class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
                  private val errorUpdate: (String) -> Unit) : BaseModel() {
     private val dbHelper: DatabaseHelper by inject()
@@ -23,7 +21,7 @@ class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
     private val ktorApi: KtorApi by inject()
 
     companion object {
-        internal val DB_TIMESTAMP_KEY = "DbTimestampKey"
+        internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
     }
 
     init {

@@ -2,15 +2,14 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
+    id("co.touchlab.native.cocoapods")
     id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
-    id("co.touchlab.kotlinxcodesync")
 }
 
 android {
-    compileSdkVersion(28)
+    compileSdkVersion(29)
     defaultConfig {
         minSdkVersion(Versions.min_sdk)
         targetSdkVersion(Versions.target_sdk)
@@ -29,9 +28,18 @@ kotlin {
     }else{
         iosX64("ios")
     }
-    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs += "-Xobjc-generics"
+    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
+        listOf("-Xobjc-generics", "-Xg0")
 
-    version = "1.0"
+    version = "1.1"
+
+    sourceSets {
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+    }
 
     sourceSets["commonMain"].dependencies {
         implementation(kotlin("stdlib-common", Versions.kotlin))
@@ -48,12 +56,8 @@ kotlin {
 
     sourceSets["commonTest"].dependencies {
         implementation(Deps.multiplatformSettingsTest)
-        implementation(Deps.SqlDelight.runtime)
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
-        implementation(Deps.Coroutines.jdk)
-        implementation(Deps.Coroutines.common)
-        implementation(Deps.Coroutines.test)
     }
 
     sourceSets["androidMain"].dependencies {
@@ -69,50 +73,35 @@ kotlin {
     sourceSets["androidTest"].dependencies {
         implementation(Deps.KotlinTest.jvm)
         implementation(Deps.KotlinTest.junit)
-        implementation(Deps.Coroutines.jdk)
         implementation(Deps.AndroidXTest.core)
         implementation(Deps.AndroidXTest.junit)
         implementation(Deps.AndroidXTest.runner)
         implementation(Deps.AndroidXTest.rules)
-        implementation("org.robolectric:robolectric:4.0")
+        implementation("org.robolectric:robolectric:4.3")
     }
 
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.ktor.ios, Deps.coroutinesExcludeNative)
-        implementation(Deps.ktor.iosCore, Deps.coroutinesExcludeNative)
-        implementation(Deps.ktor.iosJson, Deps.coroutinesExcludeNative)
-        implementation(Deps.Coroutines.native)
+        implementation(Deps.ktor.ios)
+        implementation(Deps.ktor.iosCore)
+        implementation(Deps.ktor.iosJson)
+        implementation(Deps.Coroutines.native) {
+            version {
+                strictly("1.3.5-native-mt")
+            }
+        }
         implementation(Deps.ktor.iosSerialization)
     }
 
-    cocoapods {
+    cocoapodsext {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPStarter"
-    }
-
-    xcodeSync {
-        projectPath = "../ios/KaMPStarteriOS.xcodeproj"
-        target = "KaMPStarteriOS"
+        isStatic = false
     }
 }
 
 sqldelight {
     database("KampstarterDb") {
         packageName = "co.touchlab.kampstarter.db"
-    }
-}
-
-val iOSTest: Task by tasks.creating {
-    val device = project.findProperty("iosDevice")?.toString() ?: "iPhone 8"
-    dependsOn("linkDebugTestIos")
-    group = JavaBasePlugin.VERIFICATION_GROUP
-    description = "Runs tests for target 'ios' on an iOS simulator"
-
-    doLast {
-        val binary = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getTest("DEBUG").outputFile
-        exec {
-            commandLine("xcrun", "simctl", "spawn", "--standalone",device, binary.absolutePath)
-        }
     }
 }
