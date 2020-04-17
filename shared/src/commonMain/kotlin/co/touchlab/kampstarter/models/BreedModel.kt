@@ -50,9 +50,8 @@ class BreedModel(
         }
 
         val currentTimeMS = currentTimeMillis()
-        var job: Job = Job().apply { complete() }
-        if (isBreedListStale(currentTimeMS)) {
-            job = ktorScope.launch {
+        return if (isBreedListStale(currentTimeMS)) {
+            ktorScope.launch {
                 try {
                     val breedResult = ktorApi.getJsonFromApi()
                     val breedList = breedResult.message.keys.toList()
@@ -62,8 +61,9 @@ class BreedModel(
                     errorUpdate("Unable to download breed list")
                 }
             }
+        } else {
+            Job().apply { complete() }
         }
-        return job
     }
 
     private fun insertBreedData(breeds: List<String>) = mainScope.launch {
