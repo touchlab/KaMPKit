@@ -5,8 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-
-abstract class SqlDelightTest {
+class SqlDelightTest:BaseTest() {
 
     private lateinit var dbHelper: DatabaseHelper
 

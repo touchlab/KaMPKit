@@ -31,4 +31,3 @@ suspend fun <T> Deferred<T>.await(timeoutMillis: Long) =
 
 internal expect fun testDbConnection(): SqlDriver
 
-internal expect fun <T> runTest(block: suspend CoroutineScope.() -> T)

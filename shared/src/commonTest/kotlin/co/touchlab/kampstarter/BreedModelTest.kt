@@ -8,7 +8,7 @@ import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.CompletableDeferred
 import kotlin.test.*
 
-abstract class BreedModelTest {
+class BreedModelTest: BaseTest() {
 
     private lateinit var model: BreedModel
     private var dbHelper = DatabaseHelper(testDbConnection())
