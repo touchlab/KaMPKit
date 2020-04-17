@@ -35,18 +35,18 @@ class BreedModelTest: BaseTest() {
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
-        model.getBreedsFromNetwork()
+        model.getBreedsFromNetwork().join()
         assertFalse(ktorApi.jsonRequested)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
-        model.getBreedsFromNetwork()
+        model.getBreedsFromNetwork().join()
         itemDataSummary.await(500)
         val breedOld = dbHelper.selectAllItems().executeAsList().first()
         assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
-        model.updateBreedFavorite(breedOld)
+        model.updateBreedFavorite(breedOld).join()
         val breedNew = dbHelper.selectById(breedOld.id).executeAsOne()
         assertTrue(breedNew.isFavorited())
     }
@@ -55,7 +55,7 @@ class BreedModelTest: BaseTest() {
     fun notifyErrorOnException() = runTest {
         ktorApi.thowOnRequest = true
 
-        model.getBreedsFromNetwork()
+        model.getBreedsFromNetwork().join()
         val error = errorString.await(500)
         assertNotNull(error)
     }

@@ -8,14 +8,17 @@ import co.touchlab.kampstarter.sqldelight.asFlow
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import org.koin.core.inject
 
-class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
-                 private val errorUpdate: (String) -> Unit) : BaseModel() {
+class BreedModel(
+    private val viewUpdate: (ItemDataSummary) -> Unit,
+    private val errorUpdate: (String) -> Unit
+) : BaseModel() {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
@@ -39,7 +42,7 @@ class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
         }
     }
 
-    fun getBreedsFromNetwork() {
+    fun getBreedsFromNetwork(): Job {
         fun isBreedListStale(currentTimeMS: Long): Boolean {
             val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
             val oneHourMS = 60 * 60 * 1000
@@ -47,31 +50,30 @@ class BreedModel(private val viewUpdate: (ItemDataSummary) -> Unit,
         }
 
         val currentTimeMS = currentTimeMillis()
+        var job: Job = Job().apply { complete() }
         if (isBreedListStale(currentTimeMS)) {
-            ktorScope.launch {
+            job = ktorScope.launch {
                 try {
                     val breedResult = ktorApi.getJsonFromApi()
                     val breedList = breedResult.message.keys.toList()
                     insertBreedData(breedList)
                     settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
-                } catch (e:Exception){
+                } catch (e: Exception) {
                     errorUpdate("Unable to download breed list")
                 }
             }
         }
+        return job
     }
 
-    private fun insertBreedData(breeds: List<String>) {
-        mainScope.launch {
-            dbHelper.insertBreeds(breeds)
-        }
+    private fun insertBreedData(breeds: List<String>) = mainScope.launch {
+        dbHelper.insertBreeds(breeds)
     }
 
-    fun updateBreedFavorite(breed: Breed) {
-        mainScope.launch {
-            dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
-        }
+    fun updateBreedFavorite(breed: Breed) = mainScope.launch {
+        dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
     }
+
 }
 
 data class ItemDataSummary(val longestItem: Breed?, val allItems: List<Breed>)
