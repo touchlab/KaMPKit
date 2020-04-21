@@ -1,7 +1,7 @@
 package co.touchlab.kampstarter.android
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.touchlab.kampstarter.android.adapter.MainAdapter
 import co.touchlab.kampstarter.models.BreedModel
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(breed_list, errorMessage, Snackbar.LENGTH_SHORT).show()
         })
 
-        adapter = MainAdapter(model::updateBreedFavorite)
+        adapter = MainAdapter { model.updateBreedFavorite(it) }
 
         breed_list.adapter = adapter
         breed_list.layoutManager = LinearLayoutManager(this)
