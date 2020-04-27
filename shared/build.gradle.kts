@@ -58,6 +58,7 @@ kotlin {
         implementation(Deps.multiplatformSettingsTest)
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
+        implementation(Deps.koinTest)
     }
 
     sourceSets["androidMain"].dependencies {

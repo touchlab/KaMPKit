@@ -30,6 +30,7 @@ object Deps {
     val multiplatformSettings = "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val koinCore = "org.koin:koin-core:${Versions.koin}"
+    val koinTest = "org.koin:koin-test:${Versions.koin}"
     val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
 
     object AndroidXTest {
