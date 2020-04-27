@@ -69,6 +69,7 @@ kotlin {
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.ktor.androidSerialization)
+        implementation(Deps.ktor.androidCore)
     }
 
     sourceSets["androidTest"].dependencies {
@@ -79,9 +80,7 @@ kotlin {
         implementation(Deps.AndroidXTest.runner)
         implementation(Deps.AndroidXTest.rules)
         implementation(Deps.Coroutines.test)
-        implementation(Deps.ktor.jvmCore)
-        implementation(Deps.ktor.jvmJson)
-        implementation(Deps.ktor.androidSerialization)
+        implementation(Deps.ktor.androidCore)
         implementation("org.robolectric:robolectric:4.3")
     }
 
