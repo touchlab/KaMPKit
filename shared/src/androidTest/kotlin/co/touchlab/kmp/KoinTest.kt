@@ -7,9 +7,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import co.touchlab.kampstarter.*
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
+import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.category.CheckModuleTest
 import org.koin.test.check.checkModules
+import kotlin.test.AfterTest
 import kotlin.test.Test
 
 
@@ -22,5 +24,10 @@ class CheckModulesTest : BaseTest() {
         initKoin{
             modules(module { single<Context> { getApplicationContext<Application>() } })
         }.checkModules()
+    }
+
+    @AfterTest
+    fun breakdown() = runTest {
+        stopKoin()
     }
 }
