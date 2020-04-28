@@ -53,9 +53,7 @@ class BreedModel(
         return if (isBreedListStale(currentTimeMS)) {
             scope.launch {
                 try {
-                    val breedResult = network {
-                        ktorApi.getJsonFromApi()
-                    }
+                    val breedResult = ktorApi.getJsonFromApi()
                     val breedList = breedResult.message.keys.toList()
 
                     dbHelper.insertBreeds(breedList)
@@ -74,9 +72,7 @@ class BreedModel(
         dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
 
         // TODO tmp make an extra network call after a db update
-        network {
-            ktorApi.getJsonFromApi()
-        }
+        ktorApi.getJsonFromApi()
     }
 
 }

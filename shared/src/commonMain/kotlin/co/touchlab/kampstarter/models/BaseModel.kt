@@ -1,7 +1,10 @@
 package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.printThrowable
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
@@ -12,12 +15,6 @@ open class BaseModel : KoinComponent {
 
     open fun onDestroy() {
         scope.job.cancel()
-    }
-
-    suspend fun <R> network(block: suspend () -> R): R {
-        if(!isMainThread)
-            throw IllegalStateException("Ktor calls must be run in main thread")
-        return withContext(ktorContext) { block() }
     }
 }
 

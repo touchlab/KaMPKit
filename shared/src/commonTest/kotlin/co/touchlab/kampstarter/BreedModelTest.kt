@@ -39,8 +39,7 @@ class BreedModelTest: BaseTest() {
         assertFalse(ktorApi.jsonRequested)
     }
 
-        //Fix when coroutines have a real implementation
-//    @Test
+    @Test
     fun updateFavoriteTest() = runTest {
         model.getBreedsFromNetwork().join()
         itemDataSummary.await(500)
