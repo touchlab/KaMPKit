@@ -25,7 +25,7 @@ class DogApiImpl : KtorApi {
     }
 
     override suspend fun getJsonFromApi(): BreedResult = network {
-        client.get {
+        client.get<BreedResult> {
             dogs("api/breeds/list/all")
         }
     }
