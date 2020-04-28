@@ -6,12 +6,12 @@ import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 open class BaseModel : KoinComponent {
-    internal val mainScope = MainScope(Dispatchers.Main)
-    private val ktorContext: CoroutineContext by lazy { mainScope.childContext() }
+    internal val scope = MainScope(Dispatchers.Main)
+    private val ktorContext: CoroutineContext by lazy { scope.childContext() }
 
 
     open fun onDestroy() {
-        mainScope.job.cancel()
+        scope.job.cancel()
     }
 
     suspend fun <R> network(block: suspend () -> R): R {

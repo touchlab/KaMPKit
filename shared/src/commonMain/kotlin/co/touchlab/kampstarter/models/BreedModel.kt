@@ -29,7 +29,7 @@ class BreedModel(
 
     init {
         ensureNeverFrozen()
-        mainScope.launch {
+        scope.launch {
             dbHelper.selectAllItems().asFlow()
                 .map { q ->
                     val itemList = q.executeAsList()
@@ -51,7 +51,7 @@ class BreedModel(
 
         val currentTimeMS = currentTimeMillis()
         return if (isBreedListStale(currentTimeMS)) {
-            mainScope.launch {
+            scope.launch {
                 try {
                     val breedResult = network {
                         ktorApi.getJsonFromApi()
@@ -70,7 +70,7 @@ class BreedModel(
         }
     }
 
-    fun updateBreedFavorite(breed: Breed) = mainScope.launch {
+    fun updateBreedFavorite(breed: Breed) = scope.launch {
         dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
     }
 
