@@ -1,34 +1,40 @@
 package co.touchlab.kampstarter.models
 
 import co.touchlab.kampstarter.printThrowable
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 open class BaseModel : KoinComponent {
     internal val mainScope = MainScope(Dispatchers.Main)
-    internal val ktorScope = MainScope(Dispatchers.Main)
+    private val ktorContext: CoroutineContext by lazy { mainScope.childContext() }
+
 
     open fun onDestroy() {
         mainScope.job.cancel()
-        ktorScope.job.cancel()
+    }
+
+    suspend fun <R> network(block: suspend () -> R): R {
+        if(!isMainThread)
+            throw IllegalStateException("Ktor calls must be run in main thread")
+        return withContext(ktorContext) { block() }
     }
 }
 
-internal class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
+internal class MainScope(internal val mainContext: CoroutineContext) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
     internal val job = SupervisorJob()
-    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    internal val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         showError(throwable)
     }
 
     //TODO: Some way of exposing this to the caller without trapping a reference and freezing it.
-    private fun showError(t: Throwable) {
+    internal fun showError(t: Throwable) {
         printThrowable(t)
     }
 }
+
+internal expect fun MainScope.childContext(): CoroutineContext
+internal expect val isMainThread:Boolean
