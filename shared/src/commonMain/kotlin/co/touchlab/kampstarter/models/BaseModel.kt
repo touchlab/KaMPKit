@@ -36,5 +36,5 @@ internal class MainScope(internal val mainContext: CoroutineContext) : Coroutine
     }
 }
 
-internal expect fun MainScope.childContext(): CoroutineContext
+internal expect fun CoroutineScope.childContext(): CoroutineContext
 internal expect val isMainThread:Boolean
