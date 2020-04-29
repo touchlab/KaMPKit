@@ -35,8 +35,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         model?.getBreedsFromNetwork()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         model?.onDestroy()
         model = nil
     }
