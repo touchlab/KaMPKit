@@ -39,7 +39,7 @@ dependencies {
     implementation(Deps.material_x)
     implementation(Deps.app_compat_x)
     implementation(Deps.core_ktx)
-    implementation(Deps.ktor.androidCore)
+    implementation(Deps.Ktor.androidCore)
     implementation(Deps.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
