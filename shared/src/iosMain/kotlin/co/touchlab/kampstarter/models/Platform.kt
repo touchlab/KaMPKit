@@ -11,7 +11,7 @@ internal actual fun CoroutineScope.childContext(): CoroutineContext {
 
     val ref = GuardedStableRef(ktorJob)
 
-    coroutineContext[Job]!!.invokeOnCompletion(onCancelling = true) { cancelCause ->
+    val listenerDisposableHandle = coroutineContext[Job]!!.invokeOnCompletion(onCancelling = true) { cancelCause ->
         val parentJob = ref.state
 
         if (cancelCause is CancellationException)
@@ -20,7 +20,11 @@ internal actual fun CoroutineScope.childContext(): CoroutineContext {
             parentJob.cancel()
     }
 
-    return coroutineContext + Job() + coroutineContext[CoroutineExceptionHandler]!!
+    ktorJob.invokeOnCompletion {
+        listenerDisposableHandle.dispose()
+    }
+
+    return coroutineContext + ktorJob + coroutineContext[CoroutineExceptionHandler]!!
 }
 
 internal actual val isMainThread: Boolean
