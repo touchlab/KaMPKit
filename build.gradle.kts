@@ -24,6 +24,7 @@ allprojects {
         mavenCentral()
         jcenter()
         maven(url = "https://kotlin.bintray.com/kotlinx")
+        maven(url = "https://dl.bintray.com/ekito/koin") // Keep this above touchlab repo to avoid accidentally pulling wrong Koin
         maven(url = "https://dl.bintray.com/touchlabpublic/kotlin")
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
