@@ -24,10 +24,11 @@ class CheckModulesTest : BaseTest() {
         initKoin{
             modules(module { single<Context> { getApplicationContext<Application>() } })
         }.checkModules()
+        stopKoin()
     }
 
     @AfterTest
-    fun breakdown() = runTest {
+    fun breakdown() {
         stopKoin()
     }
 }

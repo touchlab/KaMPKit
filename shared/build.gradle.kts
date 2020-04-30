@@ -68,8 +68,8 @@ kotlin {
         implementation(Deps.Ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
-        implementation(Deps.ktor.androidSerialization)
-        implementation(Deps.ktor.androidCore)
+        implementation(Deps.Ktor.androidSerialization)
+        implementation(Deps.Ktor.androidCore)
     }
 
     sourceSets["androidTest"].dependencies {
