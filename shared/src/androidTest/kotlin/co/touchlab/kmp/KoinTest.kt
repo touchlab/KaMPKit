@@ -24,7 +24,6 @@ class CheckModulesTest : BaseTest() {
         initKoin{
             modules(module { single<Context> { getApplicationContext<Application>() } })
         }.checkModules()
-        stopKoin()
     }
 
     @AfterTest
