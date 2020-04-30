@@ -11,7 +11,7 @@ steps:
     inputs:
       actions: 'build'
       configuration: 'Debug'
-      sdk: 'iphoneos13.2'
+      sdk: 'iphoneos13.4'
       xcWorkspacePath: 'ios/KaMPStarteriOS.xcworkspace'
       scheme: 'KaMPStarteriOS'
       packageApp: false
