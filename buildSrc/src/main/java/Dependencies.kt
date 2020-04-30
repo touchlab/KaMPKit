@@ -61,7 +61,7 @@ object Deps {
         val driverIos = "com.squareup.sqldelight:native-driver:${Versions.sqlDelight}"
         val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
     }
-    object ktor {
+    object Ktor {
         val commonCore = "io.ktor:ktor-client-core:${Versions.ktor}"
         val commonJson = "io.ktor:ktor-client-json:${Versions.ktor}"
         val jvmCore =     "io.ktor:ktor-client-core-jvm:${Versions.ktor}"

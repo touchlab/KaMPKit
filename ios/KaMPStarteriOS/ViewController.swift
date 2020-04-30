@@ -15,30 +15,47 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var data:[Breed] = []
     
     private var model: BreedModel?
+    
+    // MARK: View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         breedTableView.delegate = self
         breedTableView.dataSource = self
 
-        model = BreedModel(viewUpdate: {summary in
-            self.data = summary.allItems
-            self.breedTableView.reloadData()
-        },errorUpdate: { errorMessage in
-            let alertController = UIAlertController(title: "error", message: errorMessage, preferredStyle: .actionSheet)
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
-            self.present(alertController, animated: true, completion: nil)
-        })
+        model = BreedModel(
+            viewUpdate: { [weak self] summary in
+                self?.viewUpdate(for: summary)
+            }, errorUpdate: { [weak self] errorMessage in
+                self?.errorUpdate(for: errorMessage)
+            }
+        )
         
         //We check for stalk data in this method
-        model!.getBreedsFromNetwork()
+        model?.getBreedsFromNetwork()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.model?.onDestroy()
-        self.model = nil
+        super.viewWillDisappear(animated)
+        model?.onDestroy()
+        model = nil
     }
     
+    // MARK: BreedModel Closures
+    
+    private func viewUpdate(for summary: ItemDataSummary) {
+        data = summary.allItems
+        breedTableView.reloadData()
+    }
+    
+    private func errorUpdate(for errorMessage: String) {
+        let alertController = UIAlertController(title: "error", message: errorMessage, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: TableView
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
