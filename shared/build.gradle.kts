@@ -58,6 +58,7 @@ kotlin {
         implementation(Deps.multiplatformSettingsTest)
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
+        implementation(Deps.koinTest)
     }
 
     sourceSets["androidMain"].dependencies {
@@ -68,6 +69,7 @@ kotlin {
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.Ktor.androidSerialization)
+        implementation(Deps.Ktor.androidCore)
     }
 
     sourceSets["androidTest"].dependencies {
