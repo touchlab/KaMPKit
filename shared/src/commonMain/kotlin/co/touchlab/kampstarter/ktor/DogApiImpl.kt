@@ -1,7 +1,5 @@
 package co.touchlab.kampstarter.ktor
 
-import co.touchlab.kampstarter.models.childContext
-import co.touchlab.kampstarter.models.isMainThread
 import co.touchlab.kampstarter.response.BreedResult
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
@@ -10,8 +8,6 @@ import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 
 class DogApiImpl : KtorApi {
     private val client = HttpClient {
@@ -38,9 +34,4 @@ class DogApiImpl : KtorApi {
     }
 }
 
-suspend fun <R> network(block: suspend () -> R): R = coroutineScope {
-    withContext(childContext()) {
-        if (!isMainThread) error("Ktor calls must be run in main thread")
-        block()
-    }
-}
+internal expect suspend fun <R> network(block: suspend () -> R): R

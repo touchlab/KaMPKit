@@ -10,8 +10,6 @@ import kotlin.coroutines.CoroutineContext
 
 open class BaseModel : KoinComponent {
     internal val scope = MainScope(Dispatchers.Main)
-    private val ktorContext: CoroutineContext by lazy { scope.childContext() }
-
 
     open fun onDestroy() {
         scope.job.cancel()
@@ -32,6 +30,3 @@ internal class MainScope(internal val mainContext: CoroutineContext) : Coroutine
         printThrowable(t)
     }
 }
-
-internal expect fun CoroutineScope.childContext(): CoroutineContext
-internal expect val isMainThread:Boolean

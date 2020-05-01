@@ -1,12 +1,19 @@
-package co.touchlab.kampstarter.models
+package co.touchlab.kampstarter.ktor
 
 import co.touchlab.stately.concurrency.GuardedStableRef
 import kotlinx.coroutines.*
 import platform.Foundation.NSThread
 import kotlin.coroutines.CoroutineContext
 
+internal actual suspend fun <R> network(block: suspend () -> R): R = coroutineScope {
+    withContext(childContext()) {
+        if (!isMainThread) error("Ktor calls must be run in main thread")
+        block()
+    }
+}
+
 @OptIn(InternalCoroutinesApi::class)
-internal actual fun CoroutineScope.childContext(): CoroutineContext {
+internal fun CoroutineScope.childContext(): CoroutineContext {
     val ktorJob = Job()
 
     val ref = GuardedStableRef(ktorJob)
@@ -27,5 +34,5 @@ internal actual fun CoroutineScope.childContext(): CoroutineContext {
     return coroutineContext + ktorJob + coroutineContext[CoroutineExceptionHandler]!!
 }
 
-internal actual val isMainThread: Boolean
+internal val isMainThread: Boolean
     get() = NSThread.isMainThread
