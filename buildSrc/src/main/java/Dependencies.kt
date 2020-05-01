@@ -3,15 +3,16 @@ object Versions {
     val target_sdk = 29
     val compile_sdk = 29
 
-    val kotlin = "1.3.71"
-    val android_x = "1.1.0"
-    val android_gradle_plugin = "3.6.2"
+    val kotlin = "1.3.72"
+    val androidx_test = "1.2.0"
+    val androidx_test_ext = "1.1.1"
+    val android_gradle_plugin = "3.6.3"
     val buildToolsVersion = "29.0.0"
-    val junit = "4.12"
+    val junit = "4.13"
     val sqlDelight = "1.3.0"
     val ktor = "1.3.2"
     val stately = "1.0.2"
-    val multiplatformSettings = "0.5.1"
+    val multiplatformSettings = "0.6"
     val coroutines = "1.3.5-native-mt"
     val koin = "3.0.0-alpha-9"
     val serialization = "0.20.0"
@@ -20,10 +21,11 @@ object Versions {
 }
 
 object Deps {
-    val app_compat_x = "androidx.appcompat:appcompat:${Versions.android_x}"
-    val material_x = "com.google.android.material:material:${Versions.android_x}"
-    val core_ktx = "androidx.core:core-ktx:${Versions.android_x}"
-    val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.android_x}"
+    val app_compat_x = "androidx.appcompat:appcompat:1.1.0"
+    val material_x = "com.google.android.material:material:1.1.0"
+    val core_ktx = "androidx.core:core-ktx:1.2.0"
+    val constraintlayout = "androidx.constraintlayout:constraintlayout:1.1.3"
+    val recyclerView = "androidx.recyclerview:recyclerview:1.1.0"
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
     val junit = "junit:junit:${Versions.junit}"
     val stately = "co.touchlab:stately-common:${Versions.stately}"
@@ -34,10 +36,10 @@ object Deps {
     val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
 
     object AndroidXTest {
-        val core =  "androidx.test:core:${Versions.android_x}"
-        val junit =  "androidx.test.ext:junit:${Versions.android_x}"
-        val runner = "androidx.test:runner:${Versions.android_x}"
-        val rules = "androidx.test:rules:${Versions.android_x}"
+        val core = "androidx.test:core:${Versions.androidx_test}"
+        val junit = "androidx.test.ext:junit:${Versions.androidx_test_ext}"
+        val runner = "androidx.test:runner:${Versions.androidx_test}"
+        val rules = "androidx.test:rules:${Versions.androidx_test}"
     }
 
     object KotlinTest {
@@ -45,7 +47,6 @@ object Deps {
         val annotations = "org.jetbrains.kotlin:kotlin-test-annotations-common:${Versions.kotlin}"
         val jvm =         "org.jetbrains.kotlin:kotlin-test:${Versions.kotlin}"
         val junit =       "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
-        val reflect =     "org.jetbrains.kotlin:kotlin-reflect:${Versions.kotlin}"
     }
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
