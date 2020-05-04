@@ -31,7 +31,7 @@ internal fun CoroutineScope.childContext(): CoroutineContext {
         listenerDisposableHandle.dispose()
     }
 
-    return coroutineContext + ktorJob + coroutineContext[CoroutineExceptionHandler]!!
+    return coroutineContext + ktorJob
 }
 
 internal val isMainThread: Boolean
