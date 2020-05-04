@@ -70,9 +70,6 @@ class BreedModel(
 
     fun updateBreedFavorite(breed: Breed) = scope.launch {
         dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
-
-        // TODO tmp make an extra network call after a db update
-        ktorApi.getJsonFromApi()
     }
 
 }

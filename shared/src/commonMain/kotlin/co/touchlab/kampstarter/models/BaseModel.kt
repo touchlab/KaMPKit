@@ -16,17 +16,17 @@ open class BaseModel : KoinComponent {
     }
 }
 
-internal class MainScope(internal val mainContext: CoroutineContext) : CoroutineScope {
+internal class MainScope(private val mainContext: CoroutineContext) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
     internal val job = SupervisorJob()
-    internal val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         showError(throwable)
     }
 
     //TODO: Some way of exposing this to the caller without trapping a reference and freezing it.
-    internal fun showError(t: Throwable) {
+    private fun showError(t: Throwable) {
         printThrowable(t)
     }
 }
