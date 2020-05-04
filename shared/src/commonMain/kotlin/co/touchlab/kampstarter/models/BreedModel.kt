@@ -29,7 +29,7 @@ class BreedModel(
 
     init {
         ensureNeverFrozen()
-        mainScope.launch {
+        scope.launch {
             dbHelper.selectAllItems().asFlow()
                 .map { q ->
                     val itemList = q.executeAsList()
@@ -51,11 +51,13 @@ class BreedModel(
 
         val currentTimeMS = currentTimeMillis()
         return if (isBreedListStale(currentTimeMS)) {
-            ktorScope.launch {
+            scope.launch {
                 try {
                     val breedResult = ktorApi.getJsonFromApi()
                     val breedList = breedResult.message.keys.toList()
-                    insertBreedData(breedList)
+
+                    dbHelper.insertBreeds(breedList)
+
                     settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
                 } catch (e: Exception) {
                     errorUpdate("Unable to download breed list")
@@ -66,11 +68,7 @@ class BreedModel(
         }
     }
 
-    private fun insertBreedData(breeds: List<String>) = mainScope.launch {
-        dbHelper.insertBreeds(breeds)
-    }
-
-    fun updateBreedFavorite(breed: Breed) = mainScope.launch {
+    fun updateBreedFavorite(breed: Breed) = scope.launch {
         dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
     }
 

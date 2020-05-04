@@ -15,7 +15,7 @@ class BreedModelTest: BaseTest() {
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
-    private var itemDataSummary = CompletableDeferred<ItemDataSummary>()
+    private val itemDataSummary = CompletableDeferred<ItemDataSummary>()
     private var errorString = CompletableDeferred<String>()
 
     @BeforeTest

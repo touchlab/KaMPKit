@@ -20,10 +20,11 @@ class DogApiImpl : KtorApi {
         ensureNeverFrozen()
     }
 
-    override suspend fun getJsonFromApi(): BreedResult =
+    override suspend fun getJsonFromApi(): BreedResult = network {
         client.get<BreedResult> {
             dogs("api/breeds/list/all")
         }
+    }
 
     private fun HttpRequestBuilder.dogs(path: String) {
         url {
@@ -32,3 +33,5 @@ class DogApiImpl : KtorApi {
         }
     }
 }
+
+internal expect suspend fun <R> network(block: suspend () -> R): R

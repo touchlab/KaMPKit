@@ -57,11 +57,22 @@ So, to be clear, ***we're using a version of [kotlinx.coroutines](https://github
 
 ### *... but Ktor*
 
-Ktor on iOS was designed to work with the single-threaded version of coroutines. We're using that version with the experimental coroutines. We've found a bug that we're reporting to Jetbrains. The current workaround is to have one scope for Ktor, and another for everything else.
+Ktor on iOS was designed to work with the single-threaded version of coroutines. We're using that version with the experimental coroutines. 
+To allow that to work, we have a special child context with a number of restrictions. 
+
+Essentially you need to call ktor from within a `network` block. That will run under ktor calls with a separate `Job` defined. Ktor
+still needs to be called on the main thread (although that call will suspend, so your actual network call doesn't block the main thread).
+In the parent `Job` we listen for cancel events and pass them to the ktor child, which is not ideal, but should allow things to work until
+Ktor is compatible with multithreaded coroutines.
 
 ```kotlin
-internal val mainScope = MainScope(Dispatchers.Main)
-internal val ktorScope = MainScope(Dispatchers.Main)
+scope.launch {
+    try {
+        val breedResult = network {
+            ktorApi.getJsonFromApi()
+        }
+//Etc
+}
 ```
 
 See [BaseModel.kt](https://github.com/touchlab/KaMPStarter/blob/master/shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BaseModel.kt#L11)
