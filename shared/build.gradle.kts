@@ -44,13 +44,13 @@ kotlin {
     sourceSets["commonMain"].dependencies {
         implementation(kotlin("stdlib-common", Versions.kotlin))
         implementation(Deps.SqlDelight.runtime)
-        implementation(Deps.ktor.commonCore)
-        implementation(Deps.ktor.commonJson)
+        implementation(Deps.Ktor.commonCore)
+        implementation(Deps.Ktor.commonJson)
         implementation(Deps.Coroutines.common)
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
-        implementation(Deps.ktor.commonSerialization)
+        implementation(Deps.Ktor.commonSerialization)
 
     }
 
@@ -58,16 +58,18 @@ kotlin {
         implementation(Deps.multiplatformSettingsTest)
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
+        implementation(Deps.koinTest)
     }
 
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
         implementation(Deps.SqlDelight.driverAndroid)
-        implementation(Deps.ktor.jvmCore)
-        implementation(Deps.ktor.jvmJson)
+        implementation(Deps.Ktor.jvmCore)
+        implementation(Deps.Ktor.jvmJson)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
-        implementation(Deps.ktor.androidSerialization)
+        implementation(Deps.Ktor.androidSerialization)
+        implementation(Deps.Ktor.androidCore)
     }
 
     sourceSets["androidTest"].dependencies {
@@ -83,15 +85,15 @@ kotlin {
 
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.ktor.ios)
-        implementation(Deps.ktor.iosCore)
-        implementation(Deps.ktor.iosJson)
+        implementation(Deps.Ktor.ios)
+        implementation(Deps.Ktor.iosCore)
+        implementation(Deps.Ktor.iosJson)
         implementation(Deps.Coroutines.native) {
             version {
                 strictly("1.3.5-native-mt")
             }
         }
-        implementation(Deps.ktor.iosSerialization)
+        implementation(Deps.Ktor.iosSerialization)
     }
 
     cocoapodsext {

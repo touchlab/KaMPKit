@@ -35,11 +35,11 @@ android {
 dependencies {
     implementation(kotlin("stdlib-jdk7", KotlinCompilerVersion.VERSION))
     implementation(project(":shared"))
-    implementation("androidx.recyclerview:recyclerview:1.1.0")
+    implementation(Deps.recyclerView)
     implementation(Deps.material_x)
     implementation(Deps.app_compat_x)
     implementation(Deps.core_ktx)
-    implementation(Deps.ktor.androidCore)
+    implementation(Deps.Ktor.androidCore)
     implementation(Deps.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
