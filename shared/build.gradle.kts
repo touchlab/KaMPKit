@@ -99,7 +99,9 @@ kotlin {
     cocoapodsext {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPStarter"
-        isStatic = false
+        framework {
+            isStatic = false
+        }
     }
 }
 

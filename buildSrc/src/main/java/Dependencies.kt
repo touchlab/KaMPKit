@@ -16,8 +16,7 @@ object Versions {
     val coroutines = "1.3.5-native-mt"
     val koin = "3.0.0-alpha-2"
     val serialization = "0.20.0"
-    val cocoapodsext = "0.6"
-
+    val cocoapodsext = "0.9"
 }
 
 object Deps {
