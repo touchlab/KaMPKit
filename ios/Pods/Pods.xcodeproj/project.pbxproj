@@ -12,6 +12,7 @@
 			buildConfigurationList = 46EB2E00000120 /* Build configuration list for PBXAggregateTarget "shared" */;
 			buildPhases = (
 				46EB2E00000300 /* [CP-User] Build shared */,
+				46EB2E00000310 /* [CP-User] Touch shared.framework */,
 			);
 			dependencies = (
 			);
@@ -26,7 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46EB2E00000310 /* PBXContainerItemProxy */ = {
+		46EB2E00000320 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46EB2E00000000 /* Project object */;
 			proxyType = 1;
@@ -197,7 +198,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				46EB2E00000320 /* PBXTargetDependency */,
+				46EB2E00000330 /* PBXTargetDependency */,
 			);
 			name = "Pods-KaMPStarteriOS";
 			productName = "Pods-KaMPStarteriOS";
@@ -253,6 +254,16 @@
 			shellPath = /bin/sh;
 			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :shared:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
 		};
+		46EB2E00000310 /* [CP-User] Touch shared.framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "[CP-User] Touch shared.framework";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find \"${SRCROOT}\" -type f -name *frameworks.sh -exec bash -c \"touch \\\"{}\\\"\" \\;";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -267,11 +278,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		46EB2E00000320 /* PBXTargetDependency */ = {
+		46EB2E00000330 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
 			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = 46EB2E00000310 /* PBXContainerItemProxy */;
+			targetProxy = 46EB2E00000320 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

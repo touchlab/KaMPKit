@@ -39,6 +39,12 @@ Pod::Spec.new do |spec|
                     -Pkotlin.native.cocoapods.paths.headers="$HEADER_SEARCH_PATHS" \
                     -Pkotlin.native.cocoapods.paths.frameworks="$FRAMEWORK_SEARCH_PATHS"
             SCRIPT
+        },
+        {
+        	:name => 'Touch shared.framework',
+        	:execution_position => :after_compile,
+        	:shell_path =>  '/bin/sh',
+        	:script => 'find "${SRCROOT}" -type f -name *frameworks.sh -exec bash -c "touch \"{}\"" \;'
         }
     ]
 end
