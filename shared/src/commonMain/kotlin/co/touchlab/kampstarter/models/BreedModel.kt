@@ -5,6 +5,7 @@ import co.touchlab.kampstarter.currentTimeMillis
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kampstarter.sqldelight.asFlow
+import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,10 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.get
 import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 
 class BreedModel(
     private val viewUpdate: (ItemDataSummary) -> Unit,
@@ -23,8 +27,9 @@ class BreedModel(
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
 
-    companion object {
+    companion object : KoinComponent {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
+        private val log: Kermit = get { parametersOf("BreedModel") }
     }
 
     init {
@@ -32,6 +37,7 @@ class BreedModel(
         scope.launch {
             dbHelper.selectAllItems().asFlow()
                 .map { q ->
+                    log.v { "Select all query dirtied" }
                     val itemList = q.executeAsList()
                     ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
                 }
@@ -54,7 +60,9 @@ class BreedModel(
             scope.launch {
                 try {
                     val breedResult = ktorApi.getJsonFromApi()
+                    log.v { "Breed network result: ${breedResult.status}" }
                     val breedList = breedResult.message.keys.toList()
+                    log.v { "Fetched ${breedList.size} breeds from network" }
 
                     dbHelper.insertBreeds(breedList)
 
@@ -64,6 +72,7 @@ class BreedModel(
                 }
             }
         } else {
+            log.i { "Breeds not fetched from network. Recently updated" }
             Job().apply { complete() }
         }
     }

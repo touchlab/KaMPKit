@@ -3,6 +3,8 @@ package co.touchlab.kampstarter
 import android.content.Context
 import android.content.SharedPreferences
 import co.touchlab.kampstarter.db.KampstarterDb
+import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.LogcatLogger
 import com.russhwolf.settings.AndroidSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.android.AndroidSqliteDriver
@@ -25,4 +27,7 @@ actual val platformModule: Module = module {
             context.getSharedPreferences("KAMPSTARTER_SETTINGS", Context.MODE_PRIVATE)
         AndroidSettings(preferences)
     }
+
+    val baseKermit = Kermit(LogcatLogger())
+    factory { (tag: String?) -> baseKermit.withTag(tag ?: "KampKit") }
 }

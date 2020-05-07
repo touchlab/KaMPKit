@@ -17,6 +17,7 @@ object Versions {
     val koin = "3.0.0-alpha-2"
     val serialization = "0.20.0"
     val cocoapodsext = "0.9"
+    val kermit = "0.1.5"
 }
 
 object Deps {
@@ -33,6 +34,7 @@ object Deps {
     val koinCore = "org.koin:koin-core:${Versions.koin}"
     val koinTest = "org.koin:koin-test:${Versions.koin}"
     val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
+    val kermit = "co.touchlab:kermit:${Versions.kermit}"
 
     object AndroidXTest {
         val core = "androidx.test:core:${Versions.androidx_test}"

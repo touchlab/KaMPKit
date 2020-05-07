@@ -51,6 +51,7 @@ kotlin {
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
         implementation(Deps.Ktor.commonSerialization)
+        api(Deps.kermit)
 
     }
 
@@ -101,6 +102,8 @@ kotlin {
         homepage = "https://github.com/touchlab/KaMPStarter"
         framework {
             isStatic = false
+            export(Deps.kermit)
+            transitiveExport = true
         }
     }
 }

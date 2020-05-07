@@ -1,6 +1,7 @@
 package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.ktor.KtorApi
+import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineScope
@@ -15,6 +16,7 @@ fun appStart(helper: DatabaseHelper, settings: Settings, ktorApi: KtorApi) {
         single { helper }
         single { settings }
         single { ktorApi }
+        factory { (tag:String?)-> Kermit(defaultTag = tag?:"Test") }
     }
 
     startKoin { modules(coreModule) }
