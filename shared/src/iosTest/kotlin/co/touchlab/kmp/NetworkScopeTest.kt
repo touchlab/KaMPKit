@@ -65,6 +65,6 @@ class NetworkScopeTest : BaseTest() {
             controlContext.isActive,
             "Scope should be inactive after getting cancelled"
         )
-        assertTrue(controlContext.isFrozen, "Scope should not have been frozen")
+        assertTrue(controlContext.isFrozen, "Scope should have been frozen")
     }
 }
