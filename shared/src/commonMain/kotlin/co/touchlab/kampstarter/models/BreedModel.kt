@@ -26,18 +26,19 @@ class BreedModel(
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
+    private val log: Kermit by inject { parametersOf("BreedModel") }
 
-    companion object : KoinComponent {
+    companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
-        private val log: Kermit = get { parametersOf("BreedModel") }
     }
 
     init {
         ensureNeverFrozen()
         scope.launch {
+            val localLog = log
             dbHelper.selectAllItems().asFlow()
                 .map { q ->
-                    log.v { "Select all query dirtied" }
+                    localLog.v { "Select all query dirtied" }
                     val itemList = q.executeAsList()
                     ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
                 }
@@ -80,7 +81,6 @@ class BreedModel(
     fun updateBreedFavorite(breed: Breed) = scope.launch {
         dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
     }
-
 }
 
 data class ItemDataSummary(val longestItem: Breed?, val allItems: List<Breed>)

@@ -5,9 +5,11 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import co.touchlab.kampstarter.*
+import co.touchlab.kermit.Kermit
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
+import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import org.koin.test.category.CheckModuleTest
 import org.koin.test.check.checkModules
@@ -23,7 +25,9 @@ class CheckModulesTest : BaseTest() {
     fun checkAllModules() {
         initKoin{
             modules(module { single<Context> { getApplicationContext<Application>() } })
-        }.checkModules()
+        }.checkModules {
+            create<Kermit> { parametersOf("TestTag") }
+        }
     }
 
     @AfterTest
