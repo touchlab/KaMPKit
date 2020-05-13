@@ -1,14 +1,13 @@
 package co.touchlab.kampstarter
 
-import co.touchlab.kampstarter.ktor.KtorApi
+import co.touchlab.kampstarter.mock.KtorApiMock
 import co.touchlab.kampstarter.models.BreedModel
 import co.touchlab.kampstarter.models.ItemDataSummary
-import co.touchlab.kampstarter.response.BreedResult
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.CompletableDeferred
 import kotlin.test.*
 
-class BreedModelTest: BaseTest() {
+class BreedModelTest : BaseTest() {
 
     private lateinit var model: BreedModel
     private var dbHelper = DatabaseHelper(testDbConnection())
@@ -34,17 +33,17 @@ class BreedModelTest: BaseTest() {
     @Test
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
-        assertFalse(ktorApi.jsonRequested)
+        assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
         model.getBreedsFromNetwork().join()
-        assertFalse(ktorApi.jsonRequested)
+        assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
+        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
         model.getBreedsFromNetwork().join()
         itemDataSummary.await(500)
         val breedOld = dbHelper.selectAllItems().executeAsList().first()
-        assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
         model.updateBreedFavorite(breedOld).join()
         val breedNew = dbHelper.selectById(breedOld.id).executeAsOne()
@@ -53,7 +52,7 @@ class BreedModelTest: BaseTest() {
 
     @Test
     fun notifyErrorOnException() = runTest {
-        ktorApi.thowOnRequest = true
+        ktorApi.mock.getJsonFromApi.throwOnCall(RuntimeException())
 
         model.getBreedsFromNetwork().join()
         val error = errorString.await(500)
@@ -67,19 +66,3 @@ class BreedModelTest: BaseTest() {
     }
 }
 
-class KtorApiMock : KtorApi {
-    var jsonRequested = false
-    var thowOnRequest = false
-
-    override suspend fun getJsonFromApi(): BreedResult {
-        if (thowOnRequest) {
-            throw Exception()
-        }
-
-        jsonRequested = true
-        val map = mutableMapOf<String, List<String>>()
-        map["appenzeller"] = listOf()
-        map["australian"] = listOf("shepherd")
-        return BreedResult(map as HashMap<String, List<String>>, "success")
-    }
-}

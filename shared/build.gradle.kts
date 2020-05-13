@@ -59,6 +59,7 @@ kotlin {
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
         implementation(Deps.koinTest)
+        implementation("co.touchlab:karmok-library:0.1.6")
     }
 
     sourceSets["androidMain"].dependencies {
