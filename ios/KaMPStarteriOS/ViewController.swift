@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var data:[Breed] = []
     
     private var model: BreedModel?
-    let log = KoiniOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
+    let log = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     // MARK: View Lifecycle
 
     override func viewDidLoad() {

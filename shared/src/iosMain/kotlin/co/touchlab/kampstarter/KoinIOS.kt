@@ -21,11 +21,11 @@ actual val platformModule = module {
     }
     single<SqlDriver> { NativeSqliteDriver(KampstarterDb.Schema, "kampstarterdb") }
 
-    val baseKermit = Kermit(NSLogLogger())
-    factory { (tag: String?) -> baseKermit.withTag(tag ?: "KampKit") }
+    val baseKermit = Kermit(NSLogLogger()).withTag("KampKit")
+    factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 }
 
-object KoiniOS {
+object KoinIOS {
     val koin = initKoin { }
 
     fun get(objCClass: ObjCClass, qualifier: Qualifier?, parameter: Any): Any {

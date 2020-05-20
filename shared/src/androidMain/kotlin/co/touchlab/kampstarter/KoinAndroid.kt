@@ -28,6 +28,6 @@ actual val platformModule: Module = module {
         AndroidSettings(preferences)
     }
 
-    val baseKermit = Kermit(LogcatLogger())
-    factory { (tag: String?) -> baseKermit.withTag(tag ?: "KampKit") }
+    val baseKermit = Kermit(LogcatLogger()).withTag("KampKit")
+    factory { (tag: String?) -> if (tag != null) baseKermit.withTag(tag) else baseKermit }
 }
