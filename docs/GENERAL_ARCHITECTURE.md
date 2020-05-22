@@ -153,4 +153,4 @@ You may be thinking: Weren't the libraries injected? How does the dependency inj
 On the android side we are using AndroidRunner to run the tests because we want to use android specifics in our tests. If you're not using android specific methods then you don't need to use AndroidRunner. The android tests are run can be easily run in Android Studio by right clicking on the shared folder, and selecting `Run 'All Tests'`.
 
 #### iOS
-The iOS side can seem a bit tricky at first, but is just as simple to test. The tests are not run from XCode, instead we've created an `iOSTest` task in the shared build.gradle.kts(located in the shared folder). You can simply go to the terminal and run `./gradlew iosTest`.
+iOS tests have their own gradle task allowing them to run with an iOS simulator. You can simply go to the terminal and run `./gradlew iosTest`.
