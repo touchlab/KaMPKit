@@ -1,5 +1,6 @@
 package co.touchlab.kampstarter
 
+import co.touchlab.kermit.Kermit
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
@@ -15,7 +16,7 @@ class SqlDelightTest:BaseTest() {
 
     @BeforeTest
     fun setup() = runTest {
-        dbHelper = DatabaseHelper(testDbConnection())
+        dbHelper = DatabaseHelper(testDbConnection(), Kermit())
         dbHelper.deleteAll()
         dbHelper.insertBreed("Beagle")
     }

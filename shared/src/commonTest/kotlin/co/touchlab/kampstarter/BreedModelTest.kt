@@ -4,6 +4,7 @@ import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kampstarter.models.BreedModel
 import co.touchlab.kampstarter.models.ItemDataSummary
 import co.touchlab.kampstarter.response.BreedResult
+import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.CompletableDeferred
 import kotlin.test.*
@@ -11,7 +12,8 @@ import kotlin.test.*
 class BreedModelTest: BaseTest() {
 
     private lateinit var model: BreedModel
-    private var dbHelper = DatabaseHelper(testDbConnection())
+    private val kermit = Kermit()
+    private var dbHelper = DatabaseHelper(testDbConnection(), kermit)
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
@@ -20,7 +22,7 @@ class BreedModelTest: BaseTest() {
 
     @BeforeTest
     fun setup() = runTest {
-        appStart(dbHelper, settings, ktorApi)
+        appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
 
         model = BreedModel(viewUpdate = { summary ->

@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var data:[Breed] = []
     
     private var model: BreedModel?
-    
+    let log = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     // MARK: View Lifecycle
 
     override func viewDidLoad() {
@@ -44,11 +44,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: BreedModel Closures
     
     private func viewUpdate(for summary: ItemDataSummary) {
+        log.d(withMessage: {"View updating with \(summary.allItems.count) breeds"})
         data = summary.allItems
         breedTableView.reloadData()
     }
     
     private func errorUpdate(for errorMessage: String) {
+        log.e(withMessage: {"Displaying error: \(errorMessage)"})
         let alertController = UIAlertController(title: "error", message: errorMessage, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
         present(alertController, animated: true, completion: nil)
