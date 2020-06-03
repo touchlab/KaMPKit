@@ -5,15 +5,13 @@ import co.touchlab.kampstarter.db.KampstarterDb
 import co.touchlab.kermit.Kermit
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class DatabaseHelper(sqlDriver: SqlDriver, private val log: Kermit) {
     private val dbRef: KampstarterDb = KampstarterDb(sqlDriver)
 
     fun selectAllItems(): Query<Breed> = dbRef.tableQueries.selectAll()
 
-    suspend fun insertBreeds(breedNames: List<String>) = withContext(Dispatchers.Default) {
+    suspend fun insertBreeds(breedNames: List<String>) {
         log.d { "Inserting ${breedNames.size} breeds into database" }
         dbRef.transaction {
             breedNames.forEach { name ->
@@ -22,15 +20,14 @@ class DatabaseHelper(sqlDriver: SqlDriver, private val log: Kermit) {
         }
     }
 
-    suspend fun selectById(id: Long): Query<Breed> =
-        withContext(Dispatchers.Default) { dbRef.tableQueries.selectById(id) }
+    suspend fun selectById(id: Long): Query<Breed> = dbRef.tableQueries.selectById(id)
 
-    suspend fun deleteAll() = withContext(Dispatchers.Default) {
+    suspend fun deleteAll() {
         log.i { "Database Cleared" }
         dbRef.tableQueries.deleteAll()
     }
 
-    suspend fun updateFavorite(breedId: Long, favorite: Boolean) = withContext(Dispatchers.Default) {
+    suspend fun updateFavorite(breedId: Long, favorite: Boolean) {
         log.i { "Breed $breedId: Favorited $favorite" }
         dbRef.tableQueries.updateFavorite(favorite.toLong(), breedId)
     }

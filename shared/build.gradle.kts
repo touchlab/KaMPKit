@@ -93,11 +93,13 @@ kotlin {
         implementation(Deps.Ktor.iosJson)
         implementation(Deps.Ktor.iosLogging)
         implementation(Deps.Coroutines.native) {
+            setForce(true)
             version {
                 strictly("1.3.5-native-mt")
             }
         }
         implementation(Deps.Ktor.iosSerialization)
+        api(Deps.kermit)
     }
 
     cocoapodsext {
