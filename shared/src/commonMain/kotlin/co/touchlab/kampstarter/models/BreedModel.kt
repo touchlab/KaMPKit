@@ -31,10 +31,9 @@ class BreedModel(
     }
 
     fun selectAllBreeds() =
-        dbHelper.selectAllItems().asFlow()
-            .map { q ->
+        dbHelper.selectAllItems()
+            .map { itemList ->
                 log.v { "Select all query dirtied" }
-                val itemList = q.executeAsList()
                 ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
             }
 

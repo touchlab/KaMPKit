@@ -2,6 +2,7 @@ package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.ktor.DogApiImpl
 import co.touchlab.kampstarter.ktor.KtorApi
+import kotlinx.coroutines.Dispatchers
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
@@ -15,11 +16,11 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 }
 
 private val coreModule = module {
-    single { DatabaseHelper(get(), getWith("DatabaseHelper")) }
+    single { DatabaseHelper(get(), getWith("DatabaseHelper"), Dispatchers.Main) }
     single<KtorApi> { DogApiImpl(getWith("DogApiImpl")) }
 }
 
-internal inline fun <reified T> Scope.getWith(vararg params:Any?):T{
+internal inline fun <reified T> Scope.getWith(vararg params: Any?):T{
     return get(parameters = {parametersOf(*params)})
 }
 

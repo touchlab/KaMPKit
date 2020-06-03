@@ -28,7 +28,6 @@ class NativeCoroutineAdapter(
         scope.launch {
             log.v { "Observe Breeds" }
             breedModel.selectAllBreeds()
-                .flowOn(Dispatchers.Default)
                 .collect { summary ->
                     log.v { "Collecting Things" }
                     viewUpdate(summary)
