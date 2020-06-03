@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     private lateinit var adapter: MainAdapter
     private lateinit var model: BreedModel
     private lateinit var scope:MainScope
-    private lateinit var flowScope:MainScope
 
     private val log:Kermit by inject { parametersOf("MainActivity") }
 
@@ -36,13 +35,12 @@ class MainActivity : AppCompatActivity(), KoinComponent {
             Snackbar.make(breed_list, errorMessage, Snackbar.LENGTH_SHORT).show()
         })
         scope = MainScope(Dispatchers.Main, log)
-        flowScope = MainScope(Dispatchers.Main, log)
         adapter = MainAdapter { scope.launch { model.updateBreedFavorite(it) } }
 
         breed_list.adapter = adapter
         breed_list.layoutManager = LinearLayoutManager(this)
 
-        flowScope.launch {
+        scope.launch {
             model.selectAllBreeds()
                 .flowOn(Dispatchers.Default)
                 .collect { itemData ->

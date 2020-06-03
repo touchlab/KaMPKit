@@ -16,7 +16,6 @@ class NativeCoroutineAdapter(
 
     val log = Kermit(CommonLogger())
     private val scope = MainScope(Dispatchers.Main, log)
-    private val flowScope = MainScope(Dispatchers.Main, log)
     private val breedModel:BreedModel
 
     init {
@@ -26,7 +25,7 @@ class NativeCoroutineAdapter(
     }
 
     private fun observeBreeds() {
-        flowScope.launch {
+        scope.launch {
             log.v { "Observe Breeds" }
             breedModel.selectAllBreeds()
                 .flowOn(Dispatchers.Default)
