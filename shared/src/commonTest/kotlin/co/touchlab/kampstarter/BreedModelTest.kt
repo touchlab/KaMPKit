@@ -34,21 +34,13 @@ class BreedModelTest: BaseTest() {
             errorString.complete(s)
         })
 
-        model.selectAllBreeds()
-        .flowOn(Dispatchers.Default)
-        .collect { summary ->
-            if (summary.allItems.isNotEmpty())
-                itemDataSummary.complete(summary)
-        }
-        print("Setup")
+        itemDataSummary.complete(model.selectAllBreeds().first())
     }
 
     @Test
     fun staleDataCheckTest() = runTest {
-        println("staleDataCheckTest")
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
-        println("staleDataCheckTest 2")
         val deferred = async { model.getBreedsFromNetwork() }
         deferred.await()
         assertFalse(ktorApi.jsonRequested)
@@ -56,7 +48,6 @@ class BreedModelTest: BaseTest() {
 
     @Test
     fun updateFavoriteTest() = runTest {
-        print("updateFavoriteTest")
 
         val deferred = async { model.getBreedsFromNetwork() }
         deferred.await()
@@ -74,7 +65,6 @@ class BreedModelTest: BaseTest() {
 
     @Test
     fun notifyErrorOnException() = runTest {
-        print("notifyErrorOnException")
         ktorApi.thowOnRequest = true
 
         val deferred = async { model.getBreedsFromNetwork() }

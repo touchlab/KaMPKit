@@ -24,9 +24,9 @@ class SqlDelightTest:BaseTest() {
         dbHelper.insertBreed("Beagle")
     }
 
+
     @Test
     fun `Select All Items Success`() = runTest {
-        print("selectAll")
         val breeds = dbHelper.selectAllItems().first()
         assertNotNull(
             breeds.find { it.name == "Beagle" },
@@ -36,7 +36,6 @@ class SqlDelightTest:BaseTest() {
 
     @Test
     fun `Select Item by Id Success`() = runTest {
-        print("SelectItem")
         val breeds = dbHelper.selectAllItems().first()
         val firstBreed = breeds.first()
         assertNotNull(
@@ -47,7 +46,6 @@ class SqlDelightTest:BaseTest() {
 
     @Test
     fun `Update Favorite Success`() = runTest {
-        print("UpdateFavorite")
         val breeds = dbHelper.selectAllItems().first()
         val firstBreed = breeds.first()
         dbHelper.updateFavorite(firstBreed.id, true)
@@ -61,16 +59,15 @@ class SqlDelightTest:BaseTest() {
             "Favorite Did Not Save"
         )
     }
-
     @Test
     fun `Delete All Success`() = runTest {
-        print("DeleteAll")
         dbHelper.insertBreed("Poodle")
         dbHelper.insertBreed("Schnauzer")
         assertTrue(dbHelper.selectAllItems().first().isNotEmpty())
         dbHelper.deleteAll()
+
         assertTrue(
-            dbHelper.selectAllItems().count() == 0,
+            dbHelper.selectAllItems().first().count() == 0,
             "Delete All did not work"
         )
     }
