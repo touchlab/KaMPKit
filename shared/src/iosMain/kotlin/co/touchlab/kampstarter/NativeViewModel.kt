@@ -1,20 +1,19 @@
 package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.db.Breed
+import co.touchlab.kampstarter.models.BaseModel
 import co.touchlab.kampstarter.models.BreedModel
 import co.touchlab.kampstarter.models.ItemDataSummary
+import co.touchlab.stately.ensureNeverFrozen
 import co.touchlab.kermit.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import co.touchlab.stately.ensureNeverFrozen
 
-
-class NativeCoroutineAdapter(
+class NativeViewModel(
     private val viewUpdate: (ItemDataSummary) -> Unit,
     errorUpdate: (String) -> Unit
-) {
+) : BaseModel() {
 
-    val log = Kermit(CommonLogger())
     private val scope = MainScope(Dispatchers.Main, log)
     private val breedModel:BreedModel
 
@@ -46,7 +45,8 @@ class NativeCoroutineAdapter(
         }
     }
 
-    fun onDestroy() {
+    override fun onDestroy() {
+        super.onDestroy()
         scope.onDestroy()
         breedModel.onDestroy()
     }

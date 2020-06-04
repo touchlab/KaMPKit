@@ -98,6 +98,8 @@ kotlin {
             }
         }
         implementation(Deps.Ktor.iosSerialization)
+        implementation(Deps.koinCore)
+
     }
 
     cocoapodsext {

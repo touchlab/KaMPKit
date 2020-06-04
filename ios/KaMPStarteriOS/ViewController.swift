@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let log = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     
-    lazy var adapter: NativeCoroutineAdapter = NativeCoroutineAdapter(
+    lazy var adapter: NativeViewModel = NativeViewModel(
         viewUpdate: { [weak self] summary in
             self?.viewUpdate(for: summary)
         }, errorUpdate: { [weak self] errorMessage in
@@ -76,9 +76,9 @@ class BreedCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     var breed:Breed?
-    var adapter:NativeCoroutineAdapter?
+    var adapter:NativeViewModel?
     
-    func bind(breed:Breed, adapter: NativeCoroutineAdapter){
+    func bind(breed:Breed, adapter: NativeViewModel){
         self.breed = breed
         self.adapter = adapter
         nameLabel.text = breed.name

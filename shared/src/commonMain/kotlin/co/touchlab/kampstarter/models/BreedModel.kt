@@ -20,7 +20,7 @@ class BreedModel(
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
-    private val log: Kermit by inject { parametersOf("BreedModel") }
+    //private val log: Kermit by inject { parametersOf("BreedModel") }
 
     companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"

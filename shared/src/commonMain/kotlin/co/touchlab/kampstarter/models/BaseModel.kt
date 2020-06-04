@@ -7,7 +7,7 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 open class BaseModel : KoinComponent {
-    private val log: Kermit by inject { parametersOf("BaseModel") }
+    protected val log: Kermit by inject { parametersOf("BaseModel") }
 
     open fun onDestroy() {
         log.v { "onDestroy called" }
