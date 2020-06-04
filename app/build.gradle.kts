@@ -47,5 +47,9 @@ dependencies {
     implementation(Deps.Coroutines.android)
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
+    implementation(Deps.lifecycle_viewmodel)
+    implementation(Deps.lifecycle_viewmodel_extensions)
+    implementation(Deps.lifecycle_livedata)
+    implementation(Deps.lifecycle_extension)
     testImplementation(Deps.junit)
 }

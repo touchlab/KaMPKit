@@ -18,6 +18,7 @@ object Versions {
     val serialization = "0.20.0"
     val cocoapodsext = "0.9"
     val kermit = "0.1.5"
+    val lifecycle = "2.1.0"
 }
 
 object Deps {
@@ -35,6 +36,10 @@ object Deps {
     val koinTest = "org.koin:koin-test:${Versions.koin}"
     val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
     val kermit = "co.touchlab:kermit:${Versions.kermit}"
+    val lifecycle_viewmodel = "android.arch.lifecycle:viewmodel:${Versions.lifecycle}"
+    val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    val lifecycle_livedata = "android.arch.lifecycle:livedata:${Versions.lifecycle}"
+    val lifecycle_extension = "android.arch.lifecycle:extensions:${Versions.lifecycle}"
 
     object AndroidXTest {
         val core = "androidx.test:core:${Versions.androidx_test}"
