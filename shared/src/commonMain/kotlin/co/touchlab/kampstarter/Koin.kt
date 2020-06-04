@@ -16,7 +16,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 }
 
 private val coreModule = module {
-    single { DatabaseHelper(get(), getWith("DatabaseHelper"), Dispatchers.Main) }
+    single { DatabaseHelper(get(), getWith("DatabaseHelper"), Dispatchers.Default) }
     single<KtorApi> { DogApiImpl(getWith("DogApiImpl")) }
 }
 

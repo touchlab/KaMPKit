@@ -18,7 +18,7 @@ class BreedModelTest: BaseTest() {
 
     private lateinit var model: BreedModel
     private val kermit = Kermit()
-    private var dbHelper = DatabaseHelper(testDbConnection(), kermit, Dispatchers.Main)
+    private var dbHelper = DatabaseHelper(testDbConnection(), kermit, Dispatchers.Default)
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
@@ -41,8 +41,7 @@ class BreedModelTest: BaseTest() {
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
-        val deferred = async { model.getBreedsFromNetwork() }
-        deferred.await()
+        model.getBreedsFromNetwork()
         assertFalse(ktorApi.jsonRequested)
     }
 

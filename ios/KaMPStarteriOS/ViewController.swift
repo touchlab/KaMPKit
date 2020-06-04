@@ -16,7 +16,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let log = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     
-    private var adapter: NativeCoroutineAdapter?
+    lazy var adapter: NativeCoroutineAdapter = NativeCoroutineAdapter(
+        viewUpdate: { [weak self] summary in
+            self?.viewUpdate(for: summary)
+        }, errorUpdate: { [weak self] errorMessage in
+            self?.errorUpdate(for: errorMessage)
+        }
+    )
     
     // MARK: View Lifecycle
 
@@ -24,23 +30,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         breedTableView.delegate = self
         breedTableView.dataSource = self
-
-        
-        adapter = NativeCoroutineAdapter(
-            viewUpdate: { [weak self] summary in
-                self?.viewUpdate(for: summary)
-            }, errorUpdate: { [weak self] errorMessage in
-                self?.errorUpdate(for: errorMessage)
-            }
-        )
         
         //We check for stalk data in this method
-        adapter?.getBreedsFromNetwork()
+        adapter.getBreedsFromNetwork()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        adapter?.onDestroy()
+        adapter.onDestroy()
     }
     
     // MARK: BreedModel Closures
@@ -68,7 +65,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "BreedCell", for: indexPath)
         if let breedCell = cell as? BreedCell {
             let breed = data[indexPath.row]
-            breedCell.bind(breed: breed, adapter: adapter!)
+            breedCell.bind(breed: breed, adapter: adapter)
         }
         return cell
     }

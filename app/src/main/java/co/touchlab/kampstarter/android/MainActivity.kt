@@ -9,14 +9,9 @@ import co.touchlab.kampstarter.android.adapter.MainAdapter
 import co.touchlab.kermit.Kermit
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.SupervisorJob
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
-import kotlin.coroutines.CoroutineContext
 
 class MainActivity : AppCompatActivity(), KoinComponent {
     companion object {
@@ -25,10 +20,8 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     private lateinit var adapter: MainAdapter
     private val log:Kermit by inject { parametersOf("MainActivity") }
 
-    @InternalCoroutinesApi
     private lateinit var viewModel: BreedViewModel
 
-    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -52,7 +45,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         viewModel.getBreedsFromNetwork()
     }
 
-    @InternalCoroutinesApi
     override fun onDestroy() {
         super.onDestroy()
         viewModel.onDestroy()

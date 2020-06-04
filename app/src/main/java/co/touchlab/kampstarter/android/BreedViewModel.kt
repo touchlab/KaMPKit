@@ -1,18 +1,15 @@
 package co.touchlab.kampstarter.android
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.models.BreedModel
-import kotlinx.coroutines.InternalCoroutinesApi
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kampstarter.models.ItemDataSummary
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-@InternalCoroutinesApi
-class BreedViewModel(app: Application) : AndroidViewModel(app) {
+class BreedViewModel : ViewModel() {
 
     private var breedModel: BreedModel
     val breedLiveData = MutableLiveData<ItemDataSummary>()
@@ -26,7 +23,6 @@ class BreedViewModel(app: Application) : AndroidViewModel(app) {
     }
 
 
-    @InternalCoroutinesApi
     private fun observeBreeds() {
         viewModelScope.launch {
             breedModel.selectAllBreeds().collect {
