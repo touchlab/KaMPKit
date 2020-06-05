@@ -19,33 +19,27 @@ class BreedModelTest: BaseTest() {
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
-    private var errorString:String? = null
-
     @BeforeTest
     fun setup() = runTest {
         appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
         model = BreedModel()
         model.selectAllBreeds().first()
-        errorString = null
     }
 
     @Test
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
-        model.getBreedsFromNetwork()?.let {
-            errorString = it
-        }
+
+        assertNull(model.getBreedsFromNetwork())
         assertFalse(ktorApi.jsonRequested)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
 
-        model.getBreedsFromNetwork()?.let {
-            errorString = it
-        }
+        assertNull(model.getBreedsFromNetwork())
         val breedOld = dbHelper.selectAllItems().first().first()
         assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
@@ -60,11 +54,7 @@ class BreedModelTest: BaseTest() {
     fun notifyErrorOnException() = runTest {
         ktorApi.thowOnRequest = true
 
-        model.getBreedsFromNetwork()?.let {
-            errorString = it
-        }
-
-        assertNotNull(errorString)
+        assertNotNull(model.getBreedsFromNetwork())
     }
 
     @AfterTest
