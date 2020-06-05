@@ -8,10 +8,7 @@ import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOn
 import kotlin.test.*
 
 class BreedModelTest: BaseTest() {
@@ -22,17 +19,15 @@ class BreedModelTest: BaseTest() {
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
-    private val itemDataSummary = CompletableDeferred<ItemDataSummary>()
-    private var errorString = CompletableDeferred<String>()
+    private var errorString:String? = null
 
     @BeforeTest
     fun setup() = runTest {
         appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
-
         model = BreedModel()
-
-        itemDataSummary.complete(model.selectAllBreeds().first())
+        model.selectAllBreeds().first()
+        errorString = null
     }
 
     @Test
@@ -40,7 +35,7 @@ class BreedModelTest: BaseTest() {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
         model.getBreedsFromNetwork()?.let {
-            errorString.complete(it)
+            errorString = it
         }
         assertFalse(ktorApi.jsonRequested)
     }
@@ -49,9 +44,8 @@ class BreedModelTest: BaseTest() {
     fun updateFavoriteTest() = runTest {
 
         model.getBreedsFromNetwork()?.let {
-            errorString.complete(it)
+            errorString = it
         }
-        itemDataSummary.await(500)
         val breedOld = dbHelper.selectAllItems().first().first()
         assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
@@ -67,11 +61,10 @@ class BreedModelTest: BaseTest() {
         ktorApi.thowOnRequest = true
 
         model.getBreedsFromNetwork()?.let {
-            errorString.complete(it)
+            errorString = it
         }
 
-        val error = errorString.await(500)
-        assertNotNull(error)
+        assertNotNull(errorString)
     }
 
     @AfterTest
