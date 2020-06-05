@@ -44,9 +44,4 @@ class MainActivity : AppCompatActivity(), KoinComponent {
 
         viewModel.getBreedsFromNetwork()
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        viewModel.onDestroy()
-    }
 }

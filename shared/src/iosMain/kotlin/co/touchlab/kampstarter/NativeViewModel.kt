@@ -1,25 +1,28 @@
 package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.db.Breed
-import co.touchlab.kampstarter.models.BaseModel
 import co.touchlab.kampstarter.models.BreedModel
 import co.touchlab.kampstarter.models.ItemDataSummary
 import co.touchlab.stately.ensureNeverFrozen
-import co.touchlab.kermit.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import org.koin.core.KoinComponent
+import org.koin.core.parameter.parametersOf
+import org.koin.core.inject
+import co.touchlab.kermit.Kermit
 
 class NativeViewModel(
     private val viewUpdate: (ItemDataSummary) -> Unit,
-    errorUpdate: (String) -> Unit
-) : BaseModel() {
+    private val errorUpdate: (String) -> Unit
+) : KoinComponent {
 
+    private val log: Kermit by inject { parametersOf("BreedModel") }
     private val scope = MainScope(Dispatchers.Main, log)
     private val breedModel:BreedModel
 
     init {
         ensureNeverFrozen()
-        breedModel = BreedModel(errorUpdate)
+        breedModel = BreedModel()
         observeBreeds()
     }
 
@@ -36,7 +39,9 @@ class NativeViewModel(
 
     fun getBreedsFromNetwork() {
         scope.launch {
-            breedModel.getBreedsFromNetwork()
+            breedModel.getBreedsFromNetwork()?.let{ errorString ->
+                errorUpdate(errorString)
+            }
         }
     }
     fun updateBreedFavorite(breed: Breed){
@@ -45,9 +50,7 @@ class NativeViewModel(
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    fun onDestroy() {
         scope.onDestroy()
-        breedModel.onDestroy()
     }
 }

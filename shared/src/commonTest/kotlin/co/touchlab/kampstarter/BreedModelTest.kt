@@ -30,9 +30,7 @@ class BreedModelTest: BaseTest() {
         appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
 
-        model = BreedModel(errorUpdate = { s ->
-            errorString.complete(s)
-        })
+        model = BreedModel()
 
         itemDataSummary.complete(model.selectAllBreeds().first())
     }
@@ -41,22 +39,24 @@ class BreedModelTest: BaseTest() {
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
-        model.getBreedsFromNetwork()
+        model.getBreedsFromNetwork()?.let {
+            errorString.complete(it)
+        }
         assertFalse(ktorApi.jsonRequested)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
 
-        val deferred = async { model.getBreedsFromNetwork() }
-        deferred.await()
+        model.getBreedsFromNetwork()?.let {
+            errorString.complete(it)
+        }
         itemDataSummary.await(500)
         val breedOld = dbHelper.selectAllItems().first().first()
         assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
 
-        val deferred2 = async { model.updateBreedFavorite(breedOld) }
-        deferred2.await()
+        model.updateBreedFavorite(breedOld)
 
         val breedNew = dbHelper.selectById(breedOld.id).first().first()
         assertTrue(breedNew.isFavorited())
@@ -66,8 +66,9 @@ class BreedModelTest: BaseTest() {
     fun notifyErrorOnException() = runTest {
         ktorApi.thowOnRequest = true
 
-        val deferred = async { model.getBreedsFromNetwork() }
-        deferred.await()
+        model.getBreedsFromNetwork()?.let {
+            errorString.complete(it)
+        }
 
         val error = errorString.await(500)
         assertNotNull(error)

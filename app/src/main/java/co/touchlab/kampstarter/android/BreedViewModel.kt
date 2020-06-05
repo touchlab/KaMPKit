@@ -11,14 +11,11 @@ import kotlinx.coroutines.launch
 
 class BreedViewModel : ViewModel() {
 
-    private var breedModel: BreedModel
+    private var breedModel: BreedModel = BreedModel()
     val breedLiveData = MutableLiveData<ItemDataSummary>()
     val errorLiveData = MutableLiveData<String>()
 
     init {
-        breedModel = BreedModel(errorUpdate = { errorMessage ->
-            errorLiveData.postValue(errorMessage)
-        })
         observeBreeds()
     }
 
@@ -33,16 +30,14 @@ class BreedViewModel : ViewModel() {
 
     fun getBreedsFromNetwork() {
         viewModelScope.launch {
-            breedModel.getBreedsFromNetwork()
+            breedModel.getBreedsFromNetwork()?.let { errorString ->
+                errorLiveData.postValue(errorString)
+            }
         }
     }
     fun updateBreedFavorite(breed: Breed){
         viewModelScope.launch {
             breedModel.updateBreedFavorite(breed)
         }
-    }
-
-    fun onDestroy() {
-        breedModel.onDestroy()
     }
 }

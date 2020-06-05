@@ -4,23 +4,19 @@ import co.touchlab.kampstarter.DatabaseHelper
 import co.touchlab.kampstarter.currentTimeMillis
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.ktor.KtorApi
-import co.touchlab.kampstarter.sqldelight.asFlow
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
-import org.koin.core.inject
+import org.koin.core.KoinComponent
 import org.koin.core.parameter.parametersOf
+import org.koin.core.inject
 
-class BreedModel(
-    private val errorUpdate: (String) -> Unit
-) : BaseModel() {
+class BreedModel() : KoinComponent {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
-    //private val log: Kermit by inject { parametersOf("BreedModel") }
+    private val log: Kermit by inject { parametersOf("BreedModel") }
 
     companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
@@ -37,7 +33,7 @@ class BreedModel(
                 ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
             }
 
-    suspend fun getBreedsFromNetwork() {
+    suspend fun getBreedsFromNetwork() : String? {
         fun isBreedListStale(currentTimeMS: Long): Boolean {
             val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
             val oneHourMS = 60 * 60 * 1000
@@ -55,11 +51,12 @@ class BreedModel(
                 settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
 
             } catch (e: Exception) {
-                errorUpdate("Unable to download breed list")
+                return "Unable to download breed list"
             }
         } else {
             log.i { "Breeds not fetched from network. Recently updated" }
         }
+        return null
     }
 
     suspend fun updateBreedFavorite(breed: Breed) {
