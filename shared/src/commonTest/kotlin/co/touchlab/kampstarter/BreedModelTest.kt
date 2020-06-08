@@ -7,49 +7,46 @@ import co.touchlab.kampstarter.response.BreedResult
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlin.test.*
 
 class BreedModelTest: BaseTest() {
 
     private lateinit var model: BreedModel
     private val kermit = Kermit()
-    private var dbHelper = DatabaseHelper(testDbConnection(), kermit)
+    private var dbHelper = DatabaseHelper(testDbConnection(), kermit, Dispatchers.Default)
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
-
-    private val itemDataSummary = CompletableDeferred<ItemDataSummary>()
-    private var errorString = CompletableDeferred<String>()
 
     @BeforeTest
     fun setup() = runTest {
         appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
-
-        model = BreedModel(viewUpdate = { summary ->
-            if (summary.allItems.isNotEmpty())
-                itemDataSummary.complete(summary)
-        }, errorUpdate = { s ->
-            errorString.complete(s)
-        })
+        model = BreedModel()
+        model.selectAllBreeds().first()
     }
 
     @Test
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
         assertFalse(ktorApi.jsonRequested)
-        model.getBreedsFromNetwork().join()
+
+        assertNull(model.getBreedsFromNetwork())
         assertFalse(ktorApi.jsonRequested)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
-        model.getBreedsFromNetwork().join()
-        itemDataSummary.await(500)
-        val breedOld = dbHelper.selectAllItems().executeAsList().first()
+
+        assertNull(model.getBreedsFromNetwork())
+        val breedOld = dbHelper.selectAllItems().first().first()
         assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
-        model.updateBreedFavorite(breedOld).join()
-        val breedNew = dbHelper.selectById(breedOld.id).executeAsOne()
+
+        model.updateBreedFavorite(breedOld)
+
+        val breedNew = dbHelper.selectById(breedOld.id).first().first()
         assertTrue(breedNew.isFavorited())
     }
 
@@ -57,9 +54,7 @@ class BreedModelTest: BaseTest() {
     fun notifyErrorOnException() = runTest {
         ktorApi.thowOnRequest = true
 
-        model.getBreedsFromNetwork().join()
-        val error = errorString.await(500)
-        assertNotNull(error)
+        assertNotNull(model.getBreedsFromNetwork())
     }
 
     @AfterTest
