@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlin.test.*
 
-class BreedModelTest : BaseTest() {
+class BreedModelTest: BaseTest() {
 
     private lateinit var model: BreedModel
     private val kermit = Kermit()
@@ -63,4 +63,3 @@ class BreedModelTest : BaseTest() {
         appEnd()
     }
 }
-
