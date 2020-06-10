@@ -38,7 +38,6 @@ class BreedModelTest: BaseTest() {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
         assertNull(model.getBreedsFromNetwork())
         val breedOld = dbHelper.selectAllItems().first().first()
-        assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
 
         model.updateBreedFavorite(breedOld)
