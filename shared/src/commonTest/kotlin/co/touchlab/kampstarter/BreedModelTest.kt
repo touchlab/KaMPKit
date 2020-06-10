@@ -2,11 +2,8 @@ package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.mock.KtorApiMock
 import co.touchlab.kampstarter.models.BreedModel
-import co.touchlab.kampstarter.models.ItemDataSummary
-import co.touchlab.kampstarter.response.BreedResult
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlin.test.*
@@ -38,7 +35,7 @@ class BreedModelTest: BaseTest() {
 
     @Test
     fun updateFavoriteTest() = runTest {
-
+        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
         assertNull(model.getBreedsFromNetwork())
         val breedOld = dbHelper.selectAllItems().first().first()
         assertEquals("appenzeller", breedOld.name)
