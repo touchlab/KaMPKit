@@ -1,5 +1,9 @@
 package co.touchlab.kampstarter
 
+import co.touchlab.kermit.Kermit
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.first
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
@@ -15,14 +19,15 @@ class SqlDelightTest:BaseTest() {
 
     @BeforeTest
     fun setup() = runTest {
-        dbHelper = DatabaseHelper(testDbConnection())
+        dbHelper = DatabaseHelper(testDbConnection(), Kermit(), Dispatchers.Default)
         dbHelper.deleteAll()
         dbHelper.insertBreed("Beagle")
     }
 
+
     @Test
     fun `Select All Items Success`() = runTest {
-        val breeds = dbHelper.selectAllItems().executeAsList()
+        val breeds = dbHelper.selectAllItems().first()
         assertNotNull(
             breeds.find { it.name == "Beagle" },
             "Could not retrieve Breed"
@@ -31,20 +36,20 @@ class SqlDelightTest:BaseTest() {
 
     @Test
     fun `Select Item by Id Success`() = runTest {
-        val breeds = dbHelper.selectAllItems().executeAsList()
+        val breeds = dbHelper.selectAllItems().first()
         val firstBreed = breeds.first()
         assertNotNull(
-            dbHelper.selectById(firstBreed.id).executeAsOneOrNull(),
+            dbHelper.selectById(firstBreed.id),
             "Could not retrieve Breed by Id"
         )
     }
 
     @Test
     fun `Update Favorite Success`() = runTest {
-        val breeds = dbHelper.selectAllItems().executeAsList()
+        val breeds = dbHelper.selectAllItems().first()
         val firstBreed = breeds.first()
         dbHelper.updateFavorite(firstBreed.id, true)
-        val newBreed = dbHelper.selectById(firstBreed.id).executeAsOneOrNull()
+        val newBreed = dbHelper.selectById(firstBreed.id).first().first()
         assertNotNull(
             newBreed,
             "Could not retrieve Breed by Id"
@@ -54,15 +59,15 @@ class SqlDelightTest:BaseTest() {
             "Favorite Did Not Save"
         )
     }
-
     @Test
     fun `Delete All Success`() = runTest {
         dbHelper.insertBreed("Poodle")
         dbHelper.insertBreed("Schnauzer")
-        assertTrue(dbHelper.selectAllItems().executeAsList().isNotEmpty())
+        assertTrue(dbHelper.selectAllItems().first().isNotEmpty())
         dbHelper.deleteAll()
+
         assertTrue(
-            dbHelper.selectAllItems().executeAsList().count() == 0,
+            dbHelper.selectAllItems().first().count() == 0,
             "Delete All did not work"
         )
     }

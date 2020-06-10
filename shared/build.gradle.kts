@@ -46,11 +46,13 @@ kotlin {
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.Ktor.commonCore)
         implementation(Deps.Ktor.commonJson)
+        implementation(Deps.Ktor.commonLogging)
         implementation(Deps.Coroutines.common)
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
         implementation(Deps.Ktor.commonSerialization)
+        api(Deps.kermit)
 
     }
 
@@ -68,6 +70,7 @@ kotlin {
         implementation(Deps.SqlDelight.driverAndroid)
         implementation(Deps.Ktor.jvmCore)
         implementation(Deps.Ktor.jvmJson)
+        implementation(Deps.Ktor.jvmLogging)
         implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.Ktor.androidSerialization)
@@ -90,12 +93,15 @@ kotlin {
         implementation(Deps.Ktor.ios)
         implementation(Deps.Ktor.iosCore)
         implementation(Deps.Ktor.iosJson)
+        implementation(Deps.Ktor.iosLogging)
         implementation(Deps.Coroutines.native) {
             version {
                 strictly("1.3.5-native-mt")
             }
         }
         implementation(Deps.Ktor.iosSerialization)
+        implementation(Deps.koinCore)
+
     }
 
     cocoapodsext {
@@ -103,6 +109,8 @@ kotlin {
         homepage = "https://github.com/touchlab/KaMPStarter"
         framework {
             isStatic = false
+            export(Deps.kermit)
+            transitiveExport = true
         }
     }
 }

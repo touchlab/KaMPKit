@@ -13,10 +13,10 @@ import shared
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    
+    let log = KoinIOS().get(objCClass: Kermit.self, parameter: "AppDelegate") as! Kermit
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        KoiniOSKt.doInitKoin()
+        log.v(withMessage: {"App Started"})
         return true
     }
 }

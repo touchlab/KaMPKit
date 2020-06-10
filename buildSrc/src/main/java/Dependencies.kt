@@ -17,6 +17,8 @@ object Versions {
     val koin = "3.0.0-alpha-2"
     val serialization = "0.20.0"
     val cocoapodsext = "0.9"
+    val kermit = "0.1.5"
+    val lifecycle = "2.1.0"
     val karmok = "0.1.7"
 }
 
@@ -34,6 +36,11 @@ object Deps {
     val koinCore = "org.koin:koin-core:${Versions.koin}"
     val koinTest = "org.koin:koin-test:${Versions.koin}"
     val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
+    val kermit = "co.touchlab:kermit:${Versions.kermit}"
+    val lifecycle_viewmodel = "android.arch.lifecycle:viewmodel:${Versions.lifecycle}"
+    val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    val lifecycle_livedata = "android.arch.lifecycle:livedata:${Versions.lifecycle}"
+    val lifecycle_extension = "android.arch.lifecycle:extensions:${Versions.lifecycle}"
     val karmok = "co.touchlab:karmok-library:${Versions.karmok}"
 
     object AndroidXTest {
@@ -66,12 +73,15 @@ object Deps {
     object Ktor {
         val commonCore = "io.ktor:ktor-client-core:${Versions.ktor}"
         val commonJson = "io.ktor:ktor-client-json:${Versions.ktor}"
+        val commonLogging = "io.ktor:ktor-client-logging:${Versions.ktor}"
         val jvmCore =     "io.ktor:ktor-client-core-jvm:${Versions.ktor}"
         val androidCore = "io.ktor:ktor-client-okhttp:${Versions.ktor}"
         val jvmJson =     "io.ktor:ktor-client-json-jvm:${Versions.ktor}"
+        val jvmLogging =     "io.ktor:ktor-client-logging-jvm:${Versions.ktor}"
         val ios =         "io.ktor:ktor-client-ios:${Versions.ktor}"
         val iosCore =     "io.ktor:ktor-client-core-native:${Versions.ktor}"
         val iosJson =     "io.ktor:ktor-client-json-native:${Versions.ktor}"
+        val iosLogging =     "io.ktor:ktor-client-logging-native:${Versions.ktor}"
         val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
         val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
         val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"

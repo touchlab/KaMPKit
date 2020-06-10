@@ -2,33 +2,57 @@ package co.touchlab.kampstarter
 
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.db.KampstarterDb
+import co.touchlab.kampstarter.sqldelight.asFlow
+import co.touchlab.kampstarter.sqldelight.mapToList
+import co.touchlab.kampstarter.sqldelight.transactionWithContext
+import co.touchlab.kermit.Kermit
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOn
 
-class DatabaseHelper(sqlDriver: SqlDriver) {
+class DatabaseHelper(sqlDriver: SqlDriver,
+                     private val log: Kermit,
+                     private val backgroundDispatcher: CoroutineDispatcher) {
     private val dbRef: KampstarterDb = KampstarterDb(sqlDriver)
 
-    fun selectAllItems(): Query<Breed> = dbRef.tableQueries.selectAll()
 
-    suspend fun insertBreeds(breedNames: List<String>) = withContext(Dispatchers.Default) {
-        dbRef.transaction {
+    fun selectAllItems(): Flow<List<Breed>> =
+        dbRef.tableQueries
+            .selectAll()
+            .asFlow()
+            .mapToList()
+            .flowOn(backgroundDispatcher)
+
+    suspend fun insertBreeds(breedNames: List<String>) {
+        log.d { "Inserting ${breedNames.size} breeds into database" }
+        dbRef.transactionWithContext(backgroundDispatcher) {
             breedNames.forEach { name ->
                 dbRef.tableQueries.insertBreed(null, name, 0)
             }
         }
     }
 
-    suspend fun selectById(id: Long): Query<Breed> =
-        withContext(Dispatchers.Default) { dbRef.tableQueries.selectById(id) }
+    suspend fun selectById(id: Long): Flow<List<Breed>> =
+        dbRef.tableQueries
+            .selectById(id)
+            .asFlow()
+            .mapToList()
+            .flowOn(backgroundDispatcher)
 
-    suspend fun deleteAll() = withContext(Dispatchers.Default) {
-        dbRef.tableQueries.deleteAll()
+    suspend fun deleteAll() {
+        log.i { "Database Cleared" }
+        dbRef.transactionWithContext(backgroundDispatcher) {
+            dbRef.tableQueries.deleteAll()
+        }
     }
 
-    suspend fun updateFavorite(breedId: Long, favorite: Boolean) = withContext(Dispatchers.Default) {
-        dbRef.tableQueries.updateFavorite(favorite.toLong(), breedId)
+    suspend fun updateFavorite(breedId: Long, favorite: Boolean) {
+        log.i { "Breed $breedId: Favorited $favorite" }
+        dbRef.transactionWithContext(backgroundDispatcher) {
+            dbRef.tableQueries.updateFavorite(favorite.toLong(), breedId)
+        }
     }
 }
 
