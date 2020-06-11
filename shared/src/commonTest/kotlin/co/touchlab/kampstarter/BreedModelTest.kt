@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlin.test.*
 
-class BreedModelTest: BaseTest() {
+class BreedModelTest : BaseTest() {
 
     private lateinit var model: BreedModel
     private val kermit = Kermit()
@@ -43,6 +43,7 @@ class BreedModelTest: BaseTest() {
         model.updateBreedFavorite(breedOld)
 
         val breedNew = dbHelper.selectById(breedOld.id).first().first()
+        assertEquals(breedNew.id, breedOld.id)
         assertTrue(breedNew.isFavorited())
     }
 
