@@ -1,17 +1,14 @@
 package co.touchlab.kampstarter
 
-import co.touchlab.kampstarter.ktor.KtorApi
+import co.touchlab.kampstarter.mock.KtorApiMock
 import co.touchlab.kampstarter.models.BreedModel
-import co.touchlab.kampstarter.models.ItemDataSummary
-import co.touchlab.kampstarter.response.BreedResult
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlin.test.*
 
-class BreedModelTest: BaseTest() {
+class BreedModelTest : BaseTest() {
 
     private lateinit var model: BreedModel
     private val kermit = Kermit()
@@ -30,29 +27,29 @@ class BreedModelTest: BaseTest() {
     @Test
     fun staleDataCheckTest() = runTest {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
-        assertFalse(ktorApi.jsonRequested)
+        assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
 
         assertNull(model.getBreedsFromNetwork())
-        assertFalse(ktorApi.jsonRequested)
+        assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
-
+        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
         assertNull(model.getBreedsFromNetwork())
         val breedOld = dbHelper.selectAllItems().first().first()
-        assertEquals("appenzeller", breedOld.name)
         assertFalse(breedOld.isFavorited())
 
         model.updateBreedFavorite(breedOld)
 
         val breedNew = dbHelper.selectById(breedOld.id).first().first()
+        assertEquals(breedNew.id, breedOld.id)
         assertTrue(breedNew.isFavorited())
     }
 
     @Test
     fun notifyErrorOnException() = runTest {
-        ktorApi.thowOnRequest = true
+        ktorApi.mock.getJsonFromApi.throwOnCall(RuntimeException())
 
         assertNotNull(model.getBreedsFromNetwork())
     }
@@ -61,22 +58,5 @@ class BreedModelTest: BaseTest() {
     fun breakdown() = runTest {
         dbHelper.deleteAll()
         appEnd()
-    }
-}
-
-class KtorApiMock : KtorApi {
-    var jsonRequested = false
-    var thowOnRequest = false
-
-    override suspend fun getJsonFromApi(): BreedResult {
-        if (thowOnRequest) {
-            throw Exception()
-        }
-
-        jsonRequested = true
-        val map = mutableMapOf<String, List<String>>()
-        map["appenzeller"] = listOf()
-        map["australian"] = listOf("shepherd")
-        return BreedResult(map as HashMap<String, List<String>>, "success")
     }
 }

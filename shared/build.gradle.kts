@@ -61,6 +61,8 @@ kotlin {
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
         implementation(Deps.koinTest)
+        //Karmok is an experimental library which helps with mocking interfaces
+        implementation(Deps.karmok)
     }
 
     sourceSets["androidMain"].dependencies {

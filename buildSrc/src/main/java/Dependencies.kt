@@ -19,6 +19,7 @@ object Versions {
     val cocoapodsext = "0.9"
     val kermit = "0.1.5"
     val lifecycle = "2.1.0"
+    val karmok = "0.1.7"
 }
 
 object Deps {
@@ -40,6 +41,7 @@ object Deps {
     val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     val lifecycle_livedata = "android.arch.lifecycle:livedata:${Versions.lifecycle}"
     val lifecycle_extension = "android.arch.lifecycle:extensions:${Versions.lifecycle}"
+    val karmok = "co.touchlab:karmok-library:${Versions.karmok}"
 
     object AndroidXTest {
         val core = "androidx.test:core:${Versions.androidx_test}"
