@@ -22,7 +22,10 @@ class KoinTest : BaseTest() {
     @Test
     fun checkAllModules() {
         initKoin {
-            modules(module { single<Context> { getApplicationContext<Application>() } })
+            module {
+                single<Context> { getApplicationContext<Application>() }
+                single { get<Context>().getSharedPreferences("TEST", Context.MODE_PRIVATE) }
+            }
         }.checkModules {
             create<Kermit> { parametersOf("TestTag") }
         }
