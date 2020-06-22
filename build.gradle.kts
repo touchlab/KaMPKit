@@ -18,6 +18,10 @@ buildscript {
     }
 }
 
+plugins {
+    id("org.jlleitschuh.gradle.ktlint") version (Versions.ktlint_gradle_plugin)
+}
+
 allprojects {
     repositories {
         google()
@@ -26,6 +30,26 @@ allprojects {
         maven(url = "https://kotlin.bintray.com/kotlinx")
         maven(url = "https://dl.bintray.com/ekito/koin")
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+}
+
+subprojects {
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+    ktlint {
+        version.set("0.37.2")
+        enableExperimentalRules.set(true)
+        verbose.set(true)
+        disabledRules.set(setOf("no-wildcard-imports", "filename"))
+        filter {
+            exclude { it.file.path.contains("build/") }
+        }
+    }
+
+    afterEvaluate {
+        tasks.named("check").configure {
+            dependsOn(tasks.getByName("ktlintCheck"))
+        }
     }
 }
 

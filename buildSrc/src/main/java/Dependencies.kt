@@ -20,6 +20,7 @@ object Versions {
     val kermit = "0.1.5"
     val lifecycle = "2.1.0"
     val karmok = "0.1.7"
+    val ktlint_gradle_plugin = "9.2.1"
 }
 
 object Deps {
