@@ -21,10 +21,11 @@ internal fun CoroutineScope.childContext(): CoroutineContext {
     val listenerDisposableHandle = coroutineContext[Job]!!.invokeOnCompletion(onCancelling = true) { cancelCause ->
         val parentJob = ref.state
 
-        if (cancelCause is CancellationException)
+        if (cancelCause is CancellationException) {
             parentJob.cancel(cause = cancelCause)
-        else
+        } else {
             parentJob.cancel()
+        }
     }
 
     ktorJob.invokeOnCompletion {

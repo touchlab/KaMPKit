@@ -9,8 +9,8 @@ import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.map
 import org.koin.core.KoinComponent
-import org.koin.core.parameter.parametersOf
 import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 
 class BreedModel() : KoinComponent {
     private val dbHelper: DatabaseHelper by inject()
@@ -33,7 +33,7 @@ class BreedModel() : KoinComponent {
                 ItemDataSummary(itemList.maxBy { it.name.length }, itemList)
             }
 
-    suspend fun getBreedsFromNetwork() : String? {
+    suspend fun getBreedsFromNetwork(): String? {
         fun isBreedListStale(currentTimeMS: Long): Boolean {
             val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
             val oneHourMS = 60 * 60 * 1000
@@ -49,7 +49,6 @@ class BreedModel() : KoinComponent {
                 log.v { "Fetched ${breedList.size} breeds from network" }
                 dbHelper.insertBreeds(breedList)
                 settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
-
             } catch (e: Exception) {
                 return "Unable to download breed list"
             }

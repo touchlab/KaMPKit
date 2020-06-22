@@ -16,14 +16,13 @@ import org.koin.test.check.checkModules
 import kotlin.test.AfterTest
 import kotlin.test.Test
 
-
 @RunWith(AndroidJUnit4::class)
 @Category(CheckModuleTest::class)
 class CheckModulesTest : BaseTest() {
 
     @Test
     fun checkAllModules() {
-        initKoin{
+        initKoin {
             modules(module { single<Context> { getApplicationContext<Application>() } })
         }.checkModules {
             create<Kermit> { parametersOf("TestTag") }

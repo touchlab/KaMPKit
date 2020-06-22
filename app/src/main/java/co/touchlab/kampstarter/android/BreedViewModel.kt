@@ -2,9 +2,9 @@ package co.touchlab.kampstarter.android
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.models.BreedModel
-import androidx.lifecycle.viewModelScope
 import co.touchlab.kampstarter.models.ItemDataSummary
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -18,7 +18,6 @@ class BreedViewModel : ViewModel() {
     init {
         observeBreeds()
     }
-
 
     private fun observeBreeds() {
         viewModelScope.launch {
@@ -35,7 +34,7 @@ class BreedViewModel : ViewModel() {
             }
         }
     }
-    fun updateBreedFavorite(breed: Breed){
+    fun updateBreedFavorite(breed: Breed) {
         viewModelScope.launch {
             breedModel.updateBreedFavorite(breed)
         }

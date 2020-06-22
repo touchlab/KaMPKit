@@ -21,11 +21,11 @@ android {
 
 kotlin {
     android()
-    //Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
-    if(onPhone){
+    // Revert to just ios() when gradle plugin can properly resolve it
+    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
+    if (onPhone) {
         iosArm64("ios")
-    }else{
+    } else {
         iosX64("ios")
     }
     targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
@@ -53,7 +53,6 @@ kotlin {
         implementation(Deps.koinCore)
         implementation(Deps.Ktor.commonSerialization)
         api(Deps.kermit)
-
     }
 
     sourceSets["commonTest"].dependencies {
@@ -61,7 +60,7 @@ kotlin {
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
         implementation(Deps.koinTest)
-        //Karmok is an experimental library which helps with mocking interfaces
+        // Karmok is an experimental library which helps with mocking interfaces
         implementation(Deps.karmok)
     }
 
@@ -101,7 +100,6 @@ kotlin {
         }
         implementation(Deps.Ktor.iosSerialization)
         implementation(Deps.koinCore)
-
     }
 
     cocoapodsext {

@@ -4,7 +4,6 @@ import co.touchlab.kampstarter.ktor.KtorApi
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.withTimeout
 import org.koin.core.context.startKoin
@@ -16,20 +15,18 @@ fun appStart(helper: DatabaseHelper, settings: Settings, ktorApi: KtorApi, log: 
         single { helper }
         single { settings }
         single { ktorApi }
-        single {log}
+        single { log }
     }
 
     startKoin { modules(coreModule) }
-
 }
 
 fun appEnd() {
     stopKoin()
 }
 
-//Await with a timeout
+// Await with a timeout
 suspend fun <T> Deferred<T>.await(timeoutMillis: Long) =
     withTimeout(timeoutMillis) { await() }
 
 internal expect fun testDbConnection(): SqlDriver
-

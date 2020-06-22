@@ -25,11 +25,10 @@ class MainAdapter(private val breedClickListener: (Breed) -> Unit) :
         private val breedCallback = object : DiffUtil.ItemCallback<Breed>() {
             override fun areContentsTheSame(oldItem: Breed, newItem: Breed): Boolean =
                 (oldItem.id == newItem.id) &&
-                        (oldItem.favorite == newItem.favorite)
+                    (oldItem.favorite == newItem.favorite)
 
             override fun areItemsTheSame(oldItem: Breed, newItem: Breed): Boolean =
                 oldItem.id == newItem.id
         }
     }
 }
-

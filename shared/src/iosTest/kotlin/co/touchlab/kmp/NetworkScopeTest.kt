@@ -16,13 +16,13 @@ class NetworkScopeTest : BaseTest() {
         lateinit var networkContext: CoroutineContext
         val parent = launch {
             network {
-                //Fully qualified so that we are getting the current suspend func's context and not CoroutineScope.couroutineContext from the launch's receiver (which is currently "this")
+                // Fully qualified so that we are getting the current suspend func's context and not CoroutineScope.couroutineContext from the launch's receiver (which is currently "this")
                 networkContext = kotlin.coroutines.coroutineContext
                 delay(1000)
             }
         }
 
-        //We have to suspend to give the child coroutines a chance to start
+        // We have to suspend to give the child coroutines a chance to start
         delay(100)
 
         assertTrue(
@@ -50,7 +50,7 @@ class NetworkScopeTest : BaseTest() {
             }
         }
 
-        //We have to suspend to give the child coroutines a chance to start
+        // We have to suspend to give the child coroutines a chance to start
         delay(100)
 
         assertTrue(

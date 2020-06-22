@@ -3,13 +3,13 @@ package co.touchlab.kampstarter
 import co.touchlab.kampstarter.db.Breed
 import co.touchlab.kampstarter.models.BreedModel
 import co.touchlab.kampstarter.models.ItemDataSummary
+import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import org.koin.core.KoinComponent
-import org.koin.core.parameter.parametersOf
 import org.koin.core.inject
-import co.touchlab.kermit.Kermit
+import org.koin.core.parameter.parametersOf
 
 class NativeViewModel(
     private val viewUpdate: (ItemDataSummary) -> Unit,
@@ -18,7 +18,7 @@ class NativeViewModel(
 
     private val log: Kermit by inject { parametersOf("BreedModel") }
     private val scope = MainScope(Dispatchers.Main, log)
-    private val breedModel:BreedModel
+    private val breedModel: BreedModel
 
     init {
         ensureNeverFrozen()
@@ -39,12 +39,12 @@ class NativeViewModel(
 
     fun getBreedsFromNetwork() {
         scope.launch {
-            breedModel.getBreedsFromNetwork()?.let{ errorString ->
+            breedModel.getBreedsFromNetwork()?.let { errorString ->
                 errorUpdate(errorString)
             }
         }
     }
-    fun updateBreedFavorite(breed: Breed){
+    fun updateBreedFavorite(breed: Breed) {
         scope.launch {
             breedModel.updateBreedFavorite(breed)
         }
