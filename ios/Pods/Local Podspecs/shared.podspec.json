@@ -1,7 +1,7 @@
 {
   "name": "shared",
   "version": "1.1",
-  "homepage": "https://github.com/touchlab/KaMPStarter",
+  "homepage": "https://github.com/touchlab/KaMPKit",
   "source": {
     "git": "Not Published",
     "tag": "Cocoapods/shared/1.1"

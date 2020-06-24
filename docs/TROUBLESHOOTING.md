@@ -23,7 +23,7 @@ sdk.dir=/Users/[YOUR_USER_NAME]/Library/Android/sdk
 **Q:** The Xcode project won't compile. On the `import shared` line in Swift, I'm getting a compilation error "no
  such module: 'shared'".
 
-**A:** Try closing Xcode and deleting the `Pods/` folder located in the root directory of the iOS project. Then run the command `pod install` in that same iOS root directory (which is `/KaMPStarter/ios/` to be specific). This command will generate a new `Pods` folder. Reopen the `.xcworkspace` file and try to build again.
+**A:** Try closing Xcode and deleting the `Pods/` folder located in the root directory of the iOS project. Then run the command `pod install` in that same iOS root directory (which is `/KaMPKit/ios/` to be specific). This command will generate a new `Pods` folder. Reopen the `.xcworkspace` file and try to build again.
 
 > Note: We're still not quite sure as to the cause of this error. Possible factors include differing versions of Cocoapods or >Xcode.
 
