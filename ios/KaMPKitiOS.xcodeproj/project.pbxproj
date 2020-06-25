@@ -23,19 +23,19 @@
 			containerPortal = F1465EF523AA94BF0055F7C3 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F1465EFC23AA94BF0055F7C3;
-			remoteInfo = KaMPStarteriOS;
+			remoteInfo = KaMPKitiOS;
 		};
 		F1465F1F23AA94C00055F7C3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F1465EF523AA94BF0055F7C3 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F1465EFC23AA94BF0055F7C3;
-			remoteInfo = KaMPStarteriOS;
+			remoteInfo = KaMPKitiOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1DFCC00C8DAA719770A18D1A /* Pods-KaMPStarteriOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.release.xcconfig"; sourceTree = "<group>"; };
+		1DFCC00C8DAA719770A18D1A /* Pods-KaMPKitiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.release.xcconfig"; sourceTree = "<group>"; };
 		2A1ED6A4A2A53F5F75C58E5F /* Pods-KaMPKitiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.release.xcconfig"; sourceTree = "<group>"; };
 		B859F3FB23133D22AB9DD835 /* Pods_KaMPKitiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KaMPKitiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -52,7 +52,7 @@
 		F1465F1E23AA94C00055F7C3 /* KaMPKitiOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KaMPKitiOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F2223AA94C00055F7C3 /* KaMPKitiOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KaMPKitiOSUITests.swift; sourceTree = "<group>"; };
 		F1465F2423AA94C00055F7C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9C259C83C689DF8F4602F38 /* Pods-KaMPStarteriOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPStarteriOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPStarteriOS/Pods-KaMPStarteriOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F9C259C83C689DF8F4602F38 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +92,8 @@
 		DF9BBECBCD175B90105DA8D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F9C259C83C689DF8F4602F38 /* Pods-KaMPStarteriOS.debug.xcconfig */,
-				1DFCC00C8DAA719770A18D1A /* Pods-KaMPStarteriOS.release.xcconfig */,
+				F9C259C83C689DF8F4602F38 /* Pods-KaMPKitiOS.debug.xcconfig */,
+				1DFCC00C8DAA719770A18D1A /* Pods-KaMPKitiOS.release.xcconfig */,
 				ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */,
 				2A1ED6A4A2A53F5F75C58E5F /* Pods-KaMPKitiOS.release.xcconfig */,
 			);
@@ -171,7 +171,7 @@
 			dependencies = (
 			);
 			name = KaMPKitiOS;
-			productName = KaMPStarteriOS;
+			productName = KaMPKitiOS;
 			productReference = F1465EFD23AA94BF0055F7C3 /* KaMPKitiOS.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -189,7 +189,7 @@
 				F1465F1523AA94C00055F7C3 /* PBXTargetDependency */,
 			);
 			name = KaMPKitiOSTests;
-			productName = KaMPStarteriOSTests;
+			productName = KaMPKitiOSTests;
 			productReference = F1465F1323AA94C00055F7C3 /* KaMPKitiOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -207,7 +207,7 @@
 				F1465F2023AA94C00055F7C3 /* PBXTargetDependency */,
 			);
 			name = KaMPKitiOSUITests;
-			productName = KaMPStarteriOSUITests;
+			productName = KaMPKitiOSUITests;
 			productReference = F1465F1E23AA94C00055F7C3 /* KaMPKitiOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
