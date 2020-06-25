@@ -19,7 +19,7 @@ class BreedCell: UITableViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var breed: Breed?
-    var delegate: BreedCellDelegate?
+    weak var delegate: BreedCellDelegate?
     
     func bind(_ breed: Breed) {
         self.breed = breed

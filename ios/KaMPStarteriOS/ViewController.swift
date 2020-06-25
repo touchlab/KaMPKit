@@ -9,12 +9,12 @@
 import UIKit
 import shared
 
-class ViewController: UIViewController {
+class BreedsViewController: UIViewController {
 
     @IBOutlet weak var breedTableView: UITableView!
     var data: [Breed] = []
     
-    let logger = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as? Kermit
+    let log = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     
     lazy var adapter: NativeViewModel = NativeViewModel(
         viewUpdate: { [weak self] summary in
@@ -42,13 +42,13 @@ class ViewController: UIViewController {
     // MARK: BreedModel Closures
     
     private func viewUpdate(for summary: ItemDataSummary) {
-        logger?.d(withMessage: {"View updating with \(summary.allItems.count) breeds"})
+        log.d(withMessage: {"View updating with \(summary.allItems.count) breeds"})
         data = summary.allItems
         breedTableView.reloadData()
     }
     
     private func errorUpdate(for errorMessage: String) {
-        logger?.e(withMessage: {"Displaying error: \(errorMessage)"})
+        log.e(withMessage: {"Displaying error: \(errorMessage)"})
         let alertController = UIAlertController(title: "error", message: errorMessage, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
         present(alertController, animated: true, completion: nil)
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension ViewController: UITableViewDataSource {
+extension BreedsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -74,7 +74,7 @@ extension ViewController: UITableViewDataSource {
 }
 
 // MARK: - BreedCellDelegate
-extension ViewController: BreedCellDelegate {
+extension BreedsViewController: BreedCellDelegate {
     func toggleFavorite(_ breed: Breed) {
         adapter.updateBreedFavorite(breed: breed)
     }
