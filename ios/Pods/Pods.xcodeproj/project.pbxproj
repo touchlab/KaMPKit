@@ -11,8 +11,8 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 46EB2E00000120 /* Build configuration list for PBXAggregateTarget "shared" */;
 			buildPhases = (
-				46EB2E000002F0 /* [CP-User] Build shared */,
-				46EB2E00000300 /* [CP-User] Touch shared.framework */,
+				46EB2E00000300 /* [CP-User] Build shared */,
+				46EB2E00000310 /* [CP-User] Touch shared.framework */,
 			);
 			dependencies = (
 			);
@@ -23,11 +23,11 @@
 /* Begin PBXBuildFile section */
 		46EB2E00000230 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46EB2E00000220 /* Foundation.framework */; };
 		46EB2E000002A0 /* Pods-KaMPKitiOS-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 46EB2E00000290 /* Pods-KaMPKitiOS-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46EB2E000002E0 /* Pods-KaMPKitiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000002D0 /* Pods-KaMPKitiOS-dummy.m */; };
+		46EB2E000002F0 /* Pods-KaMPKitiOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 46EB2E000002E0 /* Pods-KaMPKitiOS-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46EB2E00000310 /* PBXContainerItemProxy */ = {
+		46EB2E00000320 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 46EB2E00000000 /* Project object */;
 			proxyType = 1;
@@ -48,9 +48,10 @@
 		46EB2E00000270 /* Pods-KaMPKitiOS-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KaMPKitiOS-Info.plist"; sourceTree = "<group>"; };
 		46EB2E00000280 /* Pods-KaMPKitiOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-KaMPKitiOS.modulemap"; sourceTree = "<group>"; };
 		46EB2E00000290 /* Pods-KaMPKitiOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-KaMPKitiOS-umbrella.h"; sourceTree = "<group>"; };
-		46EB2E000002B0 /* Pods-KaMPKitiOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KaMPKitiOS-acknowledgements.plist"; sourceTree = "<group>"; };
-		46EB2E000002C0 /* Pods-KaMPKitiOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KaMPKitiOS-acknowledgements.markdown"; sourceTree = "<group>"; };
-		46EB2E000002D0 /* Pods-KaMPKitiOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KaMPKitiOS-dummy.m"; sourceTree = "<group>"; };
+		46EB2E000002B0 /* Pods-KaMPKitiOS-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-KaMPKitiOS-frameworks.sh"; sourceTree = "<group>"; };
+		46EB2E000002C0 /* Pods-KaMPKitiOS-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-KaMPKitiOS-acknowledgements.plist"; sourceTree = "<group>"; };
+		46EB2E000002D0 /* Pods-KaMPKitiOS-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KaMPKitiOS-acknowledgements.markdown"; sourceTree = "<group>"; };
+		46EB2E000002E0 /* Pods-KaMPKitiOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-KaMPKitiOS-dummy.m"; sourceTree = "<group>"; };
 		4EDB9C40CD3583B30579DB2BE865F1D3 /* Pods_KaMPKitiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_KaMPKitiOS.framework; path = "Pods-KaMPKitiOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -158,9 +159,10 @@
 			isa = PBXGroup;
 			children = (
 				46EB2E00000280 /* Pods-KaMPKitiOS.modulemap */,
-				46EB2E000002C0 /* Pods-KaMPKitiOS-acknowledgements.markdown */,
-				46EB2E000002B0 /* Pods-KaMPKitiOS-acknowledgements.plist */,
-				46EB2E000002D0 /* Pods-KaMPKitiOS-dummy.m */,
+				46EB2E000002D0 /* Pods-KaMPKitiOS-acknowledgements.markdown */,
+				46EB2E000002C0 /* Pods-KaMPKitiOS-acknowledgements.plist */,
+				46EB2E000002E0 /* Pods-KaMPKitiOS-dummy.m */,
+				46EB2E000002B0 /* Pods-KaMPKitiOS-frameworks.sh */,
 				46EB2E00000270 /* Pods-KaMPKitiOS-Info.plist */,
 				46EB2E00000290 /* Pods-KaMPKitiOS-umbrella.h */,
 				46EB2E00000260 /* Pods-KaMPKitiOS.debug.xcconfig */,
@@ -196,7 +198,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				46EB2E00000320 /* PBXTargetDependency */,
+				46EB2E00000330 /* PBXTargetDependency */,
 			);
 			name = "Pods-KaMPKitiOS";
 			productName = "Pods-KaMPKitiOS";
@@ -242,7 +244,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		46EB2E000002F0 /* [CP-User] Build shared */ = {
+		46EB2E00000300 /* [CP-User] Build shared */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,7 +254,7 @@
 			shellPath = /bin/sh;
 			shellScript = "                set -ev\n                REPO_ROOT=\"$PODS_TARGET_SRCROOT\"\n                \"$REPO_ROOT/../gradlew\" -p \"$REPO_ROOT\" :shared:syncFramework                     -Pkotlin.native.cocoapods.target=$KOTLIN_TARGET                     -Pkotlin.native.cocoapods.configuration=$CONFIGURATION                     -Pkotlin.native.cocoapods.cflags=\"$OTHER_CFLAGS\"                     -Pkotlin.native.cocoapods.paths.headers=\"$HEADER_SEARCH_PATHS\"                     -Pkotlin.native.cocoapods.paths.frameworks=\"$FRAMEWORK_SEARCH_PATHS\"\n";
 		};
-		46EB2E00000300 /* [CP-User] Touch shared.framework */ = {
+		46EB2E00000310 /* [CP-User] Touch shared.framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -269,18 +271,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EB2E000002E0 /* Pods-KaMPKitiOS-dummy.m in Sources */,
+				46EB2E000002F0 /* Pods-KaMPKitiOS-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		46EB2E00000320 /* PBXTargetDependency */ = {
+		46EB2E00000330 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = shared;
 			target = 8777C9F6889E59EFFD631D80AEE9048B /* shared */;
-			targetProxy = 46EB2E00000310 /* PBXContainerItemProxy */;
+			targetProxy = 46EB2E00000320 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
