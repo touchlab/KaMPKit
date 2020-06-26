@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3DFF917C64A18A83DA010EE1 /* Pods_KaMPKitiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B859F3FB23133D22AB9DD835 /* Pods_KaMPKitiOS.framework */; };
+		45E5A5EE249A6FFF00C3791B /* BreedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5A5ED249A6FFF00C3791B /* BreedCell.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
 		F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0423AA94BF0055F7C3 /* ViewController.swift */; };
 		F1465F0823AA94BF0055F7C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0623AA94BF0055F7C3 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		B859F3FB23133D22AB9DD835 /* Pods_KaMPKitiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KaMPKitiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* KaMPKitiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPKitiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45E5A5ED249A6FFF00C3791B /* BreedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedCell.swift; sourceTree = "<group>"; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0423AA94BF0055F7C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F1465F0723AA94BF0055F7C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
 				F1465F0423AA94BF0055F7C3 /* ViewController.swift */,
+				45E5A5ED249A6FFF00C3791B /* BreedCell.swift */,
 				F1465F0623AA94BF0055F7C3 /* Main.storyboard */,
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
 				F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */,
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E5A5EE249A6FFF00C3791B /* BreedCell.swift in Sources */,
 				F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */,
 				F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */,
 			);

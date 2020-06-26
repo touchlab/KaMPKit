@@ -9,10 +9,10 @@
 import UIKit
 import shared
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BreedsViewController: UIViewController {
 
     @IBOutlet weak var breedTableView: UITableView!
-    var data:[Breed] = []
+    var data: [Breed] = []
     
     let log = KoinIOS().get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
     
@@ -28,7 +28,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        breedTableView.delegate = self
         breedTableView.dataSource = self
         
         //We check for stalk data in this method
@@ -55,8 +54,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: TableView
-        
+}
+
+// MARK: - UITableViewDataSource
+extension BreedsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -65,39 +66,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let cell = tableView.dequeueReusableCell(withIdentifier: "BreedCell", for: indexPath)
         if let breedCell = cell as? BreedCell {
             let breed = data[indexPath.row]
-            breedCell.bind(breed: breed, adapter: adapter)
+            breedCell.bind(breed)
+            breedCell.delegate = self
         }
         return cell
     }
 }
 
-class BreedCell: UITableViewCell {
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var favoriteButton: UIButton!
-    var breed:Breed?
-    var adapter:NativeViewModel?
-    
-    func bind(breed:Breed, adapter: NativeViewModel){
-        self.breed = breed
-        self.adapter = adapter
-        nameLabel.text = breed.name
-        if(breed.favorite == 0) {
-            favoriteButton.setImage(UIImage(systemName: "heart"), for: UIControl.State.normal)
-        }else {
-            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: UIControl.State.normal)
-        }
-    }
-    
-    @IBAction func favoriteButtonPressed(_ sender: Any) {
-        if let breedActual = breed {
-            adapter!.updateBreedFavorite(breed: breedActual)
-        }
-    }
-}
-
-extension Breed {
-    func isFavorited() -> Bool {
-        return favorite != 0
+// MARK: - BreedCellDelegate
+extension BreedsViewController: BreedCellDelegate {
+    func toggleFavorite(_ breed: Breed) {
+        adapter.updateBreedFavorite(breed: breed)
     }
 }
