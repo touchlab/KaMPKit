@@ -1,6 +1,6 @@
 //
 //  BreedCell.swift
-//  KaMPStarteriOS
+//  KaMPKitiOS
 //
 //  Created by Ben Whitley on 6/17/20.
 //  Copyright © 2020 Touchlab. All rights reserved.
