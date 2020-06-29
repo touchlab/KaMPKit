@@ -17,6 +17,11 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    lintOptions {
+        isWarningsAsErrors = true
+        isAbortOnError = true
+    }
 }
 
 kotlin {
@@ -84,7 +89,7 @@ kotlin {
         implementation(Deps.AndroidXTest.runner)
         implementation(Deps.AndroidXTest.rules)
         implementation(Deps.Coroutines.test)
-        implementation("org.robolectric:robolectric:4.3")
+        implementation(Deps.robolectric)
     }
 
     sourceSets["iosMain"].dependencies {

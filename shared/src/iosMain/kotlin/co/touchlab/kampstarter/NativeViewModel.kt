@@ -5,8 +5,9 @@ import co.touchlab.kampstarter.models.BreedModel
 import co.touchlab.kampstarter.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
@@ -44,6 +45,7 @@ class NativeViewModel(
             }
         }
     }
+
     fun updateBreedFavorite(breed: Breed) {
         scope.launch {
             breedModel.updateBreedFavorite(breed)

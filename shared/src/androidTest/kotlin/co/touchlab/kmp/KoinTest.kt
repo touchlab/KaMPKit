@@ -4,7 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import co.touchlab.kampstarter.*
+import co.touchlab.kampstarter.BaseTest
+import co.touchlab.kampstarter.initKoin
 import co.touchlab.kermit.Kermit
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
@@ -18,7 +19,7 @@ import kotlin.test.Test
 
 @RunWith(AndroidJUnit4::class)
 @Category(CheckModuleTest::class)
-class CheckModulesTest : BaseTest() {
+class KoinTest : BaseTest() {
 
     @Test
     fun checkAllModules() {

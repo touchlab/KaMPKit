@@ -4,7 +4,11 @@ import co.touchlab.kampstarter.BaseTest
 import co.touchlab.kampstarter.ktor.network
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isFrozen
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertFalse

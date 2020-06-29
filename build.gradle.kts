@@ -40,7 +40,6 @@ subprojects {
         version.set("0.37.2")
         enableExperimentalRules.set(true)
         verbose.set(true)
-        disabledRules.set(setOf("no-wildcard-imports", "filename"))
         filter {
             exclude { it.file.path.contains("build/") }
         }

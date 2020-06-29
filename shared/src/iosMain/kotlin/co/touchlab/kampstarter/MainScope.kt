@@ -1,10 +1,13 @@
 package co.touchlab.kampstarter
 
 import co.touchlab.kermit.Kermit
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-class MainScope(private val mainContext: CoroutineContext, private val log: Kermit) : CoroutineScope {
+class MainScope(private val mainContext: CoroutineContext, private val log: Kermit) :
+    CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 

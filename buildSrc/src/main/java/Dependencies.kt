@@ -21,6 +21,7 @@ object Versions {
     val lifecycle = "2.1.0"
     val karmok = "0.1.7"
     val ktlint_gradle_plugin = "9.2.1"
+    val robolectric = "4.3"
 }
 
 object Deps {
@@ -43,6 +44,7 @@ object Deps {
     val lifecycle_livedata = "android.arch.lifecycle:livedata:${Versions.lifecycle}"
     val lifecycle_extension = "android.arch.lifecycle:extensions:${Versions.lifecycle}"
     val karmok = "co.touchlab:karmok-library:${Versions.karmok}"
+    val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
 
     object AndroidXTest {
         val core = "androidx.test:core:${Versions.androidx_test}"

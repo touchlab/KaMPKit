@@ -30,6 +30,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        isWarningsAsErrors = true
+        isAbortOnError = true
+    }
 }
 
 dependencies {

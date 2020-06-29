@@ -1,6 +1,10 @@
 package co.touchlab.kampstarter
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
