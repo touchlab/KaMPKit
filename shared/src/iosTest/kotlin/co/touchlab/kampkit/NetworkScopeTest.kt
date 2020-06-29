@@ -1,7 +1,10 @@
 package co.touchlab.kampkit
 
+import co.touchlab.kampkit.BaseTest
+import co.touchlab.kampkit.ktor.network
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isFrozen
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertFalse
