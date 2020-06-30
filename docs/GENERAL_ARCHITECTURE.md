@@ -15,7 +15,7 @@ This doc goes over the overall architecture of the app, the libraries usage and 
 
 ## Structure of the Project
 
-The KaMPStarter kit is broken up into three different directories: 
+The KaMP kit is broken up into three different directories: 
 * shared
 * app
 * ios
@@ -34,11 +34,11 @@ Finally the shared directory holds the shared code. The shared directory is actu
   * commonTest
 
 Each of these directories has the same folder structure: the language type, then the package name.
-  i.e. *"kotlin/co/touchlab/kampstarter/"*
+  i.e. *"kotlin/co/touchlab/kampkit/"*
 
 ## Overall Architecture
 
-The KaMPStarter kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). There it creates the `BreedModel`, passes in a callback, and calls the BreedModel. The BreedModel is in the common MultiPlatform code, so we are already in the common code. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
+The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). There it creates the `BreedModel`, passes in a callback, and calls the BreedModel. The BreedModel is in the common MultiPlatform code, so we are already in the common code. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
 
 > note that the BreedModel references the interface KtorApi. This is so we can test the Model using a Mock Api
 
@@ -75,7 +75,7 @@ scope.launch {
 }
 ```
 
-See [BaseModel.kt](https://github.com/touchlab/KaMPStarter/blob/master/shared/src/commonMain/kotlin/co/touchlab/kampstarter/models/BaseModel.kt#L11)
+See [BaseModel.kt](https://github.com/touchlab/KaMPKit/blob/master/shared/src/commonMain/kotlin/co/touchlab/kampkit/models/BaseModel.kt#L11)
 
 ## Libraries and Dependencies
 
@@ -94,13 +94,13 @@ Below is some information about some of the libraries used in the project.
 ### SqlDelight
 Documentation: https://github.com/cashapp/sqldelight
 
-Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/DatabaseHelper.kt*
+Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/DatabaseHelper.kt*
 
-SQL Location in the project: *commonMain/sqldelight/co/touchlab/kampstarter/Table.sq*
+SQL Location in the project: *commonMain/sqldelight/co/touchlab/kampkit/Table.sq*
                       
 
 SqlDelight is a multiplatform SQL library that generates type-safe APIs from SQL Statements. Since it is a multiplatform library, it naturally uses code stored in commonMain. SQL statements are stored in the sqldelight directory, in .sq files.
-ex: *"commonMain/sqldelight/co/touchlab/kampstarter/Table.sq"*
+ex: *"commonMain/sqldelight/co/touchlab/kampkit/Table.sq"*
 
 Even though the SQL queries and main bulk of the library are in the common code, there are some platform specific drivers required from Android and iOS in order to work correctly on each platform. These are the `AndroidSqliteDriver` and the `NativeSqliteDriver`(for iOS). These are passed in from platform specific code, in this case injected into the **BreedModel**. The APIs are stored in the build folder, and referenced from the `DatabaseHelper` (also in commonMain). 
 
@@ -110,21 +110,21 @@ Even though the SQL queries and main bulk of the library are in the common code,
 ### Ktor
 Documentation: https://ktor.io/
 
-Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/ktor/DogApiImpl.kt*
+Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/ktor/DogApiImpl.kt*
 
 Ktor is a multiplatform networking library for building asynchronous clients. Again since it is a multiplatform library, it  uses code stored in commonMain. Even though all of Ktors code is in **commonMain**, there are some platform specific dependencies needed in the build.gradle. 
 
 ### Multiplatform Settings
 Documentation: https://github.com/russhwolf/multiplatform-settings
 
-Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/models/BreedModel.kt*
+Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/models/BreedModel.kt*
 
 Multiplatform settings really speaks for itself, it persists data by storing it in settings. It is being used in the BreedModel, and acts similarly to a `HashMap` or `Dictionary`. Much like SqlDelight the actual internals of the settings are platform specific, so the settings are passed in from the platform and all of the actual saving and loading is in the common code.
 
 ### Koin
 Documentation: https://insert-koin.io/
 
-Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/Koin.kt*
+Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/Koin.kt*
 
 Koin is a lightweight dependency injection framework. It is being used in the *koin.kt* file to inject modules into the BreedModel. You can tell which variables are being injected in the BreedModel because they are being set using `by inject()`. In our implementation we are separating our injections into two different modules: the `coreModule` and the `platformModule`. As you can guess the platformModule contains injections requiring platform specific implementations (SqlDelight and Multiplatform Settings). The coreModule contains the Ktor implementation and the Database Helper, which actually takes from the platformModule.
 
@@ -133,7 +133,7 @@ Koin is a lightweight dependency injection framework. It is being used in the *k
 ### Stately
 Documentation: https://github.com/touchlab/Stately
 
-Usage in the project: *commonMain/kotlin/co/touchlab/kampstarter/sqldelight/CoroutinesExtensions.kt*
+Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/sqldelight/CoroutinesExtensions.kt*
 
 Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made by us!). Basically Kotlin/Native has a fairly different model of concurrency, and has different rules to reduce concurrency related issues. Objects in K/N can become `frozen`, which basically means they are immutable but can be shared across all threads. 
 

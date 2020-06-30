@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Breeds View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="BreedsViewController" customModule="KaMPKitiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RNk-5V-iEG">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BreedCell" id="86d-sM-nP6" customClass="BreedCell" customModule="KaMPKitiOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="86d-sM-nP6" id="pGc-fW-yte">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breed Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghv-e4-fHH">
+                                                    <rect key="frame" x="20" y="11" width="95" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4vA-4X-3LU">
+                                                    <rect key="frame" x="354.5" y="0.0" width="43.5" height="43.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="4vA-4X-3LU" secondAttribute="height" multiplier="1:1" id="vID-6h-1c3"/>
+                                                    </constraints>
+                                                    <state key="normal" image="heart" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="favoriteButtonPressed:" destination="86d-sM-nP6" eventType="touchUpInside" id="lDZ-4J-w5H"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ghv-e4-fHH" secondAttribute="bottom" id="2Vd-gV-xAr"/>
+                                                <constraint firstItem="ghv-e4-fHH" firstAttribute="top" secondItem="pGc-fW-yte" secondAttribute="topMargin" id="Qk7-R7-7I8"/>
+                                                <constraint firstItem="4vA-4X-3LU" firstAttribute="top" secondItem="pGc-fW-yte" secondAttribute="top" id="RSF-DD-Mci"/>
+                                                <constraint firstAttribute="bottom" secondItem="4vA-4X-3LU" secondAttribute="bottom" id="Sm3-5c-re4"/>
+                                                <constraint firstAttribute="trailing" secondItem="4vA-4X-3LU" secondAttribute="trailing" constant="16" id="akT-ev-ZzX"/>
+                                                <constraint firstItem="ghv-e4-fHH" firstAttribute="leading" secondItem="pGc-fW-yte" secondAttribute="leadingMargin" id="nVQ-3K-Yz5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="favoriteButton" destination="4vA-4X-3LU" id="10W-y3-koo"/>
+                                            <outlet property="nameLabel" destination="ghv-e4-fHH" id="boo-8A-pTX"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RNk-5V-iEG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="8Yb-of-tAw"/>
+                            <constraint firstItem="RNk-5V-iEG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="JSe-02-36d"/>
+                            <constraint firstItem="RNk-5V-iEG" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="OxD-97-sM3"/>
+                            <constraint firstAttribute="bottom" secondItem="RNk-5V-iEG" secondAttribute="bottom" id="sss-zk-H9m"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="breedTableView" destination="RNk-5V-iEG" id="7ty-4P-hRU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="79.6875"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="heart" catalog="system" width="64" height="54"/>
+    </resources>
+</document>

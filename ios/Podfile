@@ -4,6 +4,6 @@ platform :ios, '9.0'
 
 install! 'cocoapods', :deterministic_uuids => false
 
-target 'KaMPStarteriOS' do
+target 'KaMPKitiOS' do
     pod 'shared', :path => '../shared/'
 end
