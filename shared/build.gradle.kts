@@ -106,7 +106,7 @@ kotlin {
 
     cocoapodsext {
         summary = "Common library for the KaMP starter kit"
-        homepage = "https://github.com/touchlab/KaMPStarter"
+        homepage = "https://github.com/touchlab/KaMPKit"
         framework {
             isStatic = false
             export(Deps.kermit)
@@ -116,7 +116,7 @@ kotlin {
 }
 
 sqldelight {
-    database("KampstarterDb") {
-        packageName = "co.touchlab.kampstarter.db"
+    database("KaMPKitDb") {
+        packageName = "co.touchlab.kampkit.db"
     }
 }

@@ -19,7 +19,7 @@ Starting with 1.3.30, Kotlin has provided a gradle plugin which allows the Kotli
 ```
 cocoapods {
     summary = "Common library for the KaMP starter kit"
-    homepage = "https://github.com/touchlab/KaMPStarter"
+    homepage = "https://github.com/touchlab/KaMPKit"
     isStatic = false
 }
 ```
@@ -50,8 +50,8 @@ target 'YourIosAppTargetName' do
 end
 ```
 
-Now, replace `YourIosAppTargetName` with, you guessed it, your iOS app's target name. In the KaMPStarter iOS sample
- app, that would be `KaMPStarterIos`.
+Now, replace `YourIosAppTargetName` with, you guessed it, your iOS app's target name. In the KaMPKit iOS sample
+ app, that would be `KaMPKitIos`.
 
 
 ## Add KMP Pod
@@ -59,14 +59,14 @@ Now, replace `YourIosAppTargetName` with, you guessed it, your iOS app's target 
 Add the following line in your `target` block (replace `// Pods go here` in our example above):
 
 ```
-    pod 'shared', :path => '~/[PATH_TO_KaMPStarter/shared/]'
+    pod 'shared', :path => '~/[PATH_TO_KaMPKit/shared/]'
 ```
 
-Next, replace  `~/[PATH_TO_KaMPStarter/shared/]` with the path to your `KaMPStarter/shared/` directory. For example:
+Next, replace  `~/[PATH_TO_KaMPKit/shared/]` with the path to your `KaMPKit/shared/` directory. For example:
 ```
-    pod 'shared', :path => '~/Desktop/KaMPStarter/shared/'
+    pod 'shared', :path => '~/Desktop/KaMPKit/shared/'
 ```
-This path can be either absolute or relative, but we realize that your KaMPStarter project and your existing iOS
+This path can be either absolute or relative, but we realize that your KaMPKit project and your existing iOS
  project might be in very different places, so we're using an absolute path as an example for simplicity's sake.
 
 
