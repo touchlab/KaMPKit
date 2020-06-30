@@ -1,7 +1,12 @@
 package co.touchlab.kampkit.ktor
 
 import co.touchlab.stately.concurrency.GuardedStableRef
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 import platform.Foundation.NSThread
 import kotlin.coroutines.CoroutineContext
 
@@ -18,14 +23,16 @@ internal fun CoroutineScope.childContext(): CoroutineContext {
 
     val ref = GuardedStableRef(ktorJob)
 
-    val listenerDisposableHandle = coroutineContext[Job]!!.invokeOnCompletion(onCancelling = true) { cancelCause ->
-        val parentJob = ref.state
+    val listenerDisposableHandle =
+        coroutineContext[Job]!!.invokeOnCompletion(onCancelling = true) { cancelCause ->
+            val parentJob = ref.state
 
-        if (cancelCause is CancellationException)
-            parentJob.cancel(cause = cancelCause)
-        else
-            parentJob.cancel()
-    }
+            if (cancelCause is CancellationException) {
+                parentJob.cancel(cause = cancelCause)
+            } else {
+                parentJob.cancel()
+            }
+        }
 
     ktorJob.invokeOnCompletion {
         listenerDisposableHandle.dispose()

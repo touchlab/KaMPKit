@@ -33,8 +33,8 @@ private val coreModule = module {
     }
 }
 
-internal inline fun <reified T> Scope.getWith(vararg params: Any?):T{
-    return get(parameters = {parametersOf(*params)})
+internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
+    return get(parameters = { parametersOf(*params) })
 }
 
 expect val platformModule: Module

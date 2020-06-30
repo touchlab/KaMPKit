@@ -1,11 +1,15 @@
 package co.touchlab.kampkit
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withTimeout
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class ConcurrencyTest: BaseTest() {
+class ConcurrencyTest : BaseTest() {
     /**
      * This doesn't test any KampKit code, but is a sanity check that our tests can handle main thread
      * coroutines without hanging

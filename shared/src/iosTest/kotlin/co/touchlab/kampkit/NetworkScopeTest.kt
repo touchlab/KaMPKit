@@ -1,10 +1,13 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.BaseTest
 import co.touchlab.kampkit.ktor.network
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isFrozen
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 import kotlin.test.Test
 import kotlin.test.assertFalse
@@ -16,13 +19,13 @@ class NetworkScopeTest : BaseTest() {
         lateinit var networkContext: CoroutineContext
         val parent = launch {
             network {
-                //Fully qualified so that we are getting the current suspend func's context and not CoroutineScope.couroutineContext from the launch's receiver (which is currently "this")
+                // Fully qualified so that we are getting the current suspend func's context and not CoroutineScope.couroutineContext from the launch's receiver (which is currently "this")
                 networkContext = kotlin.coroutines.coroutineContext
                 delay(1000)
             }
         }
 
-        //We have to suspend to give the child coroutines a chance to start
+        // We have to suspend to give the child coroutines a chance to start
         delay(100)
 
         assertTrue(
@@ -50,7 +53,7 @@ class NetworkScopeTest : BaseTest() {
             }
         }
 
-        //We have to suspend to give the child coroutines a chance to start
+        // We have to suspend to give the child coroutines a chance to start
         delay(100)
 
         assertTrue(

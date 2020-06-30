@@ -10,3 +10,5 @@
 .cxx
 *.xcuserstate
 *.xcbkptlist
+!/.idea/codeStyles/*
+!/.idea/inspectionProfiles/*

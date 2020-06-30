@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.touchlab.kampkit.android.adapter.MainAdapter
-import co.touchlab.kampkit.android.R
 import co.touchlab.kermit.Kermit
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         val TAG = MainActivity::class.java.simpleName
     }
     private lateinit var adapter: MainAdapter
-    private val log:Kermit by inject { parametersOf("MainActivity") }
+    private val log: Kermit by inject { parametersOf("MainActivity") }
 
     private lateinit var viewModel: BreedViewModel
 
@@ -27,17 +26,22 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         viewModel = ViewModelProviders.of(this).get(BreedViewModel::class.java)
 
-        viewModel.breedLiveData.observe(this, Observer { itemData ->
-            log.v { "List submitted to adapter" }
-            adapter.submitList(itemData.allItems)
-        })
-        viewModel.errorLiveData.observe(this, Observer { errorMessage ->
-            log.e { "Error displayed: $errorMessage" }
-            Snackbar.make(breed_list, errorMessage, Snackbar.LENGTH_SHORT).show()
-        })
+        viewModel.breedLiveData.observe(
+            this,
+            Observer { itemData ->
+                log.v { "List submitted to adapter" }
+                adapter.submitList(itemData.allItems)
+            }
+        )
+        viewModel.errorLiveData.observe(
+            this,
+            Observer { errorMessage ->
+                log.e { "Error displayed: $errorMessage" }
+                Snackbar.make(breed_list, errorMessage, Snackbar.LENGTH_SHORT).show()
+            }
+        )
         adapter = MainAdapter {
             viewModel.updateBreedFavorite(it)
         }

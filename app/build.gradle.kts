@@ -21,7 +21,7 @@ android {
         exclude("META-INF/*.kotlin_module")
     }
     buildTypes {
-        getByName("release")  {
+        getByName("release") {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -29,6 +29,11 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    lintOptions {
+        isWarningsAsErrors = true
+        isAbortOnError = true
     }
 }
 

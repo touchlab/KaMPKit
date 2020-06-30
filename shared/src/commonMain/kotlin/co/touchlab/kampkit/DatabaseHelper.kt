@@ -6,17 +6,17 @@ import co.touchlab.kampkit.sqldelight.asFlow
 import co.touchlab.kampkit.sqldelight.mapToList
 import co.touchlab.kampkit.sqldelight.transactionWithContext
 import co.touchlab.kermit.Kermit
-import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.db.SqlDriver
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
-class DatabaseHelper(sqlDriver: SqlDriver,
-                     private val log: Kermit,
-                     private val backgroundDispatcher: CoroutineDispatcher) {
+class DatabaseHelper(
+    sqlDriver: SqlDriver,
+    private val log: Kermit,
+    private val backgroundDispatcher: CoroutineDispatcher
+) {
     private val dbRef: KaMPKitDb = KaMPKitDb(sqlDriver)
-
 
     fun selectAllItems(): Flow<List<Breed>> =
         dbRef.tableQueries
