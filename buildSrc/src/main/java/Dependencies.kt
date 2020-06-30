@@ -21,7 +21,7 @@ object Versions {
     val lifecycle = "2.1.0"
     val karmok = "0.1.7"
     val ktlint_gradle_plugin = "9.2.1"
-    val robolectric = "4.3"
+    val robolectric = "4.3.1"
 }
 
 object Deps {

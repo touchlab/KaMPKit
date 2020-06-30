@@ -19,7 +19,7 @@ buildscript {
 }
 
 plugins {
-    id("org.jlleitschuh.gradle.ktlint") version (Versions.ktlint_gradle_plugin)
+    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlint_gradle_plugin
 }
 
 allprojects {
