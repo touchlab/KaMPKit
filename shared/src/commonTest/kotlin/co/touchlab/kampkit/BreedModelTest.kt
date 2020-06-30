@@ -1,7 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.DatabaseHelper
-import co.touchlab.kampkit.isFavorited
 import co.touchlab.kampkit.mock.KtorApiMock
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kermit.Kermit

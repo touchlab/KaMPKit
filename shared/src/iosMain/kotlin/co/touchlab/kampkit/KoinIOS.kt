@@ -1,6 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.initKoin
 import co.touchlab.kampkit.db.KaMPKitDb
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.NSLogLogger

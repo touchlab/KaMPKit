@@ -1,6 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.BaseTest
 import co.touchlab.kampkit.ktor.network
 import co.touchlab.stately.freeze
 import co.touchlab.stately.isFrozen

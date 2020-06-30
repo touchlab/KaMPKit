@@ -1,7 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.DatabaseHelper
-import co.touchlab.kampkit.isFavorited
 import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.count
@@ -11,7 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-class SqlDelightTest: BaseTest() {
+class SqlDelightTest : BaseTest() {
 
     private lateinit var dbHelper: DatabaseHelper
 
@@ -29,7 +27,6 @@ class SqlDelightTest: BaseTest() {
         dbHelper.deleteAll()
         dbHelper.insertBreed("Beagle")
     }
-
 
     @Test
     fun `Select All Items Success`() = runTest {

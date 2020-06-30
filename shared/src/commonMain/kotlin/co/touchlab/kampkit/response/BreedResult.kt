@@ -1,4 +1,4 @@
-package co.touchlab.kampstarter.response
+package co.touchlab.kampkit.response
 
 import kotlinx.serialization.Serializable
 

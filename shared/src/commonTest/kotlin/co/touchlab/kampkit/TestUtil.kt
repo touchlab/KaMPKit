@@ -1,6 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.ktor.KtorApi
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.Settings
