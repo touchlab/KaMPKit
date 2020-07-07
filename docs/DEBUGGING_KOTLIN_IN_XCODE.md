@@ -10,6 +10,9 @@ To take advantage of the plugin you will want to add references to your kotlin c
 
 To add the Kotlin source:
 1. Right click in the project explorer
+
 ![](Screenshots/AddFiles.png)
-1. In the finder opened, select the kotlin source you want included (commonMain and iosMain). Be sure to select "Create folder references for any added folders"
+
+2. In the finder opened, select the kotlin source you want included (commonMain and iosMain). Be sure to select "Create folder references for any added folders"
+
 ![](Screenshots/FolderRef.png)
