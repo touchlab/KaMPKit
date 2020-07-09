@@ -38,7 +38,12 @@ Each of these directories has the same folder structure: the language type, then
 
 ## Overall Architecture
 
-The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). There it creates a ViewModel(`BreedViewModel`) on Android so that we can use LiveData and have the benefits of a ViewModel. In order to keep the two platforms consistent, we've added a class called `NativeViewModel` in the shared code to be used by the iOS platform. These ViewModels take in two callbacks from the Platform View, then create and call the `BreedModel`. The BreedModel is in the common MultiPlatform code, so we are already in the common code. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
+#### Platform
+The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
+#### ViewModel
+From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. In Android this extends the Jetpack ViewModel(`BreedViewModel`) and connects to that lifecycle. For iOS it’s connected with callbacks and the lifecycle is handled manually, which is done in the `NativeViewModel` class. These ViewModels take in two callbacks from the Platform View, then create and call the `BreedModel`. 
+#### Model
+The BreedModel is in the common MultiPlatform code, and handles the business logic. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
 
 > note that the BreedModel references the interface KtorApi. This is so we can test the Model using a Mock Api
 
