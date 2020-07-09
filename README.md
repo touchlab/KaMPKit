@@ -51,15 +51,11 @@ The central part of the "Kit" is the starter app. It includes a set of libraries
 You will need the following:
 
 * JVM 8
-* Android SDK and the latest stable Android Studio or IntelliJ
-* Intellij Kotlin plugin with 1.3.71 support
+* Android SDK and the latest stable Android Studio(3.6+) or IntelliJ(2019.3.2+)
+* Intellij Kotlin plugin with 1.3.72 support (should be included in the latest Android Studio or IDEA)
 * Mac with Xcode 11+ for the iOS build
 
-### Important Note (Feb 11)
-
-KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6, or newer. 
-
-Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
+For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
 ## 2) Clone and Build
 
@@ -91,10 +87,6 @@ It's important to understand not just how to set up the platform, but to get a b
 
 [Intro to Kotlin Multiplatform](https://vimeo.com/371428809) - General intro to KMP from Oredev in Nov 2019. Good overall summary of the platform.
 
-### Native Mobile with KMP
-
-*Coming soon. More in depth discussion of the architectural thinking behind the app, as well as source organization and deployment strategies.*
-
 ### Kotlin/Native Concurrency
 
 Kotlin/Native's state and concurrency model is different than the JVM (which includes Android). The goal is "[Saner Concurrency](https://medium.com/@kpgalligan/saner-concurrency-74b0bf8ed446)" In practice, if you're not writing custom concurrency logic, it's pretty simple, *but only if you understand it*. You ***must*** learn the basics.
@@ -109,7 +101,9 @@ We should also point out, the version of coroutines we're using in native is sti
 
 ### "Selling" KMP
 
-*Coming soon. How to pitch to other team members and "management", who may be skeptical.*
+KaMPKit can help you demonstrate to management and other stakeholders of the value of sharing code with KMP. Check out these resources for more advice on pitching KMP to your team:
+[Building a Business Case for KMP](https://touchlab.co/building-business-case-kotlin-multiplatform/)
+[7 ways to convince your engineering manager to pilot Kotlin Multiplatform](https://touchlab.co/7-ways-convince-engineering-manager-pilot-kotlin-multiplatform/)
 
 ### Xcode Debugging
 
@@ -143,8 +137,6 @@ to document any issues you run into and [let us know](CONTACT_US.md).
 ## More To Come!
 
 KaMP Kit is just the beginning. Our hope is that after KaMP Kit you’ll have a better sense of what a possible KMP implementation might look like.
-
-Register for our upcoming webinar, [“Next Steps with Kotlin Multiplatform”](https://go.touchlab.co/KaMP-Kit-GitHub-Webinar-Registration) and learn how other orgs are implementing KMP. You’ll also have the chance to ask questions and troubleshoot with us!
 
 ---
 
