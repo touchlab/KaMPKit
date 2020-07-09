@@ -51,15 +51,11 @@ The central part of the "Kit" is the starter app. It includes a set of libraries
 You will need the following:
 
 * JVM 8
-* Android SDK and the latest stable Android Studio or IntelliJ
+* Android SDK and the latest stable Android Studio(3.6+) or IntelliJ(2019.3.2+)
 * Intellij Kotlin plugin with 1.3.72 support (should be included in the latest Android Studio or IDEA)
 * Mac with Xcode 11+ for the iOS build
 
-### Important Note (Feb 11)
-
-KaMP Kit is using Kotlin scripts for gradle and some newer features of Kotlin Multiplatform. We'd highly recommend Intellij 2019.3.2, or Android Studio 3.6, or newer. 
-
-Android developers will generally have most or all of this installed. For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
+For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
 ## 2) Clone and Build
 
