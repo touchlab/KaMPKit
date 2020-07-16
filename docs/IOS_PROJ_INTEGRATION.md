@@ -29,16 +29,6 @@ cocoapodsext {
 ```
 Note that you need to apply the `co.touchlab.native.cocoapods` plugin for the forked plugin. 
 
-The non-forked code block can be seen below.
-```
-cocoapods {
-    summary = "Common library for the KaMP starter kit"
-    homepage = "https://github.com/touchlab/KaMPKit"
-    isStatic = false
-}
-```
-Note that you need to apply the `org.jetbrains.kotlin.native.cocoapods` plugin. 
-
 To generate the podspec, run the `podspec` command, or `./gradlew podspec`. This wil generate the podspec in the root library folder. 
 
 For more detailed information about the integration, [see more here](https://kotlinlang.org/docs/reference/native/cocoapods.html)
