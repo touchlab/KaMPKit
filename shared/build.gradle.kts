@@ -41,6 +41,7 @@ kotlin {
     sourceSets {
         all {
             languageSettings.apply {
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
