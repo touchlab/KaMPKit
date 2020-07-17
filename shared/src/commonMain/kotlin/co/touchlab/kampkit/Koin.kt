@@ -3,19 +3,26 @@ package co.touchlab.kampkit
 import co.touchlab.kampkit.ktor.DogApiImpl
 import co.touchlab.kampkit.ktor.KtorApi
 import kotlinx.coroutines.Dispatchers
+import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
 import org.koin.core.scope.Scope
-import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
 
-fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
-    appDeclaration()
-    modules(
-        platformModule,
-        coreModule
-    )
+fun initKoin(appModule: Module): KoinApplication {
+    val koinApplication = startKoin {
+        modules(
+            appModule,
+            platformModule,
+            coreModule
+        )
+    }
+
+    val doOnStartup = koinApplication.koin.get<() -> Unit>()
+    doOnStartup.invoke()
+
+    return koinApplication
 }
 
 private val coreModule = module {

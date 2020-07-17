@@ -11,11 +11,11 @@ import kotlin.test.Test
 class KoinTest : BaseTest() {
     @Test
     fun checkAllModules() {
-        initKoin {
-            module {
-                single(namedUserDefaults) { NSUserDefaults.standardUserDefaults as Any }
-            }
-        }.checkModules {
+        initKoinIos(
+            userDefaults = NSUserDefaults.standardUserDefaults,
+            appInfo = TestAppInfo,
+            doOnStartup = { }
+        ).checkModules {
             create<Kermit> { parametersOf("TestTag") }
         }
     }
