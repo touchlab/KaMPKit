@@ -38,14 +38,19 @@ Each of these directories has the same folder structure: the language type, then
 
 ## Overall Architecture
 
-The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). There it creates the `BreedModel`, passes in a callback, and calls the BreedModel. The BreedModel is in the common MultiPlatform code, so we are already in the common code. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
+#### Platform
+The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
+#### ViewModel
+From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. In Android this extends the Jetpack ViewModel(`BreedViewModel`) and connects to that lifecycle. For iOS it’s connected with callbacks and the lifecycle is handled manually, which is done in the `NativeViewModel` class. These ViewModels take in two callbacks from the Platform View, then create and call the `BreedModel`. 
+#### Model
+The BreedModel is in the common MultiPlatform code, and handles the business logic. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
 
 > note that the BreedModel references the interface KtorApi. This is so we can test the Model using a Mock Api
 
-In this implementation the BreedModel listens to the database as a flow, so that when any changes occur to the database it will then call the callback it was passed. When breeds are requested the model retrieves the information from the network, then saves the data to the database. This triggers the database flow to send the new data to the Platform to update the display.
+In this implementation the ViewModel listens to the database as a flow, so that when any changes occur to the database it will then call the callback it was passed. When breeds are requested the model retrieves the information from the network, then saves the data to the database. This triggers the database flow to send the new data to the Platform to update the display.
 
 In Short:
-**Platform -> BreedModel -> DogApiImpl -> BreedModel -> DatabaseHelper -> BreedModel -> Platform**
+**Platform -> BreedViewModel/NativeViewModel -> BreedModel -> DogApiImpl -> BreedModel -> DatabaseHelper -> BreedModel -> BreedViewModel/NativeViewModel -> Platform**
 
 You may be asking where the Multiplatform-settings comes in. When the BreedModel is told to get breeds from the network, it first checks to see if it's done a network request within the past hour. If it has then it decides not to update the breeds. 
 
@@ -147,7 +152,7 @@ In KaMPKit we are using `ensureNeverFrozen()` in the BreedModel and DogApiImpl b
 
 With KMP you can share tests between platforms, however since we have platform specific drivers and dependencies our tests need to be run by the individual platforms. In short we can share tests but we have to run them separately as android and iOS. The shared tests can be found in the commonTest directory, while the implementations can be found in the androidTest and iosTest directories, specifically with *PlatformTest.kt*. The PlatformTests contain classes for testing that are subclassing the abstract shared tests, so that they can be run in their platform. The function `runTest` is also implemented in PlatformTest, which makes sure the tests are running synchronously.
 
-You may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that is actually handled in the `TestingServiceRegistry` object in commonTest. In order to pass the platform specific libraries(SqlDelight requires a platform driver) into the BreedModel for testing we need to inject them. Before the tests in BreedModelTest we are calling `appStart` and passing in our libraries to be injected and starting Koin. Then after the tests we are stopping Koin by calling `appEnd`. Note that the actual `testDbConnection()` implementations are in the *SqlDelightTest.kt* files.
+You may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that is actually handled in the `TestUtil.kt` file in commonTest. In order to pass the platform specific libraries(SqlDelight requires a platform driver) into the BreedModel for testing we need to inject them. Before the tests in BreedModelTest we are calling `appStart` and passing in our libraries to be injected and starting Koin. Then after the tests we are stopping Koin by calling `appEnd`. Note that the actual `testDbConnection()` implementations are in the *SqlDelightTest.kt* files.
 
 #### Android
 On the android side we are using AndroidRunner to run the tests because we want to use android specifics in our tests. If you're not using android specific methods then you don't need to use AndroidRunner. The android tests are run can be easily run in Android Studio by right clicking on the shared folder, and selecting `Run 'All Tests'`.
