@@ -22,6 +22,7 @@ object Versions {
     val karmok = "0.1.7"
     val ktlint_gradle_plugin = "9.2.1"
     val robolectric = "4.3.1"
+    val concurrency = "1.0.10"
 }
 
 object Deps {
@@ -88,5 +89,12 @@ object Deps {
         val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
         val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
         val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
+    }
+
+    object Concurrency {
+        val common = "suparnatural-kotlin-multiplatform:concurrency-metadata:${Versions.concurrency}"
+        val android = "suparnatural-kotlin-multiplatform:concurrency-android:${Versions.concurrency}"
+        val iosX64 = "suparnatural-kotlin-multiplatform:concurrency-iosx64:${Versions.concurrency}"
+        val iosArm64 = "suparnatural-kotlin-multiplatform:concurrency-iosarm64:${Versions.concurrency}"
     }
 }

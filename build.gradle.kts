@@ -30,6 +30,7 @@ allprojects {
         maven(url = "https://kotlin.bintray.com/kotlinx")
         maven(url = "https://dl.bintray.com/ekito/koin")
         maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
+        maven(url = "https://dl.bintray.com/suparnatural/kotlin-multiplatform")
     }
 }
 

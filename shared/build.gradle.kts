@@ -57,6 +57,7 @@ kotlin {
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
         implementation(Deps.Ktor.commonSerialization)
+        implementation(Deps.Concurrency.common)
         api(Deps.kermit)
     }
 
@@ -79,6 +80,7 @@ kotlin {
         implementation(Deps.Coroutines.android)
         implementation(Deps.Ktor.androidSerialization)
         implementation(Deps.Ktor.androidCore)
+        implementation(Deps.Concurrency.android)
     }
 
     sourceSets["androidTest"].dependencies {
@@ -105,6 +107,13 @@ kotlin {
         }
         implementation(Deps.Ktor.iosSerialization)
         implementation(Deps.koinCore)
+
+        val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
+        if (onPhone) {
+            implementation(Deps.Concurrency.iosArm64)
+        } else {
+            implementation(Deps.Concurrency.iosX64)
+        }
     }
 
     cocoapodsext {
