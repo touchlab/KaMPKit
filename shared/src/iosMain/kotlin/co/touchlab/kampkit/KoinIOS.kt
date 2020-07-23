@@ -4,6 +4,7 @@ import co.touchlab.kampkit.db.KaMPKitDb
 import co.touchlab.kermit.Kermit
 import co.touchlab.kermit.NSLogLogger
 import com.russhwolf.settings.AppleSettings
+import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import com.suparnatural.core.concurrency.Immutability
@@ -28,7 +29,7 @@ object KoinIOS {
     fun initialize(userDefaults: NSUserDefaults) {
         koin = initKoin {
             modules(module {
-                single { AppleSettings(userDefaults) }
+                single<Settings> { AppleSettings(userDefaults) }
             })
         }
     }
