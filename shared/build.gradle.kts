@@ -108,7 +108,7 @@ kotlin {
         implementation(Deps.Ktor.iosSerialization)
         implementation(Deps.koinCore)
 
-        val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos")?:false
+        val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
         if (onPhone) {
             implementation(Deps.Concurrency.iosArm64)
         } else {

@@ -28,9 +28,11 @@ object KoinIOS {
 
     fun initialize(userDefaults: NSUserDefaults) {
         koin = initKoin {
-            modules(module {
-                single<Settings> { AppleSettings(userDefaults) }
-            })
+            modules(
+                module {
+                    single<Settings> { AppleSettings(userDefaults) }
+                }
+            )
         }
     }
 
