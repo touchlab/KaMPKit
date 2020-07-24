@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         startKoin()
               
         // Manually launch storyboard so that ViewController doesn't initialize before Koin
-        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewController = storyboard.instantiateViewController(identifier: "BreedsViewController")
         
         self.window = UIWindow(frame: UIScreen.main.bounds)

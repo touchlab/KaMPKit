@@ -2,6 +2,7 @@ package co.touchlab.kampkit
 
 import co.touchlab.kampkit.ktor.DogApiImpl
 import co.touchlab.kampkit.ktor.KtorApi
+import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -19,8 +20,14 @@ fun initKoin(appModule: Module): KoinApplication {
         )
     }
 
-    val doOnStartup = koinApplication.koin.get<() -> Unit>()
+    // Dummy initialization logic, making use of appModule declarations for demonstration purposes.
+    val koin = koinApplication.koin
+    val doOnStartup = koin.get<() -> Unit>() // doOnStartup is a lambda which is implemented in Swift on iOS side
     doOnStartup.invoke()
+
+    val kermit = koin.get<Kermit> { parametersOf(null) }
+    val appInfo = koin.get<AppInfo>() // AppInfo is a Kotlin interface with separate Android and iOS implementations
+    kermit.v { "App Id ${appInfo.appId}" }
 
     return koinApplication
 }
