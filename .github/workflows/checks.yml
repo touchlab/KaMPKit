@@ -19,7 +19,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Check
+    - name: Linux check
       run: ./gradlew clean check
 
 
@@ -30,6 +30,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Check
-      run: ./gradlew clean check
+    - name: iOS test
+      run: ./gradlew clean iostest
 
