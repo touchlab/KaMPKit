@@ -3,23 +3,23 @@ object Versions {
     val target_sdk = 29
     val compile_sdk = 29
 
-    val kotlin = "1.3.72"
+    val kotlin = "1.4.0"
     val androidx_test = "1.2.0"
     val androidx_test_ext = "1.1.1"
     val android_gradle_plugin = "3.6.3"
     val buildToolsVersion = "29.0.0"
     val junit = "4.13"
-    val sqlDelight = "1.3.0"
-    val ktor = "1.3.2"
-    val stately = "1.0.2"
-    val multiplatformSettings = "0.6"
-    val coroutines = "1.3.5-native-mt"
-    val koin = "3.0.0-alpha-2"
-    val serialization = "0.20.0"
+    val sqlDelight = "1.4.1"
+    val ktor = "1.4.0"
+    val stately = "1.1.0"
+    val multiplatformSettings = "0.6.1"
+    val coroutines = "1.3.9-native-mt"
+    val koin = "3.0.1-alpha-2"
+    val serialization = "1.0.0-RC"
     val cocoapodsext = "0.9"
-    val kermit = "0.1.5"
+    val kermit = "0.1.8"
     val lifecycle = "2.1.0"
-    val karmok = "0.1.7"
+    val karmok = "0.1.8"
     val ktlint_gradle_plugin = "9.2.1"
     val robolectric = "4.3.1"
 }
@@ -60,9 +60,9 @@ object Deps {
         val junit =       "org.jetbrains.kotlin:kotlin-test-junit:${Versions.kotlin}"
     }
     object Coroutines {
-        val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:${Versions.coroutines}"
-        val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-        val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
+        val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        // val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        // val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
         val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
@@ -87,6 +87,6 @@ object Deps {
         val iosLogging =     "io.ktor:ktor-client-logging-native:${Versions.ktor}"
         val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
         val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
-        val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
+        // val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
     }
 }

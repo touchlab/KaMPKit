@@ -9,6 +9,7 @@
   "authors": "",
   "license": "",
   "summary": "Common library for the KaMP starter kit",
+  "static_framework": true,
   "vendored_frameworks": "build/cocoapods/framework/shared.framework",
   "libraries": "c++",
   "module_name": "shared_umbrella",

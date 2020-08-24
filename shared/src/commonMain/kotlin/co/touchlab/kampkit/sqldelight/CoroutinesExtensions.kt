@@ -3,6 +3,7 @@ package co.touchlab.kampkit.sqldelight
 import co.touchlab.stately.freeze
 import com.squareup.sqldelight.Query
 import com.squareup.sqldelight.Transacter
+import com.squareup.sqldelight.TransactionWithoutReturn
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.Channel.Factory.CONFLATED
@@ -92,9 +93,11 @@ internal fun <T : Any> Flow<Query<T>>.mapToList(
 suspend fun Transacter.transactionWithContext(
     coroutineContext: CoroutineContext,
     noEnclosing: Boolean = false,
-    body: Transacter.Transaction.() -> Unit
+    body: TransactionWithoutReturn.() -> Unit
 ) {
     withContext(coroutineContext) {
-        this@transactionWithContext.transaction(noEnclosing) { body() }
+        this@transactionWithContext.transaction(noEnclosing) {
+            body()
+        }
     }
 }

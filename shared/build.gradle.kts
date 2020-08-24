@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
+    // kotlin("native.cocoapods")
     id("co.touchlab.native.cocoapods")
     id("kotlinx-serialization")
     id("com.android.library")
@@ -76,7 +77,6 @@ kotlin {
         implementation(Deps.Ktor.jvmCore)
         implementation(Deps.Ktor.jvmJson)
         implementation(Deps.Ktor.jvmLogging)
-        implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.Ktor.androidSerialization)
         implementation(Deps.Ktor.androidCore)
@@ -96,26 +96,22 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
         implementation(Deps.Ktor.ios)
-        implementation(Deps.Ktor.iosCore)
-        implementation(Deps.Ktor.iosJson)
-        implementation(Deps.Ktor.iosLogging)
-        implementation(Deps.Coroutines.native) {
+        implementation(Deps.Coroutines.common) {
             version {
-                strictly("1.3.5-native-mt")
+                strictly(Versions.coroutines)
             }
         }
-        implementation(Deps.Ktor.iosSerialization)
         implementation(Deps.koinCore)
     }
 
     cocoapodsext {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
-        framework {
+        /*framework {
             isStatic = false
             export(Deps.kermit)
             transitiveExport = true
-        }
+        }*/
     }
 }
 
