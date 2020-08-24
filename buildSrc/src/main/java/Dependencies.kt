@@ -61,8 +61,6 @@ object Deps {
     }
     object Coroutines {
         val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-        // val jdk = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
-        // val native = "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:${Versions.coroutines}"
         val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
         val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     }
@@ -87,6 +85,5 @@ object Deps {
         val iosLogging =     "io.ktor:ktor-client-logging-native:${Versions.ktor}"
         val commonSerialization ="io.ktor:ktor-client-serialization:${Versions.ktor}"
         val androidSerialization ="io.ktor:ktor-client-serialization-jvm:${Versions.ktor}"
-        // val iosSerialization ="io.ktor:ktor-client-serialization-native:${Versions.ktor}"
     }
 }
