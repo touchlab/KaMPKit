@@ -33,8 +33,6 @@ kotlin {
     } else {
         iosX64("ios")
     }
-    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
-        listOf("-Xobjc-generics", "-Xg0")
 
     version = "1.1"
 
