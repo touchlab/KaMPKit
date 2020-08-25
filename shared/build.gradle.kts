@@ -2,8 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    // id("co.touchlab.native.cocoapods")
+    id("co.touchlab.native.cocoapods")
     id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
@@ -104,14 +103,14 @@ kotlin {
         implementation(Deps.koinCore)
     }
 
-    cocoapods {
+    cocoapodsext {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
-        /*framework {
+        framework {
             isStatic = false
             export(Deps.kermit)
             transitiveExport = true
-        }*/
+        }
     }
 }
 

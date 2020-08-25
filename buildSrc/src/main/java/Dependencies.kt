@@ -16,7 +16,7 @@ object Versions {
     val coroutines = "1.3.9-native-mt"
     val koin = "3.0.1-alpha-2"
     val serialization = "1.0.0-RC"
-    val cocoapodsext = "0.9"
+    val cocoapodsext = "0.11"
     val kermit = "0.1.8"
     val lifecycle = "2.1.0"
     val karmok = "0.1.8"

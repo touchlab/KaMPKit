@@ -7,14 +7,12 @@ Pod::Spec.new do |spec|
     spec.license                  = ''
     spec.summary                  = 'Common library for the KaMP starter kit'
 
-    spec.static_framework         = true
+
     spec.vendored_frameworks      = "build/cocoapods/framework/shared.framework"
     spec.libraries                = "c++"
     spec.module_name              = "#{spec.name}_umbrella"
 
-                
-
-                
+            
 
     spec.pod_target_xcconfig = {
         'KOTLIN_TARGET[sdk=iphonesimulator*]' => 'ios_x64',
@@ -41,6 +39,12 @@ Pod::Spec.new do |spec|
                     -Pkotlin.native.cocoapods.paths.headers="$HEADER_SEARCH_PATHS" \
                     -Pkotlin.native.cocoapods.paths.frameworks="$FRAMEWORK_SEARCH_PATHS"
             SCRIPT
+        },
+        {
+        	:name => 'Touch shared.framework',
+        	:execution_position => :after_compile,
+        	:shell_path =>  '/bin/sh',
+        	:script => 'find "${SRCROOT}" -type f -name *frameworks.sh -exec bash -c "touch \"{}\"" \;'
         }
     ]
 end
