@@ -80,7 +80,7 @@ scope.launch {
 }
 ```
 
-See [BaseModel.kt](https://github.com/touchlab/KaMPKit/blob/master/shared/src/commonMain/kotlin/co/touchlab/kampkit/models/BaseModel.kt#L11)
+See [DogApiImpl.kt](https://github.com/touchlab/KaMPKit/blob/5376b4c2dd4be7f2436e10dddbf56b0d5ab33443/shared/src/commonMain/kotlin/co/touchlab/kampkit/ktor/DogApiImpl.kt#L36) and [BreedModel.kt](https://github.com/touchlab/KaMPKit/blob/b2e8a330f8c12429255711c4c55a328885615d8b/shared/src/commonMain/kotlin/co/touchlab/kampkit/models/BreedModel.kt#L49)
 
 ## Libraries and Dependencies
 
