@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     kotlin("multiplatform")
     id("co.touchlab.native.cocoapods")
@@ -33,8 +31,6 @@ kotlin {
     } else {
         iosX64("ios")
     }
-    targets.getByName<KotlinNativeTarget>("ios").compilations["main"].kotlinOptions.freeCompilerArgs +=
-        listOf("-Xobjc-generics", "-Xg0")
 
     version = "1.1"
 
@@ -76,7 +72,6 @@ kotlin {
         implementation(Deps.Ktor.jvmCore)
         implementation(Deps.Ktor.jvmJson)
         implementation(Deps.Ktor.jvmLogging)
-        implementation(Deps.Coroutines.jdk)
         implementation(Deps.Coroutines.android)
         implementation(Deps.Ktor.androidSerialization)
         implementation(Deps.Ktor.androidCore)
@@ -96,15 +91,11 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
         implementation(Deps.Ktor.ios)
-        implementation(Deps.Ktor.iosCore)
-        implementation(Deps.Ktor.iosJson)
-        implementation(Deps.Ktor.iosLogging)
-        implementation(Deps.Coroutines.native) {
+        implementation(Deps.Coroutines.common) {
             version {
-                strictly("1.3.5-native-mt")
+                strictly(Versions.coroutines)
             }
         }
-        implementation(Deps.Ktor.iosSerialization)
         implementation(Deps.koinCore)
     }
 

@@ -31,7 +31,7 @@ class BreedModel() : KoinComponent {
             .map { itemList ->
                 log.v { "Select all query dirtied" }
                 ItemDataSummary(
-                    itemList.maxBy { it.name.length },
+                    itemList.maxByOrNull { it.name.length },
                     itemList
                 )
             }
