@@ -33,13 +33,12 @@ class DogApiImpl(private val log: Kermit) : KtorApi {
         ensureNeverFrozen()
     }
 
-    override suspend fun getJsonFromApi(): BreedResult =
-        network {
-            log.d { "Fetching Breeds from network" }
-            client.get<BreedResult> {
-                dogs("api/breeds/list/all")
-            }
+    override suspend fun getJsonFromApi(): BreedResult {
+        log.d { "Fetching Breeds from network" }
+        return client.get<BreedResult> {
+            dogs("api/breeds/list/all")
         }
+    }
 
     private fun HttpRequestBuilder.dogs(path: String) {
         url {
@@ -48,5 +47,3 @@ class DogApiImpl(private val log: Kermit) : KtorApi {
         }
     }
 }
-
-internal expect suspend fun <R> network(block: suspend () -> R): R
