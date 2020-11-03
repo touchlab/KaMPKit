@@ -9,7 +9,7 @@ object Versions {
     val android_gradle_plugin = "3.6.3"
     val buildToolsVersion = "29.0.0"
     val junit = "4.13"
-    val sqlDelight = "1.4.1"
+    val sqlDelight = "1.4.4"
     val ktor = "1.4.0"
     val stately = "1.1.0"
     val multiplatformSettings = "0.6.1"
