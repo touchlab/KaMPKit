@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(Versions.compile_sdk)
     defaultConfig {
         minSdkVersion(Versions.min_sdk)
         targetSdkVersion(Versions.target_sdk)
@@ -44,12 +44,15 @@ kotlin {
     }
 
     sourceSets["commonMain"].dependencies {
-        implementation(kotlin("stdlib-common", Versions.kotlin))
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.Ktor.commonCore)
         implementation(Deps.Ktor.commonJson)
         implementation(Deps.Ktor.commonLogging)
-        implementation(Deps.Coroutines.common)
+        implementation(Deps.Coroutines.common) {
+            version {
+                strictly(Versions.coroutines)
+            }
+        }
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
@@ -69,11 +72,7 @@ kotlin {
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
         implementation(Deps.SqlDelight.driverAndroid)
-        implementation(Deps.Ktor.jvmCore)
-        implementation(Deps.Ktor.jvmJson)
-        implementation(Deps.Ktor.jvmLogging)
         implementation(Deps.Coroutines.android)
-        implementation(Deps.Ktor.androidSerialization)
         implementation(Deps.Ktor.androidCore)
     }
 
@@ -91,12 +90,6 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
         implementation(Deps.Ktor.ios)
-        implementation(Deps.Coroutines.common) {
-            version {
-                strictly(Versions.coroutines)
-            }
-        }
-        implementation(Deps.koinCore)
     }
 
     cocoapodsext {

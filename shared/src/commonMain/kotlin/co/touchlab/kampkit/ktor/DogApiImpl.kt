@@ -13,7 +13,12 @@ import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
 import io.ktor.http.takeFrom
 
-class DogApiImpl(private val log: Kermit) : KtorApi {
+class DogApiImpl(log: Kermit) : KtorApi {
+
+    // If this is a constructor property, then it gets captured inside HttpClient config and freezes this whole class
+    @Suppress("CanBePrimaryConstructorProperty")
+    private val log = log
+
     private val client = HttpClient {
         install(JsonFeature) {
             serializer = KotlinxSerializer()

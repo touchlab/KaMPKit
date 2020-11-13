@@ -12,7 +12,7 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
-class BreedModel() : KoinComponent {
+class BreedModel : KoinComponent {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
@@ -53,6 +53,7 @@ class BreedModel() : KoinComponent {
                 dbHelper.insertBreeds(breedList)
                 settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
             } catch (e: Exception) {
+                log.e(e) { "Error downloading breed list" }
                 return "Unable to download breed list"
             }
         } else {
