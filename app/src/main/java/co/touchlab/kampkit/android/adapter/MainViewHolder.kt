@@ -1,16 +1,15 @@
 package co.touchlab.kampkit.android.adapter
 
-import android.view.View
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import co.touchlab.kampkit.android.R
+import co.touchlab.kampkit.android.databinding.ItemBreedBinding
 import co.touchlab.kampkit.db.Breed
 
-class MainViewHolder(itemView: View, breedClickListener: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+class MainViewHolder(binding: ItemBreedBinding, breedClickListener: (Int) -> Unit) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    private val nameTextView = itemView.findViewById<TextView>(R.id.breed_name_text_view)
-    private val favoriteButton = itemView.findViewById<ImageButton>(R.id.favorite_button)
+    private val nameTextView = binding.breedNameTextView
+    private val favoriteButton = binding.favoriteButton
 
     init {
         favoriteButton.setOnClickListener { breedClickListener(adapterPosition) }

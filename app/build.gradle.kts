@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("android.extensions")
 }
 
 android {
@@ -32,6 +31,10 @@ android {
     lintOptions {
         isWarningsAsErrors = true
         isAbortOnError = true
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 }
 

@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import co.touchlab.kampkit.android.R
+import co.touchlab.kampkit.android.databinding.ItemBreedBinding
 import co.touchlab.kampkit.db.Breed
 
 class MainAdapter(private val breedClickListener: (Breed) -> Unit) :
-    ListAdapter<Breed, MainViewHolder>(
-        breedCallback
-    ) {
+    ListAdapter<Breed, MainViewHolder>(breedCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_breed, parent, false)
-        return MainViewHolder(view) {
+        val binding = ItemBreedBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MainViewHolder(binding) {
             breedClickListener(getItem(it))
         }
     }
@@ -25,12 +23,9 @@ class MainAdapter(private val breedClickListener: (Breed) -> Unit) :
 
     companion object {
         private val breedCallback = object : DiffUtil.ItemCallback<Breed>() {
-            override fun areContentsTheSame(oldItem: Breed, newItem: Breed): Boolean =
-                (oldItem.id == newItem.id) &&
-                    (oldItem.favorite == newItem.favorite)
+            override fun areContentsTheSame(oldItem: Breed, newItem: Breed): Boolean = oldItem == newItem
 
-            override fun areItemsTheSame(oldItem: Breed, newItem: Breed): Boolean =
-                oldItem.id == newItem.id
+            override fun areItemsTheSame(oldItem: Breed, newItem: Breed): Boolean = oldItem.id == newItem.id
         }
     }
 }
