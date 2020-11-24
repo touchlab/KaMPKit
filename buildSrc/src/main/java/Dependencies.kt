@@ -56,6 +56,7 @@ object Deps {
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
         val lifecycle_extension = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
+        val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
     }
 
     object AndroidXTest {
