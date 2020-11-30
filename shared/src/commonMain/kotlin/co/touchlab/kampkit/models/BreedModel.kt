@@ -1,13 +1,13 @@
 package co.touchlab.kampkit.models
 
 import co.touchlab.kampkit.DatabaseHelper
-import co.touchlab.kampkit.currentTimeMillis
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.ktor.KtorApi
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.map
+import kotlinx.datetime.Clock
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
@@ -43,7 +43,7 @@ class BreedModel : KoinComponent {
             return (lastDownloadTimeMS + oneHourMS < currentTimeMS)
         }
 
-        val currentTimeMS = currentTimeMillis()
+        val currentTimeMS = Clock.System.now().toEpochMilliseconds()
         if (isBreedListStale(currentTimeMS)) {
             try {
                 val breedResult = ktorApi.getJsonFromApi()

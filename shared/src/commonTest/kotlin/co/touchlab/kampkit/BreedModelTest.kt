@@ -6,6 +6,7 @@ import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -37,7 +38,8 @@ class BreedModelTest : BaseTest() {
 
     @Test
     fun staleDataCheckTest() = runTest {
-        settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMillis())
+        val currentTimeMS = Clock.System.now().toEpochMilliseconds()
+        settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMS)
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
 
         assertNull(model.getBreedsFromNetwork())
