@@ -21,6 +21,7 @@ object Versions {
     val sqlDelight = "1.4.4"
     val stately = "1.1.0"
     val serialization = "1.0.0"
+    val kotlinxDateTime = "0.1.1"
 
     object AndroidX {
         val appcompat = "1.2.0"
@@ -46,6 +47,7 @@ object Deps {
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     val stately = "co.touchlab:stately-common:${Versions.stately}"
+    val kotlinxDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDateTime}"
 
     object AndroidX {
         val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
