@@ -84,6 +84,7 @@ object Deps {
     object SqlDelight {
         val gradle = "com.squareup.sqldelight:gradle-plugin:${Versions.sqlDelight}"
         val runtime = "com.squareup.sqldelight:runtime:${Versions.sqlDelight}"
+        val coroutinesExtensions = "com.squareup.sqldelight:coroutines-extensions:${Versions.sqlDelight}"
         val runtimeJdk = "com.squareup.sqldelight:runtime-jvm:${Versions.sqlDelight}"
         val driverIos = "com.squareup.sqldelight:native-driver:${Versions.sqlDelight}"
         val driverAndroid = "com.squareup.sqldelight:android-driver:${Versions.sqlDelight}"
