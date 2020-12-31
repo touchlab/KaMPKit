@@ -3,24 +3,24 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.4.10"
+    val kotlin = "1.4.21"
     val android_gradle_plugin = "4.0.1"
 
     val buildToolsVersion = "30.0.2"
-    val cocoapodsext = "0.11"
-    val coroutines = "1.3.9-native-mt-2"
+    val cocoapodsext = "0.12"
+    val coroutines = "1.4.2-native-mt"
     val kermit = "0.1.8"
     val karmok = "0.1.8"
     val koin = "3.0.0-alpha-4"
     val ktlint_gradle_plugin = "9.4.1"
-    val ktor = "1.4.2"
-    val junit = "4.13"
+    val ktor = "1.5.0"
+    val junit = "4.13.1"
     val material = "1.2.1"
-    val multiplatformSettings = "0.6.3"
+    val multiplatformSettings = "0.7"
     val robolectric = "4.4"
     val sqlDelight = "1.4.4"
-    val stately = "1.1.0"
-    val serialization = "1.0.0"
+    val stately = "1.1.1"
+    val serialization = "1.0.1"
     val kotlinxDateTime = "0.1.1"
 
     object AndroidX {
