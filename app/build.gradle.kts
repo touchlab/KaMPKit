@@ -24,6 +24,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -42,6 +43,7 @@ dependencies {
     implementation(project(":shared"))
     implementation(Deps.AndroidX.recyclerView)
     implementation(Deps.material)
+    coreLibraryDesugaring(Deps.desugarJdkLibs)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.core_ktx)
     implementation(Deps.Ktor.androidCore)
