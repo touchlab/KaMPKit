@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
             }
         )
 
-
         binding.breedList.adapter = adapter
         binding.breedList.layoutManager = LinearLayoutManager(this)
 
@@ -69,8 +68,8 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     ) {
         lifecycleScope.launch {
             viewModel.breedStateFlow.collect {
-                    dataState ->
-                when(dataState) {
+                dataState ->
+                when (dataState) {
                     is DataState.Success -> {
                         onSuccess(dataState.data.allItems)
                     }
@@ -84,7 +83,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                         onLoading()
                     }
                 }
-
             }
         }
     }
