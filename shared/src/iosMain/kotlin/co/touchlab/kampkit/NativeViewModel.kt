@@ -2,6 +2,7 @@ package co.touchlab.kampkit
 
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
+import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
@@ -13,8 +14,7 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 class NativeViewModel(
-    private val viewUpdate: (ItemDataSummary) -> Unit,
-    private val errorUpdate: (String) -> Unit
+    private val viewUpdate: (DataState<ItemDataSummary>) -> Unit
 ) : KoinComponent {
 
     private val log: Kermit by inject { parametersOf("BreedModel") }
@@ -24,13 +24,13 @@ class NativeViewModel(
     init {
         ensureNeverFrozen()
         breedModel = BreedModel()
-        observeBreeds()
+        getBreeds()
     }
 
-    private fun observeBreeds() {
+    fun getBreeds() {
         scope.launch {
             log.v { "Observe Breeds" }
-            breedModel.selectAllBreeds()
+            breedModel.getBreeds()
                 .collect { summary ->
                     log.v { "Collecting Things" }
                     viewUpdate(summary)
@@ -38,13 +38,13 @@ class NativeViewModel(
         }
     }
 
-    fun getBreedsFromNetwork() {
+/*    fun getBreedsFromNetwork() {
         scope.launch {
             breedModel.getBreedsFromNetwork()?.let { errorString ->
                 errorUpdate(errorString)
             }
         }
-    }
+    }*/
 
     fun updateBreedFavorite(breed: Breed) {
         scope.launch {

@@ -33,7 +33,7 @@ class BreedModelTest : BaseTest() {
         appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
         model = BreedModel()
-        model.selectAllBreeds().first()
+        model.getBreedsFromCache().first()
     }
 
     @Test
