@@ -65,11 +65,13 @@ class BreedModel : KoinComponent {
         dbHelper.selectAllItems()
             .map { itemList ->
                 log.v { "Select all query dirtied" }
-                    DataState.Success(ItemDataSummary(
+                DataState.Success(
+                    ItemDataSummary(
                         itemList.maxByOrNull { it.name.length },
-                        itemList))
+                        itemList
+                    )
+                )
             }
-
 
     private fun isBreedListStale(currentTimeMS: Long): Boolean {
         val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
@@ -82,7 +84,6 @@ class BreedModel : KoinComponent {
     }
 
     suspend fun getBreedsFromNetwork(currentTimeMS: Long): DataState<ItemDataSummary> {
-
         return try {
             val breedResult = ktorApi.getJsonFromApi()
             log.v { "Breed network result: ${breedResult.status}" }
@@ -103,7 +104,6 @@ class BreedModel : KoinComponent {
             log.e(e) { "Error downloading breed list" }
             DataState.Error("Unable to download breed list")
         }
-
     }
 
     suspend fun updateBreedFavorite(breed: Breed) {
