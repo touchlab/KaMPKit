@@ -16,7 +16,7 @@ import org.koin.core.parameter.parametersOf
 class NativeViewModel(
     private val onLoading: () -> Unit,
     private val onSuccess: (ItemDataSummary) -> Unit,
-    private val onError: (Exception) -> Unit,
+    private val onError: (String) -> Unit,
     private val onEmpty: () -> Unit
 ) : KoinComponent {
 

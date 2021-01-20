@@ -17,19 +17,10 @@ class BreedsViewController: UIViewController {
     let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
 
     lazy var adapter: NativeViewModel = NativeViewModel(
-        onLoading: {
-            // Show a loading spinner
-        },
-        onSuccess: { [weak self] summary in
-            self?.viewUpdateSuccess(for: summary)
-        },
-        onError: {
-            [weak self] error in
-            self?.errorUpdate(for: (error as! Error).localizedDescription)
-        },
-        onEmpty: {
-            // Show "No doggos found!" message
-        }
+        onLoading: { /* Show a loading spinner */ },
+        onSuccess: { [weak self] summary in self?.viewUpdateSuccess(for: summary) },
+        onError: { [weak self] error in self?.errorUpdate(for: error) },
+        onEmpty: { /* Show "No doggos found!" message */}
     )
     
     // MARK: View Lifecycle

@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
     private fun collectDataStateFlow(
         onLoading: () -> Unit,
         onSuccess: (List<Breed>) -> Unit,
-        onError: (Exception) -> Unit,
+        onError: (String) -> Unit,
         onEmpty: () -> Unit,
     ) {
         lifecycleScope.launch {

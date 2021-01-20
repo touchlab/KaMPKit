@@ -23,6 +23,7 @@ object Versions {
     val stately = "1.1.1"
     val serialization = "1.0.1"
     val kotlinxDateTime = "0.1.1"
+    val turbine = "0.3.0"
 
     object AndroidX {
         val appcompat = "1.2.0"
@@ -50,6 +51,7 @@ object Deps {
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     val stately = "co.touchlab:stately-common:${Versions.stately}"
     val kotlinxDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDateTime}"
+    val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 
     object AndroidX {
         val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"

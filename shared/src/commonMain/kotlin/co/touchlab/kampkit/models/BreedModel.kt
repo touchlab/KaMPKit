@@ -101,7 +101,7 @@ class BreedModel : KoinComponent {
             }
         } catch (e: Exception) {
             log.e(e) { "Error downloading breed list" }
-            DataState.Error(Exception("Unable to download breed list"))
+            DataState.Error("Unable to download breed list")
         }
 
     }
