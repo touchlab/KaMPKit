@@ -87,7 +87,7 @@ class BreedModel : KoinComponent {
         return try {
             val breedResult = ktorApi.getJsonFromApi()
             log.v { "Breed network result: ${breedResult.status}" }
-            val breedList = breedResult.message.keys.toList()
+            val breedList = breedResult.message.keys.sorted().toList()
             log.v { "Fetched ${breedList.size} breeds from network" }
             settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
             if (breedList.isEmpty()) {

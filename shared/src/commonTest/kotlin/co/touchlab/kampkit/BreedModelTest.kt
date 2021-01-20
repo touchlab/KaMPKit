@@ -59,6 +59,7 @@ class BreedModelTest : BaseTest() {
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
+        dbHelper.deleteAll()
         val appenzeller = Breed(1, "appenzeller", 0L)
         val australianNoLike = Breed(2, "australian", 0L)
         val australianLike = Breed(2, "australian", 1L)
