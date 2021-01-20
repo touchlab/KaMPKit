@@ -14,7 +14,10 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 class NativeViewModel(
-    private val viewUpdate: (DataState<ItemDataSummary>) -> Unit
+    private val onLoading: () -> Unit,
+    private val onSuccess: (ItemDataSummary) -> Unit,
+    private val onError: (Exception) -> Unit,
+    private val onEmpty: () -> Unit
 ) : KoinComponent {
 
     private val log: Kermit by inject { parametersOf("BreedModel") }
@@ -31,20 +34,25 @@ class NativeViewModel(
         scope.launch {
             log.v { "Observe Breeds" }
             breedModel.getBreeds()
-                .collect { summary ->
+                .collect { dataState ->
                     log.v { "Collecting Things" }
-                    viewUpdate(summary)
+                    when (dataState) {
+                        is DataState.Success -> {
+                            onSuccess(dataState.data)
+                        }
+                        is DataState.Error -> {
+                            onError(dataState.exception)
+                        }
+                        DataState.Empty -> {
+                            onEmpty()
+                        }
+                        DataState.Loading -> {
+                            onLoading()
+                        }
+                    }
                 }
         }
     }
-
-/*    fun getBreedsFromNetwork() {
-        scope.launch {
-            breedModel.getBreedsFromNetwork()?.let { errorString ->
-                errorUpdate(errorString)
-            }
-        }
-    }*/
 
     fun updateBreedFavorite(breed: Breed) {
         scope.launch {

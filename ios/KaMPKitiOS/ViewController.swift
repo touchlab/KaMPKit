@@ -15,10 +15,20 @@ class BreedsViewController: UIViewController {
     var data: [Breed] = []
     
     let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
-    
+
     lazy var adapter: NativeViewModel = NativeViewModel(
-        viewUpdate: { [weak self] summary in
-            self?.viewUpdate(for: summary)
+        onLoading: {
+            // Show a loading spinner
+        },
+        onSuccess: { [weak self] summary in
+            self?.viewUpdateSuccess(for: summary)
+        },
+        onError: {
+            [weak self] error in
+            self?.errorUpdate(for: (error as! Error).localizedDescription)
+        },
+        onEmpty: {
+            // Show "No doggos found!" message
         }
     )
     
@@ -39,22 +49,11 @@ class BreedsViewController: UIViewController {
     
     // MARK: BreedModel Closures
     
-private func viewUpdate(for summaryState: DataState<ItemDataSummary>) {
-    let summaryStateEnum: DataStateEnum<ItemDataSummary> = DataStateToEnum(summaryState)
-    switch(summaryStateEnum) {
-        case .Success(let successData):
-            log.d(withMessage: {"View updating with \(successData.allItems.count) breeds"})
-            data = successData.allItems
-            breedTableView.reloadData()
-        case .Error(let error):
-            errorUpdate(for: error.localizedDescription)
-        case .Empty: break
-            // Show "No doggos found!" message
-        case .Loading: break
-        default: break
-            // Show a loading spinner
+    private func viewUpdateSuccess(for summary: ItemDataSummary) {
+        log.d(withMessage: {"View updating with \(summary.allItems.count) breeds"})
+        data = summary.allItems
+        breedTableView.reloadData()
     }
-}
     
     private func errorUpdate(for errorMessage: String) {
         log.e(withMessage: {"Displaying error: \(errorMessage)"})
@@ -89,30 +88,4 @@ extension BreedsViewController: BreedCellDelegate {
     }
 }
 
-enum DataStateEnum<T> {
-    case Success(_ data: T)
-    case Error(_ error: Error)
-    case Loading
-    case Empty
-}
-
-func DataStateToEnum<T>(_ dataState: DataState<T>) -> DataStateEnum<T> {
-    switch dataState {
-    case is DataStateSuccess<T>:
-        let mDataState = (dataState as! DataStateSuccess)
-        return DataStateEnum.Success(mDataState.data!)
-        
-    case is DataStateError:
-        let mDataState = (dataState as! DataStateError)
-        return DataStateEnum.Error(mDataState.exception as! Error)
-    
-    case is DataStateLoading:
-        return DataStateEnum.Loading
-    
-    case is DataStateEmpty:
-        fallthrough
-    default:
-        return DataStateEnum.Empty
-    }
-}
 
