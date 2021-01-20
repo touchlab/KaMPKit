@@ -2,7 +2,6 @@ package co.touchlab.kampkit
 
 import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.count
 import kotlinx.coroutines.flow.first
 import kotlin.test.BeforeTest
 import kotlin.test.Test

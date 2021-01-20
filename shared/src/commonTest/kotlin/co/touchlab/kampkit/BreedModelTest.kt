@@ -28,6 +28,10 @@ class BreedModelTest : BaseTest() {
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
 
+    companion object {
+        private const val oneHourMS: Long = (60 * 60 * 1000)
+    }
+
     @BeforeTest
     fun setup() = runTest {
         appStart(dbHelper, settings, ktorApi, kermit)
@@ -42,14 +46,14 @@ class BreedModelTest : BaseTest() {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMS)
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
 
-        assertNull(model.getBreedsFromNetwork())
+        assertNull(model.getBreedsFromNetwork(oneHourMS))
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
-        assertNull(model.getBreedsFromNetwork())
+        assertNull(model.getBreedsFromNetwork(oneHourMS))
         val breedOld = dbHelper.selectAllItems().first().first()
         assertFalse(breedOld.isFavorited())
 
@@ -64,7 +68,7 @@ class BreedModelTest : BaseTest() {
     fun notifyErrorOnException() = runTest {
         ktorApi.mock.getJsonFromApi.throwOnCall(RuntimeException())
 
-        assertNotNull(model.getBreedsFromNetwork())
+        assertNotNull(model.getBreedsFromNetwork(0L))
     }
 
     @AfterTest
