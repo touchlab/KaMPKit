@@ -21,6 +21,7 @@ class BreedModel : KoinComponent {
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
     private val log: Kermit by inject { parametersOf("BreedModel") }
+    private val clock: Clock by inject()
 
     companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
@@ -32,7 +33,7 @@ class BreedModel : KoinComponent {
 
     fun getBreeds(): Flow<DataState<ItemDataSummary>> = flow {
         emit(DataState.Loading)
-        val currentTimeMS = Clock.System.now().toEpochMilliseconds()
+        val currentTimeMS = clock.now().toEpochMilliseconds()
         val stale = isBreedListStale(currentTimeMS)
         val networkBreedDataState: DataState<ItemDataSummary>
         if (stale) {

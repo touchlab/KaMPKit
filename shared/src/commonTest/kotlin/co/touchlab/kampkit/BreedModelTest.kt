@@ -2,6 +2,7 @@ package co.touchlab.kampkit
 
 import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
+import co.touchlab.kampkit.mock.ClockMock
 import co.touchlab.kampkit.mock.KtorApiMock
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
@@ -18,6 +19,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.time.ExperimentalTime
+import kotlin.time.hours
 
 class BreedModelTest : BaseTest() {
 
@@ -30,10 +32,11 @@ class BreedModelTest : BaseTest() {
     )
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
+    private val clock = ClockMock()
 
     @BeforeTest
     fun setup() = runTest {
-        appStart(dbHelper, settings, ktorApi, kermit)
+        appStart(dbHelper, settings, ktorApi, kermit, clock)
         dbHelper.deleteAll()
         model = BreedModel()
         model.getBreedsFromCache().first()
@@ -77,6 +80,29 @@ class BreedModelTest : BaseTest() {
             assertEquals(dataStateSuccessNoFavorite, expectItem())
             model.updateBreedFavorite(australianNoLike)
             assertEquals(dataStateSuccessFavorite, expectItem())
+        }
+    }
+
+    @OptIn(ExperimentalTime::class)
+    @Test
+    fun updateDatabaseTest() = runTest {
+        val successResult = ktorApi.successResult()
+        ktorApi.mock.getJsonFromApi.returns(successResult)
+        model.getBreeds().test {
+            assertEquals(DataState.Loading, expectItem())
+            val oldBreeds = expectItem() as DataState.Success
+            assertEquals(ktorApi.successResult().message.keys.size, oldBreeds.data.allItems.size)
+        }
+
+        // Advance time by an hour to make cached data stale
+        clock.currentInstant += 1.hours
+        val resultWithExtraBreed = successResult.copy().apply { message["extra"] = emptyList() }
+
+        ktorApi.mock.getJsonFromApi.returns(resultWithExtraBreed)
+        model.getBreeds().test {
+            assertEquals(DataState.Loading, expectItem())
+            val oldBreeds = expectItem() as DataState.Success
+            assertEquals(ktorApi.successResult().message.keys.size, oldBreeds.data.allItems.size)
         }
     }
 
