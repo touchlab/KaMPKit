@@ -15,13 +15,12 @@ class BreedsViewController: UIViewController {
     var data: [Breed] = []
     
     let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
-    
+
     lazy var adapter: NativeViewModel = NativeViewModel(
-        viewUpdate: { [weak self] summary in
-            self?.viewUpdate(for: summary)
-        }, errorUpdate: { [weak self] errorMessage in
-            self?.errorUpdate(for: errorMessage)
-        }
+        onLoading: { /* Show a loading spinner */ },
+        onSuccess: { [weak self] summary in self?.viewUpdateSuccess(for: summary) },
+        onError: { [weak self] error in self?.errorUpdate(for: error) },
+        onEmpty: { /* Show "No doggos found!" message */}
     )
     
     // MARK: View Lifecycle
@@ -29,9 +28,9 @@ class BreedsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         breedTableView.dataSource = self
-        
+
         //We check for stalk data in this method
-        adapter.getBreedsFromNetwork()
+        adapter.getBreeds()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -41,7 +40,7 @@ class BreedsViewController: UIViewController {
     
     // MARK: BreedModel Closures
     
-    private func viewUpdate(for summary: ItemDataSummary) {
+    private func viewUpdateSuccess(for summary: ItemDataSummary) {
         log.d(withMessage: {"View updating with \(summary.allItems.count) breeds"})
         data = summary.allItems
         breedTableView.reloadData()
@@ -79,3 +78,5 @@ extension BreedsViewController: BreedCellDelegate {
         adapter.updateBreedFavorite(breed: breed)
     }
 }
+
+

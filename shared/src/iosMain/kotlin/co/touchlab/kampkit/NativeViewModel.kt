@@ -2,6 +2,7 @@ package co.touchlab.kampkit
 
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
+import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
@@ -13,8 +14,10 @@ import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
 class NativeViewModel(
-    private val viewUpdate: (ItemDataSummary) -> Unit,
-    private val errorUpdate: (String) -> Unit
+    private val onLoading: () -> Unit,
+    private val onSuccess: (ItemDataSummary) -> Unit,
+    private val onError: (String) -> Unit,
+    private val onEmpty: () -> Unit
 ) : KoinComponent {
 
     private val log: Kermit by inject { parametersOf("BreedModel") }
@@ -24,25 +27,30 @@ class NativeViewModel(
     init {
         ensureNeverFrozen()
         breedModel = BreedModel()
-        observeBreeds()
+        getBreeds()
     }
 
-    private fun observeBreeds() {
+    fun getBreeds() {
         scope.launch {
             log.v { "Observe Breeds" }
-            breedModel.selectAllBreeds()
-                .collect { summary ->
+            breedModel.getBreeds()
+                .collect { dataState ->
                     log.v { "Collecting Things" }
-                    viewUpdate(summary)
+                    when (dataState) {
+                        is DataState.Success -> {
+                            onSuccess(dataState.data)
+                        }
+                        is DataState.Error -> {
+                            onError(dataState.exception)
+                        }
+                        DataState.Empty -> {
+                            onEmpty()
+                        }
+                        DataState.Loading -> {
+                            onLoading()
+                        }
+                    }
                 }
-        }
-    }
-
-    fun getBreedsFromNetwork() {
-        scope.launch {
-            breedModel.getBreedsFromNetwork()?.let { errorString ->
-                errorUpdate(errorString)
-            }
         }
     }
 

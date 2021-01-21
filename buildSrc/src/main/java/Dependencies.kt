@@ -23,6 +23,7 @@ object Versions {
     val stately = "1.1.1"
     val serialization = "1.0.1"
     val kotlinxDateTime = "0.1.1"
+    val turbine = "0.3.0"
 
     object AndroidX {
         val appcompat = "1.2.0"
@@ -50,12 +51,14 @@ object Deps {
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
     val stately = "co.touchlab:stately-common:${Versions.stately}"
     val kotlinxDateTime = "org.jetbrains.kotlinx:kotlinx-datetime:${Versions.kotlinxDateTime}"
+    val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 
     object AndroidX {
         val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
         val core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
         val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraintlayout}"
         val recyclerView = "androidx.recyclerview:recyclerview:${Versions.AndroidX.recyclerview}"
+        val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"

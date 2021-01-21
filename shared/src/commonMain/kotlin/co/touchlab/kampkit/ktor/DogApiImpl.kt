@@ -15,7 +15,8 @@ import io.ktor.http.takeFrom
 
 class DogApiImpl(log: Kermit) : KtorApi {
 
-    // If this is a constructor property, then it gets captured inside HttpClient config and freezes this whole class
+    // If this is a constructor property, then it gets captured
+    // inside HttpClient config and freezes this whole class.
     @Suppress("CanBePrimaryConstructorProperty")
     private val log = log
 

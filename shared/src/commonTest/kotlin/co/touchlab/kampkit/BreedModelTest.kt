@@ -1,7 +1,11 @@
 package co.touchlab.kampkit
 
+import app.cash.turbine.test
+import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.KtorApiMock
 import co.touchlab.kampkit.models.BreedModel
+import co.touchlab.kampkit.models.DataState
+import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
@@ -11,10 +15,9 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
-import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.time.ExperimentalTime
 
 class BreedModelTest : BaseTest() {
 
@@ -33,7 +36,7 @@ class BreedModelTest : BaseTest() {
         appStart(dbHelper, settings, ktorApi, kermit)
         dbHelper.deleteAll()
         model = BreedModel()
-        model.selectAllBreeds().first()
+        model.getBreedsFromCache().first()
     }
 
     @Test
@@ -42,29 +45,45 @@ class BreedModelTest : BaseTest() {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMS)
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
 
-        assertNull(model.getBreedsFromNetwork())
+        val expectedError = DataState.Error("Unable to download breed list")
+        val actualError = model.getBreedsFromNetwork(0L)
+
+        assertEquals(
+            expectedError,
+            actualError
+        )
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
+    @ExperimentalTime
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
-        assertNull(model.getBreedsFromNetwork())
-        val breedOld = dbHelper.selectAllItems().first().first()
-        assertFalse(breedOld.isFavorited())
+        dbHelper.deleteAll()
+        val appenzeller = Breed(1, "appenzeller", 0L)
+        val australianNoLike = Breed(2, "australian", 0L)
+        val australianLike = Breed(2, "australian", 1L)
 
-        model.updateBreedFavorite(breedOld)
+        val dataStateSuccessNoFavorite = DataState.Success(
+            ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
+        )
 
-        val breedNew = dbHelper.selectById(breedOld.id).first().first()
-        assertEquals(breedNew.id, breedOld.id)
-        assertTrue(breedNew.isFavorited())
+        val dataStateSuccessFavorite = DataState.Success(
+            ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
+        )
+
+        model.getBreeds().test {
+            assertEquals(DataState.Loading, expectItem())
+            assertEquals(dataStateSuccessNoFavorite, expectItem())
+            model.updateBreedFavorite(australianNoLike)
+            assertEquals(dataStateSuccessFavorite, expectItem())
+        }
     }
 
     @Test
     fun notifyErrorOnException() = runTest {
         ktorApi.mock.getJsonFromApi.throwOnCall(RuntimeException())
-
-        assertNotNull(model.getBreedsFromNetwork())
+        assertNotNull(model.getBreedsFromNetwork(0L))
     }
 
     @AfterTest
