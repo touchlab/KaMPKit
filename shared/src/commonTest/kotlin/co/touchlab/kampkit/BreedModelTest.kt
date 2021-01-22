@@ -32,7 +32,9 @@ class BreedModelTest : BaseTest() {
     )
     private val settings = MockSettings()
     private val ktorApi = KtorApiMock()
-    private val clock = ClockMock()
+
+    // Need to start at non-zero time because the default value for db timestamp is 0
+    private val clock = ClockMock(Clock.System.now())
 
     @BeforeTest
     fun setup() = runTest {
@@ -90,19 +92,21 @@ class BreedModelTest : BaseTest() {
         ktorApi.mock.getJsonFromApi.returns(successResult)
         model.getBreeds().test {
             assertEquals(DataState.Loading, expectItem())
-            val oldBreeds = expectItem() as DataState.Success
+            val oldBreeds = expectItem()
+            assertTrue(oldBreeds is DataState.Success)
             assertEquals(ktorApi.successResult().message.keys.size, oldBreeds.data.allItems.size)
         }
 
-        // Advance time by an hour to make cached data stale
-        clock.currentInstant += 1.hours
+        // Advance time by more than an hour to make cached data stale
+        clock.currentInstant += 2.hours
         val resultWithExtraBreed = successResult.copy().apply { message["extra"] = emptyList() }
 
         ktorApi.mock.getJsonFromApi.returns(resultWithExtraBreed)
         model.getBreeds().test {
             assertEquals(DataState.Loading, expectItem())
-            val oldBreeds = expectItem() as DataState.Success
-            assertEquals(ktorApi.successResult().message.keys.size, oldBreeds.data.allItems.size)
+            val updated = expectItem()
+            assertTrue(updated is DataState.Success)
+            assertEquals(resultWithExtraBreed.message.keys.size, updated.data.allItems.size)
         }
     }
 
