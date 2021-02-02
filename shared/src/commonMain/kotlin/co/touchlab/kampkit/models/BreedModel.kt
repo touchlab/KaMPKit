@@ -9,6 +9,7 @@ import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
@@ -31,12 +32,12 @@ class BreedModel : KoinComponent {
         ensureNeverFrozen()
     }
 
-    fun getBreeds(): Flow<DataState<ItemDataSummary>> = flow {
+    fun getBreeds(forced: Boolean = false): Flow<DataState<ItemDataSummary>> = flow {
         emit(DataState.Loading)
         val currentTimeMS = clock.now().toEpochMilliseconds()
         val stale = isBreedListStale(currentTimeMS)
         val networkBreedDataState: DataState<ItemDataSummary>
-        if (stale) {
+        if (stale || forced) {
             networkBreedDataState = getBreedsFromNetwork(currentTimeMS)
             when (networkBreedDataState) {
                 DataState.Empty -> {
@@ -44,7 +45,23 @@ class BreedModel : KoinComponent {
                     emit(networkBreedDataState)
                 }
                 is DataState.Success -> {
-                    dbHelper.insertBreeds(networkBreedDataState.data.allItems.map { it.name })
+                    val breeds = mutableListOf<Breed>()
+                    val breedsInCacheItemDataSummary = getBreedsFromCache().first()
+                    if (breedsInCacheItemDataSummary is DataState.Success) {
+                        breeds.addAll(breedsInCacheItemDataSummary.data.allItems)
+                    }
+                    dbHelper.insertBreeds(
+                        networkBreedDataState.data.allItems.map { breed ->
+                            var toInsert: Breed = breed
+                            val cacheBreedIndex = breeds.indexOf(breed)
+                            if (cacheBreedIndex > -1) {
+                                toInsert = breeds[cacheBreedIndex]
+                                log.d { breed.toString() }
+                                log.d { toInsert.toString() }
+                            }
+                            return@map toInsert
+                        }
+                    )
                 }
                 is DataState.Error -> {
                     // Pass the error along

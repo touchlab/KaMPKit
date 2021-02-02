@@ -42,6 +42,7 @@ android {
 dependencies {
     implementation(project(":shared"))
     implementation(Deps.AndroidX.recyclerView)
+    implementation(Deps.AndroidX.swipeRefresh)
     implementation(Deps.material)
     coreLibraryDesugaring(Deps.desugarJdkLibs)
     implementation(Deps.AndroidX.appcompat)

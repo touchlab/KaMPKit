@@ -7,6 +7,7 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
@@ -23,6 +24,7 @@ class NativeViewModel(
     private val log: Kermit by inject { parametersOf("BreedModel") }
     private val scope = MainScope(Dispatchers.Main, log)
     private val breedModel: BreedModel
+    private var currentJob: Job = Job()
 
     init {
         ensureNeverFrozen()
@@ -30,10 +32,11 @@ class NativeViewModel(
         getBreeds()
     }
 
-    fun getBreeds() {
-        scope.launch {
+    fun getBreeds(forced: Boolean = false) {
+        currentJob.cancel()
+        currentJob = scope.launch {
             log.v { "Observe Breeds" }
-            breedModel.getBreeds()
+            breedModel.getBreeds(forced)
                 .collect { dataState ->
                     log.v { "Collecting Things" }
                     when (dataState) {

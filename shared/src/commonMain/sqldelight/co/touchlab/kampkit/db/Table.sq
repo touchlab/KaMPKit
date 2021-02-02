@@ -14,7 +14,7 @@ selectByName:
 SELECT * FROM Breed WHERE name = ?;
 
 insertBreed:
-INSERT OR REPLACE INTO Breed(id, name, favorite)
+INSERT OR IGNORE INTO Breed(id, name, favorite)
 VALUES (?,?,?);
 
 deleteAll:

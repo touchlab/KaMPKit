@@ -1,9 +1,12 @@
 package co.touchlab.kampkit.android
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import co.touchlab.kampkit.android.adapter.MainAdapter
 import co.touchlab.kampkit.android.databinding.ActivityMainBinding
 import co.touchlab.kampkit.db.Breed
@@ -30,27 +33,39 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         setContentView(binding.root)
 
         val adapter = MainAdapter { viewModel.updateBreedFavorite(it) }
+        val swipeRefresh: SwipeRefreshLayout = binding.swipeRefresh
+        val recyclerView: RecyclerView = binding.breedList
+
+        swipeRefresh.setOnRefreshListener {
+            viewModel.getBreeds(true)
+        }
 
         collectDataStateFlow(
             {
                 /* Display loading view */
+                swipeRefresh.isRefreshing = true
             },
             { breedList ->
                 /* Display success view */
+                swipeRefresh.isRefreshing = false
+                recyclerView.visibility = View.VISIBLE
                 log.v { "List submitted to adapter" }
                 adapter.submitList(breedList)
             },
             { exception ->
                 /* Display error view */
+                swipeRefresh.isRefreshing = false
+                recyclerView.visibility = View.GONE
                 log.e { "Error displayed: $exception" }
                 Snackbar.make(
                     binding.breedList,
-                    exception.toString(),
+                    exception,
                     Snackbar.LENGTH_SHORT
                 ).show()
             },
             {
                 /* Display empty response view */
+                swipeRefresh.isRefreshing = false
             }
         )
 

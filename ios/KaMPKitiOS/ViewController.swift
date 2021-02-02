@@ -15,22 +15,49 @@ class BreedsViewController: UIViewController {
     var data: [Breed] = []
     
     let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
+    private let refreshControl = UIRefreshControl()
 
     lazy var adapter: NativeViewModel = NativeViewModel(
-        onLoading: { /* Show a loading spinner */ },
-        onSuccess: { [weak self] summary in self?.viewUpdateSuccess(for: summary) },
-        onError: { [weak self] error in self?.errorUpdate(for: error) },
-        onEmpty: { /* Show "No doggos found!" message */}
+        onLoading: { /* Loading spinner is shown automatically on iOS */
+            [weak self] in
+            guard let self = self else { return }
+            if (!(self.refreshControl.isRefreshing)) {
+                self.refreshControl.beginRefreshing()
+            }
+        },
+        onSuccess: {
+            [weak self] summary in self?.viewUpdateSuccess(for: summary)
+            self?.refreshControl.endRefreshing()
+        },
+        onError: { [weak self] error in self?.errorUpdate(for: error)
+            self?.refreshControl.endRefreshing()
+        },
+        onEmpty: { /* Show "No doggos found!" message */
+            [weak self] in self?.refreshControl.endRefreshing()
+        }
     )
     
     // MARK: View Lifecycle
 
+    @objc
+    func getBreedsForced() {
+        adapter.getBreeds(forced: true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         breedTableView.dataSource = self
+        // Add Refresh Control to Table View
+        if #available(iOS 10.0, *) {
+            breedTableView.refreshControl = refreshControl
+        } else {
+            breedTableView.addSubview(refreshControl)
+        }
+        // Configure Refresh Control
+        refreshControl.addTarget(self, action: #selector(self.getBreedsForced), for: .valueChanged)
 
         //We check for stalk data in this method
-        adapter.getBreeds()
+        adapter.getBreeds(forced: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
