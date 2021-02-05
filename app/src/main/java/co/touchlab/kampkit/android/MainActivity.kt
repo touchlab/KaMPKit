@@ -23,9 +23,7 @@ import org.koin.core.parameter.parametersOf
 class MainActivity : AppCompatActivity(), KoinComponent {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-
     private val log: Kermit by inject { parametersOf("MainActivity") }
-
     private val viewModel: BreedViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,14 +47,14 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                 /* Display success view */
                 swipeRefresh.isRefreshing = false
                 recyclerView.visibility = View.VISIBLE
-                log.v { "List submitted to adapter" }
+                log.v { "View updating with ${breedList.size} breeds" }
                 adapter.submitList(breedList)
             },
             { exception ->
                 /* Display error view */
                 swipeRefresh.isRefreshing = false
                 recyclerView.visibility = View.GONE
-                log.e { "Error displayed: $exception" }
+                log.e { "Displaying error: $exception" }
                 Snackbar.make(
                     binding.breedList,
                     exception,

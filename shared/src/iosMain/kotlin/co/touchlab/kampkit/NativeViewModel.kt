@@ -35,10 +35,9 @@ class NativeViewModel(
     fun getBreeds(forced: Boolean = false) {
         currentJob.cancel()
         currentJob = scope.launch {
-            log.v { "Observe Breeds" }
             breedModel.getBreeds(forced)
                 .collect { dataState ->
-                    log.v { "Collecting Things" }
+                    log.v { "getBreeds: Collecting Things" }
                     when (dataState) {
                         is DataState.Success -> {
                             onSuccess(dataState.data)

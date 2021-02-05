@@ -48,15 +48,10 @@ class BreedsViewController: UIViewController {
         super.viewDidLoad()
         breedTableView.dataSource = self
         // Add Refresh Control to Table View
-        if #available(iOS 10.0, *) {
-            breedTableView.refreshControl = refreshControl
-        } else {
-            breedTableView.addSubview(refreshControl)
-        }
+        breedTableView.refreshControl = refreshControl
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(self.getBreedsForced), for: .valueChanged)
-
-        //We check for stalk data in this method
+        refreshControl.beginRefreshing()
         adapter.getBreeds(forced: false)
     }
     
