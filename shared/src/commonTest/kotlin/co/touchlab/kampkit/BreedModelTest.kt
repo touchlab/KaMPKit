@@ -85,6 +85,9 @@ class BreedModelTest : BaseTest() {
         }
     }
 
+    /* KG says to remove test until the native driver resets the in-memory db when the connection
+       closes.
+
     @ExperimentalTime
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() {
@@ -114,6 +117,7 @@ class BreedModelTest : BaseTest() {
             }
         }
     }
+    */
 
     @OptIn(ExperimentalTime::class)
     @Test
@@ -150,22 +154,19 @@ class BreedModelTest : BaseTest() {
     @AfterTest
     fun breakdown() = runTest {
         dbHelper.deleteAll()
-        // The in memory implementation of SQLite for iOS doesn't reset the autoincrement.
+        // The in-memory SQLite native doesn't reset the autoincrement.
         // We need to destroy it and recreate it, but
         // it's not possible drop a table in SQLDelight:
         // https://github.com/cashapp/sqldelight/issues/1870
+        /*        
         testDbConnection().execute(
             null,
             """
                 DELETE FROM sqlite_sequence WHERE name = 'Breed';
-                CREATE TABLE Breed (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL UNIQUE,
-                favorite INTEGER NOT NULL DEFAULT 0
-                );
             """.trimIndent(),
             0
         )
+        */
         appEnd()
     }
 }
