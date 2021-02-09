@@ -29,7 +29,7 @@ class DatabaseHelper(
         log.d { "Inserting ${breeds.size} breeds into database" }
         dbRef.transactionWithContext(backgroundDispatcher) {
             breeds.forEach { breed ->
-                dbRef.tableQueries.insertBreed(null, breed.name, breed.favorite)
+                dbRef.tableQueries.insertBreed(null, breed.name)
             }
         }
     }

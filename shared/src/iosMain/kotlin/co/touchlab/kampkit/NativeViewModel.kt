@@ -57,7 +57,7 @@ class NativeViewModel(
     }
 
     fun updateBreedFavorite(breed: Breed) {
-        scope.launch {
+        currentJob = scope.launch {
             breedModel.updateBreedFavorite(breed)
         }
     }

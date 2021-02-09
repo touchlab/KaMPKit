@@ -10,7 +10,6 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -23,8 +22,8 @@ import kotlin.time.hours
 
 class BreedModelTest : BaseTest() {
 
-    private lateinit var model: BreedModel
-    private val kermit = Kermit()
+    private var model: BreedModel = BreedModel()
+    private var kermit = Kermit()
     private var dbHelper = DatabaseHelper(
         testDbConnection(),
         kermit,
@@ -36,12 +35,21 @@ class BreedModelTest : BaseTest() {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
+    companion object {
+        private val appenzeller = Breed(1, "appenzeller", 0L)
+        private val australianNoLike = Breed(2, "australian", 0L)
+        private val australianLike = Breed(2, "australian", 1L)
+        val dataStateSuccessNoFavorite = DataState.Success(
+            ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
+        )
+        private val dataStateSuccessFavorite = DataState.Success(
+            ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
+        )
+    }
+
     @BeforeTest
-    fun setup() = runTest {
+    fun setup() {
         appStart(dbHelper, settings, ktorApi, kermit, clock)
-        dbHelper.deleteAll()
-        model = BreedModel()
-        model.getBreedsFromCache().first()
     }
 
     @Test
@@ -64,24 +72,46 @@ class BreedModelTest : BaseTest() {
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
-        dbHelper.deleteAll()
-        val appenzeller = Breed(1, "appenzeller", 0L)
-        val australianNoLike = Breed(2, "australian", 0L)
-        val australianLike = Breed(2, "australian", 1L)
-
-        val dataStateSuccessNoFavorite = DataState.Success(
-            ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
-        )
-
-        val dataStateSuccessFavorite = DataState.Success(
-            ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
-        )
 
         model.getBreeds().test {
+            // Loading
             assertEquals(DataState.Loading, expectItem())
+            // No Favorites
             assertEquals(dataStateSuccessNoFavorite, expectItem())
+            // Add 1 favorite breed
             model.updateBreedFavorite(australianNoLike)
+            // Get the new result with 1 breed favorited
             assertEquals(dataStateSuccessFavorite, expectItem())
+        }
+    }
+
+    @ExperimentalTime
+    @Test
+    fun fetchBreedsFromNetworkPreserveFavorites() {
+        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
+
+        runTest {
+            model.getBreeds().test {
+                // Loading
+                assertEquals(DataState.Loading, expectItem())
+                expectItem()
+                model.updateBreedFavorite(australianNoLike)
+                // Get the new result
+                expectItem()
+                cancel()
+            }
+        }
+
+        runTest {
+            model.getBreeds(true).test {
+                // Loading
+                assertEquals(DataState.Loading, expectItem())
+                // Get the new result with 1 breed favorited
+                val successFavoriteActual = expectItem() as DataState.Success
+                kermit.d { "successFavoriteActual items: ${successFavoriteActual.data.allItems}" }
+                assertEquals(dataStateSuccessFavorite, successFavoriteActual)
+                cancel()
+            }
         }
     }
 
@@ -116,9 +146,26 @@ class BreedModelTest : BaseTest() {
         assertNotNull(model.getBreedsFromNetwork(0L))
     }
 
+    @ExperimentalTime
     @AfterTest
     fun breakdown() = runTest {
         dbHelper.deleteAll()
+        // The in memory implementation of SQLite for iOS doesn't reset the autoincrement.
+        // We need to destroy it and recreate it, but
+        // it's not possible drop a table in SQLDelight:
+        // https://github.com/cashapp/sqldelight/issues/1870
+        testDbConnection().execute(
+            null,
+            """
+                DELETE FROM sqlite_sequence WHERE name = 'Breed';
+                CREATE TABLE Breed (
+                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL UNIQUE,
+                favorite INTEGER NOT NULL DEFAULT 0
+                );
+            """.trimIndent(),
+            0
+        )
         appEnd()
     }
 }

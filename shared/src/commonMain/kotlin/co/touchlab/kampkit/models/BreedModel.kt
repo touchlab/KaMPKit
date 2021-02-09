@@ -50,24 +50,12 @@ class BreedModel : KoinComponent {
                     if (breedsInCacheItemDataSummary is DataState.Success) {
                         breeds.addAll(breedsInCacheItemDataSummary.data.allItems)
                     }
-                    dbHelper.insertBreeds(
-                        networkBreedDataState.data.allItems.map { breed ->
-                            var toInsert: Breed = breed
-                            val cacheBreedIndex = breeds.indexOf(breed)
-                            if (cacheBreedIndex > -1) {
-                                toInsert = breeds[cacheBreedIndex]
-                                log.d { breed.toString() }
-                                log.d { toInsert.toString() }
-                            }
-                            return@map toInsert
-                        }
-                    )
+                    dbHelper.insertBreeds(networkBreedDataState.data.allItems)
                 }
                 is DataState.Error -> {
                     // Pass the error along
                     emit(networkBreedDataState)
                 }
-
                 DataState.Loading -> {
                     // Won't ever happen
                 }
