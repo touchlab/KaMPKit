@@ -10,6 +10,9 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -19,6 +22,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 import kotlin.time.ExperimentalTime
 import kotlin.time.hours
+import kotlin.time.seconds
 
 class BreedModelTest : BaseTest() {
 
@@ -68,21 +72,23 @@ class BreedModelTest : BaseTest() {
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
+    @FlowPreview
     @ExperimentalTime
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
 
-        model.getBreeds().test {
-            // Loading
-            assertEquals(DataState.Loading, expectItem())
-            // No Favorites
-            assertEquals(dataStateSuccessNoFavorite, expectItem())
-            // Add 1 favorite breed
-            model.updateBreedFavorite(australianNoLike)
-            // Get the new result with 1 breed favorited
-            assertEquals(dataStateSuccessFavorite, expectItem())
-        }
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
+            .flattenMerge().test {
+                // Loading
+                assertEquals(DataState.Loading, expectItem())
+                // No Favorites
+                assertEquals(dataStateSuccessNoFavorite, expectItem())
+                // Add 1 favorite breed
+                model.updateBreedFavorite(australianNoLike)
+                // Get the new result with 1 breed favorited
+                assertEquals(dataStateSuccessFavorite, expectItem())
+            }
     }
 
     /* KG says to remove test until the native driver resets the in-memory db when the connection
@@ -119,29 +125,35 @@ class BreedModelTest : BaseTest() {
     }
     */
 
+    @FlowPreview
     @OptIn(ExperimentalTime::class)
     @Test
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()
         ktorApi.mock.getJsonFromApi.returns(successResult)
-        model.getBreeds().test {
-            assertEquals(DataState.Loading, expectItem())
-            val oldBreeds = expectItem()
-            assertTrue(oldBreeds is DataState.Success)
-            assertEquals(ktorApi.successResult().message.keys.size, oldBreeds.data.allItems.size)
-        }
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
+            .test(timeout = 30.seconds) {
+                assertEquals(DataState.Loading, expectItem())
+                val oldBreeds = expectItem()
+                assertTrue(oldBreeds is DataState.Success)
+                assertEquals(
+                    ktorApi.successResult().message.keys.size,
+                    oldBreeds.data.allItems.size
+                )
+            }
 
         // Advance time by more than an hour to make cached data stale
         clock.currentInstant += 2.hours
         val resultWithExtraBreed = successResult.copy().apply { message["extra"] = emptyList() }
 
         ktorApi.mock.getJsonFromApi.returns(resultWithExtraBreed)
-        model.getBreeds().test {
-            assertEquals(DataState.Loading, expectItem())
-            val updated = expectItem()
-            assertTrue(updated is DataState.Success)
-            assertEquals(resultWithExtraBreed.message.keys.size, updated.data.allItems.size)
-        }
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
+            .test(timeout = 30.seconds) {
+                assertEquals(DataState.Loading, expectItem())
+                val updated = expectItem()
+                assertTrue(updated is DataState.Success)
+                assertEquals(resultWithExtraBreed.message.keys.size, updated.data.allItems.size)
+            }
     }
 
     @Test

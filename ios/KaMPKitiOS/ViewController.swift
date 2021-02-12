@@ -41,7 +41,7 @@ class BreedsViewController: UIViewController {
 
     @objc
     func getBreedsForced() {
-        adapter.getBreeds(forced: true)
+        adapter.refreshBreeds(forced: true)
     }
 
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class BreedsViewController: UIViewController {
         // Configure Refresh Control
         refreshControl.addTarget(self, action: #selector(self.getBreedsForced), for: .valueChanged)
         refreshControl.beginRefreshing()
-        adapter.getBreeds(forced: false)
+        adapter.refreshBreeds(forced: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
