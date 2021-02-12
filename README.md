@@ -138,6 +138,14 @@ to document any issues you run into and [let us know](CONTACT_US.md).
 
 KaMP Kit is just the beginning. Our hope is that after KaMP Kit you’ll have a better sense of what a possible KMP implementation might look like.
 
+## Primary Maintainer
+
+[Brady Aiello](https://github.com/brady-aiello/)
+
+![](https://avatars.githubusercontent.com/u/22403330?s=140&v=4)
+
+*Ping me on twitter [@AielloBrady](https://twitter.com/@AielloBrady/) if you don't get a timely reply!* -Brady
+
 ---
 
 ### About Touchlab
@@ -157,3 +165,4 @@ We have made KMP the focus of Touchlab. We had possibly the first KMP* app publi
 Touchlab is looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
 
 [![Touchlab](tl2.png)](https://touchlab.co)
+
