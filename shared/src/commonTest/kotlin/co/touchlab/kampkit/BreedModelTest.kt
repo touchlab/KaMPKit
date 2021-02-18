@@ -28,8 +28,9 @@ class BreedModelTest : BaseTest() {
 
     private var model: BreedModel = BreedModel()
     private var kermit = Kermit()
+    private var testDbConnection = testDbConnection()
     private var dbHelper = DatabaseHelper(
-        testDbConnection(),
+        testDbConnection,
         kermit,
         Dispatchers.Default
     )
@@ -91,39 +92,39 @@ class BreedModelTest : BaseTest() {
             }
     }
 
-    /* KG says to remove test until the native driver resets the in-memory db when the connection
-       closes.
-
+    @FlowPreview
     @ExperimentalTime
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
 
         runTest {
-            model.getBreeds().test {
-                // Loading
-                assertEquals(DataState.Loading, expectItem())
-                expectItem()
-                model.updateBreedFavorite(australianNoLike)
-                // Get the new result
-                expectItem()
-                cancel()
-            }
+            flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
+                .flattenMerge().test {
+                    // Loading
+                    assertEquals(DataState.Loading, expectItem())
+                    assertEquals(dataStateSuccessNoFavorite, expectItem())
+                    // "Like" the Australian breed
+                    model.updateBreedFavorite(australianNoLike)
+                    // Get the new result with the Australian breed liked
+                    assertEquals(dataStateSuccessFavorite, expectItem())
+                    cancel()
+                }
         }
 
         runTest {
-            model.getBreeds(true).test {
-                // Loading
-                assertEquals(DataState.Loading, expectItem())
-                // Get the new result with 1 breed favorited
-                val successFavoriteActual = expectItem() as DataState.Success
-                kermit.d { "successFavoriteActual items: ${successFavoriteActual.data.allItems}" }
-                assertEquals(dataStateSuccessFavorite, successFavoriteActual)
-                cancel()
-            }
+            // Fetch breeds from the network (no breeds liked),
+            // but preserved the liked breeds in the database.
+            flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
+                .flattenMerge().test {
+                    // Loading
+                    assertEquals(DataState.Loading, expectItem())
+                    // Get the new result with the Australian breed liked
+                    assertEquals(dataStateSuccessFavorite, expectItem())
+                    cancel()
+                }
         }
     }
-    */
 
     @FlowPreview
     @OptIn(ExperimentalTime::class)
@@ -165,20 +166,7 @@ class BreedModelTest : BaseTest() {
     @ExperimentalTime
     @AfterTest
     fun breakdown() = runTest {
-        dbHelper.deleteAll()
-        // The in-memory SQLite native doesn't reset the autoincrement.
-        // We need to destroy it and recreate it, but
-        // it's not possible drop a table in SQLDelight:
-        // https://github.com/cashapp/sqldelight/issues/1870
-        /*        
-        testDbConnection().execute(
-            null,
-            """
-                DELETE FROM sqlite_sequence WHERE name = 'Breed';
-            """.trimIndent(),
-            0
-        )
-        */
+        testDbConnection.close()
         appEnd()
     }
 }
