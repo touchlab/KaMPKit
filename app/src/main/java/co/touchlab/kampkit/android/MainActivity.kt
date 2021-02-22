@@ -13,8 +13,6 @@ import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kermit.Kermit
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,11 +24,8 @@ class MainActivity : AppCompatActivity(), KoinComponent {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val log: Kermit by inject { parametersOf("MainActivity") }
-    @FlowPreview
     private val viewModel: BreedViewModel by viewModel()
 
-    @FlowPreview
-    @InternalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -78,8 +73,6 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         viewModel.refreshBreeds()
     }
 
-    @FlowPreview
-    @InternalCoroutinesApi
     private fun collectDataStateFlow(
         onLoading: () -> Unit,
         onSuccess: (List<Breed>) -> Unit,

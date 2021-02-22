@@ -10,7 +10,6 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Clock
@@ -20,7 +19,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.time.ExperimentalTime
 import kotlin.time.hours
 import kotlin.time.seconds
 
@@ -73,8 +71,6 @@ class BreedModelTest : BaseTest() {
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
-    @FlowPreview
-    @ExperimentalTime
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
@@ -92,8 +88,6 @@ class BreedModelTest : BaseTest() {
             }
     }
 
-    @FlowPreview
-    @ExperimentalTime
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
@@ -126,8 +120,6 @@ class BreedModelTest : BaseTest() {
         }
     }
 
-    @FlowPreview
-    @OptIn(ExperimentalTime::class)
     @Test
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()
@@ -163,7 +155,6 @@ class BreedModelTest : BaseTest() {
         assertNotNull(model.getBreedsFromNetwork(0L))
     }
 
-    @ExperimentalTime
     @AfterTest
     fun breakdown() = runTest {
         testDbConnection.close()

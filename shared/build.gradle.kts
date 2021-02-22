@@ -39,6 +39,9 @@ kotlin {
             languageSettings.apply {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                useExperimentalAnnotation("kotlinx.coroutines.InternalCoroutinesApi")
+                useExperimentalAnnotation("kotlinx.coroutines.FlowPreview")
+                useExperimentalAnnotation("kotlin.time.ExperimentalTime")
             }
         }
     }

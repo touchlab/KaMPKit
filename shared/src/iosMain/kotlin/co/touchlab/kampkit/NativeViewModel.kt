@@ -7,7 +7,6 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flattenMerge
@@ -17,7 +16,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
-@FlowPreview
 class NativeViewModel(
     private val onLoading: () -> Unit,
     private val onSuccess: (ItemDataSummary) -> Unit,
@@ -37,7 +35,6 @@ class NativeViewModel(
         observeBreeds()
     }
 
-    @FlowPreview
     fun observeBreeds() {
         scope.launch {
             log.v { "getBreeds: Collecting Things" }

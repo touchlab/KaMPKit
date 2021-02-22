@@ -7,7 +7,6 @@ import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -18,7 +17,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
-@FlowPreview
 class BreedViewModel : ViewModel(), KoinComponent {
 
     private val log: Kermit by inject { parametersOf("BreedViewModel") }
@@ -34,7 +32,6 @@ class BreedViewModel : ViewModel(), KoinComponent {
         observeBreeds()
     }
 
-    @FlowPreview
     private fun observeBreeds() {
         scope.launch {
             log.v { "getBreeds: Collecting Things" }
