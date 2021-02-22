@@ -10,6 +10,7 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Clock
@@ -71,6 +72,7 @@ class BreedModelTest : BaseTest() {
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
+    @FlowPreview
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
@@ -88,6 +90,7 @@ class BreedModelTest : BaseTest() {
             }
     }
 
+    @FlowPreview
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
@@ -120,6 +123,7 @@ class BreedModelTest : BaseTest() {
         }
     }
 
+    @FlowPreview
     @Test
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()
