@@ -40,7 +40,6 @@ kotlin {
                 useExperimentalAnnotation("kotlin.RequiresOptIn")
                 useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
                 useExperimentalAnnotation("kotlinx.coroutines.FlowPreview")
-                useExperimentalAnnotation("kotlin.time.ExperimentalTime")
             }
         }
     }
@@ -73,6 +72,11 @@ kotlin {
         implementation(Deps.karmok)
         implementation(Deps.turbine)
     }
+
+    sourceSets.matching { it.name.endsWith("Test") }
+        .configureEach {
+            languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+        }
 
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
