@@ -72,7 +72,7 @@ class BreedModelTest : BaseTest() {
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
-    @FlowPreview
+    @OptIn(FlowPreview::class)
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
@@ -90,7 +90,7 @@ class BreedModelTest : BaseTest() {
             }
     }
 
-    @FlowPreview
+    @OptIn(FlowPreview::class)
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
@@ -123,7 +123,7 @@ class BreedModelTest : BaseTest() {
         }
     }
 
-    @FlowPreview
+    @OptIn(FlowPreview::class)
     @Test
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()

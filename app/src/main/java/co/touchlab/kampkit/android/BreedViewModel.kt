@@ -18,7 +18,6 @@ import org.koin.core.KoinComponent
 import org.koin.core.inject
 import org.koin.core.parameter.parametersOf
 
-@FlowPreview
 class BreedViewModel : ViewModel(), KoinComponent {
 
     private val log: Kermit by inject { parametersOf("BreedViewModel") }
@@ -34,7 +33,7 @@ class BreedViewModel : ViewModel(), KoinComponent {
         observeBreeds()
     }
 
-    @FlowPreview
+    @OptIn(FlowPreview::class)
     private fun observeBreeds() {
         scope.launch {
             log.v { "getBreeds: Collecting Things" }

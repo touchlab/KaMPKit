@@ -6,13 +6,11 @@ import android.content.SharedPreferences
 import android.util.Log
 import co.touchlab.kampkit.AppInfo
 import co.touchlab.kampkit.initKoin
-import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 class MainApp : Application() {
 
-    @FlowPreview
     override fun onCreate() {
         super.onCreate()
         initKoin(

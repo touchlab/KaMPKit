@@ -36,7 +36,7 @@ class NativeViewModel(
         observeBreeds()
     }
 
-    @FlowPreview
+    @OptIn(FlowPreview::class)
     fun observeBreeds() {
         scope.launch {
             log.v { "getBreeds: Collecting Things" }
