@@ -25,11 +25,11 @@ class DatabaseHelper(
             .mapToList()
             .flowOn(backgroundDispatcher)
 
-    suspend fun insertBreeds(breedNames: List<String>) {
-        log.d { "Inserting ${breedNames.size} breeds into database" }
+    suspend fun insertBreeds(breeds: List<Breed>) {
+        log.d { "Inserting ${breeds.size} breeds into database" }
         dbRef.transactionWithContext(backgroundDispatcher) {
-            breedNames.forEach { name ->
-                dbRef.tableQueries.insertBreed(null, name, 0)
+            breeds.forEach { breed ->
+                dbRef.tableQueries.insertBreed(null, breed.name)
             }
         }
     }

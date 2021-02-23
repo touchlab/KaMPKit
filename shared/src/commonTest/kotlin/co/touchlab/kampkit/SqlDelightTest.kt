@@ -1,5 +1,6 @@
 package co.touchlab.kampkit
 
+import co.touchlab.kampkit.db.Breed
 import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -13,7 +14,7 @@ class SqlDelightTest : BaseTest() {
     private lateinit var dbHelper: DatabaseHelper
 
     private suspend fun DatabaseHelper.insertBreed(name: String) {
-        insertBreeds(listOf(name))
+        insertBreeds(listOf(Breed(id = 1, name = name, favorite = 0L)))
     }
 
     @BeforeTest

@@ -7,7 +7,11 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -22,35 +26,58 @@ class NativeViewModel(
 
     private val log: Kermit by inject { parametersOf("BreedModel") }
     private val scope = MainScope(Dispatchers.Main, log)
-    private val breedModel: BreedModel
+    private val breedModel: BreedModel = BreedModel()
+    private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
+        DataState.Loading
+    )
 
     init {
         ensureNeverFrozen()
-        breedModel = BreedModel()
-        getBreeds()
+        observeBreeds()
     }
 
-    fun getBreeds() {
+    @OptIn(FlowPreview::class)
+    fun observeBreeds() {
         scope.launch {
-            log.v { "Observe Breeds" }
-            breedModel.getBreeds()
-                .collect { dataState ->
-                    log.v { "Collecting Things" }
-                    when (dataState) {
-                        is DataState.Success -> {
-                            onSuccess(dataState.data)
-                        }
-                        is DataState.Error -> {
-                            onError(dataState.exception)
-                        }
-                        DataState.Empty -> {
-                            onEmpty()
-                        }
-                        DataState.Loading -> {
-                            onLoading()
-                        }
+            log.v { "getBreeds: Collecting Things" }
+            flowOf(
+                breedModel.refreshBreedsIfStale(true),
+                breedModel.getBreedsFromCache()
+            ).flattenMerge().collect { dataState ->
+                _breedStateFlow.value = dataState
+            }
+        }
+        scope.launch {
+            log.v { "Exposing flow through callbacks" }
+            _breedStateFlow.collect { dataState ->
+                when (dataState) {
+                    is DataState.Success -> {
+                        log.v { "Success" }
+                        onSuccess(dataState.data)
+                    }
+                    is DataState.Error -> {
+                        log.v { "Error" }
+                        onError(dataState.exception)
+                    }
+                    DataState.Empty -> {
+                        log.v { "Empty" }
+                        onEmpty()
+                    }
+                    DataState.Loading -> {
+                        log.v { "Loading" }
+                        onLoading()
                     }
                 }
+            }
+        }
+    }
+
+    fun refreshBreeds(forced: Boolean = false) {
+        scope.launch {
+            log.v { "refreshBreeds" }
+            breedModel.refreshBreedsIfStale(forced).collect {
+                _breedStateFlow.value = it
+            }
         }
     }
 

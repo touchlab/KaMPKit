@@ -31,6 +31,7 @@ object Versions {
         val core = "1.3.2"
         val lifecycle = "2.2.0"
         val recyclerview = "1.1.0"
+        val swipeRefresh = "1.1.0"
         val test = "1.3.0"
         val test_ext = "1.1.2"
     }
@@ -58,6 +59,8 @@ object Deps {
         val core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
         val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraintlayout}"
         val recyclerView = "androidx.recyclerview:recyclerview:${Versions.AndroidX.recyclerview}"
+        val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swipeRefresh}"
+
         val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"

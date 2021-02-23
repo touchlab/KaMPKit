@@ -6,14 +6,23 @@ import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
+import co.touchlab.kermit.Kermit
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+import org.koin.core.parameter.parametersOf
 
-class BreedViewModel : ViewModel() {
+class BreedViewModel : ViewModel(), KoinComponent {
 
-    private var breedModel: BreedModel = BreedModel()
+    private val log: Kermit by inject { parametersOf("BreedViewModel") }
+    private val scope = viewModelScope
+    private val breedModel: BreedModel = BreedModel()
     private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
         DataState.Loading
     )
@@ -24,23 +33,30 @@ class BreedViewModel : ViewModel() {
         observeBreeds()
     }
 
+    @OptIn(FlowPreview::class)
     private fun observeBreeds() {
-        viewModelScope.launch {
-            breedModel.getBreedsFromCache().collect {
+        scope.launch {
+            log.v { "getBreeds: Collecting Things" }
+            flowOf(
+                breedModel.refreshBreedsIfStale(true),
+                breedModel.getBreedsFromCache()
+            ).flattenMerge().collect { dataState ->
+                _breedStateFlow.value = dataState
+            }
+        }
+    }
+
+    fun refreshBreeds(forced: Boolean = false) {
+        scope.launch {
+            log.v { "refreshBreeds" }
+            breedModel.refreshBreedsIfStale(forced).collect {
                 _breedStateFlow.value = it
             }
         }
     }
 
-    fun getBreeds() {
-        viewModelScope.launch {
-            breedModel.getBreeds().collect {
-                _breedStateFlow.value = it
-            }
-        }
-    }
     fun updateBreedFavorite(breed: Breed) {
-        viewModelScope.launch {
+        scope.launch {
             breedModel.updateBreedFavorite(breed)
         }
     }

@@ -72,6 +72,11 @@ kotlin {
         implementation(Deps.turbine)
     }
 
+    sourceSets.matching { it.name.endsWith("Test") }
+        .configureEach {
+            languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+        }
+
     sourceSets["androidMain"].dependencies {
         implementation(kotlin("stdlib", Versions.kotlin))
         implementation(Deps.SqlDelight.driverAndroid)

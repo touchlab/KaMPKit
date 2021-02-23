@@ -10,7 +10,9 @@ import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.flattenMerge
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -18,15 +20,16 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.time.ExperimentalTime
 import kotlin.time.hours
+import kotlin.time.seconds
 
 class BreedModelTest : BaseTest() {
 
-    private lateinit var model: BreedModel
-    private val kermit = Kermit()
+    private var model: BreedModel = BreedModel()
+    private var kermit = Kermit()
+    private var testDbConnection = testDbConnection()
     private var dbHelper = DatabaseHelper(
-        testDbConnection(),
+        testDbConnection,
         kermit,
         Dispatchers.Default
     )
@@ -36,12 +39,21 @@ class BreedModelTest : BaseTest() {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
+    companion object {
+        private val appenzeller = Breed(1, "appenzeller", 0L)
+        private val australianNoLike = Breed(2, "australian", 0L)
+        private val australianLike = Breed(2, "australian", 1L)
+        val dataStateSuccessNoFavorite = DataState.Success(
+            ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
+        )
+        private val dataStateSuccessFavorite = DataState.Success(
+            ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
+        )
+    }
+
     @BeforeTest
-    fun setup() = runTest {
+    fun setup() {
         appStart(dbHelper, settings, ktorApi, kermit, clock)
-        dbHelper.deleteAll()
-        model = BreedModel()
-        model.getBreedsFromCache().first()
     }
 
     @Test
@@ -60,54 +72,85 @@ class BreedModelTest : BaseTest() {
         assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
     }
 
-    @ExperimentalTime
+    @OptIn(FlowPreview::class)
     @Test
     fun updateFavoriteTest() = runTest {
         ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
-        dbHelper.deleteAll()
-        val appenzeller = Breed(1, "appenzeller", 0L)
-        val australianNoLike = Breed(2, "australian", 0L)
-        val australianLike = Breed(2, "australian", 1L)
 
-        val dataStateSuccessNoFavorite = DataState.Success(
-            ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
-        )
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
+            .flattenMerge().test {
+                // Loading
+                assertEquals(DataState.Loading, expectItem())
+                // No Favorites
+                assertEquals(dataStateSuccessNoFavorite, expectItem())
+                // Add 1 favorite breed
+                model.updateBreedFavorite(australianNoLike)
+                // Get the new result with 1 breed favorited
+                assertEquals(dataStateSuccessFavorite, expectItem())
+            }
+    }
 
-        val dataStateSuccessFavorite = DataState.Success(
-            ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
-        )
+    @OptIn(FlowPreview::class)
+    @Test
+    fun fetchBreedsFromNetworkPreserveFavorites() {
+        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
 
-        model.getBreeds().test {
-            assertEquals(DataState.Loading, expectItem())
-            assertEquals(dataStateSuccessNoFavorite, expectItem())
-            model.updateBreedFavorite(australianNoLike)
-            assertEquals(dataStateSuccessFavorite, expectItem())
+        runTest {
+            flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
+                .flattenMerge().test {
+                    // Loading
+                    assertEquals(DataState.Loading, expectItem())
+                    assertEquals(dataStateSuccessNoFavorite, expectItem())
+                    // "Like" the Australian breed
+                    model.updateBreedFavorite(australianNoLike)
+                    // Get the new result with the Australian breed liked
+                    assertEquals(dataStateSuccessFavorite, expectItem())
+                    cancel()
+                }
+        }
+
+        runTest {
+            // Fetch breeds from the network (no breeds liked),
+            // but preserved the liked breeds in the database.
+            flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
+                .flattenMerge().test {
+                    // Loading
+                    assertEquals(DataState.Loading, expectItem())
+                    // Get the new result with the Australian breed liked
+                    assertEquals(dataStateSuccessFavorite, expectItem())
+                    cancel()
+                }
         }
     }
 
-    @OptIn(ExperimentalTime::class)
+    @OptIn(FlowPreview::class)
     @Test
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()
         ktorApi.mock.getJsonFromApi.returns(successResult)
-        model.getBreeds().test {
-            assertEquals(DataState.Loading, expectItem())
-            val oldBreeds = expectItem()
-            assertTrue(oldBreeds is DataState.Success)
-            assertEquals(ktorApi.successResult().message.keys.size, oldBreeds.data.allItems.size)
-        }
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
+            .test(timeout = 30.seconds) {
+                assertEquals(DataState.Loading, expectItem())
+                val oldBreeds = expectItem()
+                assertTrue(oldBreeds is DataState.Success)
+                assertEquals(
+                    ktorApi.successResult().message.keys.size,
+                    oldBreeds.data.allItems.size
+                )
+            }
 
         // Advance time by more than an hour to make cached data stale
         clock.currentInstant += 2.hours
         val resultWithExtraBreed = successResult.copy().apply { message["extra"] = emptyList() }
 
         ktorApi.mock.getJsonFromApi.returns(resultWithExtraBreed)
-        model.getBreeds().test {
-            assertEquals(DataState.Loading, expectItem())
-            val updated = expectItem()
-            assertTrue(updated is DataState.Success)
-            assertEquals(resultWithExtraBreed.message.keys.size, updated.data.allItems.size)
-        }
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
+            .test(timeout = 30.seconds) {
+                assertEquals(DataState.Loading, expectItem())
+                val updated = expectItem()
+                assertTrue(updated is DataState.Success)
+                assertEquals(resultWithExtraBreed.message.keys.size, updated.data.allItems.size)
+            }
     }
 
     @Test
@@ -118,7 +161,7 @@ class BreedModelTest : BaseTest() {
 
     @AfterTest
     fun breakdown() = runTest {
-        dbHelper.deleteAll()
+        testDbConnection.close()
         appEnd()
     }
 }

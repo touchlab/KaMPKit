@@ -7,10 +7,8 @@ import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.datetime.Clock
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -31,12 +29,12 @@ class BreedModel : KoinComponent {
         ensureNeverFrozen()
     }
 
-    fun getBreeds(): Flow<DataState<ItemDataSummary>> = flow {
+    fun refreshBreedsIfStale(forced: Boolean = false): Flow<DataState<ItemDataSummary>> = flow {
         emit(DataState.Loading)
         val currentTimeMS = clock.now().toEpochMilliseconds()
         val stale = isBreedListStale(currentTimeMS)
         val networkBreedDataState: DataState<ItemDataSummary>
-        if (stale) {
+        if (stale || forced) {
             networkBreedDataState = getBreedsFromNetwork(currentTimeMS)
             when (networkBreedDataState) {
                 DataState.Empty -> {
@@ -44,34 +42,32 @@ class BreedModel : KoinComponent {
                     emit(networkBreedDataState)
                 }
                 is DataState.Success -> {
-                    dbHelper.insertBreeds(networkBreedDataState.data.allItems.map { it.name })
+                    dbHelper.insertBreeds(networkBreedDataState.data.allItems)
                 }
                 is DataState.Error -> {
                     // Pass the error along
                     emit(networkBreedDataState)
                 }
-
                 DataState.Loading -> {
                     // Won't ever happen
                 }
             }
         }
-
-        getBreedsFromCache().conflate().collect {
-            emit(it)
-        }
     }
 
     fun getBreedsFromCache(): Flow<DataState<ItemDataSummary>> =
         dbHelper.selectAllItems()
-            .map { itemList ->
-                log.v { "Select all query dirtied" }
-                DataState.Success(
-                    ItemDataSummary(
-                        itemList.maxByOrNull { it.name.length },
-                        itemList
+            .mapNotNull { itemList ->
+                if (itemList.isEmpty()) {
+                    null
+                } else {
+                    DataState.Success(
+                        ItemDataSummary(
+                            itemList.maxByOrNull { it.name.length },
+                            itemList
+                        )
                     )
-                )
+                }
             }
 
     private fun isBreedListStale(currentTimeMS: Long): Boolean {

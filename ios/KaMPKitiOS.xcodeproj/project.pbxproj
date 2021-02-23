@@ -43,7 +43,7 @@
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		B859F3FB23133D22AB9DD835 /* Pods_KaMPKitiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KaMPKitiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
-		F1465EFD23AA94BF0055F7C3 /* KaMPStarteriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = KaMPStarteriOS.app; path = KaMPKitiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1465EFD23AA94BF0055F7C3 /* KaMPKitiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPKitiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1465F0423AA94BF0055F7C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F1465F0723AA94BF0055F7C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		F1465EFE23AA94BF0055F7C3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F1465EFD23AA94BF0055F7C3 /* KaMPStarteriOS.app */,
+				F1465EFD23AA94BF0055F7C3 /* KaMPKitiOS.app */,
 				F1465F1323AA94C00055F7C3 /* KaMPKitiOSTests.xctest */,
 				F1465F1E23AA94C00055F7C3 /* KaMPKitiOSUITests.xctest */,
 			);
@@ -170,7 +170,7 @@
 				F1465EF923AA94BF0055F7C3 /* Sources */,
 				F1465EFA23AA94BF0055F7C3 /* Frameworks */,
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
-				8FCE24D32061DAC53C330081 /* [CP] Embed Pods Frameworks */,
+				5C83EEBAC49DF134120B719A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -178,7 +178,7 @@
 			);
 			name = KaMPKitiOS;
 			productName = KaMPKitiOS;
-			productReference = F1465EFD23AA94BF0055F7C3 /* KaMPStarteriOS.app */;
+			productReference = F1465EFD23AA94BF0055F7C3 /* KaMPKitiOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F1465F1223AA94C00055F7C3 /* KaMPKitiOSTests */ = {
@@ -224,7 +224,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = Touchlab;
 				TargetAttributes = {
 					F1465EFC23AA94BF0055F7C3 = {
@@ -288,7 +288,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		8FCE24D32061DAC53C330081 /* [CP] Embed Pods Frameworks */ = {
+		5C83EEBAC49DF134120B719A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -418,14 +418,17 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development: brady.aiello@gmail.com (94U525PPDD)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 6A5MWU525T;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -478,16 +481,20 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development: brady.aiello@gmail.com (94U525PPDD)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 6A5MWU525T;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -499,6 +506,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";

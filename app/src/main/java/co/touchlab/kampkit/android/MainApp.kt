@@ -10,6 +10,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 class MainApp : Application() {
+
     override fun onCreate() {
         super.onCreate()
         initKoin(
