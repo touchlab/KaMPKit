@@ -60,26 +60,6 @@ Because of Kotlin/Native's unique threading and state model, coroutines support 
 
 So, to be clear, ***we're using a version of [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) that is still in development***. In our experience it works well, and will likely be merged into the main repo soon, so it makes sense to learn that version.
 
-### *... but Ktor*
-
-Ktor on iOS was designed to work with the single-threaded version of coroutines. We're using that version with the experimental coroutines. 
-To allow that to work, we have a special child context with a number of restrictions. 
-
-Essentially you need to call ktor from within a `network` block. That will run under ktor calls with a separate `Job` defined. Ktor
-still needs to be called on the main thread (although that call will suspend, so your actual network call doesn't block the main thread).
-In the parent `Job` we listen for cancel events and pass them to the ktor child, which is not ideal, but should allow things to work until
-Ktor is compatible with multithreaded coroutines.
-
-```kotlin
-scope.launch {
-    try {
-        val breedResult = network {
-            ktorApi.getJsonFromApi()
-        }
-//Etc
-}
-```
-
 See [DogApiImpl.kt](https://github.com/touchlab/KaMPKit/blob/5376b4c2dd4be7f2436e10dddbf56b0d5ab33443/shared/src/commonMain/kotlin/co/touchlab/kampkit/ktor/DogApiImpl.kt#L36) and [BreedModel.kt](https://github.com/touchlab/KaMPKit/blob/b2e8a330f8c12429255711c4c55a328885615d8b/shared/src/commonMain/kotlin/co/touchlab/kampkit/models/BreedModel.kt#L49)
 
 ## Libraries and Dependencies
@@ -132,8 +112,6 @@ Documentation: https://insert-koin.io/
 Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/Koin.kt*
 
 Koin is a lightweight dependency injection framework. It is being used in the *koin.kt* file to inject modules into the BreedModel. You can tell which variables are being injected in the BreedModel because they are being set using `by inject()`. In our implementation we are separating our injections into two different modules: the `coreModule` and the `platformModule`. As you can guess the platformModule contains injections requiring platform specific implementations (SqlDelight and Multiplatform Settings). The coreModule contains the Ktor implementation and the Database Helper, which actually takes from the platformModule.
-
-**Note:** We are using a custom build of Koin for KaMP Kit. This is a [forked version](https://github.com/kpgalligan/koin/tree/kpg/khan) designed to work well with Kotlin/Native's state model. Essentially, it is source-compatible with regular Koin. The difference is that all config is done in the main thread, and unless specified, all injecting is also done in the main thread. This is enforced in Native as well as Android to maintain consistency. You can freeze the objects you pul in there, but Koin will not freeze them unless told to do so. We'll be presenting this architecture to the Koin author after some experimentation.
 
 ### Stately
 Documentation: https://github.com/touchlab/Stately
