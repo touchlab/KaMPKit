@@ -40,7 +40,7 @@ KaMP Kit support can be found in the Kotlin Community slack. Look for the `kampk
 
 To join the Kotlin Community slack, [request access here](http://slack.kotlinlang.org/)
 
-For direct assistance, please [reach out to TouchLab](https://go.touchlab.co/contactkamp) to discuss support options.
+For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/contactkamp) to discuss support options.
 
 # The Starter App
 
