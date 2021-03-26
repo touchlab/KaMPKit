@@ -1,7 +1,7 @@
 trigger:
-  - master
+  - main 
 pr:
-  - master
+  - main
 
 pool:
   vmImage: 'macos-latest'
