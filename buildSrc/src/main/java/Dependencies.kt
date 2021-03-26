@@ -16,7 +16,7 @@ object Versions {
     val ktor = "1.5.2"
     val junit = "4.13.1"
     val material = "1.3.0"
-    val desugarJdkLibs = "1.1.1"
+    val desugarJdkLibs = "1.1.5"
     val multiplatformSettings = "0.7.4"
     val robolectric = "4.5.1"
     val sqlDelight = "1.4.4"
