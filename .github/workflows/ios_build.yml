@@ -14,7 +14,6 @@ jobs:
         with:
           workspace: ios/KaMPKitiOS.xcworkspace
           scheme: KaMPKitiOS
-          destination: platform=iOS
           sdk: iphoneos
           configuration: Debug
           action: build
