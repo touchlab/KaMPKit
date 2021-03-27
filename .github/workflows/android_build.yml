@@ -1,4 +1,4 @@
-name: Android Build
+name: KaMPKit Android
 
 on: pull_request
 
