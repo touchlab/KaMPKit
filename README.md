@@ -53,7 +53,7 @@ You will need the following:
 
 * JVM 8
 * Android SDK and the latest stable Android Studio(3.6+) or IntelliJ(2019.3.2+)
-* Intellij Kotlin plugin with 1.3.72 support (should be included in the latest Android Studio or IDEA)
+* Intellij Kotlin plugin with 1.4.30 support (should be included in the latest Android Studio or IDEA)
 * Mac with Xcode 11+ for the iOS build
 
 For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
