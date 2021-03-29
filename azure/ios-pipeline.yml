@@ -15,4 +15,4 @@ steps:
       xcWorkspacePath: 'ios/KaMPKitiOS.xcworkspace'
       scheme: 'KaMPKitiOS'
       packageApp: false
-      publishJUnitResults: true
+
