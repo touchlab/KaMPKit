@@ -1,7 +1,7 @@
 trigger:
-  - master
+  - main
 pr:
-  - master
+  - main
 
 pool:
   vmImage: 'macos-latest'
@@ -15,4 +15,3 @@ steps:
       xcWorkspacePath: 'ios/KaMPKitiOS.xcworkspace'
       scheme: 'KaMPKitiOS'
       packageApp: false
-      publishJUnitResults: true
