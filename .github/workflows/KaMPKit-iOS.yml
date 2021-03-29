@@ -1,0 +1,23 @@
+name: KaMPKit-iOS
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        uses: sersoft-gmbh/xcodebuild-action@v1
+        with:
+          workspace: ios/KaMPKitiOS.xcworkspace
+          scheme: KaMPKitiOS
+          destination: id=F0EDD684-301D-4C73-9E92-8E6EE95AFFE5
+          sdk: iphoneos
+          configuration: Debug
+          action: build
+
+
+

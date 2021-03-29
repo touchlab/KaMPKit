@@ -1,0 +1,21 @@
+name: KaMPKit-Android
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build and Check
+        run: ./gradlew build check
+
+
+

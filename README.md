@@ -1,4 +1,5 @@
-[![Android Build](https://img.shields.io/azure-devops/build/TouchlabOrg/KaMPKit/3?logo=Android)](https://dev.azure.com/TouchlabOrg/KaMPKit/_build?definitionId=3) [![iOS Build](https://img.shields.io/azure-devops/build/TouchlabOrg/KaMPKit/4?logo=iOS)](https://dev.azure.com/TouchlabOrg/KaMPKit/_build?definitionId=4)
+[![KaMPKit Android](https://img.shields.io/github/workflow/status/touchlab-lab/KaMPKit/KaMPKit-Android/main?logo=Android&style=plastic)](https://img.shields.io/github/workflow/status/touchlab-lab/KaMPKit/KaMPKit-Android/main?logo=Android&style=plastic)
+[![KaMPKit iOS](https://img.shields.io/github/workflow/status/touchlab-lab/KaMPKit/KaMPKit-iOS/main?logo=iOS&style=plastic)](https://img.shields.io/github/workflow/status/touchlab-lab/KaMPKit/KaMPKit-Android/main?logo=Android&style=plastic)
 
 # KaMP Kit
 
