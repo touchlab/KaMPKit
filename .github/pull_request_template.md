@@ -3,19 +3,19 @@
 <!-- Add issue link -->
 Issue: https://github.com/touchlab/KaMPKit/issues/[issue number]
 
-##[Platform]
+## [Platform]
 <!-- Select / Unselect the appropriate platforms -->
 - [x] iOS
 - [ ] Android
 - [x] KMP
 
-##[Summary]
+## [Summary]
 <!--- Copy summary from issue link or write a shortened description of it -->
 
-##[Fix]
+## [Fix]
 <!-- What did you do to fix the issue? -->
 
-##[Testing]
+## [Testing]
 - <!-- (if applicable) unit tests -->
 - <!-- (if applicable) integration tests -->
 - <!-- (if applicable) UI tests -->
