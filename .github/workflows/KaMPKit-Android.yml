@@ -1,6 +1,10 @@
 name: KaMPKit-Android
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   build:
@@ -14,8 +18,8 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Build and Check
-        run: ./gradlew build check
+      - name: Build
+        run: ./gradlew build
 
 
 
