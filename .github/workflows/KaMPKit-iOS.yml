@@ -14,7 +14,7 @@ jobs:
         with:
           workspace: ios/KaMPKitiOS.xcworkspace
           scheme: KaMPKitiOS
-          destination: id=F0EDD684-301D-4C73-9E92-8E6EE95AFFE5
+          destination: name=iPhone 8
           sdk: iphoneos
           configuration: Debug
           action: build
