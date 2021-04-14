@@ -8,7 +8,8 @@ on:
   pull_request:
     paths-ignore:
       - "**.md"
-      - "**.png"
+      - "*.png"
+      - docs
       - app
 
 jobs:
