@@ -1,4 +1,4 @@
-name: KaMPKit-Android
+name: KaMPKit-Shared
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
       - "**.md"
       - "**.png"
       - ios
+      - app
 
 jobs:
   build:
@@ -18,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build
-        run: ./gradlew :app:build
+        run: ./gradlew :shared:build
 
 
 
