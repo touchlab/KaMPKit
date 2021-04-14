@@ -3,7 +3,7 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.4.30"
+    val kotlin = "1.5.0-RC"
     val android_gradle_plugin = "4.0.1"
 
     val buildToolsVersion = "30.0.3"
