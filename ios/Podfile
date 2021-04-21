@@ -7,3 +7,7 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'KaMPKitiOS' do
     pod 'shared', :path => '../shared/'
 end
+
+target 'MyworkoutTestApp' do
+    pod 'shared', :path => '../shared/'
+end
