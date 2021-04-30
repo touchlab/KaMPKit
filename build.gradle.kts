@@ -45,11 +45,12 @@ subprojects {
         }
     }
 
-    afterEvaluate {
+    // This is for whatever reason preventing the import of the kotlin-api-client module
+    /*afterEvaluate {
         tasks.named("check").configure {
             dependsOn(tasks.getByName("ktlintCheck"))
         }
-    }
+    }*/
 }
 
 tasks.register<Delete>("clean") {

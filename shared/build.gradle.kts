@@ -44,6 +44,7 @@ kotlin {
     }
 
     sourceSets["commonMain"].dependencies {
+        implementation(project(":kotlin-api-client"))
         implementation(Deps.SqlDelight.runtime)
         implementation(Deps.SqlDelight.coroutinesExtensions)
         implementation(Deps.Ktor.commonCore)
