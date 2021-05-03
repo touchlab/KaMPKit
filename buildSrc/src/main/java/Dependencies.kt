@@ -10,7 +10,7 @@ object Versions {
     val cocoapodsext = "0.12"
     val coroutines = "1.4.3-native-mt"
     val kermit = "0.1.8"
-    val koin = "3.0.0-alpha-4"
+    val koin = "3.0.1"
     val ktlint_gradle_plugin = "9.4.1"
     val ktor = "1.5.2"
     val junit = "4.13.1"
@@ -43,8 +43,9 @@ object Deps {
     val material = "com.google.android.material:material:${Versions.material}"
     val desugarJdkLibs = "com.android.tools:desugar_jdk_libs:${Versions.desugarJdkLibs}"
     val kermit = "co.touchlab:kermit:${Versions.kermit}"
-    val koinCore = "org.koin:koin-core:${Versions.koin}"
-    val koinTest = "org.koin:koin-test:${Versions.koin}"
+    val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+    val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+    val koinTest = "io.insert-koin:koin-test:${Versions.koin}"
     val multiplatformSettings = "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
@@ -64,7 +65,6 @@ object Deps {
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
         val lifecycle_extension = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
-        val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
     }
 
     object AndroidXTest {

@@ -37,6 +37,10 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
@@ -55,11 +59,11 @@ dependencies {
     implementation(Deps.Coroutines.android)
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
+    implementation(Deps.koinAndroid)
     implementation(Deps.AndroidX.lifecycle_runtime)
     implementation(Deps.AndroidX.lifecycle_viewmodel)
     implementation(Deps.AndroidX.lifecycle_viewmodel_extensions)
     implementation(Deps.AndroidX.lifecycle_livedata)
     implementation(Deps.AndroidX.lifecycle_extension)
-    implementation(Deps.AndroidX.koin_viewmodel)
     testImplementation(Deps.junit)
 }
