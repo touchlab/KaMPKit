@@ -3,23 +3,22 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.4.30"
-    val android_gradle_plugin = "4.0.1"
+    val kotlin = "1.4.32"
+    val android_gradle_plugin = "4.0.2"
 
     val buildToolsVersion = "30.0.3"
-    val cocoapodsext = "0.12"
     val coroutines = "1.4.3-native-mt"
     val kermit = "0.1.8"
-    val koin = "3.0.0-alpha-4"
+    val koin = "3.0.1"
     val ktlint_gradle_plugin = "9.4.1"
-    val ktor = "1.5.2"
-    val junit = "4.13.1"
+    val ktor = "1.5.3"
+    val junit = "4.13.2"
     val material = "1.3.0"
     val desugarJdkLibs = "1.1.5"
-    val multiplatformSettings = "0.7.4"
+    val multiplatformSettings = "0.7.5"
     val robolectric = "4.5.1"
-    val sqlDelight = "1.4.4"
-    val stately = "1.1.4"
+    val sqlDelight = "1.5.0"
+    val stately = "1.1.6"
     val serialization = "1.1.0"
     val kotlinxDateTime = "0.1.1"
     val turbine = "0.4.1"
@@ -38,13 +37,13 @@ object Versions {
 
 object Deps {
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
-    val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
     val junit = "junit:junit:${Versions.junit}"
     val material = "com.google.android.material:material:${Versions.material}"
     val desugarJdkLibs = "com.android.tools:desugar_jdk_libs:${Versions.desugarJdkLibs}"
     val kermit = "co.touchlab:kermit:${Versions.kermit}"
-    val koinCore = "org.koin:koin-core:${Versions.koin}"
-    val koinTest = "org.koin:koin-test:${Versions.koin}"
+    val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
+    val koinCore = "io.insert-koin:koin-core:${Versions.koin}"
+    val koinTest = "io.insert-koin:koin-test:${Versions.koin}"
     val multiplatformSettings = "com.russhwolf:multiplatform-settings:${Versions.multiplatformSettings}"
     val multiplatformSettingsTest = "com.russhwolf:multiplatform-settings-test:${Versions.multiplatformSettings}"
     val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
@@ -64,7 +63,6 @@ object Deps {
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
         val lifecycle_extension = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
-        val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
     }
 
     object AndroidXTest {
