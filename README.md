@@ -15,17 +15,17 @@
 
 The goal of the KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). It is a collection of code and tools designed to get you started quickly.
 
-The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMP, and have found that the **primary** stumbling block is simply getting started.
+The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM and KMP, and have found that the **primary** stumbling block is simply getting started.
 
 The KaMP Kit is designed to get you past that primary stumbling block. You should be able to set up your development environment, clone the repo, and have a running sample app very quickly. From there, you can focus on what you want to build.
 
 #### *Very Important Message!!!*
 
-This kit exists because the info you may find from Google about KMP is likely to be more confusing than helpful. To make sure you minimize the time spent trying to get started, it's important to ***stick to this kit exclusively until you get something running***. The sample project is designed to be run with minimal setup. If you run into issues building the sample project, please reach out directly so we can sort out your issue and improve our docs.
+This kit exists because the info you may find from Google about KMM and KMP is likely to be outdated or conflicting with the config here. It is highly recommended that you reach out directly if you run into issues.
 
 ### Audience
 
-We (Touchlab) are focused primarily on using KMP for native mobile development. As a result, this kit is primarily targeted at native mobile developers (Android or iOS), as well as engineering managers for native mobile teams. You should have little-to-no experience with KMP, although some of the information after setup may be useful if you do have KMP experience.
+We (Touchlab) are focused primarily on using KMP for native mobile development (now called KMM). As a result, this kit is primarily targeted at native mobile developers (Android or iOS), as well as engineering managers for native mobile teams. You should have little-to-no experience with KMP, although some of the information after setup may be useful if you do have KMP experience.
 
 ## What's Included?
 
@@ -54,9 +54,9 @@ The central part of the "Kit" is the starter app. It includes a set of libraries
 You will need the following:
 
 * JVM 8
-* Android SDK and the latest stable Android Studio(3.6+) or IntelliJ(2019.3.2+)
-* Intellij Kotlin plugin with 1.3.72 support (should be included in the latest Android Studio or IDEA)
-* Mac with Xcode 11+ for the iOS build
+* Android SDK and the latest stable Android Studio(4.1.3) or IntelliJ(2021.1+)
+* Intellij Kotlin plugin with 1.4.3x support (should be included in the latest Android Studio or IDEA)
+* Mac with Xcode 12+ for the iOS build
 
 For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
