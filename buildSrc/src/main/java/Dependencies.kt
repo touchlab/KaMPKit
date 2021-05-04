@@ -3,23 +3,22 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.4.30"
-    val android_gradle_plugin = "4.0.1"
+    val kotlin = "1.4.32"
+    val android_gradle_plugin = "4.0.2"
 
     val buildToolsVersion = "30.0.3"
-    val cocoapodsext = "0.12"
     val coroutines = "1.4.3-native-mt"
     val kermit = "0.1.8"
     val koin = "3.0.1"
     val ktlint_gradle_plugin = "9.4.1"
-    val ktor = "1.5.2"
-    val junit = "4.13.1"
+    val ktor = "1.5.3"
+    val junit = "4.13.2"
     val material = "1.3.0"
     val desugarJdkLibs = "1.1.5"
-    val multiplatformSettings = "0.7.4"
+    val multiplatformSettings = "0.7.5"
     val robolectric = "4.5.1"
-    val sqlDelight = "1.4.4"
-    val stately = "1.1.4"
+    val sqlDelight = "1.5.0"
+    val stately = "1.1.6"
     val serialization = "1.1.0"
     val kotlinxDateTime = "0.1.1"
     val turbine = "0.4.1"
@@ -38,7 +37,6 @@ object Versions {
 
 object Deps {
     val android_gradle_plugin = "com.android.tools.build:gradle:${Versions.android_gradle_plugin}"
-    val cocoapodsext = "co.touchlab:kotlinnativecocoapods:${Versions.cocoapodsext}"
     val junit = "junit:junit:${Versions.junit}"
     val material = "com.google.android.material:material:${Versions.material}"
     val desugarJdkLibs = "com.android.tools:desugar_jdk_libs:${Versions.desugarJdkLibs}"

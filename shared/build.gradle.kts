@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     kotlin("multiplatform")
-    id("co.touchlab.native.cocoapods")
+    kotlin("native.cocoapods")
     id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
@@ -21,6 +24,8 @@ android {
         isAbortOnError = true
     }
 }
+
+version = "1.0"
 
 kotlin {
     android()
@@ -98,10 +103,14 @@ kotlin {
         implementation(Deps.Ktor.ios)
     }
 
-    cocoapodsext {
+    cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
-        framework {
+    }
+
+    // Configure the framework which is generated internally by cocoapods plugin
+    targets.withType<KotlinNativeTarget> {
+        binaries.withType<Framework> {
             isStatic = false
             export(Deps.kermit)
             transitiveExport = true
