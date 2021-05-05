@@ -111,7 +111,7 @@ kotlin {
     // Configure the framework which is generated internally by cocoapods plugin
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            isStatic = false
+            isStatic = true
             export(Deps.kermit)
             transitiveExport = true
         }
