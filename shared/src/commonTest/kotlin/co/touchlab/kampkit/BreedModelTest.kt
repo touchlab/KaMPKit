@@ -20,8 +20,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.time.hours
-import kotlin.time.seconds
+import kotlin.time.Duration
 
 class BreedModelTest : BaseTest() {
 
@@ -129,7 +128,7 @@ class BreedModelTest : BaseTest() {
         val successResult = ktorApi.successResult()
         ktorApi.prepareResult(successResult)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
-            .test(timeout = 30.seconds) {
+            .test(timeout = Duration.seconds(30)) {
                 assertEquals(DataState.Loading, expectItem())
                 val oldBreeds = expectItem()
                 assertTrue(oldBreeds is DataState.Success)
@@ -140,12 +139,12 @@ class BreedModelTest : BaseTest() {
             }
 
         // Advance time by more than an hour to make cached data stale
-        clock.currentInstant += 2.hours
+        clock.currentInstant += Duration.hours(2)
         val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
 
         ktorApi.prepareResult(resultWithExtraBreed)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
-            .test(timeout = 30.seconds) {
+            .test(timeout = Duration.seconds(30)) {
                 assertEquals(DataState.Loading, expectItem())
                 val updated = expectItem()
                 assertTrue(updated is DataState.Success)

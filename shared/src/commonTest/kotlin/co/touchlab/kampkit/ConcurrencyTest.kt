@@ -1,5 +1,6 @@
 package co.touchlab.kampkit
 
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -14,6 +15,7 @@ class ConcurrencyTest : BaseTest() {
      * This doesn't test any KampKit code, but is a sanity check that our tests can handle main thread
      * coroutines without hanging
      */
+    @OptIn(DelicateCoroutinesApi::class)
     @Test
     fun testMain() {
         runTest {

@@ -12,7 +12,7 @@ class MainViewHolder(binding: ItemBreedBinding, breedClickListener: (Int) -> Uni
     private val favoriteButton = binding.favoriteButton
 
     init {
-        favoriteButton.setOnClickListener { breedClickListener(adapterPosition) }
+        favoriteButton.setOnClickListener { breedClickListener(bindingAdapterPosition) }
     }
 
     fun bindTo(breed: Breed) {
