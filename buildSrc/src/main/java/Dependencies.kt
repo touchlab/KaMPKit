@@ -3,32 +3,32 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.4.32"
-    val android_gradle_plugin = "4.0.2"
+    val kotlin = "1.5.10"
+    val android_gradle_plugin = "4.1.1"
 
     val buildToolsVersion = "30.0.3"
-    val coroutines = "1.4.3-native-mt"
-    val kermit = "0.1.8"
-    val koin = "3.0.1"
-    val ktlint_gradle_plugin = "9.4.1"
-    val ktor = "1.5.3"
+    val coroutines = "1.5.0-native-mt"
+    val kermit = "0.1.9"
+    val koin = "3.0.2"
+    val ktlint_gradle_plugin = "10.0.0"
+    val ktor = "1.6.0"
     val junit = "4.13.2"
     val material = "1.3.0"
     val desugarJdkLibs = "1.1.5"
-    val multiplatformSettings = "0.7.5"
+    val multiplatformSettings = "0.7.7"
     val robolectric = "4.5.1"
     val sqlDelight = "1.5.0"
-    val stately = "1.1.6"
-    val serialization = "1.1.0"
-    val kotlinxDateTime = "0.1.1"
-    val turbine = "0.4.1"
+    val stately = "1.1.7"
+    val serialization = "1.2.1"
+    val kotlinxDateTime = "0.2.1"
+    val turbine = "0.5.1"
 
     object AndroidX {
-        val appcompat = "1.2.0"
+        val appcompat = "1.3.0"
         val constraintlayout = "2.0.4"
-        val core = "1.3.2"
-        val lifecycle = "2.2.0"
-        val recyclerview = "1.1.0"
+        val core = "1.5.0"
+        val lifecycle = "2.3.1"
+        val recyclerview = "1.2.0"
         val swipeRefresh = "1.1.0"
         val test = "1.3.0"
         val test_ext = "1.1.2"
@@ -62,7 +62,6 @@ object Deps {
         val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
-        val lifecycle_extension = "androidx.lifecycle:lifecycle-extensions:${Versions.AndroidX.lifecycle}"
     }
 
     object AndroidXTest {
