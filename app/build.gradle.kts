@@ -24,7 +24,7 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled = true
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -36,6 +36,11 @@ android {
 
     buildFeatures {
         viewBinding = true
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
 }
 
@@ -55,11 +60,10 @@ dependencies {
     implementation(Deps.Coroutines.android)
     implementation(Deps.multiplatformSettings)
     implementation(Deps.koinCore)
+    implementation(Deps.koinAndroid)
     implementation(Deps.AndroidX.lifecycle_runtime)
     implementation(Deps.AndroidX.lifecycle_viewmodel)
     implementation(Deps.AndroidX.lifecycle_viewmodel_extensions)
     implementation(Deps.AndroidX.lifecycle_livedata)
-    implementation(Deps.AndroidX.lifecycle_extension)
-    implementation(Deps.AndroidX.koin_viewmodel)
     testImplementation(Deps.junit)
 }

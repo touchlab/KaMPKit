@@ -2,17 +2,17 @@ package co.touchlab.kampkit.mock
 
 import co.touchlab.kampkit.ktor.KtorApi
 import co.touchlab.kampkit.response.BreedResult
-import co.touchlab.karmok.MockManager
 
+// TODO convert this to use Ktor's MockEngine
 class KtorApiMock : KtorApi {
-    // Call recording provided by experimental library Karmok
-    internal val mock = InnerMock()
-    override suspend fun getJsonFromApi(): BreedResult {
-        return mock.getJsonFromApi.invokeSuspend({ getJsonFromApi() }, listOf())
-    }
+    private var nextResult: () -> BreedResult = { throw error("Uninitialized!") }
+    var calledCount = 0
+        private set
 
-    class InnerMock(delegate: Any? = null) : MockManager(delegate) {
-        internal val getJsonFromApi = MockFunctionRecorder<KtorApiMock, BreedResult>()
+    override suspend fun getJsonFromApi(): BreedResult {
+        val result = nextResult()
+        calledCount++
+        return result
     }
 
     fun successResult(): BreedResult {
@@ -21,5 +21,13 @@ class KtorApiMock : KtorApi {
             put("australian", listOf("shepherd"))
         }
         return BreedResult(map, "success")
+    }
+
+    fun prepareResult(breedResult: BreedResult) {
+        nextResult = { breedResult }
+    }
+
+    fun throwOnCall(throwable: Throwable) {
+        nextResult = { throw throwable }
     }
 }

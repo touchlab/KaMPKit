@@ -20,8 +20,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.time.hours
-import kotlin.time.seconds
+import kotlin.time.Duration
 
 class BreedModelTest : BaseTest() {
 
@@ -60,7 +59,7 @@ class BreedModelTest : BaseTest() {
     fun staleDataCheckTest() = runTest {
         val currentTimeMS = Clock.System.now().toEpochMilliseconds()
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMS)
-        assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
+        assertTrue(ktorApi.calledCount == 0)
 
         val expectedError = DataState.Error("Unable to download breed list")
         val actualError = model.getBreedsFromNetwork(0L)
@@ -69,13 +68,13 @@ class BreedModelTest : BaseTest() {
             expectedError,
             actualError
         )
-        assertTrue(ktorApi.mock.getJsonFromApi.calledCount == 0)
+        assertTrue(ktorApi.calledCount == 0)
     }
 
     @OptIn(FlowPreview::class)
     @Test
     fun updateFavoriteTest() = runTest {
-        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
+        ktorApi.prepareResult(ktorApi.successResult())
 
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
             .flattenMerge().test {
@@ -93,7 +92,7 @@ class BreedModelTest : BaseTest() {
     @OptIn(FlowPreview::class)
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() {
-        ktorApi.mock.getJsonFromApi.returns(ktorApi.successResult())
+        ktorApi.prepareResult(ktorApi.successResult())
 
         runTest {
             flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
@@ -127,9 +126,9 @@ class BreedModelTest : BaseTest() {
     @Test
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()
-        ktorApi.mock.getJsonFromApi.returns(successResult)
+        ktorApi.prepareResult(successResult)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
-            .test(timeout = 30.seconds) {
+            .test(timeout = Duration.seconds(30)) {
                 assertEquals(DataState.Loading, expectItem())
                 val oldBreeds = expectItem()
                 assertTrue(oldBreeds is DataState.Success)
@@ -140,12 +139,12 @@ class BreedModelTest : BaseTest() {
             }
 
         // Advance time by more than an hour to make cached data stale
-        clock.currentInstant += 2.hours
-        val resultWithExtraBreed = successResult.copy().apply { message["extra"] = emptyList() }
+        clock.currentInstant += Duration.hours(2)
+        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
 
-        ktorApi.mock.getJsonFromApi.returns(resultWithExtraBreed)
+        ktorApi.prepareResult(resultWithExtraBreed)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
-            .test(timeout = 30.seconds) {
+            .test(timeout = Duration.seconds(30)) {
                 assertEquals(DataState.Loading, expectItem())
                 val updated = expectItem()
                 assertTrue(updated is DataState.Success)
@@ -155,7 +154,7 @@ class BreedModelTest : BaseTest() {
 
     @Test
     fun notifyErrorOnException() = runTest {
-        ktorApi.mock.getJsonFromApi.throwOnCall(RuntimeException())
+        ktorApi.throwOnCall(RuntimeException())
         assertNotNull(model.getBreedsFromNetwork(0L))
     }
 

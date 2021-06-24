@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BreedResult(
-    val message: HashMap<String, List<String>>,
+    val message: Map<String, List<String>>,
     var status: String
 )

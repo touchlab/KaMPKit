@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     kotlin("multiplatform")
-    id("co.touchlab.native.cocoapods")
+    kotlin("native.cocoapods")
     id("kotlinx-serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
@@ -21,6 +24,8 @@ android {
         isAbortOnError = true
     }
 }
+
+version = "1.0"
 
 kotlin {
     android()
@@ -49,11 +54,7 @@ kotlin {
         implementation(Deps.Ktor.commonCore)
         implementation(Deps.Ktor.commonJson)
         implementation(Deps.Ktor.commonLogging)
-        implementation(Deps.Coroutines.common) {
-            version {
-                strictly(Versions.coroutines)
-            }
-        }
+        implementation(Deps.Coroutines.common)
         implementation(Deps.stately)
         implementation(Deps.multiplatformSettings)
         implementation(Deps.koinCore)
@@ -67,8 +68,6 @@ kotlin {
         implementation(Deps.KotlinTest.common)
         implementation(Deps.KotlinTest.annotations)
         implementation(Deps.koinTest)
-        // Karmok is an experimental library which helps with mocking interfaces
-        implementation(Deps.karmok)
         implementation(Deps.turbine)
     }
 
@@ -98,13 +97,23 @@ kotlin {
     sourceSets["iosMain"].dependencies {
         implementation(Deps.SqlDelight.driverIos)
         implementation(Deps.Ktor.ios)
+
+        implementation(Deps.Coroutines.common) {
+            version {
+                strictly(Versions.coroutines)
+            }
+        }
     }
 
-    cocoapodsext {
+    cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
-        framework {
-            isStatic = false
+    }
+
+    // Configure the framework which is generated internally by cocoapods plugin
+    targets.withType<KotlinNativeTarget> {
+        binaries.withType<Framework> {
+            isStatic = true
             export(Deps.kermit)
             transitiveExport = true
         }
