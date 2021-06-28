@@ -4,7 +4,7 @@ object Versions {
     val compile_sdk = 30
 
     val kotlin = "1.5.10"
-    val android_gradle_plugin = "4.1.1"
+    val android_gradle_plugin = "7.1.0-alpha02"
 
     val buildToolsVersion = "30.0.3"
     val coroutines = "1.5.0-native-mt"
@@ -21,15 +21,15 @@ object Versions {
     val stately = "1.1.7"
     val serialization = "1.2.1"
     val kotlinxDateTime = "0.2.1"
-    val turbine = "0.5.1"
+    val turbine = "0.5.2"
 
     object AndroidX {
-        val appcompat = "1.3.0"
-        val constraintlayout = "2.0.4"
-        val core = "1.5.0"
+        val appcompat = "1.4.0-alpha02"
+        val constraintlayout = "2.1.0-beta02"
+        val core = "1.6.0-rc01"
         val lifecycle = "2.3.1"
-        val recyclerview = "1.2.0"
-        val swipeRefresh = "1.1.0"
+        val recyclerview = "1.2.1"
+        val swipeRefresh = "1.2.0-alpha01"
         val test = "1.3.0"
         val test_ext = "1.1.2"
     }
