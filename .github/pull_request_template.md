@@ -3,25 +3,20 @@
 <!-- Add issue link -->
 Issue: https://github.com/touchlab/KaMPKit/issues/[issue number]
 
-## [Platform]
-<!-- Select / Unselect the appropriate platforms -->
-- [x] iOS
-- [ ] Android
-- [x] KMP
-
-## [Summary]
+## Summary
 <!--- Copy summary from issue link or write a shortened description of it -->
 
-## [Fix]
+## Fix
 <!-- What did you do to fix the issue? -->
 
-## [Testing]
-- <!-- (if applicable) unit tests -->
-- <!-- (if applicable) integration tests -->
-- <!-- (if applicable) UI tests -->
-- <!-- (if applicable) manual tests -->
-- <!-- (if applicable) screenshots -->
+## Testing
+<!-- Remove any lines that were not performed -->
+- `./gradlew :app:build`
+- `./gradlew :shared:build`
+- `xcodebuild -workspace ios/KaMPKitiOS.xcworkspace -scheme KaMPKitiOS 
+    -sdk iphoneos -configuration Debug build -destination name="iPhone 8"`
+- manual testing
 
-###### Reviewer Tips:
-###### * Use "Nitpick:" if it's a minor non-crucial request.
-###### * If you're done with comments either end with a review or comment something helpful like "done with comments for now"
+<!-- If you made changes to the UI, please show us what it looks like now. -->
+### **Screenshot / Video of App working with the Changes**
+<img width="250" alt="fix in action" src="https://media.makeameme.org/created/yes-it-works.jpg">
