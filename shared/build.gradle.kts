@@ -10,22 +10,31 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.compile_sdk)
+    compileSdk = Versions.compile_sdk
     defaultConfig {
-        minSdkVersion(Versions.min_sdk)
-        targetSdkVersion(Versions.target_sdk)
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.min_sdk
+        targetSdk = Versions.target_sdk
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    lintOptions {
+    lint {
         isWarningsAsErrors = true
         isAbortOnError = true
     }
 }
 
 version = "1.0"
+
+android {
+    configurations {
+        create("androidTestApi")
+        create("androidTestDebugApi")
+        create("androidTestReleaseApi")
+        create("testApi")
+        create("testDebugApi")
+        create("testReleaseApi")
+    }
+}
 
 kotlin {
     android()
