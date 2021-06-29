@@ -39,18 +39,18 @@ class MainActivity : AppCompatActivity(), KoinComponent {
         }
 
         collectDataStateFlow(
-            {
+            onLoading = {
                 /* Display loading view */
                 swipeRefresh.isRefreshing = true
             },
-            { breedList ->
+            onSuccess = { breedList ->
                 /* Display success view */
                 swipeRefresh.isRefreshing = false
                 recyclerView.visibility = View.VISIBLE
                 log.v { "View updating with ${breedList.size} breeds" }
                 adapter.submitList(breedList)
             },
-            { exception ->
+            onError = { exception ->
                 /* Display error view */
                 swipeRefresh.isRefreshing = false
                 recyclerView.visibility = View.GONE
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                     Snackbar.LENGTH_SHORT
                 ).show()
             },
-            {
+            onEmpty = {
                 /* Display empty response view */
                 swipeRefresh.isRefreshing = false
             }
