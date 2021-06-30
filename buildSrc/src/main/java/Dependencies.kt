@@ -25,13 +25,16 @@ object Versions {
 
     object AndroidX {
         val appcompat = "1.4.0-alpha02"
-        val constraintlayout = "2.1.0-beta02"
         val core = "1.6.0-rc01"
         val lifecycle = "2.3.1"
-        val recyclerview = "1.2.1"
-        val swipeRefresh = "1.2.0-alpha01"
         val test = "1.3.0"
         val test_ext = "1.1.2"
+    }
+
+    object Compose {
+        const val compose = "1.0.0-beta09"
+        const val activity = "1.3.0-beta02"
+        const val accompanist = "0.12.0"
     }
 }
 
@@ -54,14 +57,10 @@ object Deps {
     object AndroidX {
         val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
         val core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
-        val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraintlayout}"
-        val recyclerView = "androidx.recyclerview:recyclerview:${Versions.AndroidX.recyclerview}"
-        val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swipeRefresh}"
 
         val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
-        val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
     }
 
     object AndroidXTest {
@@ -69,6 +68,20 @@ object Deps {
         val junit = "androidx.test.ext:junit:${Versions.AndroidX.test_ext}"
         val runner = "androidx.test:runner:${Versions.AndroidX.test}"
         val rules = "androidx.test:rules:${Versions.AndroidX.test}"
+    }
+
+    object Compose {
+        const val ui = "androidx.compose.ui:ui:${Versions.Compose.compose}"
+        // Tooling support (Previews, etc.)
+        const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.Compose.compose}"
+        // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+        const val foundation = "androidx.compose.foundation:foundation:${Versions.Compose.compose}"
+        // Material Design
+        const val material = "androidx.compose.material:material:${Versions.Compose.compose}"
+        const val activityCompose = "androidx.activity:activity-compose:${Versions.Compose.activity}"
+        object Accompanist {
+            const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.Compose.accompanist}"
+        }
     }
 
     object KotlinTest {

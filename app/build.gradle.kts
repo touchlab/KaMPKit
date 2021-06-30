@@ -35,25 +35,26 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        compose = true
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.0-beta09"
     }
 }
 
 dependencies {
     implementation(project(":shared"))
-    implementation(Deps.AndroidX.recyclerView)
-    implementation(Deps.AndroidX.swipeRefresh)
     implementation(Deps.material)
     coreLibraryDesugaring(Deps.desugarJdkLibs)
     implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.core_ktx)
     implementation(Deps.Ktor.androidCore)
-    implementation(Deps.AndroidX.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
     implementation(Deps.Coroutines.common)
@@ -64,6 +65,16 @@ dependencies {
     implementation(Deps.AndroidX.lifecycle_runtime)
     implementation(Deps.AndroidX.lifecycle_viewmodel)
     implementation(Deps.AndroidX.lifecycle_viewmodel_extensions)
-    implementation(Deps.AndroidX.lifecycle_livedata)
+
+    implementation(Deps.Compose.activityCompose)
+    implementation(Deps.Compose.ui)
+    // Tooling support (Previews, etc.)
+    implementation(Deps.Compose.uiTooling)
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation(Deps.Compose.foundation)
+    // Material Design
+    implementation(Deps.Compose.material)
+    implementation(Deps.Compose.Accompanist.swipeRefresh)
+
     testImplementation(Deps.junit)
 }
