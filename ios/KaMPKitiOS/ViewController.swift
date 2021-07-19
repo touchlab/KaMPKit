@@ -18,22 +18,21 @@ class BreedsViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
 
     lazy var adapter: NativeViewModel = NativeViewModel(
-        onLoading: { /* Loading spinner is shown automatically on iOS */
-            [weak self] in
-            guard let self = self else { return }
-            if (!(self.refreshControl.isRefreshing)) {
-                self.refreshControl.beginRefreshing()
+        onDataState: {
+            [weak self] dataState in
+            
+            if (dataState.loading) {
+                self?.refreshControl.beginRefreshing()
+            } else {
+                self?.refreshControl.endRefreshing()
             }
-        },
-        onSuccess: {
-            [weak self] summary in self?.viewUpdateSuccess(for: summary)
-            self?.refreshControl.endRefreshing()
-        },
-        onError: { [weak self] error in self?.errorUpdate(for: error)
-            self?.refreshControl.endRefreshing()
-        },
-        onEmpty: { /* Show "No doggos found!" message */
-            [weak self] in self?.refreshControl.endRefreshing()
+            if let exception = dataState.exception {
+                self?.errorUpdate(for: exception)
+                self?.adapter.consumeError()
+            }
+            if let data = dataState.data {
+                self?.viewUpdateSuccess(for: data)
+            }
         }
     )
     

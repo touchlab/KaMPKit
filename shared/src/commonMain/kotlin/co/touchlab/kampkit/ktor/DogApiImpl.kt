@@ -4,6 +4,7 @@ import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
+import io.ktor.client.features.HttpTimeout
 import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.features.json.serializer.KotlinxSerializer
 import io.ktor.client.features.logging.LogLevel
@@ -32,6 +33,12 @@ class DogApiImpl(log: Kermit) : KtorApi {
             }
 
             level = LogLevel.INFO
+        }
+        install(HttpTimeout) {
+            val timeout = 3000L
+            connectTimeoutMillis = timeout
+            requestTimeoutMillis = timeout
+            socketTimeoutMillis = timeout
         }
     }
 

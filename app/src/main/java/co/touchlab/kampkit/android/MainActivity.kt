@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import co.touchlab.kampkit.android.ui.MainScreen
 import co.touchlab.kampkit.android.ui.theme.KaMPKitTheme
-import co.touchlab.kampkit.models.DataState
 import co.touchlab.kermit.Kermit
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                     val dogsState by viewModel.breedStateFlow.collectAsState()
                     val isRefreshingState by remember(dogsState) {
                         derivedStateOf {
-                            dogsState is DataState.Loading
+                            dogsState.loading
                         }
                     }
 
@@ -48,7 +47,8 @@ class MainActivity : AppCompatActivity(), KoinComponent {
                 }
             }
         }
-
-        viewModel.refreshBreeds()
+        if (viewModel.breedStateFlow.value.data == null) {
+            viewModel.refreshBreeds()
+        }
     }
 }

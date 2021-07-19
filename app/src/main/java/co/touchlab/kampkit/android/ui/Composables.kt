@@ -17,17 +17,14 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
+import co.touchlab.kampkit.models.DataState
 
 @Composable
 fun DogList(breeds: List<Breed>, onItemClick: (Breed) -> Unit) {
@@ -77,30 +74,10 @@ fun FavoriteIcon(breed: Breed) {
 }
 
 @Composable
-fun Loading(
-    lastState: DataState<ItemDataSummary>,
-    favoriteBreed: (Breed) -> Unit
-) {
-    when (lastState) {
-        DataState.Loading -> {
-            // Nothing here, because it's taken care of by SwipeRefresh
-        }
-        DataState.Empty -> {
-            Empty()
-        }
-        is DataState.Error -> {
-            Error(errorState = lastState)
-        }
-        is DataState.Success -> {
-            Success(lastState, favoriteBreed)
-        }
-    }
-}
-
-@Composable
 fun Empty() {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -110,23 +87,24 @@ fun Empty() {
 }
 
 @Composable
-fun Error(errorState: DataState.Error) {
+fun Error(error: String) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text(text = errorState.exception)
+        Text(text = error)
     }
 }
 
 @Composable
 fun Success(
-    successState: DataState.Success<ItemDataSummary>,
+    successData: ItemDataSummary,
     favoriteBreed: (Breed) -> Unit
 ) {
-    DogList(breeds = successState.data.allItems, favoriteBreed)
+    DogList(breeds = successData.allItems, favoriteBreed)
 }
 
 @Composable
@@ -134,22 +112,15 @@ fun MainScreen(
     dataState: DataState<ItemDataSummary>,
     favoriteBreed: (Breed) -> Unit
 ) {
-    val lastState: MutableState<DataState<ItemDataSummary>> = remember { mutableStateOf(dataState) }
-    when (dataState) {
-        DataState.Loading -> {
-            Loading(lastState = lastState.value, favoriteBreed = favoriteBreed)
-        }
-        DataState.Empty -> {
-            lastState.value = dataState
-            Empty()
-        }
-        is DataState.Error -> {
-            lastState.value = dataState
-            Error(errorState = dataState)
-        }
-        is DataState.Success<ItemDataSummary> -> {
-            lastState.value = dataState
-            Success(successState = dataState, favoriteBreed)
-        }
+    if (dataState.empty) {
+        Empty()
+    }
+    val data = dataState.data
+    if (data != null) {
+        Success(successData = data, favoriteBreed)
+    }
+    val exception = dataState.exception
+    if (exception != null) {
+        Error(exception)
     }
 }
