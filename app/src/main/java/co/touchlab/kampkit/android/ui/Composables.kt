@@ -23,8 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kampkit.models.DataState
+import co.touchlab.kampkit.models.ItemDataSummary
 
 @Composable
 fun DogList(breeds: List<Breed>, onItemClick: (Breed) -> Unit) {

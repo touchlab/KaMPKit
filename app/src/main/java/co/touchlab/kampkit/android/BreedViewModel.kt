@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
-import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kampkit.models.DataState
+import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
