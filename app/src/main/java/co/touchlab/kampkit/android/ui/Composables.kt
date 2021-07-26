@@ -15,16 +15,107 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.flowWithLifecycle
+import co.touchlab.kampkit.android.BreedViewModel
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
+import co.touchlab.kermit.Kermit
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+
+@Composable
+fun MainScreen(
+    viewModel: BreedViewModel,
+    log: Kermit
+) {
+    Surface(color = MaterialTheme.colors.background) {
+        val lifecycleOwner = LocalLifecycleOwner.current
+        val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
+            viewModel.breedStateFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
+        }
+        val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedStateFlow.value)
+
+        val isRefreshingState by remember(dogsState) {
+            derivedStateOf {
+                dogsState.loading
+            }
+        }
+
+        SwipeRefresh(
+            state = rememberSwipeRefreshState(isRefreshing = isRefreshingState),
+            onRefresh = {
+                viewModel.refreshBreeds(true)
+            }
+        ) {
+            if (dogsState.empty) {
+                Empty()
+            }
+            val data = dogsState.data
+            if (data != null) {
+                LaunchedEffect(data) {
+                    log.v { "View updating with ${data.allItems.size} breeds" }
+                }
+                Success(successData = data, viewModel::updateBreedFavorite)
+            }
+            val exception = dogsState.exception
+            if (exception != null) {
+                LaunchedEffect(exception) {
+                    log.e { "Displaying error: $exception" }
+                }
+                Error(exception)
+            }
+        }
+    }
+}
+
+@Composable
+fun Empty() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text("Sorry, no doggos found")
+    }
+}
+
+@Composable
+fun Error(error: String) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text = error)
+    }
+}
+
+@Composable
+fun Success(
+    successData: ItemDataSummary,
+    favoriteBreed: (Breed) -> Unit
+) {
+    DogList(breeds = successData.allItems, favoriteBreed)
+}
 
 @Composable
 fun DogList(breeds: List<Breed>, onItemClick: (Breed) -> Unit) {
@@ -70,57 +161,5 @@ fun FavoriteIcon(breed: Breed) {
                 contentDescription = "Unfavorite $breed"
             )
         }
-    }
-}
-
-@Composable
-fun Empty() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text("Sorry, no doggos found")
-    }
-}
-
-@Composable
-fun Error(error: String) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(text = error)
-    }
-}
-
-@Composable
-fun Success(
-    successData: ItemDataSummary,
-    favoriteBreed: (Breed) -> Unit
-) {
-    DogList(breeds = successData.allItems, favoriteBreed)
-}
-
-@Composable
-fun MainScreen(
-    dataState: DataState<ItemDataSummary>,
-    favoriteBreed: (Breed) -> Unit
-) {
-    if (dataState.empty) {
-        Empty()
-    }
-    val data = dataState.data
-    if (data != null) {
-        Success(successData = data, favoriteBreed)
-    }
-    val exception = dataState.exception
-    if (exception != null) {
-        Error(exception)
     }
 }

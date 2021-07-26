@@ -52,7 +52,6 @@ dependencies {
     implementation(project(":shared"))
     implementation(Deps.material)
     coreLibraryDesugaring(Deps.desugarJdkLibs)
-    implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.core_ktx)
     implementation(Deps.Ktor.androidCore)
     implementation(Deps.SqlDelight.runtimeJdk)

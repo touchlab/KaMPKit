@@ -24,9 +24,8 @@ object Versions {
     val turbine = "0.5.2"
 
     object AndroidX {
-        val appcompat = "1.4.0-alpha02"
         val core = "1.6.0-rc01"
-        val lifecycle = "2.3.1"
+        val lifecycle = "2.4.0-alpha02"
         val test = "1.3.0"
         val test_ext = "1.1.2"
     }
@@ -55,7 +54,6 @@ object Deps {
     val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 
     object AndroidX {
-        val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
         val core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
 
         val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
