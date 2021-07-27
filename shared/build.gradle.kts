@@ -122,7 +122,7 @@ kotlin {
     // Configure the framework which is generated internally by cocoapods plugin
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
-            isStatic = true
+            isStatic = false // SwiftUI preview requires dynamic framework
             export(Deps.kermit)
             transitiveExport = true
         }

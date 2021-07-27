@@ -57,33 +57,52 @@ struct BreedListScreen: View {
     var observableModel = ObservableBreedModel()
     
     var body: some View {
-        return ZStack {
-            VStack {
-                if let breeds = observableModel.breeds {
-                    List(breeds, id: \.id) { breed in
-                        BreedRowView(breed: breed) {
-                            observableModel.onBreedFavorite(breed)
-                        }
-                    }
-                }
-                if let error = observableModel.error {
-                    Text(error)
-                        .foregroundColor(.red)
-                }
-                Button("Refresh") {
-                    observableModel.refresh()
-                }
-            }
-            if (observableModel.loading) {
-                Text("Loading...")
-            }
-        }
+        BreedListContent(
+            loading: observableModel.loading,
+            breeds: observableModel.breeds,
+            error: observableModel.error,
+            onBreedFavorite: { observableModel.onBreedFavorite($0) },
+            refresh: { observableModel.refresh() }
+            
+        )
         .onAppear(perform: {
             observableModel.activate()
         })
         .onDisappear(perform: {
             observableModel.deactivate()
         })
+    }
+}
+
+struct BreedListContent : View{
+    var loading: Bool
+    var breeds: [Breed]?
+    var error: String?
+    var onBreedFavorite: (Breed) -> Void
+    var refresh: () -> Void
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                if let breeds = breeds {
+                    List(breeds, id: \.id) { breed in
+                        BreedRowView(breed: breed) {
+                            onBreedFavorite(breed)
+                        }
+                    }
+                }
+                if let error = error {
+                    Text(error)
+                        .foregroundColor(.red)
+                }
+                Button("Refresh") {
+                    refresh()
+                }
+            }
+            if (loading) {
+                Text("Loading...")
+            }
+        }
     }
 }
 
@@ -101,5 +120,20 @@ struct BreedRowView: View {
         }.onTapGesture {
             onTap()
         }
+    }
+}
+
+struct BreedListScreen_Preview: PreviewProvider {
+    static var previews: some View {
+        BreedListContent(
+            loading: false,
+            breeds: [
+                Breed(id: 0, name: "appenzeller", favorite: 0),
+                Breed(id: 1, name: "australian", favorite: 1)
+            ],
+            error: nil,
+            onBreedFavorite: { _ in },
+            refresh: {}
+        )
     }
 }
