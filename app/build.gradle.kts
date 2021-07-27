@@ -40,7 +40,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs = listOf("-Xopt-in=kotlin.RequiresOptIn")
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
@@ -67,11 +67,8 @@ dependencies {
 
     implementation(Deps.Compose.activityCompose)
     implementation(Deps.Compose.ui)
-    // Tooling support (Previews, etc.)
     implementation(Deps.Compose.uiTooling)
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
     implementation(Deps.Compose.foundation)
-    // Material Design
     implementation(Deps.Compose.material)
     implementation(Deps.Compose.Accompanist.swipeRefresh)
 

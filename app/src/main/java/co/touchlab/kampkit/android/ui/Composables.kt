@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
@@ -113,7 +114,7 @@ fun Empty() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Text("Sorry, no doggos found")
+        Text(stringResource(R.string.empty_breeds))
     }
 }
 
@@ -174,12 +175,12 @@ fun FavoriteIcon(breed: Breed) {
         if (fav) {
             Image(
                 painter = painterResource(id = R.drawable.ic_favorite_border_24px),
-                contentDescription = "Favorite $breed"
+                contentDescription = stringResource(R.string.favorite_breed, breed.name)
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.ic_favorite_24px),
-                contentDescription = "Unfavorite $breed"
+                contentDescription = stringResource(R.string.unfavorite_breed, breed.name)
             )
         }
     }

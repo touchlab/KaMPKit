@@ -4,7 +4,7 @@ object Versions {
     val compile_sdk = 30
 
     val kotlin = "1.5.10"
-    val android_gradle_plugin = "7.1.0-alpha02"
+    val android_gradle_plugin = "7.0.0-rc01"
 
     val buildToolsVersion = "30.0.3"
     val coroutines = "1.5.0-native-mt"
@@ -70,11 +70,8 @@ object Deps {
 
     object Compose {
         const val ui = "androidx.compose.ui:ui:${Versions.Compose.compose}"
-        // Tooling support (Previews, etc.)
         const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.Compose.compose}"
-        // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
         const val foundation = "androidx.compose.foundation:foundation:${Versions.Compose.compose}"
-        // Material Design
         const val material = "androidx.compose.material:material:${Versions.Compose.compose}"
         const val activityCompose = "androidx.activity:activity-compose:${Versions.Compose.activity}"
         object Accompanist {
