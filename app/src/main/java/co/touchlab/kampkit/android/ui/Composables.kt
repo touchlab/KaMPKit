@@ -28,11 +28,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
 import co.touchlab.kampkit.android.BreedViewModel
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
+import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -43,12 +45,33 @@ fun MainScreen(
     viewModel: BreedViewModel,
     log: Kermit
 ) {
-    Surface(color = MaterialTheme.colors.background) {
-        val lifecycleOwner = LocalLifecycleOwner.current
-        val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
-            viewModel.breedStateFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
-        }
-        val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedStateFlow.value)
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
+        viewModel.breedStateFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
+    }
+    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedStateFlow.value)
+
+    MainScreenContent(
+        dogsState = dogsState,
+        onRefresh = { viewModel.refreshBreeds(true) },
+        onSuccess = { data -> log.v { "View updating with ${data.allItems.size} breeds" } },
+        onError = { exception -> log.e { "Displaying error: $exception" } },
+        onFavorite = { viewModel.updateBreedFavorite(it) }
+    )
+}
+
+@Composable
+fun MainScreenContent(
+    dogsState: DataState<ItemDataSummary>,
+    onRefresh: () -> Unit = {},
+    onSuccess: (ItemDataSummary) -> Unit = {},
+    onError: (String) -> Unit = {},
+    onFavorite: (Breed) -> Unit = {}
+) {
+    Surface(
+        color = MaterialTheme.colors.background,
+        modifier = Modifier.fillMaxSize()
+    ) {
 
         val isRefreshingState by remember(dogsState) {
             derivedStateOf {
@@ -58,9 +81,7 @@ fun MainScreen(
 
         SwipeRefresh(
             state = rememberSwipeRefreshState(isRefreshing = isRefreshingState),
-            onRefresh = {
-                viewModel.refreshBreeds(true)
-            }
+            onRefresh = onRefresh
         ) {
             if (dogsState.empty) {
                 Empty()
@@ -68,14 +89,14 @@ fun MainScreen(
             val data = dogsState.data
             if (data != null) {
                 LaunchedEffect(data) {
-                    log.v { "View updating with ${data.allItems.size} breeds" }
+                    onSuccess(data)
                 }
-                Success(successData = data, viewModel::updateBreedFavorite)
+                Success(successData = data, favoriteBreed = onFavorite)
             }
             val exception = dogsState.exception
             if (exception != null) {
                 LaunchedEffect(exception) {
-                    log.e { "Displaying error: $exception" }
+                    onError(exception)
                 }
                 Error(exception)
             }
@@ -162,4 +183,20 @@ fun FavoriteIcon(breed: Breed) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun MainScreenContentPreview_Success() {
+    MainScreenContent(
+        dogsState = DataState(
+            data = ItemDataSummary(
+                longestItem = null,
+                allItems = listOf(
+                    Breed(0, "appenzeller", 0),
+                    Breed(1, "australian", 1)
+                )
+            )
+        )
+    )
 }
