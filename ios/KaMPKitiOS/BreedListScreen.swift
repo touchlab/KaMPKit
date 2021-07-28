@@ -111,14 +111,14 @@ struct BreedRowView: View {
     var onTap: () -> Void
     
     var body: some View {
-        HStack() {
-            Text(breed.name)
-                .padding(4.0)
-            Spacer()
-            Image(systemName: (breed.favorite == 0) ? "heart" : "heart.fill")
-                .padding(4.0)
-        }.onTapGesture {
-            onTap()
+        Button(action: onTap) {
+            HStack() {
+                Text(breed.name)
+                    .padding(4.0)
+                Spacer()
+                Image(systemName: (breed.favorite == 0) ? "heart" : "heart.fill")
+                    .padding(4.0)
+            }
         }
     }
 }
