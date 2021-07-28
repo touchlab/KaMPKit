@@ -73,7 +73,6 @@ fun MainScreenContent(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
     ) {
-
         val isRefreshingState by remember(dogsState) {
             derivedStateOf {
                 dogsState.loading
