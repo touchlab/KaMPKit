@@ -4,7 +4,7 @@ object Versions {
     val compile_sdk = 30
 
     val kotlin = "1.5.10"
-    val android_gradle_plugin = "7.0.0-rc01"
+    val android_gradle_plugin = "7.0.0"
 
     val buildToolsVersion = "30.0.3"
     val coroutines = "1.5.0-native-mt"
@@ -24,15 +24,15 @@ object Versions {
     val turbine = "0.5.2"
 
     object AndroidX {
-        val core = "1.6.0-rc01"
+        val core = "1.6.0"
         val lifecycle = "2.4.0-alpha02"
         val test = "1.3.0"
         val test_ext = "1.1.2"
     }
 
     object Compose {
-        const val compose = "1.0.0-rc01"
-        const val activity = "1.3.0-rc01"
+        const val compose = "1.0.0"
+        const val activity = "1.3.0"
         const val accompanist = "0.13.0"
     }
 }
