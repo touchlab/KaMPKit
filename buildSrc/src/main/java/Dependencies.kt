@@ -3,7 +3,7 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.5.10"
+    val kotlin = "1.5.21"
     val android_gradle_plugin = "7.0.0"
 
     val buildToolsVersion = "30.0.3"
@@ -31,7 +31,7 @@ object Versions {
     }
 
     object Compose {
-        const val compose = "1.0.0"
+        const val compose = "1.0.1"
         const val activity = "1.3.0"
         const val accompanist = "0.13.0"
     }
