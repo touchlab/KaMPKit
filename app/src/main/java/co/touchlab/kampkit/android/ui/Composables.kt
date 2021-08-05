@@ -73,14 +73,8 @@ fun MainScreenContent(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
     ) {
-        val isRefreshingState by remember(dogsState) {
-            derivedStateOf {
-                dogsState.loading
-            }
-        }
-
         SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = isRefreshingState),
+            state = rememberSwipeRefreshState(isRefreshing = dogState.loading),
             onRefresh = onRefresh
         ) {
             if (dogsState.empty) {
