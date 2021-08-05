@@ -6,7 +6,7 @@
 //  Copyright © 2019 Touchlab. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 import shared
 
 @UIApplicationMain
@@ -21,10 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         startKoin()
-              
-        // Manually launch storyboard so that ViewController doesn't initialize before Koin
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let viewController = storyboard.instantiateViewController(identifier: "BreedsViewController")
+        
+        let viewController = UIHostingController(rootView: BreedListScreen())
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = viewController

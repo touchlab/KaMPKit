@@ -3,16 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3DFF917C64A18A83DA010EE1 /* Pods_KaMPKitiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B859F3FB23133D22AB9DD835 /* Pods_KaMPKitiOS.framework */; };
-		45E5A5EE249A6FFF00C3791B /* BreedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E5A5ED249A6FFF00C3791B /* BreedCell.swift */; };
+		46A5B5EF26AF54F7002EFEAA /* BreedListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46A5B5EE26AF54F7002EFEAA /* BreedListScreen.swift */; };
+		46A5B60826B04921002EFEAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 46A5B60626B04920002EFEAA /* Main.storyboard */; };
 		46B5284D249C5CF400A7725D /* Koin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46B5284C249C5CF400A7725D /* Koin.swift */; };
 		F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */; };
-		F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F0423AA94BF0055F7C3 /* ViewController.swift */; };
-		F1465F0823AA94BF0055F7C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0623AA94BF0055F7C3 /* Main.storyboard */; };
 		F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0923AA94BF0055F7C3 /* Assets.xcassets */; };
 		F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */; };
 		F1465F1823AA94C00055F7C3 /* KaMPKitiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1465F1723AA94C00055F7C3 /* KaMPKitiOSTests.swift */; };
@@ -39,14 +38,13 @@
 /* Begin PBXFileReference section */
 		1DFCC00C8DAA719770A18D1A /* Pods-KaMPKitiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.release.xcconfig"; sourceTree = "<group>"; };
 		2A1ED6A4A2A53F5F75C58E5F /* Pods-KaMPKitiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.release.xcconfig"; sourceTree = "<group>"; };
-		45E5A5ED249A6FFF00C3791B /* BreedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedCell.swift; sourceTree = "<group>"; };
+		46A5B5EE26AF54F7002EFEAA /* BreedListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedListScreen.swift; sourceTree = "<group>"; };
+		46A5B60726B04920002EFEAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		46B5284C249C5CF400A7725D /* Koin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Koin.swift; sourceTree = "<group>"; };
 		B859F3FB23133D22AB9DD835 /* Pods_KaMPKitiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KaMPKitiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED1F782AF3705197012D0C33 /* Pods-KaMPKitiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KaMPKitiOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F1465EFD23AA94BF0055F7C3 /* KaMPKitiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KaMPKitiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F1465F0423AA94BF0055F7C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F1465F0723AA94BF0055F7C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F1465F0923AA94BF0055F7C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1465F0C23AA94BF0055F7C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1465F0E23AA94BF0055F7C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -130,13 +128,12 @@
 			isa = PBXGroup;
 			children = (
 				F1465F0023AA94BF0055F7C3 /* AppDelegate.swift */,
-				F1465F0423AA94BF0055F7C3 /* ViewController.swift */,
-				45E5A5ED249A6FFF00C3791B /* BreedCell.swift */,
+				46A5B60626B04920002EFEAA /* Main.storyboard */,
 				46B5284C249C5CF400A7725D /* Koin.swift */,
-				F1465F0623AA94BF0055F7C3 /* Main.storyboard */,
 				F1465F0923AA94BF0055F7C3 /* Assets.xcassets */,
 				F1465F0B23AA94BF0055F7C3 /* LaunchScreen.storyboard */,
 				F1465F0E23AA94BF0055F7C3 /* Info.plist */,
+				46A5B5EE26AF54F7002EFEAA /* BreedListScreen.swift */,
 			);
 			path = KaMPKitiOS;
 			sourceTree = "<group>";
@@ -170,6 +167,7 @@
 				F1465EF923AA94BF0055F7C3 /* Sources */,
 				F1465EFA23AA94BF0055F7C3 /* Frameworks */,
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
+				1B87BED2961AED5869E290C6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -264,9 +262,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46A5B60826B04921002EFEAA /* Main.storyboard in Resources */,
 				F1465F0D23AA94BF0055F7C3 /* LaunchScreen.storyboard in Resources */,
 				F1465F0A23AA94BF0055F7C3 /* Assets.xcassets in Resources */,
-				F1465F0823AA94BF0055F7C3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +285,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1B87BED2961AED5869E290C6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-KaMPKitiOS/Pods-KaMPKitiOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		DE3B37D33D11C1968D62DBBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -317,8 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46B5284D249C5CF400A7725D /* Koin.swift in Sources */,
-				45E5A5EE249A6FFF00C3791B /* BreedCell.swift in Sources */,
-				F1465F0523AA94BF0055F7C3 /* ViewController.swift in Sources */,
+				46A5B5EF26AF54F7002EFEAA /* BreedListScreen.swift in Sources */,
 				F1465F0123AA94BF0055F7C3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,10 +369,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F1465F0623AA94BF0055F7C3 /* Main.storyboard */ = {
+		46A5B60626B04920002EFEAA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F1465F0723AA94BF0055F7C3 /* Base */,
+				46A5B60726B04920002EFEAA /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

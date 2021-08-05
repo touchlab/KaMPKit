@@ -3,8 +3,8 @@ object Versions {
     val target_sdk = 30
     val compile_sdk = 30
 
-    val kotlin = "1.5.10"
-    val android_gradle_plugin = "4.1.1"
+    val kotlin = "1.5.21"
+    val android_gradle_plugin = "7.0.0"
 
     val buildToolsVersion = "30.0.3"
     val coroutines = "1.5.0-native-mt"
@@ -21,17 +21,19 @@ object Versions {
     val stately = "1.1.7"
     val serialization = "1.2.1"
     val kotlinxDateTime = "0.2.1"
-    val turbine = "0.5.1"
+    val turbine = "0.5.2"
 
     object AndroidX {
-        val appcompat = "1.3.0"
-        val constraintlayout = "2.0.4"
-        val core = "1.5.0"
-        val lifecycle = "2.3.1"
-        val recyclerview = "1.2.0"
-        val swipeRefresh = "1.1.0"
+        val core = "1.6.0"
+        val lifecycle = "2.4.0-alpha02"
         val test = "1.3.0"
         val test_ext = "1.1.2"
+    }
+
+    object Compose {
+        const val compose = "1.0.1"
+        const val activity = "1.3.0"
+        const val accompanist = "0.13.0"
     }
 }
 
@@ -52,16 +54,11 @@ object Deps {
     val turbine = "app.cash.turbine:turbine:${Versions.turbine}"
 
     object AndroidX {
-        val appcompat = "androidx.appcompat:appcompat:${Versions.AndroidX.appcompat}"
         val core_ktx = "androidx.core:core-ktx:${Versions.AndroidX.core}"
-        val constraintlayout = "androidx.constraintlayout:constraintlayout:${Versions.AndroidX.constraintlayout}"
-        val recyclerView = "androidx.recyclerview:recyclerview:${Versions.AndroidX.recyclerview}"
-        val swipeRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.AndroidX.swipeRefresh}"
 
         val lifecycle_runtime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel = "androidx.lifecycle:lifecycle-viewmodel:${Versions.AndroidX.lifecycle}"
         val lifecycle_viewmodel_extensions = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.AndroidX.lifecycle}"
-        val lifecycle_livedata = "androidx.lifecycle:lifecycle-livedata:${Versions.AndroidX.lifecycle}"
     }
 
     object AndroidXTest {
@@ -69,6 +66,17 @@ object Deps {
         val junit = "androidx.test.ext:junit:${Versions.AndroidX.test_ext}"
         val runner = "androidx.test:runner:${Versions.AndroidX.test}"
         val rules = "androidx.test:rules:${Versions.AndroidX.test}"
+    }
+
+    object Compose {
+        const val ui = "androidx.compose.ui:ui:${Versions.Compose.compose}"
+        const val uiTooling = "androidx.compose.ui:ui-tooling:${Versions.Compose.compose}"
+        const val foundation = "androidx.compose.foundation:foundation:${Versions.Compose.compose}"
+        const val material = "androidx.compose.material:material:${Versions.Compose.compose}"
+        const val activityCompose = "androidx.activity:activity-compose:${Versions.Compose.activity}"
+        object Accompanist {
+            const val swipeRefresh = "com.google.accompanist:accompanist-swiperefresh:${Versions.Compose.accompanist}"
+        }
     }
 
     object KotlinTest {

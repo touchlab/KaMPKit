@@ -4,18 +4,18 @@ plugins {
 }
 
 android {
-    compileSdkVersion(Versions.compile_sdk)
+    compileSdk = Versions.compile_sdk
     buildToolsVersion = Versions.buildToolsVersion
     defaultConfig {
         applicationId = "co.touchlab.kampkit"
-        minSdkVersion(Versions.min_sdk)
-        targetSdkVersion(Versions.target_sdk)
+        minSdk = Versions.min_sdk
+        targetSdk = Versions.target_sdk
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
     buildTypes {
         getByName("release") {
@@ -29,31 +29,31 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    lintOptions {
+    lint {
         isWarningsAsErrors = true
         isAbortOnError = true
     }
 
     buildFeatures {
-        viewBinding = true
+        compose = true
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.Compose.compose
     }
 }
 
 dependencies {
     implementation(project(":shared"))
-    implementation(Deps.AndroidX.recyclerView)
-    implementation(Deps.AndroidX.swipeRefresh)
     implementation(Deps.material)
     coreLibraryDesugaring(Deps.desugarJdkLibs)
-    implementation(Deps.AndroidX.appcompat)
     implementation(Deps.AndroidX.core_ktx)
     implementation(Deps.Ktor.androidCore)
-    implementation(Deps.AndroidX.constraintlayout)
     implementation(Deps.SqlDelight.runtimeJdk)
     implementation(Deps.SqlDelight.driverAndroid)
     implementation(Deps.Coroutines.common)
@@ -64,6 +64,13 @@ dependencies {
     implementation(Deps.AndroidX.lifecycle_runtime)
     implementation(Deps.AndroidX.lifecycle_viewmodel)
     implementation(Deps.AndroidX.lifecycle_viewmodel_extensions)
-    implementation(Deps.AndroidX.lifecycle_livedata)
+
+    implementation(Deps.Compose.activityCompose)
+    implementation(Deps.Compose.ui)
+    implementation(Deps.Compose.uiTooling)
+    implementation(Deps.Compose.foundation)
+    implementation(Deps.Compose.material)
+    implementation(Deps.Compose.Accompanist.swipeRefresh)
+
     testImplementation(Deps.junit)
 }

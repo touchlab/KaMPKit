@@ -18,22 +18,23 @@ import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
 class NativeViewModel(
-    private val onLoading: () -> Unit,
-    private val onSuccess: (ItemDataSummary) -> Unit,
-    private val onError: (String) -> Unit,
-    private val onEmpty: () -> Unit
+    private val onDataState: (DataState<ItemDataSummary>) -> Unit
 ) : KoinComponent {
 
     private val log: Kermit by inject { parametersOf("BreedModel") }
     private val scope = MainScope(Dispatchers.Main, log)
     private val breedModel: BreedModel = BreedModel()
     private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
-        DataState.Loading
+        DataState(loading = true)
     )
 
     init {
         ensureNeverFrozen()
         observeBreeds()
+    }
+
+    fun consumeError() {
+        _breedStateFlow.value = _breedStateFlow.value.copy(exception = null)
     }
 
     @OptIn(FlowPreview::class)
@@ -44,30 +45,19 @@ class NativeViewModel(
                 breedModel.refreshBreedsIfStale(true),
                 breedModel.getBreedsFromCache()
             ).flattenMerge().collect { dataState ->
-                _breedStateFlow.value = dataState
+                if (dataState.loading) {
+                    val temp = _breedStateFlow.value.copy(loading = true)
+                    _breedStateFlow.value = temp
+                } else {
+                    _breedStateFlow.value = dataState
+                }
             }
         }
+
         scope.launch {
             log.v { "Exposing flow through callbacks" }
             _breedStateFlow.collect { dataState ->
-                when (dataState) {
-                    is DataState.Success -> {
-                        log.v { "Success" }
-                        onSuccess(dataState.data)
-                    }
-                    is DataState.Error -> {
-                        log.v { "Error" }
-                        onError(dataState.exception)
-                    }
-                    DataState.Empty -> {
-                        log.v { "Empty" }
-                        onEmpty()
-                    }
-                    DataState.Loading -> {
-                        log.v { "Loading" }
-                        onLoading()
-                    }
-                }
+                onDataState(dataState)
             }
         }
     }
@@ -75,8 +65,13 @@ class NativeViewModel(
     fun refreshBreeds(forced: Boolean = false) {
         scope.launch {
             log.v { "refreshBreeds" }
-            breedModel.refreshBreedsIfStale(forced).collect {
-                _breedStateFlow.value = it
+            breedModel.refreshBreedsIfStale(forced).collect { dataState ->
+                if (dataState.loading) {
+                    val temp = _breedStateFlow.value.copy(loading = true)
+                    _breedStateFlow.value = temp
+                } else {
+                    _breedStateFlow.value = dataState
+                }
             }
         }
     }

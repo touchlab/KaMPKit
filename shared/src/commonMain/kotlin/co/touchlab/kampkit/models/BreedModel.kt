@@ -30,27 +30,16 @@ class BreedModel : KoinComponent {
     }
 
     fun refreshBreedsIfStale(forced: Boolean = false): Flow<DataState<ItemDataSummary>> = flow {
-        emit(DataState.Loading)
+        emit(DataState(loading = true))
         val currentTimeMS = clock.now().toEpochMilliseconds()
         val stale = isBreedListStale(currentTimeMS)
         val networkBreedDataState: DataState<ItemDataSummary>
         if (stale || forced) {
             networkBreedDataState = getBreedsFromNetwork(currentTimeMS)
-            when (networkBreedDataState) {
-                DataState.Empty -> {
-                    // Pass the empty response along
-                    emit(networkBreedDataState)
-                }
-                is DataState.Success -> {
-                    dbHelper.insertBreeds(networkBreedDataState.data.allItems)
-                }
-                is DataState.Error -> {
-                    // Pass the error along
-                    emit(networkBreedDataState)
-                }
-                DataState.Loading -> {
-                    // Won't ever happen
-                }
+            if (networkBreedDataState.data != null) {
+                dbHelper.insertBreeds(networkBreedDataState.data.allItems)
+            } else {
+                emit(networkBreedDataState)
             }
         }
     }
@@ -61,8 +50,8 @@ class BreedModel : KoinComponent {
                 if (itemList.isEmpty()) {
                     null
                 } else {
-                    DataState.Success(
-                        ItemDataSummary(
+                    DataState<ItemDataSummary>(
+                        data = ItemDataSummary(
                             itemList.maxByOrNull { it.name.length },
                             itemList
                         )
@@ -88,9 +77,9 @@ class BreedModel : KoinComponent {
             log.v { "Fetched ${breedList.size} breeds from network" }
             settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
             if (breedList.isEmpty()) {
-                DataState.Empty
+                DataState<ItemDataSummary>(empty = true)
             } else {
-                DataState.Success(
+                DataState<ItemDataSummary>(
                     ItemDataSummary(
                         null,
                         breedList.map { Breed(0L, it, 0L) }
@@ -99,7 +88,7 @@ class BreedModel : KoinComponent {
             }
         } catch (e: Exception) {
             log.e(e) { "Error downloading breed list" }
-            DataState.Error("Unable to download breed list")
+            DataState<ItemDataSummary>(exception = "Unable to download breed list")
         }
     }
 
