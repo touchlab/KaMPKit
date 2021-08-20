@@ -35,7 +35,7 @@ class DogApiImpl(log: Kermit) : KtorApi {
             level = LogLevel.INFO
         }
         install(HttpTimeout) {
-            val timeout = 30000L
+            val timeout = 3000L
             connectTimeoutMillis = timeout
             requestTimeoutMillis = timeout
             socketTimeoutMillis = timeout

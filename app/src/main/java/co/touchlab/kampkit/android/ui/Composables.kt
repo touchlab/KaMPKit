@@ -76,22 +76,25 @@ fun MainScreenContent(
             state = rememberSwipeRefreshState(isRefreshing = dogsState.loading),
             onRefresh = onRefresh
         ) {
-            if (dogsState.empty) {
-                Empty()
-            }
-            val data = dogsState.data
-            if (data != null) {
-                LaunchedEffect(data) {
-                    onSuccess(data)
+            when (dogsState) {
+                is DataState.Empty -> {
+                    Empty()
                 }
-                Success(successData = data, favoriteBreed = onFavorite)
-            }
-            val exception = dogsState.exception
-            if (exception != null) {
-                LaunchedEffect(exception) {
-                    onError(exception)
+                is DataState.Error -> {
+                    LaunchedEffect(dogsState.exception) {
+                        onError(dogsState.exception)
+                    }
+                    Error(dogsState.exception)
                 }
-                Error(exception)
+                DataState.Loading -> {
+                    // Taken care of in SwipeRefresh above
+                }
+                is DataState.Success -> {
+                    LaunchedEffect(dogsState.data) {
+                        onSuccess(dogsState.data)
+                    }
+                    Success(successData = dogsState.data, favoriteBreed = onFavorite)
+                }
             }
         }
     }
@@ -182,7 +185,7 @@ fun FavoriteIcon(breed: Breed) {
 @Composable
 fun MainScreenContentPreview_Success() {
     MainScreenContent(
-        dogsState = DataState(
+        dogsState = DataState.Success(
             data = ItemDataSummary(
                 longestItem = null,
                 allItems = listOf(

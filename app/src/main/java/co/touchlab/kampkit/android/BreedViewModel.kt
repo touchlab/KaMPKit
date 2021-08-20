@@ -24,7 +24,7 @@ class BreedViewModel : ViewModel(), KoinComponent {
     private val scope = viewModelScope
     private val breedModel: BreedModel = BreedModel()
     private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
-        DataState(loading = true)
+        DataState.Loading
     )
 
     val breedStateFlow: StateFlow<DataState<ItemDataSummary>> = _breedStateFlow
@@ -42,7 +42,7 @@ class BreedViewModel : ViewModel(), KoinComponent {
                 breedModel.getBreedsFromCache()
             ).flattenMerge().collect { dataState ->
                 if (dataState.loading) {
-                    val temp = _breedStateFlow.value.copy(loading = true)
+                    val temp = _breedStateFlow.value.copy(isLoading = true)
                     _breedStateFlow.value = temp
                 } else {
                     _breedStateFlow.value = dataState
@@ -56,7 +56,7 @@ class BreedViewModel : ViewModel(), KoinComponent {
             log.v { "refreshBreeds" }
             breedModel.refreshBreedsIfStale(forced).collect { dataState ->
                 if (dataState.loading) {
-                    val temp = _breedStateFlow.value.copy(loading = true)
+                    val temp = _breedStateFlow.value.copy(isLoading = true)
                     _breedStateFlow.value = temp
                 } else {
                     _breedStateFlow.value = dataState
