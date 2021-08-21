@@ -3,6 +3,7 @@ package co.touchlab.kampkit.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import co.touchlab.kampkit.AndroidBreedViewModel
 import co.touchlab.kampkit.android.ui.MainScreen
 import co.touchlab.kampkit.android.ui.theme.KaMPKitTheme
 import co.touchlab.kampkit.models.DataState
@@ -15,7 +16,7 @@ import org.koin.core.parameter.parametersOf
 class MainActivity : ComponentActivity(), KoinComponent {
 
     private val log: Kermit by inject { parametersOf("MainActivity") }
-    private val viewModel: BreedViewModel by viewModel()
+    private val viewModel: AndroidBreedViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

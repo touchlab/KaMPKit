@@ -1,6 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
@@ -9,11 +8,9 @@ import co.touchlab.stately.ensureNeverFrozen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flattenMerge
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
@@ -21,15 +18,23 @@ class NativeViewModel(
     private val onSuccess: (DataState.Success<ItemDataSummary>) -> Unit,
     private val onError: (DataState.Error) -> Unit,
     private val onEmpty: (DataState.Empty) -> Unit,
-    private val onLoading: () -> Unit
-) : KoinComponent {
+    private val onLoading: () -> Unit,
+) : BreedViewModel {
 
-    private val log: Kermit by inject { parametersOf("BreedModel") }
-    private val scope = MainScope(Dispatchers.Main, log)
-    private val breedModel: BreedModel = BreedModel()
-    private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
-        DataState.Loading
-    )
+    override val log: Kermit by inject { parametersOf("BreedModel") }
+    override val scope = MainScope(Dispatchers.Main, log)
+    override val breedModel: BreedModel = BreedModel()
+    private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> =
+        MutableStateFlow(DataState.Loading)
+
+    override fun getFlowValue(): DataState<ItemDataSummary> = _breedStateFlow.value
+
+    override fun setFlowValue(value: DataState<ItemDataSummary>) {
+        _breedStateFlow.value = value
+    }
+
+    override val breedStateFlow: StateFlow<DataState<ItemDataSummary>>
+        get() = _breedStateFlow
 
     init {
         ensureNeverFrozen()
@@ -37,25 +42,12 @@ class NativeViewModel(
     }
 
     @OptIn(FlowPreview::class)
-    fun observeBreeds() {
-        scope.launch {
-            log.v { "getBreeds: Collecting Things" }
-            flowOf(
-                breedModel.refreshBreedsIfStale(true),
-                breedModel.getBreedsFromCache()
-            ).flattenMerge().collect { dataState ->
-                if (dataState.loading) {
-                    val temp = _breedStateFlow.value.copy(isLoading = true)
-                    _breedStateFlow.value = temp
-                } else {
-                    _breedStateFlow.value = dataState
-                }
-            }
-        }
+    override fun observeBreeds() {
+        super.observeBreeds()
 
         scope.launch {
             log.v { "Exposing flow through callbacks" }
-            _breedStateFlow.collect { dataState ->
+            breedStateFlow.collect { dataState ->
                 when (dataState) {
                     is DataState.Success -> onSuccess(dataState)
                     is DataState.Error -> onError(dataState)
@@ -63,26 +55,6 @@ class NativeViewModel(
                     is DataState.Loading -> onLoading()
                 }
             }
-        }
-    }
-
-    fun refreshBreeds(forced: Boolean = false) {
-        scope.launch {
-            log.v { "refreshBreeds" }
-            breedModel.refreshBreedsIfStale(forced).collect { dataState ->
-                if (dataState.loading) {
-                    val temp = _breedStateFlow.value.copy(isLoading = true)
-                    _breedStateFlow.value = temp
-                } else {
-                    _breedStateFlow.value = dataState
-                }
-            }
-        }
-    }
-
-    fun updateBreedFavorite(breed: Breed) {
-        scope.launch {
-            breedModel.updateBreedFavorite(breed)
         }
     }
 
