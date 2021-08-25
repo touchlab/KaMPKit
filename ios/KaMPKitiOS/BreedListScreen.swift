@@ -9,26 +9,27 @@
 import SwiftUI
 import shared
 
+// swiftlint:disable force_cast
 private let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
 
 class ObservableBreedModel: ObservableObject {
-    private var viewModel: NativeViewModel? = nil
-    
+    private var viewModel: NativeViewModel?
+
     @Published
     var loading = false
-    
+
     @Published
-    var breeds: [Breed]? = nil
-    
+    var breeds: [Breed]?
+
     @Published
-    var error: String? = nil
-    
+    var error: String?
+
     func activate() {
         viewModel = NativeViewModel { [weak self] dataState in
             self?.loading = dataState.loading
             self?.breeds = dataState.data?.allItems
             self?.error = dataState.exception
-            
+
             if let breeds = dataState.data?.allItems {
                 log.d(withMessage: {"View updating with \(breeds.count) breeds"})
             }
@@ -37,16 +38,16 @@ class ObservableBreedModel: ObservableObject {
             }
         }
     }
-    
+
     func deactivate() {
         viewModel?.onDestroy()
         viewModel = nil
     }
-    
+
     func onBreedFavorite(_ breed: Breed) {
         viewModel?.updateBreedFavorite(breed: breed)
     }
-    
+
     func refresh() {
         viewModel?.refreshBreeds(forced: true)
     }
@@ -55,7 +56,7 @@ class ObservableBreedModel: ObservableObject {
 struct BreedListScreen: View {
     @ObservedObject
     var observableModel = ObservableBreedModel()
-    
+
     var body: some View {
         BreedListContent(
             loading: observableModel.loading,
@@ -63,7 +64,6 @@ struct BreedListScreen: View {
             error: observableModel.error,
             onBreedFavorite: { observableModel.onBreedFavorite($0) },
             refresh: { observableModel.refresh() }
-            
         )
         .onAppear(perform: {
             observableModel.activate()
@@ -74,13 +74,13 @@ struct BreedListScreen: View {
     }
 }
 
-struct BreedListContent : View{
+struct BreedListContent: View {
     var loading: Bool
     var breeds: [Breed]?
     var error: String?
     var onBreedFavorite: (Breed) -> Void
     var refresh: () -> Void
-    
+
     var body: some View {
         ZStack {
             VStack {
@@ -99,9 +99,7 @@ struct BreedListContent : View{
                     refresh()
                 }
             }
-            if (loading) {
-                Text("Loading...")
-            }
+            if loading { Text("Loading...") }
         }
     }
 }
@@ -109,10 +107,10 @@ struct BreedListContent : View{
 struct BreedRowView: View {
     var breed: Breed
     var onTap: () -> Void
-    
+
     var body: some View {
         Button(action: onTap) {
-            HStack() {
+            HStack {
                 Text(breed.name)
                     .padding(4.0)
                 Spacer()
@@ -123,7 +121,7 @@ struct BreedRowView: View {
     }
 }
 
-struct BreedListScreen_Preview: PreviewProvider {
+struct BreedListScreen_Previews: PreviewProvider {
     static var previews: some View {
         BreedListContent(
             loading: false,
