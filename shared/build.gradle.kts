@@ -10,10 +10,10 @@ plugins {
 }
 
 android {
-    compileSdk = Versions.compile_sdk
+    compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
-        minSdk = Versions.min_sdk
-        targetSdk = Versions.target_sdk
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,26 +58,18 @@ kotlin {
     }
 
     sourceSets["commonMain"].dependencies {
-        implementation(Deps.SqlDelight.runtime)
-        implementation(Deps.SqlDelight.coroutinesExtensions)
-        implementation(Deps.Ktor.commonCore)
-        implementation(Deps.Ktor.commonJson)
-        implementation(Deps.Ktor.commonLogging)
-        implementation(Deps.Coroutines.common)
-        implementation(Deps.stately)
-        implementation(Deps.multiplatformSettings)
-        implementation(Deps.koinCore)
-        implementation(Deps.Ktor.commonSerialization)
-        implementation(Deps.kotlinxDateTime)
-        api(Deps.kermit)
+        implementation(libs.koin.core)
+        implementation(libs.coroutines.core)
+        implementation(libs.sqlDelight.coroutinesExt)
+        implementation(libs.bundles.ktor.common)
+        implementation(libs.touchlab.stately)
+        implementation(libs.multiplatformSettings.common)
+        implementation(libs.kotlinx.dateTime)
+        api(libs.touchlab.kermit)
     }
 
     sourceSets["commonTest"].dependencies {
-        implementation(Deps.multiplatformSettingsTest)
-        implementation(Deps.KotlinTest.common)
-        implementation(Deps.KotlinTest.annotations)
-        implementation(Deps.koinTest)
-        implementation(Deps.turbine)
+        implementation(libs.bundles.shared.commonTest)
     }
 
     sourceSets.matching { it.name.endsWith("Test") }
@@ -86,30 +78,22 @@ kotlin {
         }
 
     sourceSets["androidMain"].dependencies {
-        implementation(kotlin("stdlib", Versions.kotlin))
-        implementation(Deps.SqlDelight.driverAndroid)
-        implementation(Deps.Coroutines.android)
-        implementation(Deps.Ktor.androidCore)
+        implementation(libs.sqlDelight.android)
+        implementation(libs.ktor.client.okHttp)
     }
 
     sourceSets["androidTest"].dependencies {
-        implementation(Deps.KotlinTest.jvm)
-        implementation(Deps.KotlinTest.junit)
-        implementation(Deps.AndroidXTest.core)
-        implementation(Deps.AndroidXTest.junit)
-        implementation(Deps.AndroidXTest.runner)
-        implementation(Deps.AndroidXTest.rules)
-        implementation(Deps.Coroutines.test)
-        implementation(Deps.robolectric)
+        implementation(libs.bundles.shared.androidTest)
     }
 
     sourceSets["iosMain"].dependencies {
-        implementation(Deps.SqlDelight.driverIos)
-        implementation(Deps.Ktor.ios)
-
-        implementation(Deps.Coroutines.common) {
+        implementation(libs.sqlDelight.native)
+        implementation(libs.ktor.client.ios)
+        implementation(libs.coroutines.core)
+        val coroutineCore = libs.coroutines.core.get()
+        implementation("${coroutineCore.module.group}:${coroutineCore.module.name}:${coroutineCore.versionConstraint.displayName}") {
             version {
-                strictly(Versions.coroutines)
+                strictly(libs.versions.coroutines.native.get())
             }
         }
     }
@@ -123,7 +107,7 @@ kotlin {
     targets.withType<KotlinNativeTarget> {
         binaries.withType<Framework> {
             isStatic = false // SwiftUI preview requires dynamic framework
-            export(Deps.kermit)
+            export(libs.touchlab.kermit)
             transitiveExport = true
         }
     }
