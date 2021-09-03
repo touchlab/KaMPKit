@@ -62,6 +62,7 @@ class SqlDelightTest : BaseTest() {
             "Favorite Did Not Save"
         )
     }
+
     @Test
     fun `Delete All Success`() = runTest {
         dbHelper.insertBreed("Poodle")

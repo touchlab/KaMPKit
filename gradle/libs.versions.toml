@@ -55,6 +55,8 @@ ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", vers
 multiplatformSettings-common = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
 
+roboelectric = { module = "org.robolectric:robolectric", version = "4.5.1"}
+
 sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
@@ -92,4 +94,5 @@ shared-commonTest = [
 shared-androidTest = [
     "androidx-test-junit",
     "coroutines-test",
+    "roboelectric"
 ]
