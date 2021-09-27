@@ -4,35 +4,29 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven("https://plugins.gradle.org/m2/")
     }
     dependencies {
-        classpath(Deps.android_gradle_plugin)
-        classpath(Deps.SqlDelight.gradle)
-        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.kotlin}")
-
-        classpath(kotlin("gradle-plugin", Versions.kotlin))
+        val libs = project.extensions.getByType<VersionCatalogsExtension>().named("libs")
+            as org.gradle.accessors.dm.LibrariesForLibs
+        classpath(libs.bundles.gradlePlugins)
+        classpath(kotlin("gradle-plugin", libs.versions.kotlin.get()))
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build gradle files
     }
-}
-
-plugins {
-    id("org.jlleitschuh.gradle.ktlint") version Versions.ktlint_gradle_plugin
 }
 
 allprojects {
     repositories {
         google()
         mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
     }
 }
 
 subprojects {
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
-    ktlint {
-        version.set("0.37.2")
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {
