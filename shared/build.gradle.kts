@@ -121,7 +121,7 @@ kotlin {
             export(Deps.kermit)
             transitiveExport = true
         }
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
     }
 }

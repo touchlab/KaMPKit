@@ -13,7 +13,7 @@
   "libraries": "c++",
   "module_name": "shared_umbrella",
   "platforms": {
-    "ios": "14.1"
+    "ios": "10.0"
   },
   "pod_target_xcconfig": {
     "KOTLIN_PROJECT_PATH": ":shared",
