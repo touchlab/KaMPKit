@@ -2,6 +2,7 @@ package co.touchlab.kampkit
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -12,6 +13,6 @@ actual abstract class BaseTest {
     var coroutineTestRule = CoroutineTestRule()
 
     actual fun <T> runTest(block: suspend CoroutineScope.() -> T) {
-        runBlocking { block() }
+        runBlocking { coroutineScope(block) }
     }
 }

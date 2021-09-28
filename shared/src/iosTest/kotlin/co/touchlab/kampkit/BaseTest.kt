@@ -4,6 +4,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import platform.CoreFoundation.CFRunLoopGetCurrent
 import platform.CoreFoundation.CFRunLoopRun
@@ -15,7 +16,7 @@ actual abstract class BaseTest {
         var error: Throwable? = null
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                block()
+                coroutineScope(block)
             } catch (t: Throwable) {
                 error = t
             } finally {
