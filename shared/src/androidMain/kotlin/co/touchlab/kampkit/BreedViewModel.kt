@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import co.touchlab.kampkit.viewmodel.BreedViewModelInterface
 import co.touchlab.kampkit.viewmodel.SharedBreedViewModel
 
-class BreedViewModel : ViewModel(),
+class BreedViewModel :
+    ViewModel(),
     BreedViewModelInterface by SharedBreedViewModel() {
 
     init {

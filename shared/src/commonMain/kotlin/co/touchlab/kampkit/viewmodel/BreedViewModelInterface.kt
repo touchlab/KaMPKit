@@ -16,11 +16,11 @@ import org.koin.core.component.KoinComponent
 
 interface BreedViewModelInterface : KoinComponent {
 
-    var scope:CoroutineScope
+    var scope: CoroutineScope
     val log: Kermit
     val breedModel: BreedModel
 
-    fun initWithScope(newScope:CoroutineScope){
+    fun initWithScope(newScope: CoroutineScope) {
         this.scope = newScope
         observeBreeds()
     }
