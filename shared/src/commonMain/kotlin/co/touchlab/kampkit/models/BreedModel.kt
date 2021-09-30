@@ -30,13 +30,13 @@ class BreedModel : KoinComponent {
     }
 
     fun refreshBreedsIfStale(forced: Boolean = false): Flow<DataState<ItemDataSummary>> = flow {
-        emit(DataState(loading = true))
+        emit(DataState.Loading)
         val currentTimeMS = clock.now().toEpochMilliseconds()
         val stale = isBreedListStale(currentTimeMS)
         val networkBreedDataState: DataState<ItemDataSummary>
         if (stale || forced) {
             networkBreedDataState = getBreedsFromNetwork(currentTimeMS)
-            if (networkBreedDataState.data != null) {
+            if (networkBreedDataState is DataState.Success) {
                 dbHelper.insertBreeds(networkBreedDataState.data.allItems)
             } else {
                 emit(networkBreedDataState)
@@ -50,7 +50,7 @@ class BreedModel : KoinComponent {
                 if (itemList.isEmpty()) {
                     null
                 } else {
-                    DataState<ItemDataSummary>(
+                    DataState.Success(
                         data = ItemDataSummary(
                             itemList.maxByOrNull { it.name.length },
                             itemList
@@ -77,9 +77,9 @@ class BreedModel : KoinComponent {
             log.v { "Fetched ${breedList.size} breeds from network" }
             settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
             if (breedList.isEmpty()) {
-                DataState<ItemDataSummary>(empty = true)
+                DataState.Empty()
             } else {
-                DataState<ItemDataSummary>(
+                DataState.Success(
                     ItemDataSummary(
                         null,
                         breedList.map { Breed(0L, it, 0L) }
@@ -88,7 +88,7 @@ class BreedModel : KoinComponent {
             }
         } catch (e: Exception) {
             log.e(e) { "Error downloading breed list" }
-            DataState<ItemDataSummary>(exception = "Unable to download breed list")
+            DataState.Error(exception = "Unable to download breed list")
         }
     }
 

@@ -1,40 +1,32 @@
-package co.touchlab.kampkit.android
+package co.touchlab.kampkit
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
-import org.koin.core.parameter.parametersOf
 
-class BreedViewModel : ViewModel(), KoinComponent {
+interface BreedViewModel : KoinComponent {
 
-    private val log: Kermit by inject { parametersOf("BreedViewModel") }
-    private val scope = viewModelScope
-    private val breedModel: BreedModel = BreedModel()
-    private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
-        DataState(loading = true)
-    )
+    val log: Kermit
+    val scope: CoroutineScope
+    val breedModel: BreedModel
 
-    val breedStateFlow: StateFlow<DataState<ItemDataSummary>> = _breedStateFlow
+    fun getFlowValue(): DataState<ItemDataSummary>
+    fun setFlowValue(value: DataState<ItemDataSummary>)
 
-    init {
-        observeBreeds()
-    }
+    val breedStateFlow: StateFlow<DataState<ItemDataSummary>>
 
     @OptIn(FlowPreview::class)
-    private fun observeBreeds() {
+    fun observeBreeds() {
         scope.launch {
             log.v { "getBreeds: Collecting Things" }
             flowOf(
@@ -42,10 +34,10 @@ class BreedViewModel : ViewModel(), KoinComponent {
                 breedModel.getBreedsFromCache()
             ).flattenMerge().collect { dataState ->
                 if (dataState.loading) {
-                    val temp = _breedStateFlow.value.copy(loading = true)
-                    _breedStateFlow.value = temp
+                    val temp = getFlowValue().copy(isLoading = true)
+                    setFlowValue(temp)
                 } else {
-                    _breedStateFlow.value = dataState
+                    setFlowValue(dataState)
                 }
             }
         }
@@ -56,10 +48,10 @@ class BreedViewModel : ViewModel(), KoinComponent {
             log.v { "refreshBreeds" }
             breedModel.refreshBreedsIfStale(forced).collect { dataState ->
                 if (dataState.loading) {
-                    val temp = _breedStateFlow.value.copy(loading = true)
-                    _breedStateFlow.value = temp
+                    val temp = getFlowValue().copy(isLoading = true)
+                    setFlowValue(temp)
                 } else {
-                    _breedStateFlow.value = dataState
+                    setFlowValue(dataState)
                 }
             }
         }

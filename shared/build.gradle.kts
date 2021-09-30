@@ -78,8 +78,11 @@ kotlin {
         }
 
     sourceSets["androidMain"].dependencies {
-        implementation(libs.sqlDelight.android)
-        implementation(libs.ktor.client.okHttp)
+        implementation(kotlin("stdlib", Versions.kotlin))
+        implementation(Deps.SqlDelight.driverAndroid)
+        implementation(Deps.Coroutines.android)
+        implementation(Deps.Ktor.androidCore)
+        implementation(Deps.AndroidX.lifecycle_viewmodel_extensions)
     }
 
     sourceSets["androidTest"].dependencies {

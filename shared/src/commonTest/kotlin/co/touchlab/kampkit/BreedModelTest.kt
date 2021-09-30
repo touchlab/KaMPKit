@@ -42,10 +42,10 @@ class BreedModelTest : BaseTest() {
         private val appenzeller = Breed(1, "appenzeller", 0L)
         private val australianNoLike = Breed(2, "australian", 0L)
         private val australianLike = Breed(2, "australian", 1L)
-        val dataStateSuccessNoFavorite = DataState(
+        val dataStateSuccessNoFavorite = DataState.Success(
             data = ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
         )
-        private val dataStateSuccessFavorite = DataState(
+        private val dataStateSuccessFavorite = DataState.Success(
             data = ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
         )
     }
@@ -61,7 +61,7 @@ class BreedModelTest : BaseTest() {
         settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMS)
         assertTrue(ktorApi.calledCount == 0)
 
-        val expectedError = DataState<ItemDataSummary>(exception = "Unable to download breed list")
+        val expectedError = DataState.Error(exception = "Unable to download breed list")
         val actualError = model.getBreedsFromNetwork(0L)
 
         assertEquals(
@@ -79,7 +79,7 @@ class BreedModelTest : BaseTest() {
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
             .flattenMerge().test {
                 // Loading
-                assertEquals(DataState(loading = true), expectItem())
+                assertEquals(DataState.Loading, expectItem())
                 // No Favorites
                 assertEquals(dataStateSuccessNoFavorite, expectItem())
                 // Add 1 favorite breed
@@ -98,7 +98,7 @@ class BreedModelTest : BaseTest() {
             flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
                 .flattenMerge().test {
                     // Loading
-                    assertEquals(DataState(loading = true), expectItem())
+                    assertEquals(DataState.Loading, expectItem())
                     assertEquals(dataStateSuccessNoFavorite, expectItem())
                     // "Like" the Australian breed
                     model.updateBreedFavorite(australianNoLike)
@@ -114,7 +114,7 @@ class BreedModelTest : BaseTest() {
             flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
                 .flattenMerge().test {
                     // Loading
-                    assertEquals(DataState(loading = true), expectItem())
+                    assertEquals(DataState.Loading, expectItem())
                     // Get the new result with the Australian breed liked
                     assertEquals(dataStateSuccessFavorite, expectItem())
                     cancel()
@@ -129,10 +129,10 @@ class BreedModelTest : BaseTest() {
         ktorApi.prepareResult(successResult)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
             .test(timeout = Duration.seconds(30)) {
-                assertEquals(DataState(loading = true), expectItem())
+                assertEquals(DataState.Loading, expectItem())
                 val oldBreeds = expectItem()
+                assertTrue(oldBreeds is DataState.Success)
                 val data = oldBreeds.data
-                assertTrue(data != null)
                 assertEquals(
                     ktorApi.successResult().message.keys.size,
                     data.allItems.size
@@ -146,11 +146,14 @@ class BreedModelTest : BaseTest() {
         ktorApi.prepareResult(resultWithExtraBreed)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
             .test(timeout = Duration.seconds(30)) {
-                assertEquals(DataState(loading = true), expectItem())
+                assertEquals(DataState.Loading, expectItem())
                 val updated = expectItem()
+                assertTrue(updated is DataState.Success)
                 val data = updated.data
-                assertTrue(data != null)
-                assertEquals(resultWithExtraBreed.message.keys.size, data.allItems.size)
+                assertEquals(
+                    resultWithExtraBreed.message.keys.size,
+                    data.allItems.size
+                )
             }
     }
 

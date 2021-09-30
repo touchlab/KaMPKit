@@ -25,18 +25,28 @@ class ObservableBreedModel: ObservableObject {
     var error: String?
 
     func activate() {
-        viewModel = NativeViewModel { [weak self] dataState in
-            self?.loading = dataState.loading
-            self?.breeds = dataState.data?.allItems
-            self?.error = dataState.exception
-
-            if let breeds = dataState.data?.allItems {
-                log.d(withMessage: {"View updating with \(breeds.count) breeds"})
+        viewModel = NativeViewModel(
+            onSuccess: { [weak self] success in
+                self?.loading = success.loading
+                let items = success.data?.allItems
+                let count = items?.count ?? 0
+                self?.breeds = items
+                log.d(withMessage: {"View updating with \(count) breeds"})
+                self?.error = nil
+            },
+            onError: { [weak self] error in
+                self?.loading = error.loading
+                self?.error = error.exception
+                log.e(withMessage: {"Displaying error: \(error.exception)"})
+            },
+            onEmpty: { [weak self] empty in
+                self?.loading = empty.loading
+                self?.error = nil
+            },
+            onLoading: { [weak self] in
+                self?.loading = true
             }
-            if let errorMessage = dataState.exception {
-                log.e(withMessage: {"Displaying error: \(errorMessage)"})
-            }
-        }
+        )
     }
 
     func deactivate() {
@@ -94,6 +104,9 @@ struct BreedListContent: View {
                 if let error = error {
                     Text(error)
                         .foregroundColor(.red)
+                }
+                if (breeds == nil || error == nil) {
+                    Spacer()
                 }
                 Button("Refresh") {
                     refresh()
