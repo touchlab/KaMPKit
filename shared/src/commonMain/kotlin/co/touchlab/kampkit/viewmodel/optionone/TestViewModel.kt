@@ -1,4 +1,4 @@
-package com.nbc.identity.viewmodel
+package co.touchlab.kampkit.optionone
 
 import co.touchlab.kermit.Kermit
 import kotlinx.coroutines.CoroutineScope
