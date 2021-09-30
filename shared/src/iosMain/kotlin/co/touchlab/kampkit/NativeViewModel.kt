@@ -5,6 +5,7 @@ import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Kermit
 import co.touchlab.stately.ensureNeverFrozen
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,32 +20,17 @@ class NativeViewModel(
     private val onError: (DataState.Error) -> Unit,
     private val onEmpty: (DataState.Empty) -> Unit,
     private val onLoading: () -> Unit,
-) : BreedViewModel {
+) : BreedViewModel by BreedViewModelImpl() {
 
-    override val log: Kermit by inject { parametersOf("BreedModel") }
-    override val scope = MainScope(Dispatchers.Main, log)
-    override val breedModel: BreedModel = BreedModel()
-    private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> =
-        MutableStateFlow(DataState.Loading)
-
-    override fun getFlowValue(): DataState<ItemDataSummary> = _breedStateFlow.value
-
-    override fun setFlowValue(value: DataState<ItemDataSummary>) {
-        _breedStateFlow.value = value
-    }
-
-    override val breedStateFlow: StateFlow<DataState<ItemDataSummary>>
-        get() = _breedStateFlow
+    private val mainScope = MainScope(Dispatchers.Main, log)
 
     init {
         ensureNeverFrozen()
-        observeBreeds()
+        initWithScope(mainScope)
     }
 
     @OptIn(FlowPreview::class)
     override fun observeBreeds() {
-        super.observeBreeds()
-
         scope.launch {
             log.v { "Exposing flow through callbacks" }
             breedStateFlow.collect { dataState ->
@@ -59,6 +45,6 @@ class NativeViewModel(
     }
 
     fun onDestroy() {
-        scope.onDestroy()
+        mainScope.onDestroy()
     }
 }

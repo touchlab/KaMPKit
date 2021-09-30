@@ -24,6 +24,9 @@ android {
 }
 
 version = "1.0"
+dependencies {
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+}
 
 android {
     configurations {
@@ -78,11 +81,10 @@ kotlin {
         }
 
     sourceSets["androidMain"].dependencies {
-        implementation(kotlin("stdlib", Versions.kotlin))
-        implementation(Deps.SqlDelight.driverAndroid)
-        implementation(Deps.Coroutines.android)
-        implementation(Deps.Ktor.androidCore)
-        implementation(Deps.AndroidX.lifecycle_viewmodel_extensions)
+        implementation(libs.sqlDelight.android)
+        implementation(libs.ktor.client.okHttp)
+        implementation(libs.coroutines.core)
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     }
 
     sourceSets["androidTest"].dependencies {

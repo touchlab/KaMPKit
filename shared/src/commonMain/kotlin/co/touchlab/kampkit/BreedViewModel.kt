@@ -16,9 +16,14 @@ import org.koin.core.component.KoinComponent
 
 interface BreedViewModel : KoinComponent {
 
+    var scope:CoroutineScope
     val log: Kermit
-    val scope: CoroutineScope
     val breedModel: BreedModel
+
+    fun initWithScope(newScope:CoroutineScope){
+        this.scope = newScope
+        observeBreeds()
+    }
 
     fun getFlowValue(): DataState<ItemDataSummary>
     fun setFlowValue(value: DataState<ItemDataSummary>)
