@@ -3,10 +3,8 @@ package co.touchlab.kampkit.android
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import co.touchlab.kampkit.BreedViewModel
 import co.touchlab.kampkit.android.ui.MainScreen
 import co.touchlab.kampkit.android.ui.theme.KaMPKitTheme
-import co.touchlab.kampkit.models.DataState
 import co.touchlab.kermit.Kermit
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
@@ -25,7 +23,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
                 MainScreen(viewModel, log)
             }
         }
-        if (viewModel.breedStateFlow.value !is DataState.Success) {
+        if (viewModel.breedStateFlow.value.data == null) {
             viewModel.refreshBreeds()
         }
     }

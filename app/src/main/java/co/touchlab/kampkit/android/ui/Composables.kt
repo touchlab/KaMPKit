@@ -31,7 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
-import co.touchlab.kampkit.BreedViewModel
+import co.touchlab.kampkit.android.BreedViewModel
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.DataState
@@ -76,25 +76,22 @@ fun MainScreenContent(
             state = rememberSwipeRefreshState(isRefreshing = dogsState.loading),
             onRefresh = onRefresh
         ) {
-            when (dogsState) {
-                is DataState.Empty -> {
-                    Empty()
+            if (dogsState.empty) {
+                Empty()
+            }
+            val data = dogsState.data
+            if (data != null) {
+                LaunchedEffect(data) {
+                    onSuccess(data)
                 }
-                is DataState.Error -> {
-                    LaunchedEffect(dogsState.exception) {
-                        onError(dogsState.exception)
-                    }
-                    Error(dogsState.exception)
+                Success(successData = data, favoriteBreed = onFavorite)
+            }
+            val exception = dogsState.exception
+            if (exception != null) {
+                LaunchedEffect(exception) {
+                    onError(exception)
                 }
-                DataState.Loading -> {
-                    // Taken care of in SwipeRefresh above
-                }
-                is DataState.Success -> {
-                    LaunchedEffect(dogsState.data) {
-                        onSuccess(dogsState.data)
-                    }
-                    Success(successData = dogsState.data, favoriteBreed = onFavorite)
-                }
+                Error(exception)
             }
         }
     }
@@ -185,7 +182,7 @@ fun FavoriteIcon(breed: Breed) {
 @Composable
 fun MainScreenContentPreview_Success() {
     MainScreenContent(
-        dogsState = DataState.Success(
+        dogsState = DataState(
             data = ItemDataSummary(
                 longestItem = null,
                 allItems = listOf(
