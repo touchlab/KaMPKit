@@ -1,4 +1,4 @@
-package co.touchlab.kampkit
+package co.touchlab.kampkit.viewmodel
 
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-class BreedViewModelImpl : BreedViewModel {
+open class SharedBreedViewModel : BreedViewModelInterface {
 
     override lateinit var scope: CoroutineScope
     override val log: Kermit by inject { parametersOf("BreedViewModel") }

@@ -31,7 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
-import co.touchlab.kampkit.AndroidBreedViewModel
+import co.touchlab.kampkit.BreedViewModel
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.DataState
@@ -42,7 +42,7 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun MainScreen(
-    viewModel: AndroidBreedViewModel,
+    viewModel: BreedViewModel,
     log: Kermit
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current

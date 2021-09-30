@@ -1,26 +1,21 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
-import co.touchlab.kermit.Kermit
+import co.touchlab.kampkit.viewmodel.BreedViewModelInterface
+import co.touchlab.kampkit.viewmodel.SharedBreedViewModel
 import co.touchlab.stately.ensureNeverFrozen
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.core.component.inject
-import org.koin.core.parameter.parametersOf
 
-class NativeViewModel(
+class BreedViewModel(
     private val onSuccess: (DataState.Success<ItemDataSummary>) -> Unit,
     private val onError: (DataState.Error) -> Unit,
     private val onEmpty: (DataState.Empty) -> Unit,
     private val onLoading: () -> Unit,
-) : BreedViewModel by BreedViewModelImpl() {
+) : BreedViewModelInterface by SharedBreedViewModel() {
 
     private val mainScope = MainScope(Dispatchers.Main, log)
 

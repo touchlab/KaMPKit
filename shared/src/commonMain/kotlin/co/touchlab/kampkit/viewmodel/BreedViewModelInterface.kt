@@ -1,4 +1,4 @@
-package co.touchlab.kampkit
+package co.touchlab.kampkit.viewmodel
 
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedModel
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 
-interface BreedViewModel : KoinComponent {
+interface BreedViewModelInterface : KoinComponent {
 
     var scope:CoroutineScope
     val log: Kermit
