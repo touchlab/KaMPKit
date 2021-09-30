@@ -16,7 +16,7 @@ open class SharedBreedViewModel : BreedViewModelInterface {
     override val log: Kermit by inject { parametersOf("BreedViewModel") }
     override val breedModel: BreedModel = BreedModel()
     private val _breedStateFlow: MutableStateFlow<DataState<ItemDataSummary>> =
-        MutableStateFlow(DataState.Loading)
+        MutableStateFlow(DataState())
 
     override fun getFlowValue(): DataState<ItemDataSummary> = _breedStateFlow.value
 

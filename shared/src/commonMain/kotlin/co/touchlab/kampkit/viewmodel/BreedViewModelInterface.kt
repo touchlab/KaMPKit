@@ -39,7 +39,7 @@ interface BreedViewModelInterface : KoinComponent {
                 breedModel.getBreedsFromCache()
             ).flattenMerge().collect { dataState ->
                 if (dataState.loading) {
-                    val temp = getFlowValue().copy(isLoading = true)
+                    val temp = getFlowValue().copy(loading = true)
                     setFlowValue(temp)
                 } else {
                     setFlowValue(dataState)
@@ -53,7 +53,7 @@ interface BreedViewModelInterface : KoinComponent {
             log.v { "refreshBreeds" }
             breedModel.refreshBreedsIfStale(forced).collect { dataState ->
                 if (dataState.loading) {
-                    val temp = getFlowValue().copy(isLoading = true)
+                    val temp = getFlowValue().copy(loading = true)
                     setFlowValue(temp)
                 } else {
                     setFlowValue(dataState)
