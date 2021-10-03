@@ -168,7 +168,7 @@
 				451A87F626D69EA40013D7F8 /* SwiftLint */,
 				F1465EFA23AA94BF0055F7C3 /* Frameworks */,
 				F1465EFB23AA94BF0055F7C3 /* Resources */,
-				1B87BED2961AED5869E290C6 /* [CP] Embed Pods Frameworks */,
+				334F3E486CEFA5CAC05EF706 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -286,7 +286,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B87BED2961AED5869E290C6 /* [CP] Embed Pods Frameworks */ = {
+		334F3E486CEFA5CAC05EF706 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (

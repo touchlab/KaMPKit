@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -51,8 +48,8 @@ kotlin {
     sourceSets {
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
     }
@@ -80,6 +77,8 @@ kotlin {
     sourceSets["androidMain"].dependencies {
         implementation(libs.sqlDelight.android)
         implementation(libs.ktor.client.okHttp)
+        implementation(libs.coroutines.core)
+        implementation(libs.androidx.lifecycle.viewmodel)
     }
 
     sourceSets["androidTest"].dependencies {
@@ -101,15 +100,14 @@ kotlin {
     cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
-    }
 
-    // Configure the framework which is generated internally by cocoapods plugin
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
+        framework {
             isStatic = false // SwiftUI preview requires dynamic framework
             export(libs.touchlab.kermit)
             transitiveExport = true
         }
+
+        podfile = project.file("../ios/Podfile")
     }
 }
 

@@ -5,11 +5,11 @@ targetSdk = "30"
 compileSdk = "30"
 
 # Dependencies
-compose = "1.0.1"
+compose = "1.0.3"
 coroutines-native = "1.5.0-native-mt"
 multiplatformSettings = "0.7.7"
 koin = "3.0.2"
-kotlin = "1.5.21"
+kotlin = "1.5.30"
 ktor = "1.6.0"
 lifecycle = "2.4.0-alpha02"
 sqlDelight = "1.5.0"
