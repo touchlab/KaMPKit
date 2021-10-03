@@ -13,7 +13,7 @@ import shared
 private let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
 
 class ObservableBreedModel: ObservableObject {
-    private var viewModel: NativeViewModel?
+    private var viewModel: BreedViewModel?
 
     @Published
     var loading = false
@@ -25,7 +25,7 @@ class ObservableBreedModel: ObservableObject {
     var error: String?
 
     func activate() {
-        viewModel = NativeViewModel { [weak self] dataState in
+        viewModel = BreedViewModel { [weak self] dataState in
             self?.loading = dataState.loading
             self?.breeds = dataState.data?.allItems
             self?.error = dataState.exception
@@ -40,7 +40,8 @@ class ObservableBreedModel: ObservableObject {
     }
 
     func deactivate() {
-        viewModel?.onDestroy()
+        // Manually call to dispose is not a good solution
+        viewModel?.destroy()
         viewModel = nil
     }
 

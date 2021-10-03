@@ -6,8 +6,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlin.coroutines.CoroutineContext
 
-class MainScope(private val mainContext: CoroutineContext, private val log: Kermit) :
-    CoroutineScope {
+class MainScope(
+    private val mainContext: CoroutineContext,
+    private val log: Kermit,
+) : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = mainContext + job + exceptionHandler
 
@@ -22,7 +24,7 @@ class MainScope(private val mainContext: CoroutineContext, private val log: Kerm
         log.e(throwable = t) { "Error in MainScope" }
     }
 
-    fun onDestroy() {
+    fun onCleared() {
         job.cancel()
     }
 }

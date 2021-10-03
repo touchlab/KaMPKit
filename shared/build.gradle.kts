@@ -62,6 +62,7 @@ kotlin {
         implementation(libs.touchlab.stately)
         implementation(libs.multiplatformSettings.common)
         implementation(libs.kotlinx.dateTime)
+        api(project(":viewmodel"))
         api(libs.touchlab.kermit)
     }
 

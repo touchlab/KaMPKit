@@ -83,6 +83,6 @@ class NativeViewModel(
     }
 
     fun onDestroy() {
-        scope.onDestroy()
+        scope.onCleared()
     }
 }
