@@ -15,8 +15,6 @@ import io.ktor.http.takeFrom
 
 class DogApiImpl : KtorApi {
 
-    // If this is a constructor property, then it gets captured
-    // inside HttpClient config and freezes this whole class.
     private val log = Logger.withTag("DogApiImpl")
 
     private val client = HttpClient {
@@ -26,6 +24,7 @@ class DogApiImpl : KtorApi {
         install(Logging) {
             logger = object : io.ktor.client.features.logging.Logger {
                 override fun log(message: String) {
+                    // Using log here would capture it and freeze the whole class
                     Logger.withTag("Network").v { message }
                 }
             }
