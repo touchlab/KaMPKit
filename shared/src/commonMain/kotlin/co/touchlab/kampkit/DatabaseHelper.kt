@@ -3,7 +3,7 @@ package co.touchlab.kampkit
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.db.KaMPKitDb
 import co.touchlab.kampkit.sqldelight.transactionWithContext
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
@@ -13,10 +13,10 @@ import kotlinx.coroutines.flow.flowOn
 
 class DatabaseHelper(
     sqlDriver: SqlDriver,
-    private val log: Kermit,
     private val backgroundDispatcher: CoroutineDispatcher
 ) {
     private val dbRef: KaMPKitDb = KaMPKitDb(sqlDriver)
+    private val log: Logger = Logger.withTag("DatabaseHelper")
 
     fun selectAllItems(): Flow<List<Breed>> =
         dbRef.tableQueries

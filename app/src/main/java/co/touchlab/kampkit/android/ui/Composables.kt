@@ -36,14 +36,13 @@ import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun MainScreen(
-    viewModel: BreedViewModel,
-    log: Kermit
+    viewModel: BreedViewModel
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
@@ -54,8 +53,12 @@ fun MainScreen(
     MainScreenContent(
         dogsState = dogsState,
         onRefresh = { viewModel.refreshBreeds(true) },
-        onSuccess = { data -> log.v { "View updating with ${data.allItems.size} breeds" } },
-        onError = { exception -> log.e { "Displaying error: $exception" } },
+        onSuccess = { data ->
+            Logger.withTag("MainScreen").v { "View updating with ${data.allItems.size} breeds" }
+        },
+        onError = { exception ->
+            Logger.withTag("MainScreen").e { "Displaying error: $exception" }
+        },
         onFavorite = { viewModel.updateBreedFavorite(it) }
     )
 }

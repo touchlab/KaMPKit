@@ -3,7 +3,7 @@ package co.touchlab.kampkit.models
 import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.ktor.KtorApi
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
@@ -12,13 +12,12 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.datetime.Clock
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.koin.core.parameter.parametersOf
 
 class BreedModel : KoinComponent {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
     private val ktorApi: KtorApi by inject()
-    private val log: Kermit by inject { parametersOf("BreedModel") }
+    private val log = Logger.withTag("BreedModel")
     private val clock: Clock by inject()
 
     companion object {

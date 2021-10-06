@@ -2,7 +2,7 @@ package co.touchlab.kampkit
 
 import co.touchlab.kampkit.ktor.DogApiImpl
 import co.touchlab.kampkit.ktor.KtorApi
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
@@ -27,10 +27,9 @@ fun initKoin(appModule: Module): KoinApplication {
     val doOnStartup = koin.get<() -> Unit>()
     doOnStartup.invoke()
 
-    val kermit = koin.get<Kermit> { parametersOf(null) }
     // AppInfo is a Kotlin interface with separate Android and iOS implementations
     val appInfo = koin.get<AppInfo>()
-    kermit.v { "App Id ${appInfo.appId}" }
+    Logger.v { "App Id ${appInfo.appId}" }
 
     return koinApplication
 }
@@ -39,14 +38,11 @@ private val coreModule = module {
     single {
         DatabaseHelper(
             get(),
-            getWith("DatabaseHelper"),
             Dispatchers.Default
         )
     }
     single<KtorApi> {
-        DogApiImpl(
-            getWith("DogApiImpl")
-        )
+        DogApiImpl()
     }
     single<Clock> {
         Clock.System
