@@ -25,7 +25,8 @@ class ObservableBreedModel: ObservableObject {
     var error: String?
 
     func activate() {
-        viewModel = BreedViewModel { [weak self] dataState in
+        viewModel = BreedViewModel()
+        viewModel?.observeBreedChanges { [weak self] dataState in
             self?.loading = dataState.loading
             self?.breeds = dataState.data?.allItems
             self?.error = dataState.exception
