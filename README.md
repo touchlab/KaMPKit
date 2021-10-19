@@ -25,7 +25,7 @@ This kit exists because the info you may find from Google about KMM and KMP is l
 
 We (Touchlab) are focused primarily on using KMP for native mobile development (now called KMM). As a result, this kit is primarily targeted at native mobile developers (Android or iOS), as well as engineering managers for native mobile teams. You should have little-to-no experience with KMP, although some of the information after setup may be useful if you do have KMP experience.
 
-> ## ** Touchlab's Hiring!**
+> ## Touchlab's Hiring!
 >
 > We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
 
