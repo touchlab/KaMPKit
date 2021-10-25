@@ -5,7 +5,7 @@ targetSdk = "31"
 compileSdk = "31"
 
 # Dependencies
-compose = "1.1.0-alpha04"
+compose = "1.0.3"
 coroutines-native = "1.5.0-native-mt"
 multiplatformSettings = "0.7.7"
 koin = "3.0.2"
