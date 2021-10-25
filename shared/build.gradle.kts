@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
@@ -39,20 +38,20 @@ android {
 kotlin {
     android()
     // Revert to just ios() when gradle plugin can properly resolve it
-    val onPhone = System.getenv("SDK_NAME")?.startsWith("iphoneos") ?: false
-    if (onPhone) {
-        iosArm64("ios")
-    } else {
-        iosX64("ios")
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget = when {
+        System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
+        System.getenv("NATIVE_ARCH")?.startsWith("arm") == true -> ::iosSimulatorArm64
+        else -> ::iosX64
     }
+    iosTarget("ios") {}
 
     version = "1.1"
 
     sourceSets {
         all {
             languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.RequiresOptIn")
+                optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
     }
@@ -74,7 +73,7 @@ kotlin {
 
     sourceSets.matching { it.name.endsWith("Test") }
         .configureEach {
-            languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
+            languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
 
     sourceSets["androidMain"].dependencies {
@@ -101,15 +100,13 @@ kotlin {
     cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
-    }
-
-    // Configure the framework which is generated internally by cocoapods plugin
-    targets.withType<KotlinNativeTarget> {
-        binaries.withType<Framework> {
+        framework {
             isStatic = false // SwiftUI preview requires dynamic framework
             export(libs.touchlab.kermit)
             transitiveExport = true
         }
+        ios.deploymentTarget = "12.4"
+        podfile = project.file("../ios/Podfile")
     }
 }
 
