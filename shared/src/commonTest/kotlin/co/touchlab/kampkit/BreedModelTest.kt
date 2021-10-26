@@ -79,13 +79,13 @@ class BreedModelTest : BaseTest() {
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
             .flattenMerge().test {
                 // Loading
-                assertEquals(DataState(loading = true), expectItem())
+                assertEquals(DataState(loading = true), awaitItem())
                 // No Favorites
-                assertEquals(dataStateSuccessNoFavorite, expectItem())
+                assertEquals(dataStateSuccessNoFavorite, awaitItem())
                 // Add 1 favorite breed
                 model.updateBreedFavorite(australianNoLike)
                 // Get the new result with 1 breed favorited
-                assertEquals(dataStateSuccessFavorite, expectItem())
+                assertEquals(dataStateSuccessFavorite, awaitItem())
             }
     }
 
@@ -98,12 +98,12 @@ class BreedModelTest : BaseTest() {
             flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
                 .flattenMerge().test {
                     // Loading
-                    assertEquals(DataState(loading = true), expectItem())
-                    assertEquals(dataStateSuccessNoFavorite, expectItem())
+                    assertEquals(DataState(loading = true), awaitItem())
+                    assertEquals(dataStateSuccessNoFavorite, awaitItem())
                     // "Like" the Australian breed
                     model.updateBreedFavorite(australianNoLike)
                     // Get the new result with the Australian breed liked
-                    assertEquals(dataStateSuccessFavorite, expectItem())
+                    assertEquals(dataStateSuccessFavorite, awaitItem())
                     cancel()
                 }
         }
@@ -114,9 +114,9 @@ class BreedModelTest : BaseTest() {
             flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
                 .flattenMerge().test {
                     // Loading
-                    assertEquals(DataState(loading = true), expectItem())
+                    assertEquals(DataState(loading = true), awaitItem())
                     // Get the new result with the Australian breed liked
-                    assertEquals(dataStateSuccessFavorite, expectItem())
+                    assertEquals(dataStateSuccessFavorite, awaitItem())
                     cancel()
                 }
         }
@@ -129,8 +129,8 @@ class BreedModelTest : BaseTest() {
         ktorApi.prepareResult(successResult)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
             .test(timeout = Duration.seconds(30)) {
-                assertEquals(DataState(loading = true), expectItem())
-                val oldBreeds = expectItem()
+                assertEquals(DataState(loading = true), awaitItem())
+                val oldBreeds = awaitItem()
                 val data = oldBreeds.data
                 assertTrue(data != null)
                 assertEquals(
@@ -146,8 +146,8 @@ class BreedModelTest : BaseTest() {
         ktorApi.prepareResult(resultWithExtraBreed)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
             .test(timeout = Duration.seconds(30)) {
-                assertEquals(DataState(loading = true), expectItem())
-                val updated = expectItem()
+                assertEquals(DataState(loading = true), awaitItem())
+                val updated = awaitItem()
                 val data = updated.data
                 assertTrue(data != null)
                 assertEquals(resultWithExtraBreed.message.keys.size, data.allItems.size)

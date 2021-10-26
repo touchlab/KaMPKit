@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
-
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -37,13 +35,11 @@ android {
 
 kotlin {
     android()
-    // Revert to just ios() when gradle plugin can properly resolve it
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget = when {
-        System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
-        System.getenv("NATIVE_ARCH")?.startsWith("arm") == true -> ::iosSimulatorArm64
-        else -> ::iosX64
-    }
-    iosTarget("ios") {}
+    ios()
+    // Don't add this until all dependencies support M1 targets
+    // iosSimulatorArm64()
+    // sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
+    // sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     version = "1.1"
 
