@@ -1,6 +1,0 @@
-framework module Pods_KaMPKitiOS {
-  umbrella header "Pods-KaMPKitiOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
