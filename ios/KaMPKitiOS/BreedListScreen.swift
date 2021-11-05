@@ -10,7 +10,7 @@ import SwiftUI
 import shared
 
 // swiftlint:disable force_cast
-private let log = koin.get(objCClass: Kermit.self, parameter: "ViewController") as! Kermit
+private let log = koin.loggerWithTag(tag: "ViewController")
 
 class ObservableBreedModel: ObservableObject {
     private var viewModel: NativeViewModel?
@@ -31,10 +31,10 @@ class ObservableBreedModel: ObservableObject {
             self?.error = dataState.exception
 
             if let breeds = dataState.data?.allItems {
-                log.d(withMessage: {"View updating with \(breeds.count) breeds"})
+                log.d(message: {"View updating with \(breeds.count) breeds"})
             }
             if let errorMessage = dataState.exception {
-                log.e(withMessage: {"Displaying error: \(errorMessage)"})
+                log.e(message: {"Displaying error: \(errorMessage)"})
             }
         }
     }

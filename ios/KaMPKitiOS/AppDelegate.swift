@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // Lazy so it doesn't try to initialize before startKoin() is called
     // swiftlint:disable force_cast
-    lazy var log = koin.get(objCClass: Kermit.self, parameter: "AppDelegate") as! Kermit
+    lazy var log = koin.loggerWithTag(tag: "AppDelegate")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
 
-        log.v(withMessage: {"App Started"})
+        log.v(message: {"App Started"})
         return true
     }
 }

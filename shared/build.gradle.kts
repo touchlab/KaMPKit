@@ -98,8 +98,6 @@ kotlin {
         homepage = "https://github.com/touchlab/KaMPKit"
         framework {
             isStatic = false // SwiftUI preview requires dynamic framework
-            export(libs.touchlab.kermit)
-            transitiveExport = true
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")

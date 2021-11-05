@@ -7,7 +7,7 @@ import co.touchlab.kampkit.mock.KtorApiMock
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
@@ -25,7 +25,7 @@ import kotlin.time.Duration
 class BreedModelTest : BaseTest() {
 
     private var model: BreedModel = BreedModel()
-    private var kermit = Kermit()
+    private var kermit = Logger
     private var testDbConnection = testDbConnection()
     private var dbHelper = DatabaseHelper(
         testDbConnection,

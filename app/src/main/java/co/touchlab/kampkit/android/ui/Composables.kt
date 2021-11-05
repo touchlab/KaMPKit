@@ -36,14 +36,14 @@ import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 @Composable
 fun MainScreen(
     viewModel: BreedViewModel,
-    log: Kermit
+    log: Logger
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
     val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
