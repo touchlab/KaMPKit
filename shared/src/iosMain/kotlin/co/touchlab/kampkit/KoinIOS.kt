@@ -8,7 +8,6 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
-import org.koin.core.context.GlobalContext
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
