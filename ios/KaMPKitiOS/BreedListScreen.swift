@@ -10,7 +10,7 @@ import SwiftUI
 import shared
 
 // swiftlint:disable force_cast
-private let log = KoinIOSKt.loggerWithTag(tag: "ViewController")
+private let log = koin.loggerWithTag(tag: "ViewController")
 
 class ObservableBreedModel: ObservableObject {
     private var viewModel: NativeViewModel?
