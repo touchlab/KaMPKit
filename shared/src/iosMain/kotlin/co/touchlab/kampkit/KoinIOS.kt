@@ -28,7 +28,7 @@ actual val platformModule = module {
     single<SqlDriver> { NativeSqliteDriver(KaMPKitDb.Schema, "KampkitDb") }
 }
 
-//Access from Swift to globally create a logger
+// Access from Swift to globally create a logger
 @Suppress("unused")
 fun loggerWithTag(tag: String) =
     GlobalContext.get().get<Logger>(qualifier = null) { parametersOf(tag) }

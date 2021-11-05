@@ -60,7 +60,7 @@ kotlin {
         implementation(libs.touchlab.stately)
         implementation(libs.multiplatformSettings.common)
         implementation(libs.kotlinx.dateTime)
-        implementation(libs.touchlab.kermit)
+        api(libs.touchlab.kermit)
     }
 
     sourceSets["commonTest"].dependencies {
