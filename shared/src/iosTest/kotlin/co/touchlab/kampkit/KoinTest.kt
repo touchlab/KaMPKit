@@ -1,6 +1,6 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kermit.Kermit
+import co.touchlab.kermit.Logger
 import org.koin.core.context.stopKoin
 import org.koin.core.parameter.parametersOf
 import org.koin.test.check.checkModules
@@ -16,7 +16,7 @@ class KoinTest : BaseTest() {
             appInfo = TestAppInfo,
             doOnStartup = { }
         ).checkModules {
-            create<Kermit> { parametersOf("TestTag") }
+            create<Logger> { parametersOf("TestTag") }
         }
     }
 
