@@ -3,6 +3,8 @@ package co.touchlab.kampkit
 import co.touchlab.kampkit.ktor.DogApiImpl
 import co.touchlab.kampkit.ktor.KtorApi
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.StaticConfig
+import co.touchlab.kermit.platformLogWriter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
@@ -54,9 +56,11 @@ private val coreModule = module {
         Clock.System
     }
 
-    // Using global logger out of simplicity. A production app would probably want to control this more directly
+    // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
+    // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
+    // that would likely go into platformModule expect/actual.
     // See https://github.com/touchlab/Kermit
-    val baseLogger = Logger.withTag("KampKit")
+    val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "KampKit")
     factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
 }
 
