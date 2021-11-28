@@ -29,7 +29,7 @@ class KoinTest : BaseTest() {
                 single { {} }
             }
         ).checkModules {
-            create<Logger> { parametersOf("TestTag") }
+            withParameters<Logger> { parametersOf("TestTag") }
         }
     }
 

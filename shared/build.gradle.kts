@@ -36,10 +36,10 @@ android {
 kotlin {
     android()
     ios()
-    // Don't add this until all dependencies support M1 targets
-    // iosSimulatorArm64()
-    // sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
-    // sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
+    // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
+    iosSimulatorArm64()
+    sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
+    sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     version = "1.1"
 

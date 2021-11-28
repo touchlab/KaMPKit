@@ -16,7 +16,7 @@ class KoinTest : BaseTest() {
             appInfo = TestAppInfo,
             doOnStartup = { }
         ).checkModules {
-            create<Logger> { parametersOf("TestTag") }
+            withParameters<Logger> { parametersOf("TestTag") }
         }
     }
 
