@@ -38,8 +38,6 @@ kotlin {
     ios()
     // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
     iosSimulatorArm64()
-    sourceSets["iosSimulatorArm64Main"].dependsOn(sourceSets["iosMain"])
-    sourceSets["iosSimulatorArm64Test"].dependsOn(sourceSets["iosTest"])
 
     version = "1.1"
 
@@ -52,46 +50,61 @@ kotlin {
         }
     }
 
-    sourceSets["commonMain"].dependencies {
-        implementation(libs.koin.core)
-        implementation(libs.coroutines.core)
-        implementation(libs.sqlDelight.coroutinesExt)
-        implementation(libs.bundles.ktor.common)
-        implementation(libs.touchlab.stately)
-        implementation(libs.multiplatformSettings.common)
-        implementation(libs.kotlinx.dateTime)
-        api(libs.touchlab.kermit)
-    }
-
-    sourceSets["commonTest"].dependencies {
-        implementation(libs.bundles.shared.commonTest)
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.koin.core)
+                implementation(libs.coroutines.core)
+                implementation(libs.sqlDelight.coroutinesExt)
+                implementation(libs.bundles.ktor.common)
+                implementation(libs.touchlab.stately)
+                implementation(libs.multiplatformSettings.common)
+                implementation(libs.kotlinx.dateTime)
+                api(libs.touchlab.kermit)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.bundles.shared.commonTest)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.sqlDelight.android)
+                implementation(libs.ktor.client.okHttp)
+            }
+        }
+        val androidTest by getting {
+            dependencies {
+                implementation(libs.bundles.shared.androidTest)
+            }
+        }
+        val iosMain by getting {
+            dependencies {
+                implementation(libs.sqlDelight.native)
+                implementation(libs.ktor.client.ios)
+                implementation(libs.coroutines.core)
+                val coroutineCore = libs.coroutines.core.get()
+                implementation("${coroutineCore.module.group}:${coroutineCore.module.name}:${coroutineCore.versionConstraint.displayName}") {
+                    version {
+                        strictly(libs.versions.coroutines.native.get())
+                    }
+                }
+            }
+        }
+        val iosTest by getting
+        val iosSimulatorArm64Main by getting {
+            dependsOn(iosMain)
+        }
+        val iosSimulatorArm64Test by getting {
+            dependsOn(iosTest)
+        }
     }
 
     sourceSets.matching { it.name.endsWith("Test") }
         .configureEach {
             languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
-
-    sourceSets["androidMain"].dependencies {
-        implementation(libs.sqlDelight.android)
-        implementation(libs.ktor.client.okHttp)
-    }
-
-    sourceSets["androidTest"].dependencies {
-        implementation(libs.bundles.shared.androidTest)
-    }
-
-    sourceSets["iosMain"].dependencies {
-        implementation(libs.sqlDelight.native)
-        implementation(libs.ktor.client.ios)
-        implementation(libs.coroutines.core)
-        val coroutineCore = libs.coroutines.core.get()
-        implementation("${coroutineCore.module.group}:${coroutineCore.module.name}:${coroutineCore.versionConstraint.displayName}") {
-            version {
-                strictly(libs.versions.coroutines.native.get())
-            }
-        }
-    }
 
     cocoapods {
         summary = "Common library for the KaMP starter kit"
