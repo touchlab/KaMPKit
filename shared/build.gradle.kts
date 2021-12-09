@@ -83,7 +83,6 @@ kotlin {
             dependencies {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)
-                implementation(libs.coroutines.core)
                 val coroutineCore = libs.coroutines.core.get()
                 implementation("${coroutineCore.module.group}:${coroutineCore.module.name}:${coroutineCore.versionConstraint.displayName}") {
                     version {
