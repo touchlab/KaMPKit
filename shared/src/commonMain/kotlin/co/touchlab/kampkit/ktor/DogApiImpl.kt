@@ -16,12 +16,7 @@ import io.ktor.serialization.kotlinx.json.json
 import co.touchlab.kermit.Logger as KermitLogger
 import io.ktor.client.plugins.logging.Logger as KtorLogger
 
-class DogApiImpl(log: KermitLogger) : KtorApi {
-
-    // If this is a constructor property, then it gets captured
-    // inside HttpClient config and freezes this whole class.
-    @Suppress("CanBePrimaryConstructorProperty")
-    private val log = log
+class DogApiImpl(private val log: KermitLogger) : KtorApi {
 
     private val client = HttpClient {
         install(ContentNegotiation) {

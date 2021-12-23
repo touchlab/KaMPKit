@@ -11,6 +11,7 @@ import co.touchlab.kermit.Logger
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.datetime.Clock
@@ -78,7 +79,7 @@ class BreedModelTest : BaseTest() {
         ktorApi.prepareResult(ktorApi.successResult())
 
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-            .flattenMerge().test {
+            .flattenMerge().distinctUntilChanged().test {
                 // Loading
                 assertEquals(DataState(loading = true), awaitItem())
                 // No Favorites
@@ -97,7 +98,7 @@ class BreedModelTest : BaseTest() {
 
         runTest {
             flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-                .flattenMerge().test {
+                .flattenMerge().distinctUntilChanged().test {
                     // Loading
                     assertEquals(DataState(loading = true), awaitItem())
                     assertEquals(dataStateSuccessNoFavorite, awaitItem())
@@ -113,7 +114,7 @@ class BreedModelTest : BaseTest() {
             // Fetch breeds from the network (no breeds liked),
             // but preserved the liked breeds in the database.
             flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
-                .flattenMerge().test {
+                .flattenMerge().distinctUntilChanged().test {
                     // Loading
                     assertEquals(DataState(loading = true), awaitItem())
                     // Get the new result with the Australian breed liked
@@ -128,7 +129,7 @@ class BreedModelTest : BaseTest() {
     fun updateDatabaseTest() = runTest {
         val successResult = ktorApi.successResult()
         ktorApi.prepareResult(successResult)
-        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge().distinctUntilChanged()
             .test(timeout = 30.seconds) {
                 assertEquals(DataState(loading = true), awaitItem())
                 val oldBreeds = awaitItem()
@@ -145,7 +146,7 @@ class BreedModelTest : BaseTest() {
         val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
 
         ktorApi.prepareResult(resultWithExtraBreed)
-        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge()
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge().distinctUntilChanged()
             .test(timeout = 30.seconds) {
                 assertEquals(DataState(loading = true), awaitItem())
                 val updated = awaitItem()

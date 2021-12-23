@@ -5,7 +5,7 @@ import co.touchlab.kampkit.response.BreedResult
 
 // TODO convert this to use Ktor's MockEngine
 class KtorApiMock : KtorApi {
-    private var nextResult: () -> BreedResult = { throw error("Uninitialized!") }
+    private var nextResult: () -> BreedResult = { error("Uninitialized!") }
     var calledCount = 0
         private set
 
