@@ -1,20 +1,22 @@
 package co.touchlab.kampkit.ktor
 
 import co.touchlab.kampkit.response.BreedResult
-import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
-import io.ktor.client.features.HttpTimeout
-import io.ktor.client.features.json.JsonFeature
-import io.ktor.client.features.json.serializer.KotlinxSerializer
-import io.ktor.client.features.logging.LogLevel
-import io.ktor.client.features.logging.Logging
+import io.ktor.client.call.body
+import io.ktor.client.plugins.ContentNegotiation
+import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.HttpRequestBuilder
 import io.ktor.client.request.get
+import io.ktor.http.encodedPath
 import io.ktor.http.takeFrom
-import io.ktor.client.features.logging.Logger as KtorLogger
+import io.ktor.serialization.kotlinx.json.json
+import co.touchlab.kermit.Logger as KermitLogger
+import io.ktor.client.plugins.logging.Logger as KtorLogger
 
-class DogApiImpl(log: Logger) : KtorApi {
+class DogApiImpl(log: KermitLogger) : KtorApi {
 
     // If this is a constructor property, then it gets captured
     // inside HttpClient config and freezes this whole class.
@@ -22,8 +24,8 @@ class DogApiImpl(log: Logger) : KtorApi {
     private val log = log
 
     private val client = HttpClient {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer()
+        install(ContentNegotiation) {
+            json()
         }
         install(Logging) {
             logger = object : KtorLogger {
@@ -48,9 +50,9 @@ class DogApiImpl(log: Logger) : KtorApi {
 
     override suspend fun getJsonFromApi(): BreedResult {
         log.d { "Fetching Breeds from network" }
-        return client.get<BreedResult> {
+        return client.get {
             dogs("api/breeds/list/all")
-        }
+        }.body()
     }
 
     private fun HttpRequestBuilder.dogs(path: String) {
