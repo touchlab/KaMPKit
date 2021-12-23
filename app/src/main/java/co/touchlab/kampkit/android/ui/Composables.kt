@@ -1,5 +1,6 @@
 package co.touchlab.kampkit.android.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
@@ -49,6 +50,8 @@ fun MainScreen(
     val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
         viewModel.breedStateFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
     }
+
+    @SuppressLint("StateFlowValueCalledInComposition") // False positive lint check when used inside collectAsState()
     val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedStateFlow.value)
 
     MainScreenContent(

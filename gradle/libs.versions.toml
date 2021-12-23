@@ -5,33 +5,35 @@ targetSdk = "31"
 compileSdk = "31"
 
 # Dependencies
-compose = "1.0.4"
-coroutines-native = "1.5.2-native-mt"
+compose = "1.1.0-rc01"
+composeCompiler = "1.1.0-rc02"
+coroutines-native = "1.6.0-native-mt"
 multiplatformSettings = "0.8.1"
 koin = "3.1.4"
-kotlin = "1.5.31"
-ktor = "1.6.5"
-lifecycle = "2.4.0-rc01"
+kotlin = "1.6.10"
+ktor = "2.0.0-beta-1"
+lifecycle = "2.4.0"
 sqlDelight = "1.5.3"
 
 [libraries]
 
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version = "1.1.5" }
-androidx-core = { module = "androidx.core:core-ktx", version = "1.6.0" }
+androidx-core = { module = "androidx.core:core-ktx", version = "1.7.0" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-androidx-test-junit = { module = "androidx.test.ext:junit", version = "1.1.3" }
+androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version = "1.1.3" }
 
+compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-activity = { module = "androidx.activity:activity-compose", version = "1.3.1" }
+compose-activity = { module = "androidx.activity:activity-compose", version = "1.4.0" }
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-native" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-native" }
 
-google-accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version = "0.20.0" }
+google-accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version = "0.20.3" }
 
 gradlePlugin-android = { module = "com.android.tools.build:gradle", version = "7.0.3" }
 gradlePlugin-kotlinSerialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
@@ -44,13 +46,14 @@ koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
-kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.3.0" }
+kotlinx-dateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version = "0.3.1" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-client-ios = { module = "io.ktor:ktor-client-ios", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 ktor-client-okHttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
-ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
+ktor-client-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 
 multiplatformSettings-common = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
@@ -63,12 +66,13 @@ sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.
 sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
 
 touchlab-kermit = { module = "co.touchlab:kermit", version = "1.0.0" }
-touchlab-stately = { module = "co.touchlab:stately-common", version = "1.1.10" }
+touchlab-stately = { module = "co.touchlab:stately-common", version = "1.2.1" }
 
 turbine = { module = "app.cash.turbine:turbine", version = "0.7.0" }
 
 [bundles]
 app-ui = [
+    "compose-compiler",
     "androidx-core",
     "androidx-lifecycle-runtime",
     "androidx-lifecycle-viewmodel",
@@ -85,7 +89,7 @@ gradlePlugins = [
     "gradlePlugin-ktlint",
     "gradlePlugin-sqlDelight",
 ]
-ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization"]
+ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]
 shared-commonTest = [
     "multiplatformSettings-test",
     "koin-test",
