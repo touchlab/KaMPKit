@@ -7,7 +7,7 @@ compileSdk = "31"
 # Dependencies
 compose = "1.1.0-rc01"
 composeCompiler = "1.1.0-rc02"
-coroutines-native = "1.6.0"
+coroutines = "1.6.0"
 multiplatformSettings = "0.8.1"
 koin = "3.1.4"
 kotlin = "1.6.10"
@@ -30,8 +30,8 @@ compose-foundation = { module = "androidx.compose.foundation:foundation", versio
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 compose-activity = { module = "androidx.activity:activity-compose", version = "1.4.0" }
 
-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines-native" }
-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines-native" }
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
 google-accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version = "0.20.3" }
 
@@ -93,7 +93,8 @@ ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serializa
 shared-commonTest = [
     "multiplatformSettings-test",
     "koin-test",
-    "turbine"
+    "turbine",
+    "coroutines-test"
 ]
 shared-androidTest = [
     "androidx-test-junit",
