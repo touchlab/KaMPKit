@@ -91,7 +91,7 @@ kotlin {
                 val coroutineCore = libs.coroutines.core.get()
                 implementation("${coroutineCore.module.group}:${coroutineCore.module.name}:${coroutineCore.versionConstraint.displayName}") {
                     version {
-                        strictly(libs.versions.coroutines.native.get())
+                        strictly(libs.versions.coroutines.get())
                     }
                 }
             }

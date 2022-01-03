@@ -1,5 +1,6 @@
 package co.touchlab.kampkit
 
+import app.cash.turbine.FlowTurbine
 import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
@@ -11,9 +12,16 @@ import co.touchlab.kermit.Logger
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.GlobalScope.coroutineContext
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.TestCoroutineScheduler
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -21,6 +29,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
@@ -75,11 +84,11 @@ class BreedModelTest : BaseTest() {
 
     @OptIn(FlowPreview::class)
     @Test
-    fun updateFavoriteTest() = runTest {
+    fun updateFavoriteTest() = runBlocking {
         ktorApi.prepareResult(ktorApi.successResult())
 
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-            .flattenMerge().distinctUntilChanged().test {
+            .flattenMerge().distinctUntilChanged().test2(Int.MAX_VALUE.seconds) {
                 // Loading
                 assertEquals(DataState(loading = true), awaitItem())
                 // No Favorites
@@ -93,40 +102,35 @@ class BreedModelTest : BaseTest() {
 
     @OptIn(FlowPreview::class)
     @Test
-    fun fetchBreedsFromNetworkPreserveFavorites() {
+    fun fetchBreedsFromNetworkPreserveFavorites() = runBlocking {
         ktorApi.prepareResult(ktorApi.successResult())
 
-        runTest {
-            flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-                .flattenMerge().distinctUntilChanged().test {
-                    // Loading
-                    assertEquals(DataState(loading = true), awaitItem())
-                    assertEquals(dataStateSuccessNoFavorite, awaitItem())
-                    // "Like" the Australian breed
-                    model.updateBreedFavorite(australianNoLike)
-                    // Get the new result with the Australian breed liked
-                    assertEquals(dataStateSuccessFavorite, awaitItem())
-                    cancel()
-                }
-        }
-
-        runTest {
-            // Fetch breeds from the network (no breeds liked),
-            // but preserved the liked breeds in the database.
-            flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
-                .flattenMerge().distinctUntilChanged().test {
-                    // Loading
-                    assertEquals(DataState(loading = true), awaitItem())
-                    // Get the new result with the Australian breed liked
-                    assertEquals(dataStateSuccessFavorite, awaitItem())
-                    cancel()
-                }
-        }
+        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
+            .flattenMerge().distinctUntilChanged().test {
+                // Loading
+                assertEquals(DataState(loading = true), awaitItem())
+                assertEquals(dataStateSuccessNoFavorite, awaitItem())
+                // "Like" the Australian breed
+                model.updateBreedFavorite(australianNoLike)
+                // Get the new result with the Australian breed liked
+                assertEquals(dataStateSuccessFavorite, awaitItem())
+                cancel()
+            }
+        // Fetch breeds from the network (no breeds liked),
+        // but preserved the liked breeds in the database.
+        flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
+            .flattenMerge().distinctUntilChanged().test {
+                // Loading
+                assertEquals(DataState(loading = true), awaitItem())
+                // Get the new result with the Australian breed liked
+                assertEquals(dataStateSuccessFavorite, awaitItem())
+                cancel()
+            }
     }
 
     @OptIn(FlowPreview::class)
     @Test
-    fun updateDatabaseTest() = runTest {
+    fun updateDatabaseTest() = runBlocking {
         val successResult = ktorApi.successResult()
         ktorApi.prepareResult(successResult)
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge().distinctUntilChanged()
@@ -166,5 +170,18 @@ class BreedModelTest : BaseTest() {
     fun breakdown() = runTest {
         testDbConnection.close()
         appEnd()
+    }
+}
+
+suspend fun <T> Flow<T>.test2(
+    timeout: Duration = 1.seconds,
+    validate: suspend FlowTurbine<T>.() -> Unit,
+) {
+    val testScheduler = coroutineContext[TestCoroutineScheduler]
+    return if (testScheduler == null) {
+        test(timeout, validate)
+    } else {
+        flowOn(UnconfinedTestDispatcher(testScheduler))
+            .test(timeout, validate)
     }
 }
