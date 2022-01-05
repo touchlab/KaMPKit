@@ -1,6 +1,5 @@
 package co.touchlab.kampkit
 
-import app.cash.turbine.FlowTurbine
 import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
@@ -12,15 +11,10 @@ import co.touchlab.kermit.Logger
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.GlobalScope.coroutineContext
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineScheduler
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
@@ -29,11 +23,11 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
-import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
-class BreedModelTest : BaseTest() {
+@RunWith(AndroidJUnit4::class)
+class BreedModelTest {
 
     private var model: BreedModel = BreedModel()
     private var kermit = Logger
@@ -88,7 +82,7 @@ class BreedModelTest : BaseTest() {
         ktorApi.prepareResult(ktorApi.successResult())
 
         flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-            .flattenMerge().distinctUntilChanged().test2(Int.MAX_VALUE.seconds) {
+            .flattenMerge().distinctUntilChanged().test {
                 // Loading
                 assertEquals(DataState(loading = true), awaitItem())
                 // No Favorites
@@ -170,18 +164,5 @@ class BreedModelTest : BaseTest() {
     fun breakdown() = runTest {
         testDbConnection.close()
         appEnd()
-    }
-}
-
-suspend fun <T> Flow<T>.test2(
-    timeout: Duration = 1.seconds,
-    validate: suspend FlowTurbine<T>.() -> Unit,
-) {
-    val testScheduler = coroutineContext[TestCoroutineScheduler]
-    return if (testScheduler == null) {
-        test(timeout, validate)
-    } else {
-        flowOn(UnconfinedTestDispatcher(testScheduler))
-            .test(timeout, validate)
     }
 }

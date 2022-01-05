@@ -17,7 +17,7 @@ import kotlin.test.Test
 
 @RunWith(AndroidJUnit4::class)
 @Category(CheckModuleTest::class)
-class KoinTest : BaseTest() {
+class KoinTest {
 
     @Test
     fun checkAllModules() {

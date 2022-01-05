@@ -8,7 +8,7 @@ import platform.Foundation.NSUserDefaults
 import kotlin.test.AfterTest
 import kotlin.test.Test
 
-class KoinTest : BaseTest() {
+class KoinTest {
     @Test
     fun checkAllModules() {
         initKoinIos(
