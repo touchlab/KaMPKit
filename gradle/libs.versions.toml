@@ -58,7 +58,7 @@ ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotia
 multiplatformSettings-common = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-test", version.ref = "multiplatformSettings" }
 
-roboelectric = { module = "org.robolectric:robolectric", version = "4.6.1" }
+roboelectric = { module = "org.robolectric:robolectric", version = "4.7.3" }
 
 sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
 sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
