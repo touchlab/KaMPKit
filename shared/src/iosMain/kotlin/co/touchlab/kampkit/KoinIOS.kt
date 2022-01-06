@@ -6,6 +6,7 @@ import com.russhwolf.settings.AppleSettings
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
+import io.ktor.client.engine.darwin.Darwin
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.parameter.parametersOf
@@ -26,6 +27,8 @@ fun initKoinIos(
 
 actual val platformModule = module {
     single<SqlDriver> { NativeSqliteDriver(KaMPKitDb.Schema, "KampkitDb") }
+
+    single { Darwin.create() }
 }
 
 // Access from Swift to create a logger

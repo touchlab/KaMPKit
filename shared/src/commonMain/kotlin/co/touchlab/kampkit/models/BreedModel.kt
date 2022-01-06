@@ -3,7 +3,7 @@ package co.touchlab.kampkit.models
 import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.injectLogger
-import co.touchlab.kampkit.ktor.KtorApi
+import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
@@ -17,7 +17,7 @@ import org.koin.core.component.inject
 class BreedModel : KoinComponent {
     private val dbHelper: DatabaseHelper by inject()
     private val settings: Settings by inject()
-    private val ktorApi: KtorApi by inject()
+    private val dogApi: DogApi by inject()
     private val log: Logger by injectLogger("BreedModel")
     private val clock: Clock by inject()
 
@@ -71,7 +71,7 @@ class BreedModel : KoinComponent {
 
     suspend fun getBreedsFromNetwork(currentTimeMS: Long): DataState<ItemDataSummary> {
         return try {
-            val breedResult = ktorApi.getJsonFromApi()
+            val breedResult = dogApi.getJsonFromApi()
             log.v { "Breed network result: ${breedResult.status}" }
             val breedList = breedResult.message.keys.sorted().toList()
             log.v { "Fetched ${breedList.size} breeds from network" }
