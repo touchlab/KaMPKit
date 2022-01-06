@@ -3,7 +3,7 @@ package co.touchlab.kampkit
 import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
-import co.touchlab.kampkit.mock.KtorApiMock
+import co.touchlab.kampkit.mock.DogApiMock
 import co.touchlab.kampkit.models.BreedModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
@@ -38,7 +38,7 @@ class BreedModelTest {
         Dispatchers.Default
     )
     private val settings = MockSettings()
-    private val ktorApi = KtorApiMock()
+    private val ktorApi = DogApiMock()
 
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())

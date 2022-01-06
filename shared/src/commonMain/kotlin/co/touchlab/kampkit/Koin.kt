@@ -1,7 +1,7 @@
 package co.touchlab.kampkit
 
+import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kampkit.ktor.DogApiImpl
-import co.touchlab.kampkit.ktor.KtorApi
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
@@ -47,9 +47,10 @@ private val coreModule = module {
             Dispatchers.Default
         )
     }
-    single<KtorApi> {
+    single<DogApi> {
         DogApiImpl(
-            getWith("DogApiImpl")
+            getWith("DogApiImpl"),
+            get()
         )
     }
     single<Clock> {

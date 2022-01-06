@@ -4,6 +4,7 @@ import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.plugins.ContentNegotiation
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.logging.LogLevel
@@ -16,9 +17,9 @@ import io.ktor.serialization.kotlinx.json.json
 import co.touchlab.kermit.Logger as KermitLogger
 import io.ktor.client.plugins.logging.Logger as KtorLogger
 
-class DogApiImpl(private val log: KermitLogger) : KtorApi {
+class DogApiImpl(private val log: KermitLogger, engine: HttpClientEngine) : DogApi {
 
-    private val client = HttpClient {
+    private val client = HttpClient(engine) {
         install(ContentNegotiation) {
             json()
         }

@@ -1,6 +1,6 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.KtorApi
+import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kermit.Logger
 import com.russhwolf.settings.Settings
 import com.squareup.sqldelight.db.SqlDriver
@@ -11,11 +11,11 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 
-fun appStart(helper: DatabaseHelper, settings: Settings, ktorApi: KtorApi, log: Logger, clock: Clock) {
+fun appStart(helper: DatabaseHelper, settings: Settings, dogApi: DogApi, log: Logger, clock: Clock) {
     val coreModule = module {
         single { helper }
         single { settings }
-        single { ktorApi }
+        single { dogApi }
         single { log }
         single { clock }
     }
