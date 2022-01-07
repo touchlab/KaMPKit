@@ -7,6 +7,28 @@
 
 ***Welcome to the KaMP Kit!*** 
 
+## 2022 Update
+
+KaMP Kit started a little over 2 years ago with the goal of helping developers interesting in KMP and KMM get started 
+quickly with a great set of libraries and patterns. At the time, there were not many sample apps and getting started
+was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been removed.
+
+Over the next few weeks we are giving KaMP Kit a complete refresh. It will be less "getting started" and more "best practice model".
+The first change was moving to the new memory model. We'll be updating much more over the next few weeks. Watch this 
+repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
+
+> ## Touchlab's Hiring!
+>
+> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+
+## Getting Help
+
+KaMP Kit support can be found in the Kotlin Community slack. Look for the `kampkit-support` channel.
+
+To join the Kotlin Community slack, [request access here](http://slack.kotlinlang.org/)
+
+For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/contactkamp) to discuss support options.
+
 ## About
 
 ### Goal
@@ -25,12 +47,6 @@ This kit exists because the info you may find from Google about KMM and KMP is l
 
 We (Touchlab) are focused primarily on using KMP for native mobile development (now called KMM). As a result, this kit is primarily targeted at native mobile developers (Android or iOS), as well as engineering managers for native mobile teams. You should have little-to-no experience with KMP, although some of the information after setup may be useful if you do have KMP experience.
 
-
-> ## Touchlab's Hiring!
->
-> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
-
-
 ## What's Included?
 
 1. The Starter App - A native mobile KMP app with a small functional feature set.
@@ -40,14 +56,6 @@ We (Touchlab) are focused primarily on using KMP for native mobile development (
 ## What's *Not* Included?
 
 Comprehensive guides, advanced tutorials, or generally support for fixing anything not included in the starter app. The goal is to have a solid starting point from which you can create something meaningful for evaluating KMP. We're intentionally limiting the scope to keep focus.
-
-## Getting Help
-
-KaMP Kit support can be found in the Kotlin Community slack. Look for the `kampkit-support` channel.
-
-To join the Kotlin Community slack, [request access here](http://slack.kotlinlang.org/)
-
-For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/contactkamp) to discuss support options.
 
 # The Starter App
 
@@ -94,17 +102,17 @@ It's important to understand not just how to set up the platform, but to get a b
 
 [Intro to Kotlin Multiplatform](https://vimeo.com/371428809) - General intro to KMP from Oredev in Nov 2019. Good overall summary of the platform.
 
-### Kotlin/Native Concurrency
+### ~~Kotlin/Native Concurrency~~ *(this is all old now...)*
 
-Kotlin/Native's state and concurrency model is different than the JVM (which includes Android). The goal is "[Saner Concurrency](https://medium.com/@kpgalligan/saner-concurrency-74b0bf8ed446)" In practice, if you're not writing custom concurrency logic, it's pretty simple, *but only if you understand it*. You ***must*** learn the basics.
+~~Kotlin/Native's state and concurrency model is different than the JVM (which includes Android). The goal is "[Saner Concurrency](https://medium.com/@kpgalligan/saner-concurrency-74b0bf8ed446)" In practice, if you're not writing custom concurrency logic, it's pretty simple, *but only if you understand it*. You ***must*** learn the basics.~~
 
-[Practical Kotlin Native Concurrency](https://dev.to/touchlab/practical-kotlin-native-concurrency-ac7) - Our recent blog post series. This was written for KaMP KIt, but we published these separately because this is very important for developers to understand.
+~~[Practical Kotlin Native Concurrency](https://dev.to/touchlab/practical-kotlin-native-concurrency-ac7) - Our recent blog post series. This was written for KaMP KIt, but we published these separately because this is very important for developers to understand.~~
 
-[Kotlinconf 2019: Kotlin Native Concurrency Explained](https://www.youtube.com/watch?v=oxQ6e1VeH4M) - Deeper dive talk from Kotlinconf.
+~~[Kotlinconf 2019: Kotlin Native Concurrency Explained](https://www.youtube.com/watch?v=oxQ6e1VeH4M) - Deeper dive talk from Kotlinconf.~~
 
-**We cannot stress this enough. If you're going to build anything significant, you need at least a basic understanding of the concurrency model.**
+~~**We cannot stress this enough. If you're going to build anything significant, you need at least a basic understanding of the concurrency model.**~~
 
-We should also point out, the version of coroutines we're using in native is still a preview release. We discuss that in the docs linked above, and more detail in [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md#Kotlinx-Coroutines).
+~~We should also point out, the version of coroutines we're using in native is still a preview release. We discuss that in the docs linked above, and more detail in [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md#Kotlinx-Coroutines).~~
 
 ### "Selling" KMP
 
