@@ -6,14 +6,14 @@
 //  Copyright © 2021 Touchlab. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 import shared
 
-// swiftlint:disable force_cast
 private let log = koin.loggerWithTag(tag: "ViewController")
 
 class ObservableBreedModel: ObservableObject {
-    private var viewModel: NativeViewModel?
+    private var viewModel: BreedCallbackViewModel?
 
     @Published
     var loading = false
@@ -24,8 +24,12 @@ class ObservableBreedModel: ObservableObject {
     @Published
     var error: String?
 
+    private var cancellables = [AnyCancellable]()
+
     func activate() {
-        viewModel = NativeViewModel { [weak self] dataState in
+        let viewModel = KotlinDependencies.shared.getBreedViewModel()
+
+        doPublish(viewModel.breeds) { [weak self] dataState in
             self?.loading = dataState.loading
             self?.breeds = dataState.data?.allItems
             self?.error = dataState.exception
@@ -36,11 +40,16 @@ class ObservableBreedModel: ObservableObject {
             if let errorMessage = dataState.exception {
                 log.e(message: {"Displaying error: \(errorMessage)"})
             }
-        }
+        }.store(in: &cancellables)
+
+        self.viewModel = viewModel
     }
 
     func deactivate() {
-        viewModel?.onDestroy()
+        cancellables.forEach { $0.cancel() }
+        cancellables.removeAll()
+
+        viewModel?.clear()
         viewModel = nil
     }
 
@@ -49,7 +58,7 @@ class ObservableBreedModel: ObservableObject {
     }
 
     func refresh() {
-        viewModel?.refreshBreeds(forced: true)
+        viewModel?.refreshBreeds()
     }
 }
 

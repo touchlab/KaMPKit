@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.datetime.Clock
 
-class BreedModel(
+class BreedRepository(
     private val dbHelper: DatabaseHelper,
     private val settings: Settings,
     private val dogApi: DogApi,

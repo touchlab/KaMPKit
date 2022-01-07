@@ -22,8 +22,5 @@ class MainActivity : ComponentActivity(), KoinComponent {
                 MainScreen(viewModel, log)
             }
         }
-        if (viewModel.breedStateFlow.value.data == null) {
-            viewModel.refreshBreeds()
-        }
     }
 }

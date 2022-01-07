@@ -1,20 +1,19 @@
-package co.touchlab.kampkit.android
+package co.touchlab.kampkit
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedCommonViewModel
 import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kermit.Logger
 
-class BreedViewModel(
+@Suppress("Unused") // Called from Swift
+class BreedCallbackViewModel(
     breedRepository: BreedRepository,
     log: Logger
-) : ViewModel() {
+) : CallbackViewModel(log) {
 
     private val commonViewModel = BreedCommonViewModel(breedRepository, log, viewModelScope)
 
-    val breeds = commonViewModel.breeds
+    val breeds = commonViewModel.breeds.asCallbacks()
 
     fun refreshBreeds() = commonViewModel.refreshBreeds()
 
