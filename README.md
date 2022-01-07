@@ -19,7 +19,7 @@ repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
 > ## Touchlab's Hiring!
 >
-> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the fully distributed team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
 
 ## Getting Help
 
