@@ -18,7 +18,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -29,7 +28,6 @@ import kotlin.time.Duration.Companion.seconds
 @RunWith(AndroidJUnit4::class)
 class BreedModelTest {
 
-    private var model: BreedModel = BreedModel()
     private var kermit = Logger
     private var testDbConnection = testDbConnection()
     private var dbHelper = DatabaseHelper(
@@ -43,6 +41,8 @@ class BreedModelTest {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
+    private var model: BreedModel = BreedModel(dbHelper, settings, ktorApi, kermit, clock)
+
     companion object {
         private val appenzeller = Breed(1, "appenzeller", 0L)
         private val australianNoLike = Breed(2, "australian", 0L)
@@ -53,11 +53,6 @@ class BreedModelTest {
         private val dataStateSuccessFavorite = DataState(
             data = ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
         )
-    }
-
-    @BeforeTest
-    fun setup() {
-        appStart(dbHelper, settings, ktorApi, kermit, clock)
     }
 
     @Test
@@ -163,6 +158,5 @@ class BreedModelTest {
     @AfterTest
     fun breakdown() = runTest {
         testDbConnection.close()
-        appEnd()
     }
 }
