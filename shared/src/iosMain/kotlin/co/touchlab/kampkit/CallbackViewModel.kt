@@ -38,4 +38,3 @@ abstract class CallbackViewModel(log: Logger) {
     fun <T : Any> Flow<T>.asCallbacks() =
         FlowAdapter(viewModelScope, this)
 }
-
