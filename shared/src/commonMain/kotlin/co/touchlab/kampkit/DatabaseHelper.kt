@@ -34,7 +34,7 @@ class DatabaseHelper(
         }
     }
 
-    suspend fun selectById(id: Long): Flow<List<Breed>> =
+    fun selectById(id: Long): Flow<List<Breed>> =
         dbRef.tableQueries
             .selectById(id)
             .asFlow()
