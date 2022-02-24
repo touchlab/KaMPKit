@@ -70,6 +70,8 @@ touchlab-kermit = { module = "co.touchlab:kermit", version = "1.0.0" }
 touchlab-stately = { module = "co.touchlab:stately-common", version = "1.2.1" }
 
 turbine = { module = "app.cash.turbine:turbine", version = "0.7.0" }
+kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
+kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common", version.ref = "kotlin" }
 
 [bundles]
 app-ui = [
@@ -92,6 +94,8 @@ gradlePlugins = [
 ]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]
 shared-commonTest = [
+    "kotlin-test-common",
+    "kotlin-test-annotations-common",
     "multiplatformSettings-test",
     "koin-test",
     "turbine",
