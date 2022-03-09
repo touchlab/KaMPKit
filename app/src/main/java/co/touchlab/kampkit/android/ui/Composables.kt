@@ -32,9 +32,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
-import co.touchlab.kampkit.android.BreedViewModel
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
+import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Logger

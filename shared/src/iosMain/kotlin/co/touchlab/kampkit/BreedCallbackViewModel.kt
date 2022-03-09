@@ -1,21 +1,22 @@
 package co.touchlab.kampkit
 
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.models.BreedCommonViewModel
 import co.touchlab.kampkit.models.BreedRepository
+import co.touchlab.kampkit.models.BreedViewModel
+import co.touchlab.kampkit.models.CallbackViewModel
 import co.touchlab.kermit.Logger
 
 @Suppress("Unused") // Called from Swift
 class BreedCallbackViewModel(
     breedRepository: BreedRepository,
     log: Logger
-) : CallbackViewModel(log) {
+) : CallbackViewModel() {
 
-    private val commonViewModel = BreedCommonViewModel(breedRepository, log, viewModelScope)
+    override val viewModel = BreedViewModel(breedRepository, log)
 
-    val breeds = commonViewModel.breeds.asCallbacks()
+    val breeds = viewModel.breeds.asCallbacks()
 
-    fun refreshBreeds() = commonViewModel.refreshBreeds()
+    fun refreshBreeds() = viewModel.refreshBreeds()
 
-    fun updateBreedFavorite(breed: Breed) = commonViewModel.updateBreedFavorite(breed)
+    fun updateBreedFavorite(breed: Breed) = viewModel.updateBreedFavorite(breed)
 }
