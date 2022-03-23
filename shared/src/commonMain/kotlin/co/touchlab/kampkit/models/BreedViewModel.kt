@@ -25,6 +25,10 @@ class BreedViewModel(
         observeBreeds()
     }
 
+    override fun onCleared() {
+        log.v("Clearing BreedViewModel")
+    }
+
     @OptIn(FlowPreview::class)
     private fun observeBreeds() {
         viewModelScope.launch {
