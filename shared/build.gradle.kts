@@ -44,8 +44,6 @@ kotlin {
     // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
     iosSimulatorArm64()
 
-    version = "1.1"
-
     sourceSets {
         all {
             languageSettings.apply {
