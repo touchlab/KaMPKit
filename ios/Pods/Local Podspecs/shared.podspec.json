@@ -1,10 +1,10 @@
 {
   "name": "shared",
-  "version": "1.0",
+  "version": "1.2",
   "homepage": "https://github.com/touchlab/KaMPKit",
   "source": {
     "git": "Not Published",
-    "tag": "Cocoapods/shared/1.0"
+    "tag": "Cocoapods/shared/1.2"
   },
   "authors": "",
   "license": "",
