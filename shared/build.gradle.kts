@@ -25,7 +25,7 @@ android {
     }
 }
 
-version = "1.0"
+version = "1.2"
 
 android {
     configurations {
@@ -43,8 +43,6 @@ kotlin {
     ios()
     // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
     iosSimulatorArm64()
-
-    version = "1.1"
 
     sourceSets {
         all {
