@@ -2,11 +2,12 @@ package co.touchlab.kampkit.models
 
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.flattenMerge
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class BreedViewModel(
@@ -15,11 +16,10 @@ class BreedViewModel(
 ) : ViewModel() {
     private val log = log.withTag("BreedCommonViewModel")
 
-    private val mutableBreeds: MutableStateFlow<DataState<ItemDataSummary>> = MutableStateFlow(
-        DataState(loading = true)
-    )
+    private val mutableBreedState: MutableStateFlow<BreedViewState> =
+        MutableStateFlow(BreedViewState(isLoading = true))
 
-    val breeds: StateFlow<DataState<ItemDataSummary>> = mutableBreeds
+    val breedState: StateFlow<BreedViewState> = mutableBreedState
 
     init {
         observeBreeds()
@@ -29,39 +29,72 @@ class BreedViewModel(
         log.v("Clearing BreedViewModel")
     }
 
-    @OptIn(FlowPreview::class)
     private fun observeBreeds() {
-        viewModelScope.launch {
-            log.v { "getBreeds: Collecting Things" }
-            flowOf(
-                breedRepository.refreshBreedsIfStale(true),
-                breedRepository.getBreedsFromCache()
-            ).flattenMerge().collect { dataState ->
-                if (dataState.loading) {
-                    mutableBreeds.value = mutableBreeds.value.copy(loading = true)
-                } else {
-                    mutableBreeds.value = dataState
-                }
+        // Refresh breeds, and emit any exception that was thrown so we can handle it downstream
+        val refreshFlow = flow<Throwable?> {
+            try {
+                breedRepository.refreshBreedsIfStale()
+                emit(null)
+            } catch (exception: Exception) {
+                emit(exception)
             }
+        }
+
+        viewModelScope.launch {
+            combine(refreshFlow, breedRepository.getBreeds()) { throwable, breeds -> throwable to breeds }
+                .collect { (error, breeds) ->
+                    mutableBreedState.update { previousState ->
+                        val errorMessage = if (error != null) {
+                            "Unable to download breed list"
+                        } else {
+                            previousState.error
+                        }
+                        BreedViewState(
+                            isLoading = false,
+                            breeds = breeds.takeIf { it.isNotEmpty() },
+                            error = errorMessage.takeIf { breeds.isEmpty() },
+                            isEmpty = breeds.isEmpty() && errorMessage == null
+                        )
+                    }
+                }
         }
     }
 
-    fun refreshBreeds() {
-        viewModelScope.launch {
+    fun refreshBreeds(): Job {
+        // Set loading state, which will be cleared when the repository re-emits
+        mutableBreedState.update { it.copy(isLoading = true) }
+        return viewModelScope.launch {
             log.v { "refreshBreeds" }
-            breedRepository.refreshBreedsIfStale(true).collect { dataState ->
-                if (dataState.loading) {
-                    mutableBreeds.value = mutableBreeds.value.copy(loading = true)
-                } else {
-                    mutableBreeds.value = dataState
-                }
+            try {
+                breedRepository.refreshBreeds()
+            } catch (exception: Exception) {
+                handleBreedError(exception)
             }
         }
     }
 
-    fun updateBreedFavorite(breed: Breed) {
-        viewModelScope.launch {
+    fun updateBreedFavorite(breed: Breed): Job {
+        return viewModelScope.launch {
             breedRepository.updateBreedFavorite(breed)
         }
     }
+
+    private fun handleBreedError(throwable: Throwable) {
+        log.e(throwable) { "Error downloading breed list" }
+        mutableBreedState.update {
+            if (it.breeds.isNullOrEmpty()) {
+                BreedViewState(error = "Unable to refresh breed list")
+            } else {
+                // Just let it fail silently if we have a cache
+                it.copy(isLoading = false)
+            }
+        }
+    }
 }
+
+data class BreedViewState(
+    val breeds: List<Breed>? = null,
+    val error: String? = null,
+    val isLoading: Boolean = false,
+    val isEmpty: Boolean = false
+)

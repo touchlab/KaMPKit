@@ -7,8 +7,6 @@ import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.datetime.Clock
 
 class BreedRepository(
@@ -29,72 +27,37 @@ class BreedRepository(
         ensureNeverFrozen()
     }
 
-    fun refreshBreedsIfStale(forced: Boolean = false): Flow<DataState<ItemDataSummary>> = flow {
-        emit(DataState(loading = true))
-        val currentTimeMS = clock.now().toEpochMilliseconds()
-        val stale = isBreedListStale(currentTimeMS)
-        val networkBreedDataState: DataState<ItemDataSummary>
-        if (stale || forced) {
-            networkBreedDataState = getBreedsFromNetwork(currentTimeMS)
-            if (networkBreedDataState.data != null) {
-                dbHelper.insertBreeds(networkBreedDataState.data.allItems)
-            } else {
-                emit(networkBreedDataState)
-            }
+    fun getBreeds(): Flow<List<Breed>> = dbHelper.selectAllItems()
+
+    suspend fun refreshBreedsIfStale() {
+        if (isBreedListStale()) {
+            refreshBreeds()
         }
     }
 
-    fun getBreedsFromCache(): Flow<DataState<ItemDataSummary>> =
-        dbHelper.selectAllItems()
-            .mapNotNull { itemList ->
-                if (itemList.isEmpty()) {
-                    null
-                } else {
-                    DataState<ItemDataSummary>(
-                        data = ItemDataSummary(
-                            itemList.maxByOrNull { it.name.length },
-                            itemList
-                        )
-                    )
-                }
-            }
+    suspend fun refreshBreeds() {
+        val breedResult = dogApi.getJsonFromApi()
+        log.v { "Breed network result: ${breedResult.status}" }
+        val breedList = breedResult.message.keys.sorted().toList()
+        log.v { "Fetched ${breedList.size} breeds from network" }
+        settings.putLong(DB_TIMESTAMP_KEY, clock.now().toEpochMilliseconds())
 
-    private fun isBreedListStale(currentTimeMS: Long): Boolean {
+        if (breedList.isNotEmpty()) {
+            dbHelper.insertBreeds(breedList)
+        }
+    }
+
+    suspend fun updateBreedFavorite(breed: Breed) {
+        dbHelper.updateFavorite(breed.id, !breed.favorite)
+    }
+
+    private fun isBreedListStale(): Boolean {
         val lastDownloadTimeMS = settings.getLong(DB_TIMESTAMP_KEY, 0)
         val oneHourMS = 60 * 60 * 1000
-        val stale = lastDownloadTimeMS + oneHourMS < currentTimeMS
+        val stale = lastDownloadTimeMS + oneHourMS < clock.now().toEpochMilliseconds()
         if (!stale) {
             log.i { "Breeds not fetched from network. Recently updated" }
         }
         return stale
     }
-
-    suspend fun getBreedsFromNetwork(currentTimeMS: Long): DataState<ItemDataSummary> {
-        return try {
-            val breedResult = dogApi.getJsonFromApi()
-            log.v { "Breed network result: ${breedResult.status}" }
-            val breedList = breedResult.message.keys.sorted().toList()
-            log.v { "Fetched ${breedList.size} breeds from network" }
-            settings.putLong(DB_TIMESTAMP_KEY, currentTimeMS)
-            if (breedList.isEmpty()) {
-                DataState<ItemDataSummary>(empty = true)
-            } else {
-                DataState<ItemDataSummary>(
-                    ItemDataSummary(
-                        null,
-                        breedList.map { Breed(0L, it, 0L) }
-                    )
-                )
-            }
-        } catch (e: Exception) {
-            log.e(e) { "Error downloading breed list" }
-            DataState<ItemDataSummary>(exception = "Unable to download breed list")
-        }
-    }
-
-    suspend fun updateBreedFavorite(breed: Breed) {
-        dbHelper.updateFavorite(breed.id, breed.favorite != 1L)
-    }
 }
-
-data class ItemDataSummary(val longestItem: Breed?, val allItems: List<Breed>)

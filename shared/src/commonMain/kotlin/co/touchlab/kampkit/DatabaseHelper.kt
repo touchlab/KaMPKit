@@ -25,11 +25,11 @@ class DatabaseHelper(
             .mapToList()
             .flowOn(backgroundDispatcher)
 
-    suspend fun insertBreeds(breeds: List<Breed>) {
+    suspend fun insertBreeds(breeds: List<String>) {
         log.d { "Inserting ${breeds.size} breeds into database" }
         dbRef.transactionWithContext(backgroundDispatcher) {
             breeds.forEach { breed ->
-                dbRef.tableQueries.insertBreed(null, breed.name)
+                dbRef.tableQueries.insertBreed(breed)
             }
         }
     }
@@ -51,10 +51,7 @@ class DatabaseHelper(
     suspend fun updateFavorite(breedId: Long, favorite: Boolean) {
         log.i { "Breed $breedId: Favorited $favorite" }
         dbRef.transactionWithContext(backgroundDispatcher) {
-            dbRef.tableQueries.updateFavorite(favorite.toLong(), breedId)
+            dbRef.tableQueries.updateFavorite(favorite, breedId)
         }
     }
 }
-
-fun Breed.isFavorited(): Boolean = this.favorite != 0L
-internal fun Boolean.toLong(): Long = if (this) 1L else 0L

@@ -62,6 +62,7 @@ multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-te
 roboelectric = { module = "org.robolectric:robolectric", version = "4.7.3" }
 
 sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-jvm = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
 sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
 sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
@@ -106,6 +107,7 @@ shared-commonTest = [
 shared-androidTest = [
     "androidx-test-junit",
     "coroutines-test",
-    "roboelectric"
+    "roboelectric",
+    "sqlDelight-jvm"
 ]
 

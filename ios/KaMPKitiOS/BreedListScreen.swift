@@ -29,15 +29,15 @@ class ObservableBreedModel: ObservableObject {
     func activate() {
         let viewModel = KotlinDependencies.shared.getBreedViewModel()
 
-        doPublish(viewModel.breeds) { [weak self] dataState in
-            self?.loading = dataState.loading
-            self?.breeds = dataState.data?.allItems
-            self?.error = dataState.exception
+        doPublish(viewModel.breeds) { [weak self] dogsState in
+            self?.loading = dogsState.isLoading
+            self?.breeds = dogsState.breeds
+            self?.error = dogsState.error
 
-            if let breeds = dataState.data?.allItems {
+            if let breeds = dogsState.breeds {
                 log.d(message: {"View updating with \(breeds.count) breeds"})
             }
-            if let errorMessage = dataState.exception {
+            if let errorMessage = dogsState.error {
                 log.e(message: {"Displaying error: \(errorMessage)"})
             }
         }.store(in: &cancellables)
@@ -123,7 +123,7 @@ struct BreedRowView: View {
                 Text(breed.name)
                     .padding(4.0)
                 Spacer()
-                Image(systemName: (breed.favorite == 0) ? "heart" : "heart.fill")
+                Image(systemName: (!breed.favorite) ? "heart" : "heart.fill")
                     .padding(4.0)
             }
         }
@@ -135,8 +135,8 @@ struct BreedListScreen_Previews: PreviewProvider {
         BreedListContent(
             loading: false,
             breeds: [
-                Breed(id: 0, name: "appenzeller", favorite: 0),
-                Breed(id: 1, name: "australian", favorite: 1)
+                Breed(id: 0, name: "appenzeller", favorite: false),
+                Breed(id: 1, name: "australian", favorite: true)
             ],
             error: nil,
             onBreedFavorite: { _ in },
