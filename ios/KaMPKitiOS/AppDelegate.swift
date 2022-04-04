@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     // Lazy so it doesn't try to initialize before startKoin() is called
-    // swiftlint:disable force_cast
     lazy var log = koin.loggerWithTag(tag: "AppDelegate")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions

@@ -2,6 +2,7 @@ package co.touchlab.kampkit
 
 import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kampkit.ktor.DogApiImpl
+import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
@@ -63,6 +64,16 @@ private val coreModule = module {
     // See https://github.com/touchlab/Kermit
     val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "KampKit")
     factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
+
+    single {
+        BreedRepository(
+            get(),
+            get(),
+            get(),
+            getWith("BreedRepository"),
+            get()
+        )
+    }
 }
 
 internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {

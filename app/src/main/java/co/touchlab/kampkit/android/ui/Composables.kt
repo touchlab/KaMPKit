@@ -32,9 +32,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.flowWithLifecycle
-import co.touchlab.kampkit.android.BreedViewModel
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
+import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Logger
@@ -47,16 +47,16 @@ fun MainScreen(
     log: Logger
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val lifecycleAwareDogsFlow = remember(viewModel.breedStateFlow, lifecycleOwner) {
-        viewModel.breedStateFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
+    val lifecycleAwareDogsFlow = remember(viewModel.breeds, lifecycleOwner) {
+        viewModel.breeds.flowWithLifecycle(lifecycleOwner.lifecycle)
     }
 
     @SuppressLint("StateFlowValueCalledInComposition") // False positive lint check when used inside collectAsState()
-    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedStateFlow.value)
+    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breeds.value)
 
     MainScreenContent(
         dogsState = dogsState,
-        onRefresh = { viewModel.refreshBreeds(true) },
+        onRefresh = { viewModel.refreshBreeds() },
         onSuccess = { data -> log.v { "View updating with ${data.allItems.size} breeds" } },
         onError = { exception -> log.e { "Displaying error: $exception" } },
         onFavorite = { viewModel.updateBreedFavorite(it) }

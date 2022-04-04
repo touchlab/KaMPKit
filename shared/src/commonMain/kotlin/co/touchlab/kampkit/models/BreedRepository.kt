@@ -2,7 +2,6 @@ package co.touchlab.kampkit.models
 
 import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.injectLogger
 import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
@@ -11,15 +10,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.datetime.Clock
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
-class BreedModel : KoinComponent {
-    private val dbHelper: DatabaseHelper by inject()
-    private val settings: Settings by inject()
-    private val dogApi: DogApi by inject()
-    private val log: Logger by injectLogger("BreedModel")
-    private val clock: Clock by inject()
+class BreedRepository(
+    private val dbHelper: DatabaseHelper,
+    private val settings: Settings,
+    private val dogApi: DogApi,
+    log: Logger,
+    private val clock: Clock
+) {
+
+    private val log = log.withTag("BreedModel")
 
     companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"

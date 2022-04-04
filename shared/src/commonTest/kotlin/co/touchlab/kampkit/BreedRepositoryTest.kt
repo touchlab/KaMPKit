@@ -4,7 +4,7 @@ import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
 import co.touchlab.kampkit.mock.DogApiMock
-import co.touchlab.kampkit.models.BreedModel
+import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kampkit.models.DataState
 import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Logger
@@ -18,7 +18,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -26,10 +25,10 @@ import kotlin.test.assertTrue
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(FlowPreview::class)
 @RunWith(AndroidJUnit4::class)
-class BreedModelTest {
+class BreedRepositoryTest {
 
-    private var model: BreedModel = BreedModel()
     private var kermit = Logger
     private var testDbConnection = testDbConnection()
     private var dbHelper = DatabaseHelper(
@@ -43,6 +42,8 @@ class BreedModelTest {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
+    private var model: BreedRepository = BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
+
     companion object {
         private val appenzeller = Breed(1, "appenzeller", 0L)
         private val australianNoLike = Breed(2, "australian", 0L)
@@ -55,15 +56,10 @@ class BreedModelTest {
         )
     }
 
-    @BeforeTest
-    fun setup() {
-        appStart(dbHelper, settings, ktorApi, kermit, clock)
-    }
-
     @Test
     fun staleDataCheckTest() = runTest {
         val currentTimeMS = Clock.System.now().toEpochMilliseconds()
-        settings.putLong(BreedModel.DB_TIMESTAMP_KEY, currentTimeMS)
+        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, currentTimeMS)
         assertTrue(ktorApi.calledCount == 0)
 
         val expectedError = DataState<ItemDataSummary>(exception = "Unable to download breed list")
@@ -76,7 +72,6 @@ class BreedModelTest {
         assertTrue(ktorApi.calledCount == 0)
     }
 
-    @OptIn(FlowPreview::class)
     @Test
     fun updateFavoriteTest() = runBlocking {
         ktorApi.prepareResult(ktorApi.successResult())
@@ -94,7 +89,6 @@ class BreedModelTest {
             }
     }
 
-    @OptIn(FlowPreview::class)
     @Test
     fun fetchBreedsFromNetworkPreserveFavorites() = runBlocking {
         ktorApi.prepareResult(ktorApi.successResult())
@@ -122,7 +116,6 @@ class BreedModelTest {
             }
     }
 
-    @OptIn(FlowPreview::class)
     @Test
     fun updateDatabaseTest() = runBlocking {
         val successResult = ktorApi.successResult()
@@ -155,7 +148,7 @@ class BreedModelTest {
     }
 
     @Test
-    fun notifyErrorOnException() = runTest {
+    fun showCachedBreedsOnApiErrpr() = runTest {
         ktorApi.throwOnCall(RuntimeException())
         assertNotNull(model.getBreedsFromNetwork(0L))
     }
@@ -163,6 +156,5 @@ class BreedModelTest {
     @AfterTest
     fun breakdown() = runTest {
         testDbConnection.close()
-        appEnd()
     }
 }
