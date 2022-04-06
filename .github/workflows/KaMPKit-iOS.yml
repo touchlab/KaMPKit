@@ -25,6 +25,9 @@ jobs:
           java-version: "11"
 
       - name: Build
+        run: ./gradlew :shared:iosX64Test
+
+      - name: Build
         uses: sersoft-gmbh/xcodebuild-action@v1
         with:
           workspace: ios/KaMPKitiOS.xcworkspace

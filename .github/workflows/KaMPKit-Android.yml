@@ -25,7 +25,7 @@ jobs:
           java-version: "11"
 
       - name: Build
-        run: ./gradlew :app:build
+        run: ./gradlew build
 
 
 
