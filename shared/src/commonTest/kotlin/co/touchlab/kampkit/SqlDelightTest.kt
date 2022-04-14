@@ -1,6 +1,5 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.db.Breed
 import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -16,7 +15,7 @@ class SqlDelightTest {
     private lateinit var dbHelper: DatabaseHelper
 
     private suspend fun DatabaseHelper.insertBreed(name: String) {
-        insertBreeds(listOf(Breed(id = 1, name = name, favorite = 0L)))
+        insertBreeds(listOf(name))
     }
 
     @BeforeTest
@@ -60,7 +59,7 @@ class SqlDelightTest {
             "Could not retrieve Breed by Id"
         )
         assertTrue(
-            newBreed.isFavorited(),
+            newBreed.favorite,
             "Favorite Did Not Save"
         )
     }

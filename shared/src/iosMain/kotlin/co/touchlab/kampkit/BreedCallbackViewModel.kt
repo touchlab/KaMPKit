@@ -14,9 +14,13 @@ class BreedCallbackViewModel(
 
     override val viewModel = BreedViewModel(breedRepository, log)
 
-    val breeds = viewModel.breeds.asCallbacks()
+    val breeds = viewModel.breedState.asCallbacks()
 
-    fun refreshBreeds() = viewModel.refreshBreeds()
+    fun refreshBreeds() {
+        viewModel.refreshBreeds()
+    }
 
-    fun updateBreedFavorite(breed: Breed) = viewModel.updateBreedFavorite(breed)
+    fun updateBreedFavorite(breed: Breed) {
+        viewModel.updateBreedFavorite(breed)
+    }
 }

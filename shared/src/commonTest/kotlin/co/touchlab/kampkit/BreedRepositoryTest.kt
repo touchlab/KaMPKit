@@ -5,31 +5,23 @@ import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
 import co.touchlab.kampkit.mock.DogApiMock
 import co.touchlab.kampkit.models.BreedRepository
-import co.touchlab.kampkit.models.DataState
-import co.touchlab.kampkit.models.ItemDataSummary
 import co.touchlab.kermit.Logger
+import co.touchlab.kermit.StaticConfig
 import com.russhwolf.settings.MockSettings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.flattenMerge
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
-import kotlin.test.assertTrue
+import kotlin.test.assertFails
 import kotlin.time.Duration.Companion.hours
-import kotlin.time.Duration.Companion.seconds
 
-@OptIn(FlowPreview::class)
 @RunWith(AndroidJUnit4::class)
 class BreedRepositoryTest {
 
-    private var kermit = Logger
+    private var kermit = Logger(StaticConfig())
     private var testDbConnection = testDbConnection()
     private var dbHelper = DatabaseHelper(
         testDbConnection,
@@ -42,119 +34,112 @@ class BreedRepositoryTest {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
-    private var model: BreedRepository = BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
+    private val repository: BreedRepository = BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
 
     companion object {
-        private val appenzeller = Breed(1, "appenzeller", 0L)
-        private val australianNoLike = Breed(2, "australian", 0L)
-        private val australianLike = Breed(2, "australian", 1L)
-        val dataStateSuccessNoFavorite = DataState(
-            data = ItemDataSummary(appenzeller, listOf(appenzeller, australianNoLike))
-        )
-        private val dataStateSuccessFavorite = DataState(
-            data = ItemDataSummary(appenzeller, listOf(appenzeller, australianLike))
-        )
-    }
-
-    @Test
-    fun staleDataCheckTest() = runTest {
-        val currentTimeMS = Clock.System.now().toEpochMilliseconds()
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, currentTimeMS)
-        assertTrue(ktorApi.calledCount == 0)
-
-        val expectedError = DataState<ItemDataSummary>(exception = "Unable to download breed list")
-        val actualError = model.getBreedsFromNetwork(0L)
-
-        assertEquals(
-            expectedError,
-            actualError
-        )
-        assertTrue(ktorApi.calledCount == 0)
-    }
-
-    @Test
-    fun updateFavoriteTest() = runBlocking {
-        ktorApi.prepareResult(ktorApi.successResult())
-
-        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-            .flattenMerge().distinctUntilChanged().test {
-                // Loading
-                assertEquals(DataState(loading = true), awaitItem())
-                // No Favorites
-                assertEquals(dataStateSuccessNoFavorite, awaitItem())
-                // Add 1 favorite breed
-                model.updateBreedFavorite(australianNoLike)
-                // Get the new result with 1 breed favorited
-                assertEquals(dataStateSuccessFavorite, awaitItem())
-            }
-    }
-
-    @Test
-    fun fetchBreedsFromNetworkPreserveFavorites() = runBlocking {
-        ktorApi.prepareResult(ktorApi.successResult())
-
-        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache())
-            .flattenMerge().distinctUntilChanged().test {
-                // Loading
-                assertEquals(DataState(loading = true), awaitItem())
-                assertEquals(dataStateSuccessNoFavorite, awaitItem())
-                // "Like" the Australian breed
-                model.updateBreedFavorite(australianNoLike)
-                // Get the new result with the Australian breed liked
-                assertEquals(dataStateSuccessFavorite, awaitItem())
-                cancel()
-            }
-        // Fetch breeds from the network (no breeds liked),
-        // but preserved the liked breeds in the database.
-        flowOf(model.refreshBreedsIfStale(true), model.getBreedsFromCache())
-            .flattenMerge().distinctUntilChanged().test {
-                // Loading
-                assertEquals(DataState(loading = true), awaitItem())
-                // Get the new result with the Australian breed liked
-                assertEquals(dataStateSuccessFavorite, awaitItem())
-                cancel()
-            }
-    }
-
-    @Test
-    fun updateDatabaseTest() = runBlocking {
-        val successResult = ktorApi.successResult()
-        ktorApi.prepareResult(successResult)
-        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge().distinctUntilChanged()
-            .test(timeout = 30.seconds) {
-                assertEquals(DataState(loading = true), awaitItem())
-                val oldBreeds = awaitItem()
-                val data = oldBreeds.data
-                assertTrue(data != null)
-                assertEquals(
-                    ktorApi.successResult().message.keys.size,
-                    data.allItems.size
-                )
-            }
-
-        // Advance time by more than an hour to make cached data stale
-        clock.currentInstant += 2.hours
-        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
-
-        ktorApi.prepareResult(resultWithExtraBreed)
-        flowOf(model.refreshBreedsIfStale(), model.getBreedsFromCache()).flattenMerge().distinctUntilChanged()
-            .test(timeout = 30.seconds) {
-                assertEquals(DataState(loading = true), awaitItem())
-                val updated = awaitItem()
-                val data = updated.data
-                assertTrue(data != null)
-                assertEquals(resultWithExtraBreed.message.keys.size, data.allItems.size)
-            }
-    }
-
-    @Test
-    fun showCachedBreedsOnApiErrpr() = runTest {
-        ktorApi.throwOnCall(RuntimeException())
-        assertNotNull(model.getBreedsFromNetwork(0L))
+        private val appenzeller = Breed(1, "appenzeller", false)
+        private val australianNoLike = Breed(2, "australian", false)
+        private val australianLike = Breed(2, "australian", true)
+        private val breedsNoFavorite = listOf(appenzeller, australianNoLike)
+        private val breedsFavorite = listOf(appenzeller, australianLike)
+        private val breedNames = breedsFavorite.map { it.name }
     }
 
     @AfterTest
-    fun breakdown() = runTest {
+    fun tearDown() = runTest {
         testDbConnection.close()
+    }
+
+    @Test
+    fun `Get breeds without cache`() = runBlocking {
+        ktorApi.prepareResult(ktorApi.successResult())
+        repository.refreshBreedsIfStale()
+        repository.getBreeds().test {
+            assertEquals(breedsNoFavorite, awaitItem())
+        }
+    }
+
+    @Test
+    fun `Get updated breeds with cache and preserve favorites`() = runBlocking {
+        val successResult = ktorApi.successResult()
+        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
+        ktorApi.prepareResult(resultWithExtraBreed)
+
+        dbHelper.insertBreeds(breedNames)
+        dbHelper.updateFavorite(australianLike.id, true)
+
+        repository.getBreeds().test {
+            assertEquals(breedsFavorite, awaitItem())
+            expectNoEvents()
+
+            repository.refreshBreeds()
+            // id is 5 here because it incremented twice when trying to insert duplicate breeds
+            assertEquals(breedsFavorite + Breed(5, "extra", false), awaitItem())
+        }
+    }
+
+    @Test
+    fun `Get updated breeds when stale and preserve favorites`() = runBlocking {
+        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
+
+        val successResult = ktorApi.successResult()
+        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
+        ktorApi.prepareResult(resultWithExtraBreed)
+
+        dbHelper.insertBreeds(breedNames)
+        dbHelper.updateFavorite(australianLike.id, true)
+
+        repository.refreshBreedsIfStale()
+        repository.getBreeds().test {
+            // id is 5 here because it incremented twice when trying to insert duplicate breeds
+            assertEquals(breedsFavorite + Breed(5, "extra", false), awaitItem())
+        }
+    }
+
+    @Test
+    fun `Toggle favorite cached breed`() = runBlocking {
+        dbHelper.insertBreeds(breedNames)
+        dbHelper.updateFavorite(australianLike.id, true)
+
+        repository.getBreeds().test {
+            assertEquals(breedsFavorite, awaitItem())
+            expectNoEvents()
+
+            repository.updateBreedFavorite(australianLike)
+            assertEquals(breedsNoFavorite, awaitItem())
+        }
+    }
+
+    @Test
+    fun `No web call if data is not stale`() = runTest {
+        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
+        ktorApi.prepareResult(ktorApi.successResult())
+
+        repository.refreshBreedsIfStale()
+        assertEquals(0, ktorApi.calledCount)
+
+        repository.refreshBreeds()
+        assertEquals(1, ktorApi.calledCount)
+    }
+
+    @Test
+    fun `Rethrow on API error`() = runTest {
+        ktorApi.throwOnCall(RuntimeException("Test error"))
+
+        val throwable = assertFails {
+            repository.refreshBreeds()
+        }
+        assertEquals("Test error", throwable.message)
+    }
+
+    @Test
+    fun `Rethrow on API error when stale`() = runTest {
+        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
+        ktorApi.throwOnCall(RuntimeException("Test error"))
+
+        val throwable = assertFails {
+            repository.refreshBreedsIfStale()
+        }
+        assertEquals("Test error", throwable.message)
     }
 }

@@ -35,8 +35,7 @@ import androidx.lifecycle.flowWithLifecycle
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedViewModel
-import co.touchlab.kampkit.models.DataState
-import co.touchlab.kampkit.models.ItemDataSummary
+import co.touchlab.kampkit.models.BreedViewState
 import co.touchlab.kermit.Logger
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -47,17 +46,17 @@ fun MainScreen(
     log: Logger
 ) {
     val lifecycleOwner = LocalLifecycleOwner.current
-    val lifecycleAwareDogsFlow = remember(viewModel.breeds, lifecycleOwner) {
-        viewModel.breeds.flowWithLifecycle(lifecycleOwner.lifecycle)
+    val lifecycleAwareDogsFlow = remember(viewModel.breedState, lifecycleOwner) {
+        viewModel.breedState.flowWithLifecycle(lifecycleOwner.lifecycle)
     }
 
     @SuppressLint("StateFlowValueCalledInComposition") // False positive lint check when used inside collectAsState()
-    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breeds.value)
+    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedState.value)
 
     MainScreenContent(
         dogsState = dogsState,
         onRefresh = { viewModel.refreshBreeds() },
-        onSuccess = { data -> log.v { "View updating with ${data.allItems.size} breeds" } },
+        onSuccess = { data -> log.v { "View updating with ${data.size} breeds" } },
         onError = { exception -> log.e { "Displaying error: $exception" } },
         onFavorite = { viewModel.updateBreedFavorite(it) }
     )
@@ -65,9 +64,9 @@ fun MainScreen(
 
 @Composable
 fun MainScreenContent(
-    dogsState: DataState<ItemDataSummary>,
+    dogsState: BreedViewState,
     onRefresh: () -> Unit = {},
-    onSuccess: (ItemDataSummary) -> Unit = {},
+    onSuccess: (List<Breed>) -> Unit = {},
     onError: (String) -> Unit = {},
     onFavorite: (Breed) -> Unit = {}
 ) {
@@ -76,25 +75,25 @@ fun MainScreenContent(
         modifier = Modifier.fillMaxSize()
     ) {
         SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = dogsState.loading),
+            state = rememberSwipeRefreshState(isRefreshing = dogsState.isLoading),
             onRefresh = onRefresh
         ) {
-            if (dogsState.empty) {
+            if (dogsState.isEmpty) {
                 Empty()
             }
-            val data = dogsState.data
-            if (data != null) {
-                LaunchedEffect(data) {
-                    onSuccess(data)
+            val breeds = dogsState.breeds
+            if (breeds != null) {
+                LaunchedEffect(breeds) {
+                    onSuccess(breeds)
                 }
-                Success(successData = data, favoriteBreed = onFavorite)
+                Success(successData = breeds, favoriteBreed = onFavorite)
             }
-            val exception = dogsState.exception
-            if (exception != null) {
-                LaunchedEffect(exception) {
-                    onError(exception)
+            val error = dogsState.error
+            if (error != null) {
+                LaunchedEffect(error) {
+                    onError(error)
                 }
-                Error(exception)
+                Error(error)
             }
         }
     }
@@ -128,10 +127,10 @@ fun Error(error: String) {
 
 @Composable
 fun Success(
-    successData: ItemDataSummary,
+    successData: List<Breed>,
     favoriteBreed: (Breed) -> Unit
 ) {
-    DogList(breeds = successData.allItems, favoriteBreed)
+    DogList(breeds = successData, favoriteBreed)
 }
 
 @Composable
@@ -161,7 +160,7 @@ fun DogRow(breed: Breed, onClick: (Breed) -> Unit) {
 @Composable
 fun FavoriteIcon(breed: Breed) {
     Crossfade(
-        targetState = breed.favorite == 0L,
+        targetState = !breed.favorite,
         animationSpec = TweenSpec(
             durationMillis = 500,
             easing = FastOutSlowInEasing
@@ -185,13 +184,10 @@ fun FavoriteIcon(breed: Breed) {
 @Composable
 fun MainScreenContentPreview_Success() {
     MainScreenContent(
-        dogsState = DataState(
-            data = ItemDataSummary(
-                longestItem = null,
-                allItems = listOf(
-                    Breed(0, "appenzeller", 0),
-                    Breed(1, "australian", 1)
-                )
+        dogsState = BreedViewState(
+            breeds = listOf(
+                Breed(0, "appenzeller", false),
+                Breed(1, "australian", true)
             )
         )
     )
