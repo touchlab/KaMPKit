@@ -9,7 +9,7 @@ import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
 
-class BreedRepository(
+internal class BreedRepository internal constructor(
     private val dbHelper: DatabaseHelper,
     private val settings: Settings,
     private val dogApi: DogApi,

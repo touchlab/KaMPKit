@@ -14,9 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    // Lazy so it doesn't try to initialize before startKoin() is called
-    lazy var log = koin.loggerWithTag(tag: "AppDelegate")
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -28,7 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = viewController
         self.window?.makeKeyAndVisible()
 
-        log.v(message: {"App Started"})
+        LoggerKt.d.log {
+            "App Started"
+        }
+        
+        LoggerKt.d.log(messageString: "A log")
         return true
     }
 }

@@ -63,7 +63,7 @@ kotlin {
                 implementation(libs.touchlab.stately)
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
-                api(libs.touchlab.kermit)
+                api(libs.touchlab.kermit.nkt)
             }
         }
         val commonTest by getting {
@@ -114,6 +114,7 @@ kotlin {
         homepage = "https://github.com/touchlab/KaMPKit"
         framework {
             isStatic = false // SwiftUI preview requires dynamic framework
+            export(libs.touchlab.kermit.nkt)
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")

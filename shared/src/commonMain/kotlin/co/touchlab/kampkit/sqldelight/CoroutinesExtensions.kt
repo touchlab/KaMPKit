@@ -5,7 +5,7 @@ import com.squareup.sqldelight.TransactionWithoutReturn
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.CoroutineContext
 
-suspend fun Transacter.transactionWithContext(
+internal suspend fun Transacter.transactionWithContext(
     coroutineContext: CoroutineContext,
     noEnclosing: Boolean = false,
     body: TransactionWithoutReturn.() -> Unit

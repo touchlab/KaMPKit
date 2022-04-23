@@ -10,8 +10,6 @@ import Combine
 import SwiftUI
 import shared
 
-private let log = koin.loggerWithTag(tag: "ViewController")
-
 class ObservableBreedModel: ObservableObject {
     private var viewModel: BreedCallbackViewModel?
 
@@ -35,10 +33,10 @@ class ObservableBreedModel: ObservableObject {
             self?.error = dogsState.error
 
             if let breeds = dogsState.breeds {
-                log.d(message: {"View updating with \(breeds.count) breeds"})
+                LoggerKt.d.log(message: {"View updating with \(breeds.count) breeds"})
             }
             if let errorMessage = dogsState.error {
-                log.e(message: {"Displaying error: \(errorMessage)"})
+                LoggerKt.e.log(message: {"Displaying error: \(errorMessage)"})
             }
         }.store(in: &cancellables)
 

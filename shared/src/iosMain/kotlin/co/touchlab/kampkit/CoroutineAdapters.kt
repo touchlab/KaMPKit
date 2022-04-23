@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
-class FlowAdapter<T : Any>(
+class FlowAdapter<T : Any> internal constructor(
     private val scope: CoroutineScope,
     private val flow: Flow<T>
 ) {

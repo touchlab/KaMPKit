@@ -32,7 +32,7 @@ actual abstract class ViewModel {
 }
 
 abstract class CallbackViewModel {
-    protected abstract val viewModel: ViewModel
+    internal abstract val viewModel: ViewModel
 
     /**
      * Create a [FlowAdapter] from this [Flow] to make it easier to interact with from Swift.

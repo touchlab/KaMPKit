@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class BreedViewModel(
+internal class BreedViewModel internal constructor(
     private val breedRepository: BreedRepository,
     log: Logger
 ) : ViewModel() {
@@ -19,7 +19,7 @@ class BreedViewModel(
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
         MutableStateFlow(BreedViewState(isLoading = true))
 
-    val breedState: StateFlow<BreedViewState> = mutableBreedState
+    internal val breedState: StateFlow<BreedViewState> = mutableBreedState
 
     init {
         observeBreeds()
@@ -60,7 +60,7 @@ class BreedViewModel(
         }
     }
 
-    fun refreshBreeds(): Job {
+    internal fun refreshBreeds(): Job {
         // Set loading state, which will be cleared when the repository re-emits
         mutableBreedState.update { it.copy(isLoading = true) }
         return viewModelScope.launch {

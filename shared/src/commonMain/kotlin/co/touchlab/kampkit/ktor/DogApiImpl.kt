@@ -17,7 +17,7 @@ import io.ktor.serialization.kotlinx.json.json
 import co.touchlab.kermit.Logger as KermitLogger
 import io.ktor.client.plugins.logging.Logger as KtorLogger
 
-class DogApiImpl(private val log: KermitLogger, engine: HttpClientEngine) : DogApi {
+internal class DogApiImpl(private val log: KermitLogger, engine: HttpClientEngine) : DogApi {
 
     private val client = HttpClient(engine) {
         install(ContentNegotiation) {

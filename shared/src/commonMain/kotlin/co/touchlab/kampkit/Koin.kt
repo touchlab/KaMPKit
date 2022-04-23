@@ -17,7 +17,7 @@ import org.koin.core.parameter.parametersOf
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
 
-fun initKoin(appModule: Module): KoinApplication {
+internal fun initKoin(appModule: Module): KoinApplication {
     val koinApplication = startKoin {
         modules(
             appModule,
