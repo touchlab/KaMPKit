@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
@@ -53,6 +55,14 @@ kotlin {
         }
     }
 
+    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
+    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
+    targets.withType<KotlinNativeTarget> {
+        binaries.all {
+            freeCompilerArgs += "-Xgc=cms"
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -87,12 +97,6 @@ kotlin {
             dependencies {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)
-                val coroutineCore = libs.coroutines.core.get()
-                implementation("${coroutineCore.module.group}:${coroutineCore.module.name}:${coroutineCore.versionConstraint.displayName}") {
-                    version {
-                        strictly(libs.versions.coroutines.get())
-                    }
-                }
             }
         }
         val iosTest by getting

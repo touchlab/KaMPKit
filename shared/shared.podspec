@@ -2,24 +2,20 @@ Pod::Spec.new do |spec|
     spec.name                     = 'shared'
     spec.version                  = '1.2'
     spec.homepage                 = 'https://github.com/touchlab/KaMPKit'
-    spec.source                   = { :git => "Not Published", :tag => "Cocoapods/#{spec.name}/#{spec.version}" }
+    spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = 'Common library for the KaMP starter kit'
-
-    spec.vendored_frameworks      = "build/cocoapods/framework/shared.framework"
-    spec.libraries                = "c++"
-    spec.module_name              = "#{spec.name}_umbrella"
-
+    spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
+    spec.libraries                = 'c++'
     spec.ios.deployment_target = '12.4'
-
                 
-
+                
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':shared',
         'PRODUCT_MODULE_NAME' => 'shared',
     }
-
+                
     spec.script_phases = [
         {
             :name => 'Build shared',
@@ -35,8 +31,9 @@ Pod::Spec.new do |spec|
                 "$REPO_ROOT/../gradlew" -p "$REPO_ROOT" $KOTLIN_PROJECT_PATH:syncFramework \
                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME \
                     -Pkotlin.native.cocoapods.archs="$ARCHS" \
-                    -Pkotlin.native.cocoapods.configuration=$CONFIGURATION
+                    -Pkotlin.native.cocoapods.configuration="$CONFIGURATION"
             SCRIPT
         }
     ]
+                
 end

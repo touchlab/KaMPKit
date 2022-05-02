@@ -6,12 +6,12 @@ compileSdk = "31"
 
 # Dependencies
 compose = "1.1.1"
-composeCompiler = "1.1.1"
-coroutines = "1.6.0"
-multiplatformSettings = "0.8.1"
-koin = "3.1.5"
-kotlin = "1.6.10"
-ktor = "2.0.0-beta-1"
+composeCompiler = "1.2.0-alpha08"
+coroutines = "1.6.1"
+multiplatformSettings = "0.9"
+koin = "3.1.6"
+kotlin = "1.6.20"
+ktor = "2.0.0"
 lifecycle = "2.4.1"
 sqlDelight = "1.5.3"
 
