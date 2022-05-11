@@ -17,12 +17,12 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3
         with:
-          distribution: "adopt"
-          java-version: "11"
+          distribution: corretto
+          java-version: 11
 
       - name: Build
         run: ./gradlew :shared:iosX64Test
