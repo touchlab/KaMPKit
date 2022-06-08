@@ -22,7 +22,7 @@ class DatabaseHelper(
         dbRef.tableQueries
             .selectAll()
             .asFlow()
-            .mapToList()
+            .mapToList(backgroundDispatcher)
             .flowOn(backgroundDispatcher)
 
     suspend fun insertBreeds(breeds: List<String>) {
