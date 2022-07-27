@@ -63,7 +63,7 @@ class ObservableBreedModel: ObservableObject {
 }
 
 struct BreedListScreen: View {
-    @ObservedObject
+    @StateObject
     var observableModel = ObservableBreedModel()
 
     var body: some View {
