@@ -22,7 +22,7 @@ The KaMP kit is broken up into three different directories:
 
 The app directory holds the android version of the app, and all the android code. As a default, Android Studio will name the project "app" when creating it. Even though this can be confusing for kmp this is the default.
 
-Similarly the ios directory holds the iOS version of the app, which contains an XCode project and a Workspace. We want to use the workspace as it contains the shared library.
+Similarly the ios directory holds the iOS version of the app, which contains an Xcode project and a Workspace. We want to use the workspace as it contains the shared library.
 
 Finally the shared directory holds the shared code. The shared directory is actually an android library that is referenced from the app project. This library contains directories for the different platforms as well as directories for testing.
 

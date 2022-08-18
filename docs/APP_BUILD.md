@@ -25,7 +25,7 @@ git clone https://github.com/touchlab/KaMPKit.git
 
 ### 3) Build iOS
 
-1. [Optional] Run gradle build. If you are more familiar with Android it may be easier to run the gradle build and confirm that the shared library builds properly before moving into XCode land, but this isn't necessary. The shared library will also build when run in XCode.
+1. [Optional] Run gradle build. If you are more familiar with Android it may be easier to run the gradle build and confirm that the shared library builds properly before moving into Xcode land, but this isn't necessary. The shared library will also build when run in Xcode.
    1. Open a Terminal window or use the one at the bottom Android Studio/IntelliJ. 
    1. Navigate to the project's root directory (`KaMPKit/` - not `KaMPKit/ios/` - which is iOS project's root directory). 
    1. Run the command `./gradlew build` which will build the shared library.
