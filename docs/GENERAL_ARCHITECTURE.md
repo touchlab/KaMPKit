@@ -41,16 +41,16 @@ Each of these directories has the same folder structure: the language type, then
 #### Platform
 The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
 #### ViewModel
-From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. In Android this extends the Jetpack ViewModel(`BreedViewModel`) and connects to that lifecycle. For iOS it’s connected with callbacks and the lifecycle is handled manually, which is done in the `NativeViewModel` class. These ViewModels take in two callbacks from the Platform View, then create and call the `BreedModel`. 
-#### Model
-The BreedModel is in the common MultiPlatform code, and handles the business logic. The BreedModel references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements the KtorApi) and `DatabaseHelper`. The DatabseHelper and DogApiImpl both use the Multiplatform libraries to retrieve data and send it back to the BreedModel. 
+From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. To enable sharing of presentation logic between platforms, we define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack ViewModel, while an equivalent is implemented for iOS. An additional class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation to make it easier to interact with from swift. With these platform specific implementations we can now implement our ViewModel(`BreedViewModel`) in the common MultiPlatform code. 
+#### Repository
+The `BreedRepository` is in the common MultiPlatform code, and handles the data access functionality. The `BreedRepository` references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements `DogApi`) and `DatabaseHelper`. The `DatabaseHelper` and `DogApiImpl` both use Multiplatform libraries to retrieve data and send it back to the `BreedRepository`. 
 
-> note that the BreedModel references the interface KtorApi. This is so we can test the Model using a Mock Api
+> note that the BreedRepository references the interface DogApi. This is so we can test the Model using a Mock Api
 
 In this implementation the ViewModel listens to the database as a flow, so that when any changes occur to the database it will then call the callback it was passed. When breeds are requested the model retrieves the information from the network, then saves the data to the database. This triggers the database flow to send the new data to the Platform to update the display.
 
 In Short:
-**Platform -> BreedViewModel/NativeViewModel -> BreedModel -> DogApiImpl -> BreedModel -> DatabaseHelper -> BreedModel -> BreedViewModel/NativeViewModel -> Platform**
+**Platform -> BreedCallbackViewModel (iOS only) -> BreedViewModel -> BreedRepository -> DogApiImpl -> BreedModel -> DatabaseHelper -> BreedRepository -> BreedViewModel -> BreedCallbackViewModel (iOS only) -> Platform**
 
 You may be asking where the Multiplatform-settings comes in. When the BreedModel is told to get breeds from the network, it first checks to see if it's done a network request within the past hour. If it has then it decides not to update the breeds. 
 
