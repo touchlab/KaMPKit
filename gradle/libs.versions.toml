@@ -38,11 +38,6 @@ turbine = "0.8.0"
 sqlDelight = "1.5.3"
 
 [libraries]
-gradlePlugin-android = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
-gradlePlugin-kotlinSerialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlin" }
-gradlePlugin-ktlint = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlint-gradle" }
-gradlePlugin-sqlDelight = { module = "com.squareup.sqldelight:gradle-plugin", version.ref = "sqlDelight" }
-
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
@@ -95,6 +90,7 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
 [plugins]
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
 
 [bundles]
@@ -109,12 +105,6 @@ app-ui = [
     "compose-material",
     "compose-activity",
     "google-accompanist-swipeRefresh"
-]
-gradlePlugins = [
-    "gradlePlugin-android",
-    "gradlePlugin-kotlinSerialization",
-    "gradlePlugin-ktlint",
-    "gradlePlugin-sqlDelight",
 ]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]
 shared-commonTest = [
