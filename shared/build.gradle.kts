@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 
 plugins {
     kotlin("multiplatform")
@@ -22,23 +22,12 @@ android {
     }
 
     lint {
-        isWarningsAsErrors = true
-        isAbortOnError = true
+        warningsAsErrors = true
+        abortOnError = true
     }
 }
 
 version = "1.2"
-
-android {
-    configurations {
-        create("androidTestApi")
-        create("androidTestDebugApi")
-        create("androidTestReleaseApi")
-        create("testApi")
-        create("testDebugApi")
-        create("testReleaseApi")
-    }
-}
 
 kotlin {
     android()
@@ -53,17 +42,7 @@ kotlin {
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
             }
         }
-    }
 
-    // Enable concurrent sweep phase in new native memory manager. (This will be enabled by default in 1.7.0)
-    // https://kotlinlang.org/docs/whatsnew1620.html#concurrent-implementation-for-the-sweep-phase-in-new-memory-manager
-    targets.withType<KotlinNativeTarget> {
-        binaries.all {
-            freeCompilerArgs += "-Xgc=cms"
-        }
-    }
-
-    sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(libs.koin.core)

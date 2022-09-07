@@ -10,6 +10,7 @@ import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 @RunWith(AndroidJUnit4::class)
+@Config(sdk = [32])
 class SqlDelightTest {
 
     private lateinit var dbHelper: DatabaseHelper
