@@ -153,14 +153,6 @@ to document any issues you run into and [let us know](CONTACT_US.md).
 
 KaMP Kit is just the beginning. Our hope is that after KaMP Kit you’ll have a better sense of what a possible KMP implementation might look like.
 
-## Primary Maintainer
-
-[Brady Aiello](https://github.com/brady-aiello/)
-
-![](https://avatars.githubusercontent.com/u/22403330?s=140&v=4)
-
-*Ping me on twitter [@AielloBrady](https://twitter.com/@AielloBrady/) if you don't get a timely reply!* -Brady
-
 ---
 
 ### About Touchlab
