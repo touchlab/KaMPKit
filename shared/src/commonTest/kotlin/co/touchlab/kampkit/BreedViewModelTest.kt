@@ -11,10 +11,10 @@ import co.touchlab.kampkit.models.BreedViewState
 import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
-import com.russhwolf.settings.MockSettings
+import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
@@ -31,7 +31,7 @@ class BreedViewModelTest {
         kermit,
         Dispatchers.Default
     )
-    private val settings = MockSettings()
+    private val settings = MapSettings()
     private val ktorApi = DogApiMock()
 
     // Need to start at non-zero time because the default value for db timestamp is 0
@@ -65,7 +65,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Get breeds without cache`() = runBlocking {
+    fun `Get breeds without cache`() = runTest {
         ktorApi.prepareResult(ktorApi.successResult())
 
         viewModel.breedState.test {
@@ -77,7 +77,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Get breeds empty`() = runBlocking {
+    fun `Get breeds empty`() = runTest {
         ktorApi.prepareResult(BreedResult(emptyMap(), "success"))
 
         viewModel.breedState.test {
@@ -89,7 +89,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Get updated breeds with cache and preserve favorites`() = runBlocking {
+    fun `Get updated breeds with cache and preserve favorites`() = runTest {
         settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
 
         val successResult = ktorApi.successResult()
@@ -113,7 +113,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Get updated breeds when stale and preserve favorites`() = runBlocking {
+    fun `Get updated breeds when stale and preserve favorites`() = runTest {
         settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
 
         val successResult = ktorApi.successResult()
@@ -133,7 +133,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Toggle favorite cached breed`() = runBlocking {
+    fun `Toggle favorite cached breed`() = runTest {
         settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
 
         dbHelper.insertBreeds(breedNames)
@@ -152,7 +152,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `No web call if data is not stale`() = runBlocking {
+    fun `No web call if data is not stale`() = runTest {
         settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
         ktorApi.prepareResult(ktorApi.successResult())
         dbHelper.insertBreeds(breedNames)
@@ -172,7 +172,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Display API error on first run`() = runBlocking {
+    fun `Display API error on first run`() = runTest {
         ktorApi.throwOnCall(RuntimeException("Test error"))
 
         viewModel.breedState.test {
@@ -184,7 +184,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Ignore API error with cache`() = runBlocking {
+    fun `Ignore API error with cache`() = runTest {
         dbHelper.insertBreeds(breedNames)
         settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
         ktorApi.throwOnCall(RuntimeException("Test error"))
@@ -207,7 +207,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Ignore API error on refresh with cache`() = runBlocking {
+    fun `Ignore API error on refresh with cache`() = runTest {
         ktorApi.prepareResult(ktorApi.successResult())
 
         viewModel.breedState.test {
@@ -228,7 +228,7 @@ class BreedViewModelTest {
     }
 
     @Test
-    fun `Show API error on refresh without cache`() = runBlocking {
+    fun `Show API error on refresh without cache`() = runTest {
         settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
         ktorApi.throwOnCall(RuntimeException("Test error"))
 
