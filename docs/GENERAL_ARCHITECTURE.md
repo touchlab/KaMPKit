@@ -15,7 +15,7 @@ This doc goes over the overall architecture of the app, the libraries usage and 
 
 ## Structure of the Project
 
-The KaMP kit is broken up into three different directories: 
+KaMP Kit is broken up into three different directories: 
 * shared
 * app
 * ios
@@ -39,7 +39,7 @@ Each of these directories has the same folder structure: the language type, then
 ## Overall Architecture
 
 #### Platform
-The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
+KaMP Kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
 #### ViewModel
 From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. To enable sharing of presentation logic between platforms, we define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack ViewModel, while an equivalent is implemented for iOS. An additional class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation to make it easier to interact with from swift. With these platform specific implementations we can now implement our ViewModel(`BreedViewModel`) in the common MultiPlatform code. 
 #### Repository

@@ -9,7 +9,7 @@ You can transfer your skills and code to any task at hand.
 > To see more about Kotlin's Multiplatform vision, watch the [Kotlinconf Keynote](https://youtu.be/0xKTM0A8gdI)
 
 Kotlin can output JVM bytecode, Javascript, and an array of LLVM-based native executable code. Describing the entirety 
-of KMP would take some time, but the KaMP Kit is focused on native mobile development, so we’ll speak to that specifiically.
+of KMP would take some time, but KaMP Kit is focused on native mobile development, so we’ll speak to that specifiically.
 KMP enables optional shared architecture and logic, that can be used in both Android and iOS. Kotlin is already the default 
 language for Android, which means unlike all other “cross platform” options, it is fully “native” to the platform (and, 
 really, any JVM environment).
