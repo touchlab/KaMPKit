@@ -9,7 +9,7 @@
 
 ## 2022 Update
 
-KaMP Kit started a little over 2 years ago with the goal of helping developers interesting in KMP and KMM get started 
+KaMP Kit started a little over 2 years ago with the goal of helping developers interested in KMP and KMM get started 
 quickly with a great set of libraries and patterns. At the time, there were not many sample apps and getting started
 was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been removed.
 
@@ -35,7 +35,7 @@ For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/con
 
 The goal of KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). It is a collection of code and tools designed to get you started quickly.
 
-The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM and KMP, and have found that the **primary** stumbling block is simply getting started.
+The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM (Kotlin Multiplatform Mobile) and KMP, and have found that the **primary** stumbling block is simply getting started.
 
 KaMP Kit is designed to get you past that primary stumbling block. You should be able to set up your development environment, clone the repo, and have a running sample app very quickly. From there, you can focus on what you want to build.
 
@@ -116,13 +116,13 @@ It's important to understand not just how to set up the platform, but to get a b
 
 ### "Selling" KMP
 
-KaMPKit can help you demonstrate to management and other stakeholders of the value of sharing code with KMP. Check out these resources for more advice on pitching KMP to your team:
+KaMPKit can help you demonstrate to management and other stakeholders the value of sharing code with KMP. Check out these resources for more advice on pitching KMP to your team:
 [Building a Business Case for KMP](https://touchlab.co/building-business-case-kotlin-multiplatform/)
 [7 ways to convince your engineering manager to pilot Kotlin Multiplatform](https://touchlab.co/7-ways-convince-engineering-manager-pilot-kotlin-multiplatform/)
 
 ### Xcode Debugging
 
-For information on how to debug kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc. 
+For information on how to debug Kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc. 
 
 ## 5) Integrating 'shared' With Existing Apps
 
@@ -130,7 +130,7 @@ As part of your evaluation, you'll need to decide if you're going to integrate K
 
 ### Android
 
-The Android side is somewhat more straightforward. Kotlin is the preffered language for Android, and the library can be integrated as just another module library. We'll be updating soon with a general Android integration doc. In the meantime, the simplest method would be to copy the shared module into your standard Android build, and use the `app` module as a reference for dependency resolution.
+The Android side is somewhat more straightforward. Kotlin is the preferred language for Android, and the library can be integrated as just another module library. We'll be updating soon with a general Android integration doc. In the meantime, the simplest method would be to copy the shared module into your standard Android build, and use the `app` module as a reference for dependency resolution.
 
 ### iOS
 

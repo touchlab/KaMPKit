@@ -13,7 +13,7 @@ installer and go through the setup instructions.
 Some alternative options, if desired:
 
 - [SDKMan](https://sdkman.io/) - JDK version manager and installer.
-- [AdoptOpenJDK](https://adoptopenjdk.net/) - Alternate JDK distribution
+- [AdoptOpenJDK](https://adoptopenjdk.net/) - Alternate JDK distribution.
 
 
 
@@ -51,7 +51,7 @@ You'll have a large choice of devices to choose from, but we recommend you insta
 
 ## Next Steps
 
-You're KMP development environment is ready now. Your next step should be to go to the [APP_BUILD.md doc](APP_BUILD.md), which focuses on building this project, as well as running it on both Android and iOS.
+Your KMP development environment is ready now. Your next step should be to go to the [APP_BUILD.md doc](APP_BUILD.md), which focuses on building this project, as well as running it on both Android and iOS.
 
 
 

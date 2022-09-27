@@ -39,9 +39,9 @@ Each of these directories has the same folder structure: the language type, then
 ## Overall Architecture
 
 #### Platform
-KaMP Kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
+KaMP Kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform and they are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
 #### ViewModel
-From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. To enable sharing of presentation logic between platforms, we define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack ViewModel, while an equivalent is implemented for iOS. An additional class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation to make it easier to interact with from swift. With these platform specific implementations we can now implement our ViewModel(`BreedViewModel`) in the common MultiPlatform code. 
+From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. To enable sharing of presentation logic between platforms, we define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack ViewModel, while an equivalent is implemented for iOS. An additional class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation to make it easier to interact with from swift. With these platform specific implementations we can now implement our ViewModel (`BreedViewModel`) in the common MultiPlatform code. 
 #### Repository
 The `BreedRepository` is in the common MultiPlatform code, and handles the data access functionality. The `BreedRepository` references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements `DogApi`) and `DatabaseHelper`. The `DatabaseHelper` and `DogApiImpl` both use Multiplatform libraries to retrieve data and send it back to the `BreedRepository`. 
 
@@ -77,7 +77,7 @@ Below is some information about some of the libraries used in the project.
 * [Stately](#Stately)
 
 ### SqlDelight
-Documentation: https://github.com/cashapp/sqldelight
+Documentation: [https://github.com/cashapp/sqldelight](https://github.com/cashapp/sqldelight)
 
 Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/DatabaseHelper.kt*
 
