@@ -66,11 +66,11 @@ The central part of the "Kit" is the starter app. It includes a set of libraries
 You will need the following:
 
 * JVM 8
-* Android SDK and the latest stable Android Studio(4.1.3) or IntelliJ(2021.1+)
-* Intellij Kotlin plugin with 1.4.3x support (should be included in the latest Android Studio or IDEA)
-* Mac with Xcode 12+ for the iOS build
+* Android SDK and the latest stable Android Studio(2021.2.1+) or IntelliJ(2021.2+)
+* Intellij Kotlin plugin with 1.7.10 support (should be included in the latest Android Studio or IDEA)
+* Mac with Xcode 14+ for the iOS build
 
-For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
+For a more detailed guide targeted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
 ## 2) Clone and Build
 
@@ -101,18 +101,6 @@ It's important to understand not just how to set up the platform, but to get a b
 [Longer intro to KaMP Kit](docs/WHAT_AND_WHY.md) - Original version of this doc's intro. Cut because it was pretty long.
 
 [Intro to Kotlin Multiplatform](https://vimeo.com/371428809) - General intro to KMP from Oredev in Nov 2019. Good overall summary of the platform.
-
-### ~~Kotlin/Native Concurrency~~ *(this is all old now...)*
-
-~~Kotlin/Native's state and concurrency model is different than the JVM (which includes Android). The goal is "[Saner Concurrency](https://medium.com/@kpgalligan/saner-concurrency-74b0bf8ed446)" In practice, if you're not writing custom concurrency logic, it's pretty simple, *but only if you understand it*. You ***must*** learn the basics.~~
-
-~~[Practical Kotlin Native Concurrency](https://dev.to/touchlab/practical-kotlin-native-concurrency-ac7) - Our recent blog post series. This was written for KaMP Kit, but we published these separately because this is very important for developers to understand.~~
-
-~~[Kotlinconf 2019: Kotlin Native Concurrency Explained](https://www.youtube.com/watch?v=oxQ6e1VeH4M) - Deeper dive talk from Kotlinconf.~~
-
-~~**We cannot stress this enough. If you're going to build anything significant, you need at least a basic understanding of the concurrency model.**~~
-
-~~We should also point out, the version of coroutines we're using in native is still a preview release. We discuss that in the docs linked above, and more detail in [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md#Kotlinx-Coroutines).~~
 
 ### "Selling" KMP
 
