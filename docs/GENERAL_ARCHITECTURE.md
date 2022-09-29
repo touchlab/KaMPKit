@@ -57,11 +57,18 @@ ViewModel, while an equivalent is implemented for iOS. We don't want to manage t
 lifecycle on Android because the platform has its own scope handling. We just want to make sure our
 viewmodel-layer coroutines are tied to the provided viewModelScope, and Android can directly consume
 coroutine artifacts. On iOS, we need to manage that more explicitly. That means we have our own
-scope and iOS consumers need to explicitly close it when the screen ends. An additional
-class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for
-our ViewModel implementation to make it easier to interact with from swift. With these platform
-specific implementations we can now implement our ViewModel (`BreedViewModel`) in the common
-MultiPlatform code.
+scope and iOS consumers need to explicitly close it when the screen ends. We use `MainScope()` to
+define coroutine scopes. This is a function from the kotlinx library that's just implemented
+as `CoroutineScope(Dispatchers.Main + SupervisorJob())`. You may want to also add an error-handler
+or other things, so consider a custom function in that case. An additional class `CallbackViewModel`
+is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation
+to make it easier to interact with from swift. We want to be able to wrap our flows in callbacks
+that can be wired into our Swift code. Then inside our iOS viewmodel we define an extension function
+on Flow to make conversion and scope-handling easy. There are different ways you might want to
+consume this depending on your stack/architecture. We convert `FlowAdapter`s to `Publisher`s which
+we then map inside `ObservableObjects` to `Published` values that can be easily observed from
+SwiftUI views. With these platform specific implementations we can now implement our
+ViewModel (`BreedViewModel`) in the common MultiPlatform code.
 
 #### Repository
 The `BreedRepository` is in the common MultiPlatform code, and handles the data access functionality. The `BreedRepository` references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements `DogApi`) and `DatabaseHelper`. The `DatabaseHelper` and `DogApiImpl` both use Multiplatform libraries to retrieve data and send it back to the `BreedRepository`. 
