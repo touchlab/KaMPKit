@@ -105,6 +105,7 @@ Below is some information about some of the libraries used in the project.
 * [Multiplatform Settings](#Multiplatform-Settings)
 * [Koin](#Koin)
 * [Stately](#Stately)
+* [Turbine](#Turbine)
 
 ### SqlDelight
 Documentation: [https://github.com/cashapp/sqldelight](https://github.com/cashapp/sqldelight)
@@ -145,22 +146,30 @@ Koin is a lightweight dependency injection framework. It is being used in the *k
 
 ### Stately
 Documentation: https://github.com/touchlab/Stately
-
-Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/sqldelight/CoroutinesExtensions.kt*
-
-Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made by us!). Basically Kotlin/Native has a fairly different model of concurrency, and has different rules to reduce concurrency related issues. Objects in K/N can become `frozen`, which basically means they are immutable but can be shared across all threads. 
+Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made
+by us!).
 
 **Note:** Threading in K/N can be hard to grasp at first and this document isn't the place to go into it
 in detail. If you want to find out more about thread check out this post 
 [here](https://medium.com/@kpgalligan/kotlin-native-stranger-threads-ep-2-208523d63c8f)
 
-In KaMPKit we are using `ensureNeverFrozen()` in the BreedModel and DogApiImpl because we don't want them frozen. What this does is it throws an exception if the object ever becomes frozen, so that we can know exactly when it freezes and don't run into issues later on. The other place we are using Stately is `freeze` in the CoroutinesExtensions. Here we are freezing the channel so that it can offer new Query Results on any thread. Since we are not modifying the channel, simply offering with it, this will not cause frozen issues.
-
 ## Testing
 
-With KMP you can share tests between platforms, however since we have platform specific drivers and dependencies our tests need to be run by the individual platforms. In short we can share tests but we have to run them separately as android and iOS. The shared tests can be found in the commonTest directory, while the implementations can be found in the androidTest and iosTest directories, specifically with *PlatformTest.kt*. The PlatformTests contain classes for testing that are subclassing the abstract shared tests, so that they can be run in their platform. The function `runTest` is also implemented in PlatformTest, which makes sure the tests are running synchronously.
+With KMP you can share tests between platforms, however since we have platform specific drivers and
+dependencies our tests need to be run by the individual platforms. In short we can share tests but
+we have to run them separately as android and iOS. The shared tests can be found in the commonTest
+directory, while the implementations can be found in the androidTest and iosTest directories. You
+may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that
+is actually handled in the `TestUtil.kt` file in commonTest. In order to pass the platform specific
+libraries(SqlDelight requires a platform driver) into the BreedRepository for testing we need to
+inject them. For running tests we use `kotlinx.coroutines.test.runTest`. For specifying a test
+runner we use `@RunWith()` annotation. Note that the actual `testDbConnection()` implementations are
+in the *TestUtilAndroid.kt* and *TestUtilIOS.kt* files.
 
-You may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that is actually handled in the `TestUtil.kt` file in commonTest. In order to pass the platform specific libraries(SqlDelight requires a platform driver) into the BreedModel for testing we need to inject them. Before the tests in BreedModelTest we are calling `appStart` and passing in our libraries to be injected and starting Koin. Then after the tests we are stopping Koin by calling `appEnd`. Note that the actual `testDbConnection()` implementations are in the *SqlDelightTest.kt* files.
+### Turbine
+Check out the [Repository](https://github.com/cashapp/turbine) for more info.
+Turbine is a small testing library for kotlinx.coroutines Flow. 
+For example: `BreedViewModelTest.kt`.
 
 #### Android
 On the android side we are using AndroidRunner to run the tests because we want to use android specifics in our tests. If you're not using android specific methods then you don't need to use AndroidRunner. The android tests are run can be easily run in Android Studio by right clicking on the shared folder, and selecting `Run 'All Tests'`.
