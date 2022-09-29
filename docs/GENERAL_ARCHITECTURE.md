@@ -41,7 +41,28 @@ Each of these directories has the same folder structure: the language type, then
 #### Platform
 KaMP Kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform and they are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
 #### ViewModel
-From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. To enable sharing of presentation logic between platforms, we define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack ViewModel, while an equivalent is implemented for iOS. An additional class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation to make it easier to interact with from swift. With these platform specific implementations we can now implement our ViewModel (`BreedViewModel`) in the common MultiPlatform code. 
+
+From the platforms views we then have the ViewModel layer which is responsible for connecting our
+shared data and the views. If you want your shared viewmodel to be an `androidx.lifecycle.ViewModel`
+on the Android side, you can take either a composition or inheritence approach. The composition
+approach has a `CommonViewModel` that's just an object, and then wraps it in Android or iOS classes
+that do the platform-specific work. An advantage is flexibility - the platform view models can do
+extra platform-specific transformations more easily, and can more easily expose platform-specific
+members that aren't delegated to common, but on the other hand Android has a wrapper layer that will
+often be a no-op. For this project we chose the inheritence approach, because Android can use the
+common viewmodel directly. To enable sharing of presentation logic between platforms, we
+define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations
+provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack
+ViewModel, while an equivalent is implemented for iOS. We don't want to manage the coroutine
+lifecycle on Android because the platform has its own scope handling. We just want to make sure our
+viewmodel-layer coroutines are tied to the provided viewModelScope, and Android can directly consume
+coroutine artifacts. On iOS, we need to manage that more explicitly. That means we have our own
+scope and iOS consumers need to explicitly close it when the screen ends. An additional
+class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for
+our ViewModel implementation to make it easier to interact with from swift. With these platform
+specific implementations we can now implement our ViewModel (`BreedViewModel`) in the common
+MultiPlatform code.
+
 #### Repository
 The `BreedRepository` is in the common MultiPlatform code, and handles the data access functionality. The `BreedRepository` references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements `DogApi`) and `DatabaseHelper`. The `DatabaseHelper` and `DogApiImpl` both use Multiplatform libraries to retrieve data and send it back to the `BreedRepository`. 
 
