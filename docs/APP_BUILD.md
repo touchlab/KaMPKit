@@ -42,6 +42,18 @@ Congratulations! You have a functional sample app to start working from. Head ba
 
 See [TROUBLESHOOTING](TROUBLESHOOTING.md)
 
+### CI Hosts
+Running your common tests against iOS and testing your native iOS code require a macOS machine. Most CI hosts, such as Github Actions charge for macOS hosts at a higher rate than linux, so it's worthwhile to reduce macOS build times. In KaMP Kit we do this by splitting into two workflows, `KaMPKit-Android.yml` and `KaMPKit-iOS.yml`. Each workflow excludes builds that only have changes to the opposite platform or docs only changes.
+
+```yaml
+pull_request:
+ paths-ignore:
+   - "**.md"
+   - "*.png"
+   - docs
+   - app
+```
+
 ### Contact
 
 If you're having issues, you can view the [contact Document here](https://github.com/touchlab/KaMPKit/blob/master/CONTACT_US.md) for contact information.
