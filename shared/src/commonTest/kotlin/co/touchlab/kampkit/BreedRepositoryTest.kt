@@ -17,8 +17,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.time.Duration.Companion.hours
 
-@RunWith(AndroidJUnit4::class)
-@Config(sdk = [32])
 class BreedRepositoryTest {
 
     private var kermit = Logger(StaticConfig())
