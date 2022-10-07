@@ -1,21 +1,21 @@
-[![KaMPKit Android](https://img.shields.io/github/workflow/status/touchlab/KaMPKit/KaMPKit-Android/main?logo=Android&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-Android.yml)
-[![KaMPKit iOS](https://img.shields.io/github/workflow/status/touchlab/KaMPKit/KaMPKit-iOS?logo=iOS&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-iOS.yml)
+[![KaMP Kit Android](https://img.shields.io/github/workflow/status/touchlab/KaMPKit/KaMPKit-Android/main?logo=Android&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-Android.yml)
+[![KaMP Kit iOS](https://img.shields.io/github/workflow/status/touchlab/KaMPKit/KaMPKit-iOS?logo=iOS&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-iOS.yml)
 
 # KaMP Kit
 
 ![KaMP Kit Image](kampkit.png)
 
-***Welcome to the KaMP Kit!*** 
+***Welcome to KaMP Kit!*** 
 
 ## 2022 Update
 
-KaMP Kit started a little over 2 years ago with the goal of helping developers interesting in KMP and KMM get started 
+KaMP Kit started a little over 2 years ago with the goal of helping developers interested in KMP and KMM get started
 quickly with a great set of libraries and patterns. At the time, there were not many sample apps and getting started
-was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been removed.
+was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been
+removed.
 
-Over the next few weeks we are giving KaMP Kit a complete refresh. It will be less "getting started" and more "best practice model".
-The first change was moving to the new memory model. We'll be updating much more over the next few weeks. Watch this 
-repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
+Whereas KaMP Kit started with the goal of being a minimal sample, we now intend it to be less "getting started" and
+more "best practice model". Watch this repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
 > ## Subscribe!
 >
@@ -34,11 +34,15 @@ For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/con
 
 ### Goal
 
-The goal of the KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). It is a collection of code and tools designed to get you started quickly.
+The goal of KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). It is a collection of code and
+tools designed to get you started quickly. It's also a showcase of Touchlab's typical choices for architecture,
+libraries, and other best practices.
 
-The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM and KMP, and have found that the **primary** stumbling block is simply getting started.
+The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or
+conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM (
+Kotlin Multiplatform Mobile) and KMP, and have found that the **primary** stumbling block is simply getting started.
 
-The KaMP Kit is designed to get you past that primary stumbling block. You should be able to set up your development environment, clone the repo, and have a running sample app very quickly. From there, you can focus on what you want to build.
+KaMP Kit is designed to get you past that primary stumbling block. You should be able to set up your development environment, clone the repo, and have a running sample app very quickly. From there, you can focus on what you want to build.
 
 #### *Very Important Message!!!*
 
@@ -67,11 +71,11 @@ The central part of the "Kit" is the starter app. It includes a set of libraries
 You will need the following:
 
 * JVM 8
-* Android SDK and the latest stable Android Studio(4.1.3) or IntelliJ(2021.1+)
-* Intellij Kotlin plugin with 1.4.3x support (should be included in the latest Android Studio or IDEA)
-* Mac with Xcode 12+ for the iOS build
+* Android SDK and the latest stable Android Studio(2021.2.1+) or IntelliJ(2021.2+)
+* Intellij Kotlin plugin with 1.7.10 support (should be included in the latest Android Studio or IDEA)
+* Mac with Xcode 14+ for the iOS build
 
-For a more detailed guide targetted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
+For a more detailed guide targeted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 
 ## 2) Clone and Build
 
@@ -103,27 +107,15 @@ It's important to understand not just how to set up the platform, but to get a b
 
 [Intro to Kotlin Multiplatform](https://vimeo.com/371428809) - General intro to KMP from Oredev in Nov 2019. Good overall summary of the platform.
 
-### ~~Kotlin/Native Concurrency~~ *(this is all old now...)*
-
-~~Kotlin/Native's state and concurrency model is different than the JVM (which includes Android). The goal is "[Saner Concurrency](https://medium.com/@kpgalligan/saner-concurrency-74b0bf8ed446)" In practice, if you're not writing custom concurrency logic, it's pretty simple, *but only if you understand it*. You ***must*** learn the basics.~~
-
-~~[Practical Kotlin Native Concurrency](https://dev.to/touchlab/practical-kotlin-native-concurrency-ac7) - Our recent blog post series. This was written for KaMP KIt, but we published these separately because this is very important for developers to understand.~~
-
-~~[Kotlinconf 2019: Kotlin Native Concurrency Explained](https://www.youtube.com/watch?v=oxQ6e1VeH4M) - Deeper dive talk from Kotlinconf.~~
-
-~~**We cannot stress this enough. If you're going to build anything significant, you need at least a basic understanding of the concurrency model.**~~
-
-~~We should also point out, the version of coroutines we're using in native is still a preview release. We discuss that in the docs linked above, and more detail in [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md#Kotlinx-Coroutines).~~
-
 ### "Selling" KMP
 
-KaMPKit can help you demonstrate to management and other stakeholders of the value of sharing code with KMP. Check out these resources for more advice on pitching KMP to your team:
+KaMPKit can help you demonstrate to management and other stakeholders the value of sharing code with KMP. Check out these resources for more advice on pitching KMP to your team:
 [Building a Business Case for KMP](https://touchlab.co/building-business-case-kotlin-multiplatform/)
 [7 ways to convince your engineering manager to pilot Kotlin Multiplatform](https://touchlab.co/7-ways-convince-engineering-manager-pilot-kotlin-multiplatform/)
 
 ### Xcode Debugging
 
-For information on how to debug kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc. 
+For information on how to debug Kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc. 
 
 ## 5) Integrating 'shared' With Existing Apps
 
@@ -131,7 +123,7 @@ As part of your evaluation, you'll need to decide if you're going to integrate K
 
 ### Android
 
-The Android side is somewhat more straightforward. Kotlin is the preffered language for Android, and the library can be integrated as just another module library. We'll be updating soon with a general Android integration doc. In the meantime, the simplest method would be to copy the shared module into your standard Android build, and use the `app` module as a reference for dependency resolution.
+The Android side is somewhat more straightforward. Kotlin is the preferred language for Android, and the library can be integrated as just another module library. We'll be updating soon with a general Android integration doc. In the meantime, the simplest method would be to copy the shared module into your standard Android build, and use the `app` module as a reference for dependency resolution.
 
 ### iOS
 

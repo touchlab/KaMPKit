@@ -13,13 +13,19 @@ installer and go through the setup instructions.
 Some alternative options, if desired:
 
 - [SDKMan](https://sdkman.io/) - JDK version manager and installer.
-- [AdoptOpenJDK](https://adoptopenjdk.net/) - Alternate JDK distribution
+- [AdoptOpenJDK](https://adoptopenjdk.net/) - Alternate JDK distribution.
 
 
 
 ## Install the IDE(s)
 
-You'll also need either Android Studio, IntelliJ, or both. Android Studio is an Android development focused skin of IntelliJ, which is more platform agnostic. If you don't have either, we recommend installing both through the [Jetbrains Toolbox](https://www.jetbrains.com/toolbox-app/download/download-thanks.html).
+You'll also need either Android Studio, IntelliJ, or both. Android Studio is an Android development
+focused skin of IntelliJ, which is more platform agnostic. There is a built-in KMM plugin in the
+Android Studio, which enables you to run and debug the iOS part of your application on iOS targets
+straight from Android Studio. IntelliJ IDEA has a newer Kotlin API platform and gets bugfixes
+sooner, but it has an older version of Android plugin. If you don't have either, we recommend
+installing both through
+the [Jetbrains Toolbox](https://www.jetbrains.com/toolbox-app/download/download-thanks.html).
 
 If you just want one or the other, you can use the following links:
 
@@ -27,7 +33,10 @@ If you just want one or the other, you can use the following links:
 - [IntelliJ download link](https://www.jetbrains.com/idea/download/#section=mac) (select the Community version)
 - [IntelliJ setup guide](https://www.jetbrains.com/help/idea/run-for-the-first-time.html)
 
-
+You can use [KDoctor](https://github.com/Kotlin/kdoctor) to help you set-up your environment for
+Kotlin Multiplatform Mobile app development. It ensures that all required components are properly
+installed and ready for use. If something is missed or not configured KDoctor highlights the problem
+and suggests how to fix the problem.
 
 ## Open IDE
 
@@ -51,12 +60,7 @@ You'll have a large choice of devices to choose from, but we recommend you insta
 
 ## Next Steps
 
-You're KMP development environment is ready now. Your next step should be to go to the [APP_BUILD.md doc](APP_BUILD.md), which focuses on building this project, as well as running it on both Android and iOS.
+Your KMP development environment is ready now. Your next step should be to go to the [APP_BUILD.md doc](APP_BUILD.md), which focuses on building this project, as well as running it on both Android and iOS.
 
-
-
-## Further Reading
-
-If you want a more in-depth guide to getting a KMP project up and running for those coming from an iOS background, check out [this walkthrough](https://www.infoq.com/articles/kotlin-multiplatform-ios-developers/) that we wrote (and are maintaining).
 
 

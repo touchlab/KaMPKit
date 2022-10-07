@@ -15,7 +15,7 @@ This doc goes over the overall architecture of the app, the libraries usage and 
 
 ## Structure of the Project
 
-The KaMP kit is broken up into three different directories: 
+KaMP Kit is broken up into three different directories: 
 * shared
 * app
 * ios
@@ -39,9 +39,37 @@ Each of these directories has the same folder structure: the language type, then
 ## Overall Architecture
 
 #### Platform
-The KaMP kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
+KaMP Kit, whether running in Android or iOS, starts with the platforms View (`MainActivity` / `ViewController`). These are the standard UI classes for each platform and they are launched when the app starts. They are responsible for all the UI, including dealing with the RecyclerView/UITableView, getting input from the user and handling the views lifecycle.
 #### ViewModel
-From the platforms views we then have the ViewModel layer which is responsible for connecting our shared data and the views. To enable sharing of presentation logic between platforms, we define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack ViewModel, while an equivalent is implemented for iOS. An additional class `CallbackViewModel` is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation to make it easier to interact with from swift. With these platform specific implementations we can now implement our ViewModel(`BreedViewModel`) in the common MultiPlatform code. 
+
+From the platforms views we then have the ViewModel layer which is responsible for connecting our
+shared data and the views. If you want your shared viewmodel to be an `androidx.lifecycle.ViewModel`
+on the Android side, you can take either a composition or inheritence approach. The composition
+approach has a `CommonViewModel` that's just an object, and then wraps it in Android or iOS classes
+that do the platform-specific work. An advantage is flexibility - the platform view models can do
+extra platform-specific transformations more easily, and can more easily expose platform-specific
+members that aren't delegated to common, but on the other hand Android has a wrapper layer that will
+often be a no-op. For this project we chose the inheritence approach, because Android can use the
+common viewmodel directly. To enable sharing of presentation logic between platforms, we
+define `expect abstract class ViewModel` in `commonMain`, with platform specific implementations
+provided in `androidMain` and `iosMain`. The android implementation simply extends the Jetpack
+ViewModel, while an equivalent is implemented for iOS. We don't want to manage the coroutine
+lifecycle on Android because the platform has its own scope handling. We just want to make sure our
+viewmodel-layer coroutines are tied to the provided viewModelScope, and Android can directly consume
+coroutine artifacts. On iOS, we need to manage that more explicitly. That means we have our own
+scope and iOS consumers need to explicitly close it when the screen ends. We use `MainScope()` to
+define coroutine scopes. This is a function from the kotlinx library that's just implemented
+as `CoroutineScope(Dispatchers.Main + SupervisorJob())`. You may want to also add an error-handler
+or other things, so consider a custom function in that case. An additional class `CallbackViewModel`
+is also included for the iOS implementation. This acts as a wrapper for our ViewModel implementation
+to make it easier to interact with from swift. We want to be able to wrap our flows in callbacks
+that can be wired into our Swift code. Then inside our iOS viewmodel we define an extension function
+on Flow to make conversion and scope-handling easy. There are different ways you might want to
+consume this depending on your stack/architecture. We convert `FlowAdapter`s to `Publisher`s which
+we then map inside `ObservableObjects` to `Published` values that can be easily observed from
+SwiftUI views. With these platform specific implementations we can now implement our
+ViewModel (`BreedViewModel`) in the common MultiPlatform code.
+
 #### Repository
 The `BreedRepository` is in the common MultiPlatform code, and handles the data access functionality. The `BreedRepository` references the Multiplatform-Settings, and two helper classes: `DogApiImpl` (which implements `DogApi`) and `DatabaseHelper`. The `DatabaseHelper` and `DogApiImpl` both use Multiplatform libraries to retrieve data and send it back to the `BreedRepository`. 
 
@@ -56,11 +84,13 @@ You may be asking where the Multiplatform-settings comes in. When the BreedModel
 
 ## Kotlinx Coroutines
 
-Because of Kotlin/Native's unique threading and state model, coroutines support has been limited to a single thread until very recently. Back in November, a [pull request](https://github.com/Kotlin/kotlinx.coroutines/pull/1648) arrived in the kotlinx.coroutines repo with support for multithreaded coroutines. That is still a PR and is still experimental, but we've included that version in the sample app because it'll be live in the near future. As an alternative, many applications are using [CoroutineWorker](https://github.com/Autodesk/coroutineworker) in production.
+We use a new version of Kotlinx Coroutines that uses a new memory model that solves the problems
+with multithreading and freezing objects. To learn more
+check [Migration Guide](https://github.com/JetBrains/kotlin/blob/master/kotlin-native/NEW_MM.md)
+and [our Blogpost](https://touchlab.co/testing-the-kotlin-native-memory-model/).
 
-So, to be clear, ***we're using a version of [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) that is still in development***. In our experience it works well, and will likely be merged into the main repo soon, so it makes sense to learn that version.
-
-See [DogApiImpl.kt](https://github.com/touchlab/KaMPKit/blob/5376b4c2dd4be7f2436e10dddbf56b0d5ab33443/shared/src/commonMain/kotlin/co/touchlab/kampkit/ktor/DogApiImpl.kt#L36) and [BreedModel.kt](https://github.com/touchlab/KaMPKit/blob/b2e8a330f8c12429255711c4c55a328885615d8b/shared/src/commonMain/kotlin/co/touchlab/kampkit/models/BreedModel.kt#L49)
+See [DogApiImpl.kt](https://github.com/touchlab/KaMPKit/blob/5376b4c2dd4be7f2436e10dddbf56b0d5ab33443/shared/src/commonMain/kotlin/co/touchlab/kampkit/ktor/DogApiImpl.kt#L36)
+and [BreedModel.kt](https://github.com/touchlab/KaMPKit/blob/b2e8a330f8c12429255711c4c55a328885615d8b/shared/src/commonMain/kotlin/co/touchlab/kampkit/models/BreedModel.kt#L49)
 
 ## Libraries and Dependencies
 
@@ -75,9 +105,10 @@ Below is some information about some of the libraries used in the project.
 * [Multiplatform Settings](#Multiplatform-Settings)
 * [Koin](#Koin)
 * [Stately](#Stately)
+* [Turbine](#Turbine)
 
 ### SqlDelight
-Documentation: https://github.com/cashapp/sqldelight
+Documentation: [https://github.com/cashapp/sqldelight](https://github.com/cashapp/sqldelight)
 
 Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/DatabaseHelper.kt*
 
@@ -115,22 +146,30 @@ Koin is a lightweight dependency injection framework. It is being used in the *k
 
 ### Stately
 Documentation: https://github.com/touchlab/Stately
-
-Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/sqldelight/CoroutinesExtensions.kt*
-
-Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made by us!). Basically Kotlin/Native has a fairly different model of concurrency, and has different rules to reduce concurrency related issues. Objects in K/N can become `frozen`, which basically means they are immutable but can be shared across all threads. 
+Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made
+by us!).
 
 **Note:** Threading in K/N can be hard to grasp at first and this document isn't the place to go into it
 in detail. If you want to find out more about thread check out this post 
 [here](https://medium.com/@kpgalligan/kotlin-native-stranger-threads-ep-2-208523d63c8f)
 
-In KaMPKit we are using `ensureNeverFrozen()` in the BreedModel and DogApiImpl because we don't want them frozen. What this does is it throws an exception if the object ever becomes frozen, so that we can know exactly when it freezes and don't run into issues later on. The other place we are using Stately is `freeze` in the CoroutinesExtensions. Here we are freezing the channel so that it can offer new Query Results on any thread. Since we are not modifying the channel, simply offering with it, this will not cause frozen issues.
-
 ## Testing
 
-With KMP you can share tests between platforms, however since we have platform specific drivers and dependencies our tests need to be run by the individual platforms. In short we can share tests but we have to run them separately as android and iOS. The shared tests can be found in the commonTest directory, while the implementations can be found in the androidTest and iosTest directories, specifically with *PlatformTest.kt*. The PlatformTests contain classes for testing that are subclassing the abstract shared tests, so that they can be run in their platform. The function `runTest` is also implemented in PlatformTest, which makes sure the tests are running synchronously.
+With KMP you can share tests between platforms, however since we have platform specific drivers and
+dependencies our tests need to be run by the individual platforms. In short we can share tests but
+we have to run them separately as android and iOS. The shared tests can be found in the commonTest
+directory, while the implementations can be found in the androidTest and iosTest directories. You
+may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that
+is actually handled in the `TestUtil.kt` file in commonTest. In order to pass the platform specific
+libraries(SqlDelight requires a platform driver) into the BreedRepository for testing we need to
+inject them. For running tests we use `kotlinx.coroutines.test.runTest`. For specifying a test
+runner we use `@RunWith()` annotation. Note that the actual `testDbConnection()` implementations are
+in the *TestUtilAndroid.kt* and *TestUtilIOS.kt* files.
 
-You may be thinking: Weren't the libraries injected? How does the dependency injection work? Well that is actually handled in the `TestUtil.kt` file in commonTest. In order to pass the platform specific libraries(SqlDelight requires a platform driver) into the BreedModel for testing we need to inject them. Before the tests in BreedModelTest we are calling `appStart` and passing in our libraries to be injected and starting Koin. Then after the tests we are stopping Koin by calling `appEnd`. Note that the actual `testDbConnection()` implementations are in the *SqlDelightTest.kt* files.
+### Turbine
+Check out the [Repository](https://github.com/cashapp/turbine) for more info.
+Turbine is a small testing library for kotlinx.coroutines Flow. 
+For example: `BreedViewModelTest.kt`.
 
 #### Android
 On the android side we are using AndroidRunner to run the tests because we want to use android specifics in our tests. If you're not using android specific methods then you don't need to use AndroidRunner. The android tests are run can be easily run in Android Studio by right clicking on the shared folder, and selecting `Run 'All Tests'`.
