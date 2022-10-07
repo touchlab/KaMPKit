@@ -9,13 +9,13 @@
 
 ## 2022 Update
 
-KaMP Kit started a little over 2 years ago with the goal of helping developers interested in KMP and KMM get started 
+KaMP Kit started a little over 2 years ago with the goal of helping developers interested in KMP and KMM get started
 quickly with a great set of libraries and patterns. At the time, there were not many sample apps and getting started
-was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been removed.
+was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been
+removed.
 
-Over the next few weeks we are giving KaMP Kit a complete refresh. It will be less "getting started" and more "best practice model".
-The first change was moving to the new memory model. We'll be updating much more over the next few weeks. Watch this 
-repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
+Whereas KaMP Kit started with the goal of being a minimal sample, we now intend it to be less "getting started" and
+more "best practice model". Watch this repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
 > ## Touchlab's Hiring!
 >
@@ -33,9 +33,13 @@ For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/con
 
 ### Goal
 
-The goal of KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). It is a collection of code and tools designed to get you started quickly.
+The goal of KaMP Kit is to facilitate your evaluation of Kotlin Multiplatform (aka KMP). It is a collection of code and
+tools designed to get you started quickly. It's also a showcase of Touchlab's typical choices for architecture,
+libraries, and other best practices.
 
-The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM (Kotlin Multiplatform Mobile) and KMP, and have found that the **primary** stumbling block is simply getting started.
+The KMP ecosystem has generated a lot of excitement, and has evolved very rapidly. As a result, there's a lot of old or
+conflicting documentation, blog posts, tutorials, etc. We, Touchlab, have worked with several teams looking at KMM (
+Kotlin Multiplatform Mobile) and KMP, and have found that the **primary** stumbling block is simply getting started.
 
 KaMP Kit is designed to get you past that primary stumbling block. You should be able to set up your development environment, clone the repo, and have a running sample app very quickly. From there, you can focus on what you want to build.
 

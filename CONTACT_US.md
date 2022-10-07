@@ -6,4 +6,6 @@ To join the Kotlin Community Slack, [request access here](http://slack.kotlinlan
 
 For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/contactkamp) to discuss support options.
 
-If you find any bugs or issues in with project, you can create an issue in the [GitHub repository](https://github.com/touchlab/KaMPKit), but please don't mistake it with general KMM helpline, you can get answers for these questions in Slack.
+If you find any bugs or issues in with project, you can create an issue in
+the [GitHub repository](https://github.com/touchlab/KaMPKit), but please don't mistake it with general KMM helpline. You
+can get answers for general questions in Slack.

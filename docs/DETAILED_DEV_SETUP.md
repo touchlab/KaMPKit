@@ -64,8 +64,3 @@ Your KMP development environment is ready now. Your next step should be to go to
 
 
 
-## Further Reading
-
-If you want a more in-depth guide to getting a KMP project up and running for those coming from an iOS background, check out [this walkthrough](https://www.infoq.com/articles/kotlin-multiplatform-ios-developers/) that we wrote (and are maintaining).
-
-
