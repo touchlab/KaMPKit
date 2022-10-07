@@ -19,7 +19,7 @@ repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
 > ## Subscribe!
 >
-> We build solutions that get teams started smoothly with KMM and ensure their success in production. Join our community to learn how your peers are adopting Kotlin Multiplatform.
+> We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
  [Sign up here](https://go.touchlab.co/newsletter)!
 
 ## Getting Help
@@ -170,5 +170,5 @@ We have made KMP the focus of Touchlab. We had possibly the first KMP* app publi
 
 > ## Subscribe!
 >
-> We build solutions that get teams started smoothly with KMM and ensure their success in production. Join our community to learn how your peers are adopting Kotlin Multiplatform.
+> We build solutions that get teams started smoothly with Kotlin Multiplatform Mobile and ensure their success in production. Join our community to learn how your peers are adopting KMM.
  [Sign up here](https://go.touchlab.co/newsletter)!
