@@ -17,9 +17,10 @@ Over the next few weeks we are giving KaMP Kit a complete refresh. It will be le
 The first change was moving to the new memory model. We'll be updating much more over the next few weeks. Watch this 
 repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
-> ## Touchlab's Hiring!
+> ## Subscribe!
 >
-> We're looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the fully distributed team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
+> We build solutions that get teams started smoothly with KMM and ensure their success in production. Join our community to learn how your peers are adopting Kotlin Multiplatform.
+ [Sign up here](https://go.touchlab.co/newsletter)!
 
 ## Getting Help
 
@@ -157,7 +158,7 @@ KaMP Kit is just the beginning. Our hope is that after KaMP Kit you’ll have a 
 
 ### About Touchlab
 
-Touchlab is a mobile-focused development agency based in NYC. We have been working on Android since the beginning, and have worked on a wide range of mobile and hardware projects for the past decade. Over the past few years, we have invested significantly on R&D for code sharing technologies. We believe strongly in KMP's future and are making the Kotlin platform the focus of our business.
+Touchlab is a mobile-focused development agency based in NYC. We have been working on Android since the beginning, and have worked on a wide range of mobile and hardware projects for the past decade. Over the past few years, we have invested significantly on R&D for code sharing technologies. We believe strongly in KMP's future and have made the Kotlin multiplatform the focus of our business.
 
 ### About The Kit
 
@@ -167,9 +168,7 @@ We talked to a few teams early on who got to do a "hack week" with KMP. A common
 
 We have made KMP the focus of Touchlab. We had possibly the first KMP* app published in the iOS App Store, and have extensive experience in building libraries and the Kotlin platform, including contributions to Kotlin/Native itself. We can establish and accelerate your adoption of shared Kotlin code. See [touchlab.co](https://touchlab.co) for more info.
 
-### We're Hiring!
-
-Touchlab is looking for a Mobile Developer, with Android/Kotlin experience, who is eager to dive into Kotlin Multiplatform Mobile (KMM) development. Come join the remote-first team putting KMM in production. [More info here](https://go.touchlab.co/careers-gh).
-
-[![Touchlab](tl2.png)](https://touchlab.co)
-
+> ## Subscribe!
+>
+> We build solutions that get teams started smoothly with KMM and ensure their success in production. Join our community to learn how your peers are adopting Kotlin Multiplatform.
+ [Sign up here](https://go.touchlab.co/newsletter)!
