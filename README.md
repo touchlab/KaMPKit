@@ -24,11 +24,9 @@ more "best practice model". Watch this repo and follow [@TouchlabHQ](https://twi
 
 ## Getting Help
 
-KaMP Kit support can be found in the Kotlin Community Slack. Look for the "[#touchlab-tools](https://kotlinlang.slack.com/archives/CTJB58X7X)" channel.
+KaMP Kit support can be found in the Kotlin Community Slack, [request access here](http://slack.kotlinlang.org/). Post in the "[#touchlab-tools](https://kotlinlang.slack.com/archives/CTJB58X7X)" channel.
 
-Join the Kotlin Community Slack, [request access here](http://slack.kotlinlang.org/).
-
-For direct assistance, please [reach out to Touchlab](https://go.touchlab.co/contactkamp) to discuss support options.
+For direct assistance, please [contact Touchlab](https://go.touchlab.co/contactkamp) to discuss support options.
 
 ## About
 
