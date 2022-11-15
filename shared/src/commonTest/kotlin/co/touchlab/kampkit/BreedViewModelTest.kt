@@ -1,6 +1,6 @@
 package co.touchlab.kampkit
 
-import app.cash.turbine.FlowTurbine
+import app.cash.turbine.ReceiveTurbine
 import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.mock.ClockMock
@@ -247,7 +247,7 @@ class BreedViewModelTest {
 
 // There's a race condition where intermediate states can get missed if the next state comes too fast.
 // This function addresses that by awaiting an item that may or may not be preceded by the specified other items
-private suspend fun FlowTurbine<BreedViewState>.awaitItemPrecededBy(vararg items: BreedViewState): BreedViewState {
+private suspend fun ReceiveTurbine<BreedViewState>.awaitItemPrecededBy(vararg items: BreedViewState): BreedViewState {
     var nextItem = awaitItem()
     for (item in items) {
         if (item == nextItem) {
