@@ -25,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -157,12 +158,14 @@ fun FavoriteIcon(breed: Breed) {
         if (fav) {
             Image(
                 painter = painterResource(id = R.drawable.ic_favorite_border_24px),
-                contentDescription = stringResource(R.string.favorite_breed, breed.name)
+                contentDescription = stringResource(R.string.favorite_breed, breed.name),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primaryVariant)
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.ic_favorite_24px),
-                contentDescription = stringResource(R.string.unfavorite_breed, breed.name)
+                contentDescription = stringResource(R.string.unfavorite_breed, breed.name),
+                colorFilter = ColorFilter.tint(MaterialTheme.colors.primaryVariant)
             )
         }
     }
