@@ -9,7 +9,7 @@ import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 
-class ApiClientProvider(private val log: Logger, engine: HttpClientEngine) {
+class HttpClientProvider(private val log: Logger, engine: HttpClientEngine) {
 
     val client = HttpClient(engine) {
         expectSuccess = true

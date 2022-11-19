@@ -12,8 +12,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
 class DatabaseHelper(
-    sqlDriver: SqlDriver,
     private val log: Logger,
+    sqlDriver: SqlDriver,
     private val backgroundDispatcher: CoroutineDispatcher
 ) {
     private val dbRef: KaMPKitDb = KaMPKitDb(sqlDriver)

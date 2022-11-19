@@ -21,8 +21,8 @@ class SqlDelightTest {
     @BeforeTest
     fun setup() = runTest {
         dbHelper = DatabaseHelper(
-            testDbConnection(),
             Logger(StaticConfig()),
+            testDbConnection(),
             Dispatchers.Default
         )
         dbHelper.deleteAll()

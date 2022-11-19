@@ -1,8 +1,12 @@
 package co.touchlab.kampkit
 
+import co.touchlab.kampkit.base.StaleDataDelegate
+import co.touchlab.kampkit.base.StaleDataDelegateImpl
 import co.touchlab.kampkit.ktor.Api
-import co.touchlab.kampkit.ktor.ApiClientProvider
+import co.touchlab.kampkit.ktor.ApiImpl
+import co.touchlab.kampkit.ktor.HttpClientProvider
 import co.touchlab.kampkit.models.BreedRepository
+import co.touchlab.kampkit.models.BreedRepositoryImpl
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
@@ -22,7 +26,8 @@ fun initKoin(appModule: Module): KoinApplication {
         modules(
             appModule,
             platformModule,
-            coreModule
+            coreModule,
+            breedFeatureModule
         )
     }
 
@@ -43,13 +48,13 @@ fun initKoin(appModule: Module): KoinApplication {
 private val coreModule = module {
     single {
         DatabaseHelper(
-            get(),
             getWith("DatabaseHelper"),
+            get(),
             Dispatchers.Default
         )
     }
-    single {
-        Api(
+    single<Api> {
+        ApiImpl(
             getWith("Api"),
             get()
         )
@@ -58,10 +63,16 @@ private val coreModule = module {
         Clock.System
     }
     single {
-        ApiClientProvider(
-            getWith("ApiClientProvider"),
+        HttpClientProvider(
+            getWith("HttpClient"),
             get()
         ).client
+    }
+    single<StaleDataDelegate> {
+        StaleDataDelegateImpl(
+            get(),
+            get()
+        )
     }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
@@ -70,14 +81,15 @@ private val coreModule = module {
     // See https://github.com/touchlab/Kermit
     val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "KampKit")
     factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
+}
 
-    single {
-        BreedRepository(
-            get(),
-            get(),
-            get(),
+private val breedFeatureModule = module {
+    single<BreedRepository> {
+        BreedRepositoryImpl(
             getWith("BreedRepository"),
-            get()
+            get(),
+            get(),
+            get(),
         )
     }
 }

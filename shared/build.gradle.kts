@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("com.squareup.sqldelight")
+    id("org.kodein.mock.mockmp") version "1.10.0"
 }
 
 android {
@@ -107,4 +108,8 @@ sqldelight {
     database("KaMPKitDb") {
         packageName = "co.touchlab.kampkit.db"
     }
+}
+
+mockmp {
+    usesHelper = true
 }

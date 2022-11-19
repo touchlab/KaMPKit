@@ -1,6 +1,8 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.Api
+import co.touchlab.kampkit.base.ApiStatus
+import co.touchlab.kampkit.ktor.ApiImpl
+import co.touchlab.kampkit.ktor.HttpClientProvider
 import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
@@ -18,7 +20,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class DogApiTest {
+class ApiTest {
     private val emptyLogger = Logger(
         config = object : LoggerConfig {
             override val logWriterList: List<LogWriter> = emptyList()
@@ -36,17 +38,22 @@ class DogApiTest {
                 headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
             )
         }
-        val api = Api(emptyLogger, engine)
+        val client = HttpClientProvider(
+            emptyLogger,
+            engine
+        ).client
+        val api = ApiImpl(emptyLogger, client)
 
         val result = api.getBreeds()
         assertEquals(
+            ApiStatus.Success(
             BreedResult(
                 mapOf(
                     "affenpinscher" to emptyList(),
                     "african" to listOf("shepherd")
                 ),
                 "success"
-            ),
+            )),
             result
         )
     }
@@ -59,7 +66,11 @@ class DogApiTest {
                 status = HttpStatusCode.NotFound
             )
         }
-        val api = Api(emptyLogger, engine)
+        val client = HttpClientProvider(
+            emptyLogger,
+            engine
+        ).client
+        val api = ApiImpl(emptyLogger, client)
 
         assertFailsWith<ClientRequestException> {
             api.getBreeds()

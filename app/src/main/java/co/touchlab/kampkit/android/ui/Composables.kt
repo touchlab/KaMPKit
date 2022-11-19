@@ -20,7 +20,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -56,8 +55,6 @@ fun MainScreen(
     MainScreenContent(
         dogsState = dogsState,
         onRefresh = { viewModel.refreshBreeds() },
-        onSuccess = { data -> log.v { "View updating with ${data.size} breeds" } },
-        onError = { exception -> log.e { "Displaying error: $exception" } },
         onFavorite = { viewModel.updateBreedFavorite(it) }
     )
 }
@@ -66,8 +63,6 @@ fun MainScreen(
 fun MainScreenContent(
     dogsState: BreedViewState,
     onRefresh: () -> Unit = {},
-    onSuccess: (List<Breed>) -> Unit = {},
-    onError: (String) -> Unit = {},
     onFavorite: (Breed) -> Unit = {}
 ) {
     Surface(
@@ -83,17 +78,10 @@ fun MainScreenContent(
             }
             val breeds = dogsState.breeds
             if (breeds != null) {
-                LaunchedEffect(breeds) {
-                    onSuccess(breeds)
-                }
                 Success(successData = breeds, favoriteBreed = onFavorite)
             }
-            val error = dogsState.error
-            if (error != null) {
-                LaunchedEffect(error) {
-                    onError(error)
-                }
-                Error(error)
+            if (dogsState.isError) {
+                Error()
             }
         }
     }
@@ -113,7 +101,7 @@ fun Empty() {
 }
 
 @Composable
-fun Error(error: String) {
+fun Error() {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -121,7 +109,7 @@ fun Error(error: String) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = error)
+        Text(text = "Something went wrong")
     }
 }
 

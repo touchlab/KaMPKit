@@ -1,14 +1,14 @@
 package co.touchlab.kampkit
 
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.models.BreedRepository
+import co.touchlab.kampkit.models.BreedRepositoryImpl
 import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.CallbackViewModel
 import co.touchlab.kermit.Logger
 
 @Suppress("Unused") // Members are called from Swift
 class BreedCallbackViewModel(
-    breedRepository: BreedRepository,
+    breedRepository: BreedRepositoryImpl,
     log: Logger
 ) : CallbackViewModel() {
 
