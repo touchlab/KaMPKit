@@ -1,7 +1,7 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.DogApi
-import co.touchlab.kampkit.ktor.DogApiImpl
+import co.touchlab.kampkit.ktor.Api
+import co.touchlab.kampkit.ktor.ApiClientProvider
 import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
@@ -48,14 +48,20 @@ private val coreModule = module {
             Dispatchers.Default
         )
     }
-    single<DogApi> {
-        DogApiImpl(
-            getWith("DogApiImpl"),
+    single {
+        Api(
+            getWith("Api"),
             get()
         )
     }
     single<Clock> {
         Clock.System
+    }
+    single {
+        ApiClientProvider(
+            getWith("ApiClientProvider"),
+            get()
+        ).client
     }
 
     // platformLogWriter() is a relatively simple config option, useful for local debugging. For production

@@ -1,8 +1,9 @@
 package co.touchlab.kampkit.models
 
 import co.touchlab.kampkit.DatabaseHelper
+import co.touchlab.kampkit.base.ApiResult
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.ktor.DogApi
+import co.touchlab.kampkit.ktor.Api
 import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
@@ -12,7 +13,7 @@ import kotlinx.datetime.Clock
 class BreedRepository(
     private val dbHelper: DatabaseHelper,
     private val settings: Settings,
-    private val dogApi: DogApi,
+    private val dogApi: Api,
     log: Logger,
     private val clock: Clock
 ) {
@@ -36,14 +37,18 @@ class BreedRepository(
     }
 
     suspend fun refreshBreeds() {
-        val breedResult = dogApi.getJsonFromApi()
-        log.v { "Breed network result: ${breedResult.status}" }
-        val breedList = breedResult.message.keys.sorted().toList()
-        log.v { "Fetched ${breedList.size} breeds from network" }
-        settings.putLong(DB_TIMESTAMP_KEY, clock.now().toEpochMilliseconds())
+        when (val breedResult = dogApi.getBreeds()) {
+            is ApiResult.Error -> {}
+            is ApiResult.Success ->  {
+                log.v { "Breed network result: ${breedResult.data.status}" }
+                val breedList = breedResult.data.message.keys.sorted().toList()
+                log.v { "Fetched ${breedList.size} breeds from network" }
+                settings.putLong(DB_TIMESTAMP_KEY, clock.now().toEpochMilliseconds())
 
-        if (breedList.isNotEmpty()) {
-            dbHelper.insertBreeds(breedList)
+                if (breedList.isNotEmpty()) {
+                    dbHelper.insertBreeds(breedList)
+                }
+            }
         }
     }
 

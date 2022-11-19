@@ -1,6 +1,6 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.DogApiImpl
+import co.touchlab.kampkit.ktor.Api
 import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
@@ -36,9 +36,9 @@ class DogApiTest {
                 headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
             )
         }
-        val dogApi = DogApiImpl(emptyLogger, engine)
+        val api = Api(emptyLogger, engine)
 
-        val result = dogApi.getJsonFromApi()
+        val result = api.getBreeds()
         assertEquals(
             BreedResult(
                 mapOf(
@@ -59,10 +59,10 @@ class DogApiTest {
                 status = HttpStatusCode.NotFound
             )
         }
-        val dogApi = DogApiImpl(emptyLogger, engine)
+        val api = Api(emptyLogger, engine)
 
         assertFailsWith<ClientRequestException> {
-            dogApi.getJsonFromApi()
+            api.getBreeds()
         }
     }
 }

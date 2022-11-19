@@ -1,6 +1,5 @@
 package co.touchlab.kampkit.mock
 
-import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kampkit.response.BreedResult
 
 // TODO convert this to use Ktor's MockEngine
