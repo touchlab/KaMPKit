@@ -1,4 +1,4 @@
-package co.touchlab.kampkit.models
+package co.touchlab.kampkit.feature.breed
 
 import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.base.ApiStatus
@@ -6,7 +6,7 @@ import co.touchlab.kampkit.base.StaleDataDelegate
 import co.touchlab.kampkit.base.StaleDataKey
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.ktor.Api
-import co.touchlab.kampkit.response.BreedResult
+import co.touchlab.kampkit.ktor.dto.BreedDto
 import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import kotlinx.coroutines.flow.Flow
@@ -25,7 +25,7 @@ class BreedRepositoryImpl(
         ensureNeverFrozen()
     }
 
-    private val requestStatus = MutableStateFlow<ApiStatus<BreedResult>>(ApiStatus.NoAction)
+    private val requestStatus = MutableStateFlow<ApiStatus<BreedDto>>(ApiStatus.NoAction)
 
     override fun getData(): Flow<BreedRepoData> =
         combine(dbHelper.selectAllItems(), requestStatus.asStateFlow()) { items, requestStatus ->
@@ -69,7 +69,7 @@ class BreedRepositoryImpl(
         requestStatus.tryEmit(result)
     }
 
-    private suspend fun persistData(data: BreedResult) {
+    private suspend fun persistData(data: BreedDto) {
         dbHelper.insertBreeds(data.message.keys.toList())
     }
 

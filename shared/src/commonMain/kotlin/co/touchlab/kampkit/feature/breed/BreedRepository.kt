@@ -1,4 +1,4 @@
-package co.touchlab.kampkit.models
+package co.touchlab.kampkit.feature.breed
 
 import co.touchlab.kampkit.db.Breed
 import kotlinx.coroutines.flow.Flow

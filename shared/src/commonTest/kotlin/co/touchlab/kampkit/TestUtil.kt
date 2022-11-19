@@ -1,7 +1,7 @@
 package co.touchlab.kampkit
 
 import app.cash.turbine.ReceiveTurbine
-import co.touchlab.kampkit.models.BreedViewState
+import co.touchlab.kampkit.feature.breed.BreedViewState
 import com.squareup.sqldelight.db.SqlDriver
 
 internal expect fun testDbConnection(): SqlDriver

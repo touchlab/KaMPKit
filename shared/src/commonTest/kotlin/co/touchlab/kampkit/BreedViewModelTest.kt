@@ -1,29 +1,18 @@
 package co.touchlab.kampkit
 
-import app.cash.turbine.ReceiveTurbine
-import app.cash.turbine.test
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.mock.ClockMock
-import co.touchlab.kampkit.models.BreedRepository
-import co.touchlab.kampkit.models.BreedRepositoryImpl
-import co.touchlab.kampkit.models.BreedViewModel
-import co.touchlab.kampkit.models.BreedViewState
-import co.touchlab.kampkit.response.BreedResult
+import co.touchlab.kampkit.feature.breed.BreedRepository
+import co.touchlab.kampkit.feature.breed.BreedViewModel
+import co.touchlab.kampkit.feature.breed.BreedViewState
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
-import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kotlinx.datetime.Clock
 import org.kodein.mock.Mock
 import org.kodein.mock.tests.TestsWithMocks
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.time.Duration.Companion.hours
 
 class BreedViewModelTest: TestsWithMocks() {
     override fun setUpMocks() = injectMocks(mocker)

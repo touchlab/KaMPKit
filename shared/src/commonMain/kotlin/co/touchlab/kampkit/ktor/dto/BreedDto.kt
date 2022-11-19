@@ -1,9 +1,9 @@
-package co.touchlab.kampkit.response
+package co.touchlab.kampkit.ktor.dto
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BreedResult(
+data class BreedDto(
     val message: Map<String, List<String>>,
     var status: String
 )

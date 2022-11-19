@@ -2,7 +2,7 @@ package co.touchlab.kampkit.ktor
 
 import co.touchlab.kampkit.base.ApiStatus
 import co.touchlab.kampkit.base.ApiStatus.Companion.toResult
-import co.touchlab.kampkit.response.BreedResult
+import co.touchlab.kampkit.ktor.dto.BreedDto
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
 import io.ktor.client.request.HttpRequestBuilder
@@ -20,7 +20,7 @@ class ApiImpl(private val log: KermitLogger, private val client: HttpClient): Ap
 
     private val baseUrl = "https://dog.ceo/"
 
-    override suspend fun getBreeds(): ApiStatus<BreedResult> {
+    override suspend fun getBreeds(): ApiStatus<BreedDto> {
         return fetch("breed") {
             client.get {
                 base("api/breeds/list/all")

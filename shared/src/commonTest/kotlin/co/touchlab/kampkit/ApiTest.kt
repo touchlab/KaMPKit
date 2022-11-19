@@ -3,7 +3,7 @@ package co.touchlab.kampkit
 import co.touchlab.kampkit.base.ApiStatus
 import co.touchlab.kampkit.ktor.ApiImpl
 import co.touchlab.kampkit.ktor.HttpClientProvider
-import co.touchlab.kampkit.response.BreedResult
+import co.touchlab.kampkit.ktor.dto.BreedDto
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
@@ -47,13 +47,14 @@ class ApiTest {
         val result = api.getBreeds()
         assertEquals(
             ApiStatus.Success(
-            BreedResult(
+            BreedDto(
                 mapOf(
                     "affenpinscher" to emptyList(),
                     "african" to listOf("shepherd")
                 ),
                 "success"
-            )),
+            )
+            ),
             result
         )
     }

@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import co.touchlab.kampkit.AppInfo
 import co.touchlab.kampkit.initKoin
-import co.touchlab.kampkit.models.BreedViewModel
+import co.touchlab.kampkit.feature.breed.BreedViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
