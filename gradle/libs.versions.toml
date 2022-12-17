@@ -37,6 +37,10 @@ multiplatformSettings = "1.0.0-alpha01"
 turbine = "0.12.1"
 sqlDelight = "2.0.0-alpha04"
 
+ksp = "1.8.0-RC-1.0.8"
+nativeCoroutines = "1.0.0-ALPHA-2"
+kmmViewModel = "1.0.0-ALPHA-2-kotlin-1.8.0-RC"
+
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -89,6 +93,8 @@ touchlab-stately = { module = "co.touchlab:stately-common", version.ref = "state
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
+kmmViewModel-core = { module = "com.rickclephas.kmm:kmm-viewmodel-core", version.ref = "kmmViewModel"}
+
 [plugins]
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
@@ -121,4 +127,3 @@ shared-androidTest = [
     "roboelectric",
     "sqlDelight-jvm"
 ]
-

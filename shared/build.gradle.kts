@@ -6,6 +6,8 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("app.cash.sqldelight")
+    id("com.google.devtools.ksp")
+    id("com.rickclephas.kmp.nativecoroutines")
 }
 
 android {
@@ -40,6 +42,7 @@ kotlin {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
+                optIn("kotlin.experimental.ExperimentalObjCName")
             }
         }
 
@@ -52,6 +55,7 @@ kotlin {
                 implementation(libs.touchlab.stately)
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
+                implementation(libs.kmmViewModel.core)
                 api(libs.touchlab.kermit)
             }
         }

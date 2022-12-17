@@ -52,5 +52,6 @@ dependencies {
     implementation(libs.kotlinx.dateTime)
     coreLibraryDesugaring(libs.android.desugaring)
     implementation(libs.koin.android)
+    implementation(libs.kmmViewModel.core)
     testImplementation(libs.junit)
 }

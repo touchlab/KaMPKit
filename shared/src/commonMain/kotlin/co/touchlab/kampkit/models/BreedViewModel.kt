@@ -9,16 +9,19 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.rickclephas.kmm.viewmodel.*
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 
 class BreedViewModel(
     private val breedRepository: BreedRepository,
     log: Logger
-) : ViewModel() {
+) : KMMViewModel() {
     private val log = log.withTag("BreedCommonViewModel")
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
-        MutableStateFlow(BreedViewState(isLoading = true))
+        MutableStateFlow(viewModelScope, BreedViewState(isLoading = true))
 
+    @NativeCoroutinesState
     val breedState: StateFlow<BreedViewState> = mutableBreedState
 
     init {
@@ -40,7 +43,7 @@ class BreedViewModel(
             }
         }
 
-        viewModelScope.launch {
+        viewModelScope.coroutineScope.launch {
             combine(refreshFlow, breedRepository.getBreeds()) { throwable, breeds -> throwable to breeds }
                 .collect { (error, breeds) ->
                     mutableBreedState.update { previousState ->
@@ -63,7 +66,7 @@ class BreedViewModel(
     fun refreshBreeds(): Job {
         // Set loading state, which will be cleared when the repository re-emits
         mutableBreedState.update { it.copy(isLoading = true) }
-        return viewModelScope.launch {
+        return viewModelScope.coroutineScope.launch {
             log.v { "refreshBreeds" }
             try {
                 breedRepository.refreshBreeds()
@@ -74,7 +77,7 @@ class BreedViewModel(
     }
 
     fun updateBreedFavorite(breed: Breed): Job {
-        return viewModelScope.launch {
+        return viewModelScope.coroutineScope.launch {
             breedRepository.updateBreedFavorite(breed)
         }
     }
