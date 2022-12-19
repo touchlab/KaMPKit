@@ -1,10 +1,10 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.db.KaMPKitDb
-import co.touchlab.sqliter.DatabaseConfiguration
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.native.NativeSqliteDriver
 import app.cash.sqldelight.driver.native.wrapConnection
+import co.touchlab.kampkit.db.KaMPKitDb
+import co.touchlab.sqliter.DatabaseConfiguration
 
 internal actual fun testDbConnection(): SqlDriver {
     val schema = KaMPKitDb.Schema
