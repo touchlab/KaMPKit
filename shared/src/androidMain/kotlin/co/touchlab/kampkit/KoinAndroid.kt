@@ -7,6 +7,8 @@ import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
 import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.module
 
 actual val platformModule: Module = module {
@@ -18,9 +20,7 @@ actual val platformModule: Module = module {
         )
     }
 
-    single<Settings> {
-        SharedPreferencesSettings(get())
-    }
+    singleOf(::SharedPreferencesSettings) bind Settings::class
 
     single {
         OkHttp.create()

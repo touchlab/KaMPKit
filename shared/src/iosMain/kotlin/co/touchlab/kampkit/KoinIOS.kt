@@ -10,6 +10,7 @@ import io.ktor.client.engine.darwin.Darwin
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
+import org.koin.core.module.dsl.singleOf
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
@@ -31,7 +32,9 @@ actual val platformModule = module {
 
     single { Darwin.create() }
 
-    single { BreedCallbackViewModel(get(), getWith("BreedCallbackViewModel")) }
+    singleOf(::BreedCallbackViewModel) {
+        parametersOf("BreedCallbackViewModel")
+    }
 }
 
 // Access from Swift to create a logger
