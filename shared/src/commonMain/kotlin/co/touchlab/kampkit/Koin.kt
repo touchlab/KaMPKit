@@ -1,28 +1,30 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.DogApi
-import co.touchlab.kampkit.ktor.DogApiImpl
-import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
-import org.koin.core.module.Module
 import org.koin.core.parameter.parametersOf
 import org.koin.core.scope.Scope
 import org.koin.dsl.module
+import org.koin.ksp.generated.module
 
-fun initKoin(appModule: Module): KoinApplication {
+fun initKoin(appModule: org.koin.core.module.Module): KoinApplication {
     val koinApplication = startKoin {
         modules(
             appModule,
-            platformModule,
-            coreModule
+            PlatformModule().module,
+            CoreModule().module
         )
     }
 
@@ -40,40 +42,25 @@ fun initKoin(appModule: Module): KoinApplication {
     return koinApplication
 }
 
-private val coreModule = module {
-    single {
-        DatabaseHelper(
-            get(),
-            getWith("DatabaseHelper"),
-            Dispatchers.Default
-        )
-    }
-    single<DogApi> {
-        DogApiImpl(
-            getWith("DogApiImpl"),
-            get()
-        )
-    }
-    single<Clock> {
-        Clock.System
+@Module
+@ComponentScan
+class CoreModule {
+    @Single
+    fun clock(): Clock = Clock.System
+
+    @Factory
+    fun logger(tag: String? = null): Logger {
+        // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
+        // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
+        // that would likely go into platformModule expect/actual.
+        // See https://github.com/touchlab/Kermit
+        val baseLogger =
+            Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "KampKit")
+        return if (tag != null) baseLogger.withTag(tag) else baseLogger
     }
 
-    // platformLogWriter() is a relatively simple config option, useful for local debugging. For production
-    // uses you *may* want to have a more robust configuration from the native platform. In KaMP Kit,
-    // that would likely go into platformModule expect/actual.
-    // See https://github.com/touchlab/Kermit
-    val baseLogger = Logger(config = StaticConfig(logWriterList = listOf(platformLogWriter())), "KampKit")
-    factory { (tag: String?) -> if (tag != null) baseLogger.withTag(tag) else baseLogger }
-
-    single {
-        BreedRepository(
-            get(),
-            get(),
-            get(),
-            getWith("BreedRepository"),
-            get()
-        )
-    }
+    @Factory
+    fun coroutineDispatcher(): CoroutineDispatcher = Dispatchers.Default
 }
 
 internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
@@ -83,4 +70,5 @@ internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
 // Simple function to clean up the syntax a bit
 fun KoinComponent.injectLogger(tag: String): Lazy<Logger> = inject { parametersOf(tag) }
 
-expect val platformModule: Module
+@Module
+expect class PlatformModule()

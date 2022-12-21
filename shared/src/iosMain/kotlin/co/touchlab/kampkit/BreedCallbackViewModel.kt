@@ -5,7 +5,9 @@ import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.CallbackViewModel
 import co.touchlab.kermit.Logger
+import org.koin.core.annotation.Single
 
+@Single
 @Suppress("Unused") // Members are called from Swift
 class BreedCallbackViewModel(
     breedRepository: BreedRepository,

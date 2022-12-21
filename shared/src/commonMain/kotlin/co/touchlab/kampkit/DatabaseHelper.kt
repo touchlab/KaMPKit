@@ -8,9 +8,12 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import org.koin.core.annotation.Single
 
+@Single
 class DatabaseHelper(
     sqlDriver: SqlDriver,
     private val log: Logger,

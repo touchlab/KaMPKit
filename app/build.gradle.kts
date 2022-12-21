@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    alias(libs.plugins.google.ksp)
 }
 
 android {
@@ -52,5 +53,8 @@ dependencies {
     implementation(libs.kotlinx.dateTime)
     coreLibraryDesugaring(libs.android.desugaring)
     implementation(libs.koin.android)
+    implementation(libs.koin.annotations)
+    implementation(libs.koin.core)
+    ksp(libs.koin.ksp)
     testImplementation(libs.junit)
 }

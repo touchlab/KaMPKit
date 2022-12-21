@@ -14,9 +14,11 @@ import io.ktor.client.request.get
 import io.ktor.http.encodedPath
 import io.ktor.http.takeFrom
 import io.ktor.serialization.kotlinx.json.json
+import org.koin.core.annotation.Single
 import co.touchlab.kermit.Logger as KermitLogger
 import io.ktor.client.plugins.logging.Logger as KtorLogger
 
+@Single
 class DogApiImpl(private val log: KermitLogger, engine: HttpClientEngine) : DogApi {
 
     private val client = HttpClient(engine) {

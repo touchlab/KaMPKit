@@ -8,7 +8,9 @@ import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
+import org.koin.core.annotation.Single
 
+@Single
 class BreedRepository(
     private val dbHelper: DatabaseHelper,
     private val settings: Settings,

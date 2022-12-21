@@ -1,7 +1,6 @@
-
-
 plugins {
     kotlin("multiplatform")
+    alias(libs.plugins.google.ksp)
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
@@ -46,6 +45,8 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.koin.core)
+                implementation(libs.koin.test)
+                implementation(libs.koin.annotations)
                 implementation(libs.coroutines.core)
                 implementation(libs.sqlDelight.coroutinesExt)
                 implementation(libs.bundles.ktor.common)
@@ -101,6 +102,13 @@ kotlin {
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
     }
+}
+
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp)
+    add("kspAndroid", libs.koin.ksp)
+    add("kspIosX64", libs.koin.ksp)
+    add("kspIosSimulatorArm64", libs.koin.ksp)
 }
 
 sqldelight {

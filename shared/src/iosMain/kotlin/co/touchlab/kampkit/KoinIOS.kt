@@ -4,11 +4,13 @@ import co.touchlab.kampkit.db.KaMPKitDb
 import co.touchlab.kermit.Logger
 import com.russhwolf.settings.NSUserDefaultsSettings
 import com.russhwolf.settings.Settings
-import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 import io.ktor.client.engine.darwin.Darwin
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Module
+import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
@@ -26,12 +28,14 @@ fun initKoinIos(
     }
 )
 
-actual val platformModule = module {
-    single<SqlDriver> { NativeSqliteDriver(KaMPKitDb.Schema, "KampkitDb") }
+@Module
+@ComponentScan
+actual class PlatformModule {
+    @Single
+    fun sqlDriver() = NativeSqliteDriver(KaMPKitDb.Schema, "KampkitDb")
 
-    single { Darwin.create() }
-
-    single { BreedCallbackViewModel(get(), getWith("BreedCallbackViewModel")) }
+    @Single
+    fun httpClientEngine() = Darwin.create()
 }
 
 // Access from Swift to create a logger

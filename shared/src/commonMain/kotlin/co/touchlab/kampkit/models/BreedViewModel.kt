@@ -9,7 +9,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.Factory
 
+@Factory
 class BreedViewModel(
     private val breedRepository: BreedRepository,
     log: Logger
