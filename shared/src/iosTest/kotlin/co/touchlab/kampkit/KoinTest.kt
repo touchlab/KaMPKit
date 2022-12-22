@@ -1,9 +1,11 @@
 package co.touchlab.kampkit
 
 import co.touchlab.kermit.Logger
+import com.russhwolf.settings.NSUserDefaultsSettings
+import com.russhwolf.settings.Settings
 import org.koin.core.context.stopKoin
-import org.koin.core.parameter.parametersOf
-import org.koin.test.check.checkModules
+import org.koin.dsl.module
+import org.koin.test.check.checkKoinModules
 import platform.Foundation.NSUserDefaults
 import kotlin.test.AfterTest
 import kotlin.test.Test
@@ -11,13 +13,22 @@ import kotlin.test.Test
 class KoinTest {
     @Test
     fun checkAllModules() {
-        initKoinIos(
-            userDefaults = NSUserDefaults.standardUserDefaults,
-            appInfo = TestAppInfo,
-            doOnStartup = { }
-        ).checkModules {
-            withParameters<Logger> { parametersOf("TestTag") }
-        }
+        val modules = listOf(
+            module {
+                single<Settings> { NSUserDefaultsSettings(NSUserDefaults.standardUserDefaults) }
+                single { TestAppInfo }
+                single { }
+            },
+            platformModule,
+            coreModule
+        )
+        checkKoinModules(
+            modules = modules,
+            parameters = {
+                withParameter<Logger> { "Test" }
+                withParameter<Settings> { false }
+            }
+        )
     }
 
     @AfterTest

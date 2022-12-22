@@ -42,7 +42,7 @@ fun initKoin(appModule: Module): KoinApplication {
     return koinApplication
 }
 
-private val coreModule = module {
+val coreModule = module {
     single {
         DatabaseHelper(
             get(),

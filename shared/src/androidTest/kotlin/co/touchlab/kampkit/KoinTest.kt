@@ -2,16 +2,18 @@ package co.touchlab.kampkit
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import co.touchlab.kermit.Logger
+import co.touchlab.kermit.LoggerConfig
+import kotlinx.coroutines.CoroutineDispatcher
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
+import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.core.context.stopKoin
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import org.koin.test.category.CheckModuleTest
-import org.koin.test.check.checkModules
+import org.koin.test.verify.verify
 import org.robolectric.annotation.Config
 import kotlin.test.AfterTest
 import kotlin.test.Test
@@ -21,18 +23,33 @@ import kotlin.test.Test
 @Config(sdk = [32])
 class KoinTest {
 
+    @OptIn(KoinExperimentalAPI::class)
     @Test
     fun checkAllModules() {
-        initKoin(
-            module {
-                single<Context> { getApplicationContext<Application>() }
-                single { get<Context>().getSharedPreferences("TEST", Context.MODE_PRIVATE) }
-                single<AppInfo> { TestAppInfo }
-                single { {} }
+        val testModule = module {
+            single<Context> { getApplicationContext<Application>() }
+            single<SharedPreferences> {
+                get<Context>().getSharedPreferences(
+                    "TEST",
+                    Context.MODE_PRIVATE
+                )
             }
-        ).checkModules {
-            withParameters<Logger> { parametersOf("TestTag") }
+            single<AppInfo> { TestAppInfo }
+            single { {} }
+
+            includes(
+                platformModule,
+                coreModule
+            )
         }
+        testModule.verify(
+            extraTypes = listOf(
+                Boolean::class,
+                LoggerConfig::class,
+                String::class,
+                CoroutineDispatcher::class
+            )
+        )
     }
 
     @AfterTest
