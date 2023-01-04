@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.0-RC"
+kotlin = "1.8.0"
 
 ## SDK Versions
 minSdk = "21"
@@ -12,7 +12,7 @@ ktlint-gradle = "11.0.0"
 gradle-versions = "0.42.0"
 
 compose = "1.4.0-alpha03"
-composeCompiler = "1.4.0-dev-k1.8.0-RC-4c1865595ed"
+composeCompiler = "1.4.0-dev-k1.8.0-33c0ad36f83"
 
 android-desugaring = "1.1.8" # Don't bump to 1.2.x until AGP is 7.3.x
 androidx-core = "1.8.0"
