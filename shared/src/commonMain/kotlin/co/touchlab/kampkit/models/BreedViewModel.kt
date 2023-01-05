@@ -5,6 +5,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
@@ -13,13 +14,13 @@ import kotlinx.coroutines.launch
 class BreedViewModel(
     private val breedRepository: BreedRepository,
     log: Logger
-) : ViewModel() {
+) : ViewModel<BreedViewState, BreedViewAction>() {
     private val log = log.withTag("BreedCommonViewModel")
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
-        MutableStateFlow(BreedViewState(isLoading = true))
+        MutableStateFlow(BreedViewState.Loading())
 
-    val breedState: StateFlow<BreedViewState> = mutableBreedState
+    override val state: StateFlow<BreedViewState> = mutableBreedState
 
     init {
         observeBreeds()
@@ -27,6 +28,13 @@ class BreedViewModel(
 
     override fun onCleared() {
         log.v("Clearing BreedViewModel")
+    }
+
+    override fun act(action: BreedViewAction) {
+        when (action) {
+            BreedViewAction.RefreshBreeds -> refreshBreeds()
+            is BreedViewAction.UpdateBreedFavorite -> updateBreedFavorite(action.breed)
+        }
     }
 
     private fun observeBreeds() {
@@ -42,27 +50,26 @@ class BreedViewModel(
 
         viewModelScope.launch {
             combine(refreshFlow, breedRepository.getBreeds()) { throwable, breeds -> throwable to breeds }
+                .catch {
+                    mutableBreedState.update { previousState ->
+                        BreedViewState.Error(it, previousState.breeds)
+                    }
+                }
                 .collect { (error, breeds) ->
                     mutableBreedState.update { previousState ->
-                        val errorMessage = if (error != null) {
-                            "Unable to download breed list"
+                        if (error != null) {
+                            BreedViewState.Error(error, previousState.breeds)
                         } else {
-                            previousState.error
+                            BreedViewState.Success(breeds)
                         }
-                        BreedViewState(
-                            isLoading = false,
-                            breeds = breeds.takeIf { it.isNotEmpty() },
-                            error = errorMessage.takeIf { breeds.isEmpty() },
-                            isEmpty = breeds.isEmpty() && errorMessage == null
-                        )
                     }
                 }
         }
     }
 
-    fun refreshBreeds(): Job {
+    private fun refreshBreeds(): Job {
         // Set loading state, which will be cleared when the repository re-emits
-        mutableBreedState.update { it.copy(isLoading = true) }
+        mutableBreedState.update { BreedViewState.Loading(breeds = it.breeds) }
         return viewModelScope.launch {
             log.v { "refreshBreeds" }
             try {
@@ -73,7 +80,7 @@ class BreedViewModel(
         }
     }
 
-    fun updateBreedFavorite(breed: Breed): Job {
+    private fun updateBreedFavorite(breed: Breed): Job {
         return viewModelScope.launch {
             breedRepository.updateBreedFavorite(breed)
         }
@@ -82,19 +89,18 @@ class BreedViewModel(
     private fun handleBreedError(throwable: Throwable) {
         log.e(throwable) { "Error downloading breed list" }
         mutableBreedState.update {
-            if (it.breeds.isNullOrEmpty()) {
-                BreedViewState(error = "Unable to refresh breed list")
-            } else {
-                // Just let it fail silently if we have a cache
-                it.copy(isLoading = false)
-            }
+            BreedViewState.Error(throwable, (it as? BreedViewState.Success)?.breeds)
         }
     }
 }
 
-data class BreedViewState(
-    val breeds: List<Breed>? = null,
-    val error: String? = null,
-    val isLoading: Boolean = false,
-    val isEmpty: Boolean = false
-)
+sealed class BreedViewState(open val breeds: List<Breed>?): ViewModelState {
+    data class Loading(override val breeds: List<Breed>? = null): BreedViewState(breeds)
+    data class Error(val throwable: Throwable, override val breeds: List<Breed>? = null): BreedViewState(breeds)
+    data class Success(override val breeds: List<Breed>): BreedViewState(breeds)
+}
+
+sealed class BreedViewAction: ViewModelAction {
+    object RefreshBreeds: BreedViewAction()
+    data class UpdateBreedFavorite(val breed: Breed): BreedViewAction()
+}

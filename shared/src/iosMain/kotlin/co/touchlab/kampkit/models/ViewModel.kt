@@ -1,16 +1,19 @@
 package co.touchlab.kampkit.models
 
-import co.touchlab.kampkit.FlowAdapter
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 
 /**
  * Base class that provides a Kotlin/Native equivalent to the AndroidX `ViewModel`. In particular, this provides
  * a [CoroutineScope][kotlinx.coroutines.CoroutineScope] which uses [Dispatchers.Main][kotlinx.coroutines.Dispatchers.Main]
  * and can be tied into an arbitrary lifecycle by calling [clear] at the appropriate time.
  */
-actual abstract class ViewModel {
+actual abstract class ViewModel<out State: ViewModelState, in Action: ViewModelAction> {
 
     actual val viewModelScope = MainScope()
 
@@ -26,20 +29,22 @@ actual abstract class ViewModel {
      * no longer be used.
      */
     fun clear() {
-        onCleared()
         viewModelScope.cancel()
+        onCleared()
     }
-}
 
-abstract class CallbackViewModel {
-    protected abstract val viewModel: ViewModel
+    actual abstract val state: StateFlow<State>
 
-    /**
-     * Create a [FlowAdapter] from this [Flow] to make it easier to interact with from Swift.
-     */
-    fun <T : Any> Flow<T>.asCallbacks() =
-        FlowAdapter(viewModel.viewModelScope, this)
+    @Suppress("unused")
+    actual abstract fun act(action: Action)
 
-    @Suppress("Unused") // Called from Swift
-    fun clear() = viewModel.clear()
+    @Suppress("unused")
+    inline fun subscribe(
+        crossinline onEach: (item: State) -> Unit,
+        crossinline onComplete: () -> Unit,
+        crossinline onThrow: (error: Throwable) -> Unit
+    ) = state.onEach { onEach(it) }
+        .catch { onThrow(it) }
+        .onCompletion { onComplete() }
+        .launchIn(viewModelScope)
 }

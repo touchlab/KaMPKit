@@ -10,10 +10,11 @@ import Combine
 import SwiftUI
 import shared
 
-private let log = koin.loggerWithTag(tag: "ViewController")
+private let log = koin.loggerWithTag(tag: "BreedListScreen")
 
-class ObservableBreedModel: ObservableObject {
-    private var viewModel: BreedCallbackViewModel?
+class BreedScreenPresenter: ObservableObject {
+    private var viewModel: BreedViewModel?
+    private var viewModelObserver: Kotlinx_coroutines_coreJob?
 
     @Published
     var loading = false
@@ -24,62 +25,88 @@ class ObservableBreedModel: ObservableObject {
     @Published
     var error: String?
 
-    private var cancellables = [AnyCancellable]()
+    @Published
+    var vmActive = false
 
     func activate() {
-        let viewModel = KotlinDependencies.shared.getBreedViewModel()
-
-        doPublish(viewModel.breeds) { [weak self] dogsState in
-            self?.loading = dogsState.isLoading
-            self?.breeds = dogsState.breeds
-            self?.error = dogsState.error
-
-            if let breeds = dogsState.breeds {
-                log.d(message: {"View updating with \(breeds.count) breeds"})
-            }
-            if let errorMessage = dogsState.error {
-                log.e(message: {"Displaying error: \(errorMessage)"})
-            }
-        }.store(in: &cancellables)
-
-        self.viewModel = viewModel
+        deactivate()
+        viewModel = KotlinDependencies.shared.getBreedViewModel()
+        viewModelObserver = viewModel?.subscribe(
+            onEach: { [weak self] dogsState in
+                switch dogsState {
+                case let error as BreedViewState.Error:
+                    self?.loading = false
+                    self?.breeds = dogsState.breeds
+                    self?.error = error.throwable.message
+                case is BreedViewState.Success:
+                    self?.loading = false
+                    self?.breeds = dogsState.breeds
+                    self?.error = nil
+                case is BreedViewState.Loading:
+                    self?.loading = true
+                    self?.breeds = dogsState.breeds
+                    self?.error = nil
+                default:
+                    self?.loading = false
+                    self?.breeds = dogsState.breeds
+                    self?.error = "Unknown state"
+                }
+        },
+            onComplete: {
+            print("onComplete")
+        },
+            onThrow: { throwable in
+            print("onThrow: \(throwable)")
+        }
+        )
+        vmActive = true
     }
 
     func deactivate() {
-        cancellables.forEach { $0.cancel() }
-        cancellables.removeAll()
-
         viewModel?.clear()
         viewModel = nil
+        viewModelObserver = nil
+        vmActive = false
     }
 
     func onBreedFavorite(_ breed: Breed) {
-        viewModel?.updateBreedFavorite(breed: breed)
+        viewModel?.act(action: BreedViewAction.UpdateBreedFavorite(breed: breed))
     }
 
     func refresh() {
-        viewModel?.refreshBreeds()
+        viewModel?.act(action: BreedViewAction.RefreshBreeds())
     }
 }
 
 struct BreedListScreen: View {
     @StateObject
-    var observableModel = ObservableBreedModel()
+    var presenter = BreedScreenPresenter()
 
     var body: some View {
-        BreedListContent(
-            loading: observableModel.loading,
-            breeds: observableModel.breeds,
-            error: observableModel.error,
-            onBreedFavorite: { observableModel.onBreedFavorite($0) },
-            refresh: { observableModel.refresh() }
-        )
-        .onAppear(perform: {
-            observableModel.activate()
-        })
-        .onDisappear(perform: {
-            observableModel.deactivate()
-        })
+        VStack {
+            Button(presenter.vmActive ? "Deactivate VM" : "Activate VM") {
+                // demo purposes only: this sort of logic should be in the presenter
+                // but really the presenter should not expose the VM or activation state
+                if presenter.vmActive {
+                    presenter.deactivate()
+                } else {
+                    presenter.activate()
+                }
+            }
+            BreedListContent(
+                loading: presenter.loading,
+                breeds: presenter.breeds,
+                error: presenter.error,
+                onBreedFavorite: { presenter.onBreedFavorite($0) },
+                refresh: { presenter.refresh() }
+            )
+            .onAppear(perform: {
+                presenter.activate()
+            })
+            .onDisappear(perform: {
+                presenter.deactivate()
+            })
+        }
     }
 }
 
