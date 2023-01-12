@@ -49,7 +49,7 @@ on Arm64 based simulators, so use `isStatic = true` if you need to use a Arm64 s
 settings allow configuring and logging with Kermit in swift. Normally dependencies of your shared
 module aren't included in the export.
 
-To generate the podspec, run the `podspec` command, or `./gradlew podspec`. This wil generate the
+To generate the podspec, run the `podspec` command, or `./gradlew podspec`. This will generate the
 podspec in the root library folder.
 
 For more detailed information about the
