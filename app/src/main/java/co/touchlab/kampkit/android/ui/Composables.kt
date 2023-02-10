@@ -31,7 +31,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedViewModel
@@ -45,13 +45,7 @@ fun MainScreen(
     viewModel: BreedViewModel,
     log: Logger
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val lifecycleAwareDogsFlow = remember(viewModel.breedState, lifecycleOwner) {
-        viewModel.breedState.flowWithLifecycle(lifecycleOwner.lifecycle)
-    }
-
-    @SuppressLint("StateFlowValueCalledInComposition") // False positive lint check when used inside collectAsState()
-    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedState.value)
+    val dogsState by viewModel.breedState.collectAsStateWithLifecycle()
 
     MainScreenContent(
         dogsState = dogsState,
