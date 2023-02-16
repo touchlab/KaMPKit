@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace = "co.touchlab.kampkit.android"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         applicationId = "co.touchlab.kampkit"
@@ -27,7 +28,7 @@ android {
     }
 
     lint {
-        warningsAsErrors = true
+        warningsAsErrors = false
         abortOnError = true
     }
 

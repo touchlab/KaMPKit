@@ -5,7 +5,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("app.cash.sqldelight")
+    id("com.squareup.sqldelight")
 }
 
 android {
@@ -25,6 +25,7 @@ android {
         warningsAsErrors = true
         abortOnError = true
     }
+    namespace = "co.touchlab.kampkit"
 }
 
 version = "1.2"

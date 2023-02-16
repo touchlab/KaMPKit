@@ -1,5 +1,5 @@
 package co.touchlab.kampkit
 
-import app.cash.sqldelight.db.SqlDriver
+import com.squareup.sqldelight.db.SqlDriver
 
 internal expect fun testDbConnection(): SqlDriver

@@ -7,7 +7,7 @@ plugins {
 
     kotlin("multiplatform") version libs.versions.kotlin.get() apply false
     kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
-    id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
+    id("com.squareup.sqldelight") version libs.versions.sqlDelight.get() apply false
     id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
 }
 
