@@ -8,6 +8,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
@@ -22,7 +23,7 @@ class DatabaseHelper(
         dbRef.tableQueries
             .selectAll()
             .asFlow()
-            .mapToList()
+            .mapToList(Dispatchers.Default)
             .flowOn(backgroundDispatcher)
 
     suspend fun insertBreeds(breeds: List<String>) {
@@ -38,7 +39,7 @@ class DatabaseHelper(
         dbRef.tableQueries
             .selectById(id)
             .asFlow()
-            .mapToList()
+            .mapToList(Dispatchers.Default)
             .flowOn(backgroundDispatcher)
 
     suspend fun deleteAll() {

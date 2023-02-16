@@ -25,6 +25,7 @@ android {
         warningsAsErrors = true
         abortOnError = true
     }
+    namespace = "co.touchlab.kampkit"
 }
 
 version = "1.2"
@@ -97,6 +98,7 @@ kotlin {
         homepage = "https://github.com/touchlab/KaMPKit"
         framework {
             isStatic = false // SwiftUI preview requires dynamic framework
+            linkerOpts("-lsqlite3")
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
