@@ -76,6 +76,7 @@ kotlin {
             dependencies {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)
+                api(libs.touchlab.kermit.simple)
             }
         }
         val iosTest by getting
@@ -97,6 +98,7 @@ kotlin {
         homepage = "https://github.com/touchlab/KaMPKit"
         framework {
             isStatic = false // SwiftUI preview requires dynamic framework
+            export(libs.touchlab.kermit.simple)
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")

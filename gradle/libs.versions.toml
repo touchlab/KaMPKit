@@ -28,7 +28,7 @@ ktor = "2.1.1"
 
 robolectric = "4.8.2"
 
-kermit = "1.1.3"
+kermit = "2.0.0-RC2"
 stately = "1.2.3"
 
 accompanist-swiperefresh = "0.25.1"
@@ -84,6 +84,7 @@ sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.
 sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
 
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+touchlab-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
 touchlab-stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
