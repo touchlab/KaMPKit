@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.7.20"
+kotlin = "1.8.0"
 
 ## SDK Versions
 minSdk = "21"
@@ -7,15 +7,15 @@ targetSdk = "33"
 compileSdk = "33"
 
 # Dependencies
-android-gradle-plugin = "7.2.2" # Don't bump to 7.3.x until Intellij supports it (unless you're ok with only Android Studio)
-ktlint-gradle = "11.0.0"
+android-gradle-plugin = "7.4.1"
+ktlint-gradle = "11.2.0"
 gradle-versions = "0.42.0"
 
-compose = "1.2.1"
-composeCompiler = "1.3.2"
+compose = "1.4.0-alpha03"
+composeCompiler = "1.4.0-dev-k1.8.0-33c0ad36f83"
 
 android-desugaring = "1.1.8" # Don't bump to 1.2.x until AGP is 7.3.x
-androidx-core = "1.8.0"
+androidx-core = "1.9.0"
 androidx-test-junit = "1.1.3"
 androidx-activity-compose = "1.5.1"
 androidx-lifecycle = "2.5.1"
@@ -35,7 +35,7 @@ accompanist-swiperefresh = "0.25.1"
 koin = "3.2.0"
 multiplatformSettings = "1.0.0-alpha01"
 turbine = "0.12.1"
-sqlDelight = "1.5.3"
+sqlDelight = "1.5.5"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
