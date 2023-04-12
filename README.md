@@ -1,5 +1,5 @@
-[![KaMP Kit Android](https://img.shields.io/github/workflow/status/touchlab/KaMPKit/KaMPKit-Android/main?logo=Android&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-Android.yml)
-[![KaMP Kit iOS](https://img.shields.io/github/workflow/status/touchlab/KaMPKit/KaMPKit-iOS?logo=iOS&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-iOS.yml)
+[![KaMP Kit Android](https://img.shields.io/github/actions/workflow/status/touchlab/KaMPKit/KaMPKit-Android.yml?branch=main&logo=Android&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-Android.yml)
+[![KaMP Kit iOS](https://img.shields.io/github/actions/workflow/status/touchlab/KaMPKit/KaMPKit-iOS.yml?branch-main&logo=iOS&style=plastic)](https://github.com/touchlab/KaMPKit/actions/workflows/KaMPKit-iOS.yml)
 
 # KaMP Kit
 
