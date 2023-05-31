@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.0"
+kotlin = "1.8.21"
 
 ## SDK Versions
 minSdk = "21"
@@ -11,8 +11,8 @@ android-gradle-plugin = "7.4.1"
 ktlint-gradle = "11.2.0"
 gradle-versions = "0.42.0"
 
-compose = "1.4.0-alpha03"
-composeCompiler = "1.4.0-dev-k1.8.0-33c0ad36f83"
+compose = "1.4.3"
+composeCompiler = "1.4.7"
 
 android-desugaring = "1.1.8" # Don't bump to 1.2.x until AGP is 7.3.x
 androidx-core = "1.9.0"
@@ -22,7 +22,7 @@ androidx-lifecycle = "2.6.0"
 
 junit = "4.13.2"
 
-coroutines = "1.6.4"
+coroutines = "1.7.1"
 kotlinx-datetime = "0.4.0"
 ktor = "2.1.1"
 
