@@ -1,5 +1,6 @@
 package co.touchlab.kampkit.models
 
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
@@ -10,6 +11,7 @@ import kotlinx.coroutines.cancel
  */
 actual abstract class ViewModel {
 
+    @NativeCoroutineScope
     actual val viewModelScope = MainScope()
 
     /**
