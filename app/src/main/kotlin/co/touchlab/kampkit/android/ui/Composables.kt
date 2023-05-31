@@ -177,7 +177,8 @@ fun MainScreenContentPreview_Success() {
         dogsState = BreedViewState(
             breeds = listOf(
                 Breed(0, "appenzeller", false),
-                Breed(1, "australian", true)
+                Breed(1, "australian", true),
+                Breed(2, "yorkie", true)
             )
         )
     )
