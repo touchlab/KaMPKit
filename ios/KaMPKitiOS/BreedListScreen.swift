@@ -9,11 +9,12 @@
 import Combine
 import SwiftUI
 import shared
+import KMPNativeCoroutinesCombine
 
 private let log = koin.loggerWithTag(tag: "ViewController")
 
 class ObservableBreedModel: ObservableObject {
-    private var viewModel: BreedCallbackViewModel?
+    private var viewModel: BreedViewModel?
 
     @Published
     var loading = false
@@ -29,18 +30,20 @@ class ObservableBreedModel: ObservableObject {
     func activate() {
         let viewModel = KotlinDependencies.shared.getBreedViewModel()
 
-        doPublish(viewModel.breeds) { [weak self] dogsState in
-            self?.loading = dogsState.isLoading
-            self?.breeds = dogsState.breeds
-            self?.error = dogsState.error
+        createPublisher(for: viewModel.breedStateFlow)
+            .sink { _ in } receiveValue: { [weak self] (breedState: BreedViewState) in
+                self?.loading = breedState.isLoading
+                self?.breeds = breedState.breeds
+                self?.error = breedState.error
 
-            if let breeds = dogsState.breeds {
-                log.d(message: {"View updating with \(breeds.count) breeds"})
+                if let breeds = breedState.breeds {
+                    log.d(message: {"View updating with \(breeds.count) breeds"})
+                }
+                if let errorMessage = breedState.error {
+                    log.e(message: {"Displaying error: \(errorMessage)"})
+                }
             }
-            if let errorMessage = dogsState.error {
-                log.e(message: {"Displaying error: \(errorMessage)"})
-            }
-        }.store(in: &cancellables)
+            .store(in: &cancellables)
 
         self.viewModel = viewModel
     }

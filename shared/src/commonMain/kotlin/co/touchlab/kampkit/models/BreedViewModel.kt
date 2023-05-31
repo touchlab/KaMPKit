@@ -2,6 +2,7 @@ package co.touchlab.kampkit.models
 
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kermit.Logger
+import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,6 +20,7 @@ class BreedViewModel(
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
         MutableStateFlow(BreedViewState(isLoading = true))
 
+    @NativeCoroutinesState
     val breedState: StateFlow<BreedViewState> = mutableBreedState
 
     init {
