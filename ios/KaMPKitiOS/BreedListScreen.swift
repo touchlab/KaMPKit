@@ -49,11 +49,7 @@ class ObservableBreedModel: ObservableObject {
     }
 
     func deactivate() {
-        cancellables.forEach { $0.cancel() }
-        cancellables.removeAll()
-
         viewModel?.clear()
-        viewModel = nil
     }
 
     func onBreedFavorite(_ breed: Breed) {
