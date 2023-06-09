@@ -32,7 +32,7 @@ actual val platformModule = module {
 
     single { Darwin.create() }
 
-    single { BreedViewModel(get(), getWith("BreedCallbackViewModel")) }
+    single { BreedViewModel(get(), getWith("BreedViewModel")) }
 }
 
 // Access from Swift to create a logger
