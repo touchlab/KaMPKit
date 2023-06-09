@@ -1,4 +1,4 @@
-package co.touchlab.kampkit.sqldelight
+package co.touchlab.kampkit.core
 
 import com.squareup.sqldelight.Transacter
 import com.squareup.sqldelight.TransactionWithoutReturn

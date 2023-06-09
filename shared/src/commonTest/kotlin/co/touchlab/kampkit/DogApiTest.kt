@@ -1,7 +1,7 @@
 package co.touchlab.kampkit
 
-import co.touchlab.kampkit.ktor.DogApiImpl
-import co.touchlab.kampkit.response.BreedResult
+import co.touchlab.kampkit.data.dog.DogApiImpl
+import co.touchlab.kampkit.data.dog.DogResult
 import co.touchlab.kermit.LogWriter
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
@@ -40,7 +40,7 @@ class DogApiTest {
 
         val result = dogApi.getJsonFromApi()
         assertEquals(
-            BreedResult(
+            DogResult(
                 mapOf(
                     "affenpinscher" to emptyList(),
                     "african" to listOf("shepherd")

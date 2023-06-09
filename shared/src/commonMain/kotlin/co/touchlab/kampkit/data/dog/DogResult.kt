@@ -1,9 +1,9 @@
-package co.touchlab.kampkit.response
+package co.touchlab.kampkit.data.dog
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class BreedResult(
+data class DogResult(
     val message: Map<String, List<String>>,
     var status: String
 )

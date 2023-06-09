@@ -4,6 +4,8 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import co.touchlab.kampkit.core.AppInfo
+import co.touchlab.kampkit.core.initKoin
 import co.touchlab.kermit.Logger
 import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith

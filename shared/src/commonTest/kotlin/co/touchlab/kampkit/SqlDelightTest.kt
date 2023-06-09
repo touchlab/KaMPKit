@@ -1,5 +1,6 @@
 package co.touchlab.kampkit
 
+import co.touchlab.kampkit.data.dog.DogDatabaseHelper
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import kotlinx.coroutines.Dispatchers
@@ -12,15 +13,15 @@ import kotlin.test.assertTrue
 
 class SqlDelightTest {
 
-    private lateinit var dbHelper: DatabaseHelper
+    private lateinit var dbHelper: DogDatabaseHelper
 
-    private suspend fun DatabaseHelper.insertBreed(name: String) {
+    private suspend fun DogDatabaseHelper.insertBreed(name: String) {
         insertBreeds(listOf(name))
     }
 
     @BeforeTest
     fun setup() = runTest {
-        dbHelper = DatabaseHelper(
+        dbHelper = DogDatabaseHelper(
             testDbConnection(),
             Logger(StaticConfig()),
             Dispatchers.Default

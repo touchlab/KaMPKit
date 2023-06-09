@@ -1,4 +1,4 @@
-package co.touchlab.kampkit
+package co.touchlab.kampkit.core
 
 import co.touchlab.kampkit.db.KaMPKitDb
 import com.russhwolf.settings.Settings

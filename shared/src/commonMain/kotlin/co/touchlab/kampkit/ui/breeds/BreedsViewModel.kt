@@ -1,6 +1,8 @@
-package co.touchlab.kampkit.models
+package co.touchlab.kampkit.ui.breeds
 
+import co.touchlab.kampkit.data.dog.DogRepository
 import co.touchlab.kampkit.db.Breed
+import co.touchlab.kampkit.core.ViewModel
 import co.touchlab.kermit.Logger
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.Job
@@ -13,8 +15,8 @@ import kotlinx.coroutines.launch
 import kotlin.native.ObjCName
 
 @ObjCName("BreedViewModelDelegate")
-class BreedViewModel(
-    private val breedRepository: BreedRepository,
+class BreedsViewModel(
+    private val dogRepository: DogRepository,
     log: Logger
 ) : ViewModel() {
     private val log = log.withTag("BreedViewModel")
@@ -23,7 +25,7 @@ class BreedViewModel(
         MutableStateFlow(BreedViewState(isLoading = true))
 
     @NativeCoroutinesState
-    val breedState: StateFlow<BreedViewState> = mutableBreedState
+    val breedsState: StateFlow<BreedViewState> = mutableBreedState
 
     init {
         observeBreeds()
@@ -37,7 +39,7 @@ class BreedViewModel(
         // Refresh breeds, and emit any exception that was thrown so we can handle it downstream
         val refreshFlow = flow<Throwable?> {
             try {
-                breedRepository.refreshBreedsIfStale()
+                dogRepository.refreshBreedsIfStale()
                 emit(null)
             } catch (exception: Exception) {
                 emit(exception)
@@ -45,7 +47,7 @@ class BreedViewModel(
         }
 
         viewModelScope.launch {
-            combine(refreshFlow, breedRepository.getBreeds()) { throwable, breeds -> throwable to breeds }
+            combine(refreshFlow, dogRepository.getBreeds()) { throwable, breeds -> throwable to breeds }
                 .collect { (error, breeds) ->
                     mutableBreedState.update { previousState ->
                         val errorMessage = if (error != null) {
@@ -70,7 +72,7 @@ class BreedViewModel(
         return viewModelScope.launch {
             log.v { "refreshBreeds" }
             try {
-                breedRepository.refreshBreeds()
+                dogRepository.refreshBreeds()
             } catch (exception: Exception) {
                 handleBreedError(exception)
             }
@@ -79,7 +81,7 @@ class BreedViewModel(
 
     fun updateBreedFavorite(breed: Breed): Job {
         return viewModelScope.launch {
-            breedRepository.updateBreedFavorite(breed)
+            dogRepository.updateBreedFavorite(breed)
         }
     }
 

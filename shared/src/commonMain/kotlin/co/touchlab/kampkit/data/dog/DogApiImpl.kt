@@ -1,6 +1,5 @@
-package co.touchlab.kampkit.ktor
+package co.touchlab.kampkit.data.dog
 
-import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.stately.ensureNeverFrozen
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -45,7 +44,7 @@ class DogApiImpl(private val log: KermitLogger, engine: HttpClientEngine) : DogA
         ensureNeverFrozen()
     }
 
-    override suspend fun getJsonFromApi(): BreedResult {
+    override suspend fun getJsonFromApi(): DogResult {
         log.d { "Fetching Breeds from network" }
         return client.get {
             dogs("api/breeds/list/all")

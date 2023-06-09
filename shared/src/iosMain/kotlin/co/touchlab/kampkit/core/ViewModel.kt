@@ -1,4 +1,4 @@
-package co.touchlab.kampkit.models
+package co.touchlab.kampkit.core
 
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutineScope
 import kotlinx.coroutines.MainScope

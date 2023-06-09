@@ -1,23 +1,21 @@
-package co.touchlab.kampkit.models
+package co.touchlab.kampkit.data.dog
 
-import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.db.Breed
-import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kermit.Logger
 import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
 
-class BreedRepository(
-    private val dbHelper: DatabaseHelper,
+class DogRepository(
+    private val dbHelper: DogDatabaseHelper,
     private val settings: Settings,
     private val dogApi: DogApi,
     log: Logger,
     private val clock: Clock
 ) {
 
-    private val log = log.withTag("BreedModel")
+    private val log = log.withTag("DogRepository")
 
     companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
