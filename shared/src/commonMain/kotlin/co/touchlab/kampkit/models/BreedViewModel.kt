@@ -10,12 +10,14 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.native.ObjCName
 
+@ObjCName("BreedViewModelDelegate")
 class BreedViewModel(
     private val breedRepository: BreedRepository,
     log: Logger
 ) : ViewModel() {
-    private val log = log.withTag("BreedCommonViewModel")
+    private val log = log.withTag("BreedViewModel")
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
         MutableStateFlow(BreedViewState(isLoading = true))
@@ -53,7 +55,7 @@ class BreedViewModel(
                         }
                         BreedViewState(
                             isLoading = false,
-                            breeds = breeds.takeIf { it.isNotEmpty() },
+                            breeds = breeds,
                             error = errorMessage.takeIf { breeds.isEmpty() },
                             isEmpty = breeds.isEmpty() && errorMessage == null
                         )
@@ -84,7 +86,7 @@ class BreedViewModel(
     private fun handleBreedError(throwable: Throwable) {
         log.e(throwable) { "Error downloading breed list" }
         mutableBreedState.update {
-            if (it.breeds.isNullOrEmpty()) {
+            if (it.breeds.isEmpty()) {
                 BreedViewState(error = "Unable to refresh breed list")
             } else {
                 // Just let it fail silently if we have a cache
@@ -95,8 +97,14 @@ class BreedViewModel(
 }
 
 data class BreedViewState(
-    val breeds: List<Breed>? = null,
+    val breeds: List<Breed> = emptyList(),
     val error: String? = null,
     val isLoading: Boolean = false,
     val isEmpty: Boolean = false
-)
+) {
+    companion object {
+        // This method lets you use the default constructor values in Swift. When accessing the
+        // constructor directly, they will not work there and would need to be provided explicitly.
+        fun default() = BreedViewState()
+    }
+}
