@@ -12,9 +12,8 @@ import kotlinx.coroutines.launch
 
 class BreedViewModel(
     private val breedRepository: BreedRepository,
-    log: Logger
+    private val log: Logger
 ) : ViewModel() {
-    private val log = log.withTag("BreedCommonViewModel")
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
         MutableStateFlow(BreedViewState(isLoading = true))

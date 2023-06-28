@@ -4,7 +4,6 @@ import co.touchlab.kampkit.DatabaseHelper
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kermit.Logger
-import co.touchlab.stately.ensureNeverFrozen
 import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.datetime.Clock
@@ -21,10 +20,6 @@ class BreedRepository(
 
     companion object {
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
-    }
-
-    init {
-        ensureNeverFrozen()
     }
 
     fun getBreeds(): Flow<List<Breed>> = dbHelper.selectAllItems()

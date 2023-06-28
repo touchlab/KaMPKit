@@ -1,12 +1,12 @@
 package co.touchlab.kampkit.android.ui
 
-import android.annotation.SuppressLint
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,52 +16,49 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kampkit.android.R
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.BreedViewState
 import co.touchlab.kermit.Logger
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import kotlinx.coroutines.launch
 
 @Composable
 fun MainScreen(
     viewModel: BreedViewModel,
     log: Logger
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val lifecycleAwareDogsFlow = remember(viewModel.breedState, lifecycleOwner) {
-        viewModel.breedState.flowWithLifecycle(lifecycleOwner.lifecycle)
-    }
-
-    @SuppressLint("StateFlowValueCalledInComposition") // False positive lint check when used inside collectAsState()
-    val dogsState by lifecycleAwareDogsFlow.collectAsState(viewModel.breedState.value)
+    val dogsState by viewModel.breedState.collectAsStateWithLifecycle()
+    val scope = rememberCoroutineScope()
 
     MainScreenContent(
         dogsState = dogsState,
-        onRefresh = { viewModel.refreshBreeds() },
+        onRefresh = { scope.launch { viewModel.refreshBreeds() } },
         onSuccess = { data -> log.v { "View updating with ${data.size} breeds" } },
         onError = { exception -> log.e { "Displaying error: $exception" } },
-        onFavorite = { viewModel.updateBreedFavorite(it) }
+        onFavorite = { scope.launch { viewModel.updateBreedFavorite(it) } }
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MainScreenContent(
     dogsState: BreedViewState,
@@ -74,10 +71,9 @@ fun MainScreenContent(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
     ) {
-        SwipeRefresh(
-            state = rememberSwipeRefreshState(isRefreshing = dogsState.isLoading),
-            onRefresh = onRefresh
-        ) {
+        val refreshState = rememberPullRefreshState(dogsState.isLoading, onRefresh)
+
+        Box(Modifier.pullRefresh(refreshState)) {
             if (dogsState.isEmpty) {
                 Empty()
             }
@@ -95,6 +91,8 @@ fun MainScreenContent(
                 }
                 Error(error)
             }
+
+            PullRefreshIndicator(dogsState.isLoading, refreshState, Modifier.align(Alignment.TopCenter))
         }
     }
 }

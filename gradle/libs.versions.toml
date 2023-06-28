@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.0"
+kotlin = "1.8.21"
 
 ## SDK Versions
 minSdk = "21"
@@ -7,41 +7,40 @@ targetSdk = "33"
 compileSdk = "33"
 
 # Dependencies
-android-gradle-plugin = "7.4.1"
-ktlint-gradle = "11.2.0"
-gradle-versions = "0.42.0"
+android-gradle-plugin = "7.4.2"
+ktlint-gradle = "11.4.2"
+gradle-versions = "0.47.0"
 
-compose = "1.4.0-alpha03"
-composeCompiler = "1.4.0-dev-k1.8.0-33c0ad36f83"
+compose = "1.4.3"
+composeCompiler = "1.4.7"
 
-android-desugaring = "1.1.8" # Don't bump to 1.2.x until AGP is 7.3.x
-androidx-core = "1.9.0"
-androidx-test-junit = "1.1.3"
-androidx-activity-compose = "1.5.1"
-androidx-lifecycle = "2.5.1"
+android-desugaring = "2.0.3"
+androidx-core = "1.10.1"
+androidx-test-junit = "1.1.5"
+androidx-activity-compose = "1.7.2"
+androidx-lifecycle = "2.6.1"
 
 junit = "4.13.2"
 
-coroutines = "1.6.4"
+coroutines = "1.7.0"
 kotlinx-datetime = "0.4.0"
-ktor = "2.1.1"
+ktor = "2.3.1"
 
-robolectric = "4.8.2"
+robolectric = "4.10.3"
 
-kermit = "1.2.2"
-stately = "1.2.3"
+kermit = "2.0.0-RC3"
 
-accompanist-swiperefresh = "0.25.1"
-koin = "3.2.0"
-multiplatformSettings = "1.0.0-alpha01"
-turbine = "0.12.1"
-sqlDelight = "1.5.5"
+koin = "3.4.1"
+multiplatformSettings = "1.0.0"
+turbine = "1.0.0"
+sqlDelight = "2.0.0-rc01"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-junit" }
 
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
@@ -53,8 +52,6 @@ compose-activity = { module = "androidx.activity:activity-compose", version.ref 
 
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-
-google-accompanist-swipeRefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanist-swiperefresh" }
 
 junit = { module = "junit:junit", version.ref = "junit" }
 
@@ -77,14 +74,14 @@ multiplatformSettings-test = { module = "com.russhwolf:multiplatform-settings-te
 
 roboelectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
-sqlDelight-android = { module = "com.squareup.sqldelight:android-driver", version.ref = "sqlDelight" }
-sqlDelight-jvm = { module = "com.squareup.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
-sqlDelight-coroutinesExt = { module = "com.squareup.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
-sqlDelight-native = { module = "com.squareup.sqldelight:native-driver", version.ref = "sqlDelight" }
-sqlDelight-runtime = { module = "com.squareup.sqldelight:runtime", version.ref = "sqlDelight" }
+sqlDelight-android = { module = "app.cash.sqldelight:android-driver", version.ref = "sqlDelight" }
+sqlDelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
+sqlDelight-coroutinesExt = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
+sqlDelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
+sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
 
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
-touchlab-stately = { module = "co.touchlab:stately-common", version.ref = "stately" }
+touchlab-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -99,12 +96,12 @@ app-ui = [
     "androidx-core",
     "androidx-lifecycle-runtime",
     "androidx-lifecycle-viewmodel",
+    "androidx-lifecycle-compose",
     "compose-ui",
     "compose-tooling",
     "compose-foundation",
     "compose-material",
-    "compose-activity",
-    "google-accompanist-swipeRefresh"
+    "compose-activity"
 ]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-serialization", "ktor-client-contentNegotiation"]
 shared-commonTest = [
