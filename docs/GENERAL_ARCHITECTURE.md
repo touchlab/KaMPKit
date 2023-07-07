@@ -10,7 +10,6 @@ This doc goes over the overall architecture of the app, the libraries usage and 
   * [Ktor](#Ktor) - Networking
   * [Multiplatform Settings](#Multiplatform-Settings) - Settings
   * [Koin](#Koin) - Dependency Injection
-  * [Stately](#Stately) - State Utility
 * [Testing](#Testing)
 
 ## Structure of the Project
@@ -104,7 +103,6 @@ Below is some information about some of the libraries used in the project.
 * [Ktor](#Ktor)
 * [Multiplatform Settings](#Multiplatform-Settings)
 * [Koin](#Koin)
-* [Stately](#Stately)
 * [Turbine](#Turbine)
 
 ### SqlDelight
@@ -143,15 +141,6 @@ Documentation: https://insert-koin.io/
 Usage in the project: *commonMain/kotlin/co/touchlab/kampkit/Koin.kt*
 
 Koin is a lightweight dependency injection framework. It is being used in the *koin.kt* file to inject modules into the BreedModel. You can tell which variables are being injected in the BreedModel because they are being set using `by inject()`. In our implementation we are separating our injections into two different modules: the `coreModule` and the `platformModule`. As you can guess the platformModule contains injections requiring platform specific implementations (SqlDelight and Multiplatform Settings). The coreModule contains the Ktor implementation and the Database Helper, which actually takes from the platformModule.
-
-### Stately
-Documentation: https://github.com/touchlab/Stately
-Stately is a state utility library used to help with state management in Kotlin Multiplatform (Made
-by us!).
-
-**Note:** Threading in K/N can be hard to grasp at first and this document isn't the place to go into it
-in detail. If you want to find out more about thread check out this post 
-[here](https://medium.com/@kpgalligan/kotlin-native-stranger-threads-ep-2-208523d63c8f)
 
 ## Testing
 

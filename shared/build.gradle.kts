@@ -5,14 +5,13 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
-    id("com.squareup.sqldelight")
+    id("app.cash.sqldelight")
 }
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     testOptions {
@@ -51,7 +50,6 @@ kotlin {
                 implementation(libs.coroutines.core)
                 implementation(libs.sqlDelight.coroutinesExt)
                 implementation(libs.bundles.ktor.common)
-                implementation(libs.touchlab.stately)
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
                 api(libs.touchlab.kermit)
@@ -78,6 +76,7 @@ kotlin {
             dependencies {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)
+                api(libs.touchlab.kermit.simple)
             }
         }
         val iosTest by getting
@@ -100,6 +99,7 @@ kotlin {
         framework {
             isStatic = false // SwiftUI preview requires dynamic framework
             linkerOpts("-lsqlite3")
+            export(libs.touchlab.kermit.simple)
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
@@ -107,7 +107,7 @@ kotlin {
 }
 
 sqldelight {
-    database("KaMPKitDb") {
-        packageName = "co.touchlab.kampkit.db"
+    databases.create("KaMPKitDb") {
+        packageName.set("co.touchlab.kampkit.db")
     }
 }

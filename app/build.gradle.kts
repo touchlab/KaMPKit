@@ -14,9 +14,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    packagingOptions {
-        resources.excludes.add("META-INF/*.kotlin_module")
-    }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
@@ -34,11 +32,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
     composeOptions {
