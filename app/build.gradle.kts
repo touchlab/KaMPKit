@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("org.jetbrains.compose")
     kotlin("android")
 }
 
@@ -37,6 +38,13 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
+}
+
+// Using Compose gradle plugin v 1.4.1 which supports at most Kotlin 1.8.1
+// And SQLDelight 2.0+ which supports at least Kotlin 1.8.2
+// Quick workaround until we get some easier to match versions.
+compose {
+    kotlinCompilerPlugin.set("org.jetbrains.compose.compiler:compiler:1.4.8")
 }
 
 dependencies {

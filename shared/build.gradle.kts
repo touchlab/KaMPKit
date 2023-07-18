@@ -5,6 +5,7 @@ plugins {
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
+    id("org.jetbrains.compose")
     id("app.cash.sqldelight")
 }
 
@@ -46,6 +47,7 @@ kotlin {
 
         val commonMain by getting {
             dependencies {
+                implementation(compose.runtime)
                 implementation(libs.koin.core)
                 implementation(libs.coroutines.core)
                 implementation(libs.sqlDelight.coroutinesExt)
@@ -62,6 +64,7 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(libs.compose.activity)
                 implementation(libs.androidx.lifecycle.viewmodel)
                 implementation(libs.sqlDelight.android)
                 implementation(libs.ktor.client.okHttp)
@@ -104,6 +107,13 @@ kotlin {
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
     }
+}
+
+// Using Compose gradle plugin v 1.4.1 which supports at most Kotlin 1.8.1
+// And SQLDelight 2.0+ which supports at least Kotlin 1.8.2
+// Quick workaround until we get some easier to match versions.
+compose {
+    kotlinCompilerPlugin.set("org.jetbrains.compose.compiler:compiler:1.4.8")
 }
 
 sqldelight {
