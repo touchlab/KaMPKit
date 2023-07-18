@@ -1,4 +1,4 @@
-package co.touchlab.kampkit.android.ui.theme
+package co.touchlab.kampkit.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
