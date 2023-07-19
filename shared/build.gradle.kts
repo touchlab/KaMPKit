@@ -57,6 +57,8 @@ kotlin {
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
                 api(libs.touchlab.kermit)
+                api(libs.moko.resources)
+                api(libs.moko.resources.compose)
             }
         }
         val commonTest by getting {
@@ -105,6 +107,8 @@ kotlin {
             isStatic = false // SwiftUI preview requires dynamic framework
             linkerOpts("-lsqlite3")
             export(libs.touchlab.kermit.simple)
+            export(libs.moko.resources)
+            export(libs.moko.graphics)
         }
         ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
@@ -122,4 +126,8 @@ sqldelight {
     databases.create("KaMPKitDb") {
         packageName.set("co.touchlab.kampkit.db")
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "co.touchlab.kampkit" // required
 }
