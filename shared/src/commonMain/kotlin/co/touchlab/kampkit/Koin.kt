@@ -83,4 +83,18 @@ internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
 // Simple function to clean up the syntax a bit
 fun KoinComponent.injectLogger(tag: String): Lazy<Logger> = inject { parametersOf(tag) }
 
+/**
+ * Get any instance of `T` if available in the dependencies graph.
+ *
+ * @param tag Optional name of allowing to get a specific
+ */
+inline fun <reified T: Any> injectInstance(tag: String? = null): T {
+    return object : KoinComponent {
+        val value: T by when (tag) {
+            null -> inject()
+            else -> inject { parametersOf(tag) }
+        }
+    }.value
+}
+
 expect val platformModule: Module
