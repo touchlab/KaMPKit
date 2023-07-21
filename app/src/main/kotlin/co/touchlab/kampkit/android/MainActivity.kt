@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.isSystemInDarkTheme
-import co.touchlab.kampkit.android.ui.MainScreen
+import co.touchlab.kampkit.ui.MainScreen
 import co.touchlab.kampkit.ui.theme.KaMPKitTheme
 import co.touchlab.kampkit.injectLogger
 import co.touchlab.kampkit.models.BreedViewModel

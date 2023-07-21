@@ -49,7 +49,9 @@ kotlin {
             dependencies {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
+                implementation(compose.material) // for PullRefreshIndicator
                 implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
                 implementation(libs.koin.core)
                 implementation(libs.coroutines.core)
                 implementation(libs.sqlDelight.coroutinesExt)
@@ -57,6 +59,8 @@ kotlin {
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
                 api(libs.touchlab.kermit)
+                api(libs.moko.resources)
+                api(libs.moko.resources.compose)
             }
         }
         val commonTest by getting {
@@ -65,6 +69,8 @@ kotlin {
             }
         }
         val androidMain by getting {
+            // Below line adds a temporary workaround for https://github.com/icerockdev/moko-resources/issues/531
+            kotlin.srcDirs("build/generated/moko/androidMain/src")
             dependencies {
                 implementation(libs.compose.activity)
                 implementation(libs.androidx.lifecycle.viewmodel)
@@ -78,6 +84,7 @@ kotlin {
             }
         }
         val iosMain by getting {
+            resources.srcDirs("build/generated/moko/iosMain/src")
             dependencies {
                 implementation(libs.sqlDelight.native)
                 implementation(libs.ktor.client.ios)
@@ -86,6 +93,7 @@ kotlin {
         }
         val iosTest by getting
         val iosSimulatorArm64Main by getting {
+            resources.srcDirs("build/generated/moko/iosSimulatorArm64Main/src")
             dependsOn(iosMain)
         }
         val iosSimulatorArm64Test by getting {
@@ -105,6 +113,8 @@ kotlin {
             isStatic = false // SwiftUI preview requires dynamic framework
             linkerOpts("-lsqlite3")
             export(libs.touchlab.kermit.simple)
+            export(libs.moko.resources)
+            export(libs.moko.graphics)
         }
         ios.deploymentTarget = "14.0"
         podfile = project.file("../ios/Podfile")
@@ -122,4 +132,10 @@ sqldelight {
     databases.create("KaMPKitDb") {
         packageName.set("co.touchlab.kampkit.db")
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "co.touchlab.kampkit" // required
+    // multiplatformResourcesSourceSet = "iosSimulatorArm64Main"
+    multiplatformResourcesClassName = "MR" // optional, default MR
 }
