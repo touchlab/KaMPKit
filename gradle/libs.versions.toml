@@ -24,7 +24,7 @@ junit = "4.13.2"
 
 coroutines = "1.7.0"
 kotlinx-datetime = "0.4.0"
-ktor = "2.3.1"
+ktor = "2.3.2"
 
 robolectric = "4.10.3"
 

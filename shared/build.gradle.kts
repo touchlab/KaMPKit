@@ -101,7 +101,7 @@ kotlin {
             linkerOpts("-lsqlite3")
             export(libs.touchlab.kermit.simple)
         }
-        ios.deploymentTarget = "12.4"
+        ios.deploymentTarget = "14.0"
         podfile = project.file("../ios/Podfile")
     }
 }
