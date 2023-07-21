@@ -4,11 +4,13 @@
 plugins {
     alias(libs.plugins.gradleVersions)
     alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.moko.resources) apply false
 
     kotlin("multiplatform") version libs.versions.kotlin.get() apply false
     kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
     id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
     id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
+    id("org.jetbrains.compose") version libs.versions.compose.gradle.plugin.get() apply(false)
 }
 
 allprojects {
@@ -17,6 +19,7 @@ allprojects {
         mavenCentral()
         maven("https://androidx.dev/storage/compose-compiler/repository/")
         maven("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/dev/")
+        gradlePluginPortal() // for moko
     }
 }
 
@@ -24,6 +27,7 @@ subprojects {
     // TODO libs doesn't resolve if we do this
     // apply(plugin = libs.plugins.ktlint.get().pluginId)
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "dev.icerock.mobile.multiplatform-resources")
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
         enableExperimentalRules.set(true)

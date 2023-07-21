@@ -1,4 +1,4 @@
-package co.touchlab.kampkit.android.ui
+package co.touchlab.kampkit.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -20,25 +20,26 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import co.touchlab.kampkit.android.R
+import co.touchlab.kampkit.MR
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.models.BreedViewModel
 import co.touchlab.kampkit.models.BreedViewState
 import co.touchlab.kermit.Logger
+import dev.icerock.moko.resources.compose.stringResource
 import kotlinx.coroutines.launch
 
 @Composable
@@ -46,7 +47,7 @@ fun MainScreen(
     viewModel: BreedViewModel,
     log: Logger
 ) {
-    val dogsState by viewModel.breedState.collectAsStateWithLifecycle()
+    val dogsState by viewModel.breedState.collectAsState()
     val scope = rememberCoroutineScope()
 
     MainScreenContent(
@@ -106,7 +107,7 @@ fun Empty() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(stringResource(R.string.empty_breeds))
+        Text(text = stringResource(MR.strings.empty_breeds))
     }
 }
 
@@ -166,27 +167,14 @@ fun FavoriteIcon(breed: Breed) {
     ) { fav ->
         if (fav) {
             Image(
-                painter = painterResource(id = R.drawable.ic_favorite_border_24px),
-                contentDescription = stringResource(R.string.favorite_breed, breed.name)
+                imageVector = Icons.Default.FavoriteBorder,
+                contentDescription = stringResource(MR.strings.favorite_breed, breed.name)
             )
         } else {
             Image(
-                painter = painterResource(id = R.drawable.ic_favorite_24px),
-                contentDescription = stringResource(R.string.unfavorite_breed, breed.name)
+                imageVector = Icons.Default.Favorite,
+                contentDescription = stringResource(MR.strings.unfavorite_breed, breed.name)
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun MainScreenContentPreview_Success() {
-    MainScreenContent(
-        dogsState = BreedViewState(
-            breeds = listOf(
-                Breed(0, "appenzeller", false),
-                Breed(1, "australian", true)
-            )
-        )
-    )
 }

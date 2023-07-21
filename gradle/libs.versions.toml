@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.21"
+kotlin = "1.8.22"
 
 ## SDK Versions
 minSdk = "21"
@@ -8,11 +8,12 @@ compileSdk = "33"
 
 # Dependencies
 android-gradle-plugin = "7.4.2"
+compose-gradle-plugin = "1.4.1"
 ktlint-gradle = "11.4.2"
 gradle-versions = "0.47.0"
 
 compose = "1.4.3"
-composeCompiler = "1.4.7"
+composeCompiler = "1.4.8"
 
 android-desugaring = "2.0.3"
 androidx-core = "1.10.1"
@@ -22,9 +23,9 @@ androidx-lifecycle = "2.6.1"
 
 junit = "4.13.2"
 
-coroutines = "1.7.0"
+coroutines = "1.7.2"
 kotlinx-datetime = "0.4.0"
-ktor = "2.3.1"
+ktor = "2.3.2"
 
 robolectric = "4.10.3"
 
@@ -34,6 +35,9 @@ koin = "3.4.1"
 multiplatformSettings = "1.0.0"
 turbine = "1.0.0"
 sqlDelight = "2.0.0-rc01"
+
+moko-resources = "0.23.0"
+moko-graphics = "0.9.0"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -86,9 +90,14 @@ touchlab-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 
+moko-resources = { module = "dev.icerock.moko:resources", version.ref = "moko-resources" }
+moko-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "moko-resources" }
+moko-graphics = { module = "dev.icerock.moko:graphics", version.ref = "moko-graphics" }
+
 [plugins]
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
+moko-resources = { id = "dev.icerock.mobile.multiplatform-resources", version.ref = "moko-resources" }
 
 [bundles]
 app-ui = [
