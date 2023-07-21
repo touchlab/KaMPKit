@@ -121,15 +121,18 @@ As part of your evaluation, you'll need to decide if you're going to integrate K
 
 ### Android
 
-The Android side is somewhat more straightforward. Kotlin is the preferred language for Android, and the library can be integrated as just another module library. We'll be updating soon with a general Android integration doc. In the meantime, the simplest method would be to copy the shared module into your standard Android build, and use the `app` module as a reference for dependency resolution.
+The Android side is somewhat more straightforward. Kotlin is the preferred language for Android, and the library can be integrated as just another module library.
+The main benefit of the :shared module is that it holds all the functionality needed to download, persist and display application's UI.
+This is accomplished by it using 
+- Ktor - https://ktor.io/ as a Kotlin only library for handling downloads
+- SQLDelight - https://cashapp.github.io/sqldelight/ as a Kotlin only library for persisting data
+- Compose Multiplatform https://blog.jetbrains.com/kotlin/2023/05/compose-multiplatform-for-ios-is-in-alpha/ which is powered by Skia to allow displaying the same UI written in Jetpack Compose on multiple platforms.
 
 ### iOS
 
-The iOS integration process is relatively new and has been iterating fast. Be prepared to spend more time with config related issues when integrating with a production build.
+The iOS side is very similar to the Android one by leveraging the same technologies through :shared showcasing the major advantage of a Compose Multiplatform project - run once and run everywhere.
 
-You can integrate with Cocoapods, or by directly including the Xcode framework. If you are an Android developer without extensive iOS build experience, be aware that this is a risky option. Production build systems, for any ecosystem, tend to be complex. You'll almost certainly need to recruit somebody with experience maintaining your iOS build.
-
-See [IOS_PROJ_INTEGRATION.md](docs/IOS_PROJ_INTEGRATION.md) for iOS integration information.
+See [IOS_PROJ_INTEGRATION.md](docs/IOS_PROJ_INTEGRATION.md) for how iOS is consuming :shared through a Podfile.
 
 If you are attempting to integrate your KMP project with a production iOS application, please let us know what issues you run into and reach out with questions if stuck. This is an ongoing area of improvement for the KMP platform and we'd like to help make this as smooth as possible.
 
