@@ -66,7 +66,7 @@ following into your new `Podfile`:
  ```
 use_frameworks!
 
-platform :ios, '12.4'
+platform :ios, '15.0'
 
 install! 'cocoapods', :deterministic_uuids => false
 

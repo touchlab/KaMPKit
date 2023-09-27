@@ -1,6 +1,6 @@
 # KMP: What and Why?
 
-## 2022 Update
+## 2023 Update
 
 This document describes the original vision and goals of KaMP Kit. Many of these ideas have evolved since then, but this
 writeup is still here so you can see where it all came from.
@@ -17,10 +17,12 @@ You can transfer your skills and code to any task at hand.
 Kotlin can output JVM bytecode, Javascript, and an array of LLVM-based native executable code. Describing the entirety
 of KMP would take some time, but the KaMP Kit is focused on native mobile development, so we’ll speak to that
 specifiically.
+
 KMP enables optional shared architecture and logic, that can be used in both Android and iOS. Kotlin is already the
 default
 language for Android, which means unlike all other “cross platform” options, it is fully “native” to the platform (and,
 really, any JVM environment).
+
 On iOS, the Kotlin Native compiler generates an Xcode Framework that you can include into Xcode and call from Swift or
 Objective-C. Using [a 3rd party plugin](https://github.com/touchlab/xcode-kotlin) (*cough* by Touchlab *cough*) you can
 debug Kotlin directly in Xcode. iOS developers (soon to be “mobile developers”) can stick to the tools they currently
@@ -29,7 +31,7 @@ Integrating Kotlin is not an abrupt and dramatic (ie RISKY) change to your team�
 
 ## What is this Kit?
 
-KMP is new tech, supporting many features and platforms, and has had rapid development over the past 2-3 years. As a
+KMP is new tech, supporting many features and platforms, and has had rapid development over the past 3 years. As a
 result, the documentation ecosystem right now can be difficult to navigate. The official Jetbrains docs cover a wide
 range of options but can be difficult to navigate. That situation is being addressed, at the same time that the platform
 itself is stabilizing. The documentation out on the web is often more focused on mobile specifically, but is all over

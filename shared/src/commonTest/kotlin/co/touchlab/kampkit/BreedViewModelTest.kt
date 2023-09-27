@@ -13,6 +13,8 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import com.russhwolf.settings.MapSettings
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -38,19 +40,23 @@ class BreedViewModelTest {
     private val clock = ClockMock(Clock.System.now())
 
     private val repository: BreedRepository = BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
-    private val viewModel by lazy { BreedViewModel(repository, kermit) }
+
+    private val viewModel by lazy {
+        BreedViewModel(repository, kermit)
+            .also { GlobalScope.launch { it.activate() } }
+    }
 
     companion object {
         private val appenzeller = Breed(1, "appenzeller", false)
         private val australianNoLike = Breed(2, "australian", false)
         private val australianLike = Breed(2, "australian", true)
-        private val breedViewStateSuccessNoFavorite = BreedViewState(
+        private val breedViewStateSuccessNoFavorite = BreedViewState.Content(
             breeds = listOf(appenzeller, australianNoLike)
         )
-        private val breedViewStateSuccessFavorite = BreedViewState(
+        private val breedViewStateSuccessFavorite = BreedViewState.Content(
             breeds = listOf(appenzeller, australianLike)
         )
-        private val breedNames = breedViewStateSuccessNoFavorite.breeds?.map { it.name }.orEmpty()
+        private val breedNames = breedViewStateSuccessNoFavorite.breeds.map { it.name }
     }
 
     @BeforeTest
@@ -71,7 +77,7 @@ class BreedViewModelTest {
         viewModel.breedState.test {
             assertEquals(
                 breedViewStateSuccessNoFavorite,
-                awaitItemPrecededBy(BreedViewState(isLoading = true), BreedViewState(isEmpty = true))
+                awaitItemPrecededBy(BreedViewState.Initial, BreedViewState.Empty())
             )
         }
     }
@@ -82,8 +88,8 @@ class BreedViewModelTest {
 
         viewModel.breedState.test {
             assertEquals(
-                BreedViewState(isEmpty = true),
-                awaitItemPrecededBy(BreedViewState(isLoading = true))
+                BreedViewState.Empty(),
+                awaitItemPrecededBy(BreedViewState.Initial)
             )
         }
     }
@@ -100,13 +106,13 @@ class BreedViewModelTest {
         dbHelper.updateFavorite(australianLike.id, true)
 
         viewModel.breedState.test {
-            assertEquals(breedViewStateSuccessFavorite, awaitItemPrecededBy(BreedViewState(isLoading = true)))
+            assertEquals(breedViewStateSuccessFavorite, awaitItemPrecededBy(BreedViewState.Initial))
             expectNoEvents()
 
-            viewModel.refreshBreeds().join()
+            viewModel.refreshBreeds()
             // id is 5 here because it incremented twice when trying to insert duplicate breeds
             assertEquals(
-                BreedViewState(breedViewStateSuccessFavorite.breeds?.plus(Breed(5, "extra", false))),
+                BreedViewState.Content(breedViewStateSuccessFavorite.breeds + Breed(5, "extra", false)),
                 awaitItemPrecededBy(breedViewStateSuccessFavorite.copy(isLoading = true))
             )
         }
@@ -126,8 +132,8 @@ class BreedViewModelTest {
         viewModel.breedState.test {
             // id is 5 here because it incremented twice when trying to insert duplicate breeds
             assertEquals(
-                BreedViewState(breedViewStateSuccessFavorite.breeds?.plus(Breed(5, "extra", false))),
-                awaitItemPrecededBy(BreedViewState(isLoading = true), breedViewStateSuccessFavorite)
+                BreedViewState.Content(breedViewStateSuccessFavorite.breeds + Breed(5, "extra", false)),
+                awaitItemPrecededBy(BreedViewState.Initial, breedViewStateSuccessFavorite)
             )
         }
     }
@@ -140,10 +146,10 @@ class BreedViewModelTest {
         dbHelper.updateFavorite(australianLike.id, true)
 
         viewModel.breedState.test {
-            assertEquals(breedViewStateSuccessFavorite, awaitItemPrecededBy(BreedViewState(isLoading = true)))
+            assertEquals(breedViewStateSuccessFavorite, awaitItemPrecededBy(BreedViewState.Initial))
             expectNoEvents()
 
-            viewModel.updateBreedFavorite(australianLike).join()
+            viewModel.updateBreedFavorite(australianLike)
             assertEquals(
                 breedViewStateSuccessNoFavorite,
                 awaitItemPrecededBy(breedViewStateSuccessFavorite.copy(isLoading = true))
@@ -158,11 +164,11 @@ class BreedViewModelTest {
         dbHelper.insertBreeds(breedNames)
 
         viewModel.breedState.test {
-            assertEquals(breedViewStateSuccessNoFavorite, awaitItemPrecededBy(BreedViewState(isLoading = true)))
+            assertEquals(breedViewStateSuccessNoFavorite, awaitItemPrecededBy(BreedViewState.Initial))
             assertEquals(0, ktorApi.calledCount)
             expectNoEvents()
 
-            viewModel.refreshBreeds().join()
+            viewModel.refreshBreeds()
             assertEquals(
                 breedViewStateSuccessNoFavorite,
                 awaitItemPrecededBy(breedViewStateSuccessNoFavorite.copy(isLoading = true))
@@ -177,8 +183,8 @@ class BreedViewModelTest {
 
         viewModel.breedState.test {
             assertEquals(
-                BreedViewState(error = "Unable to download breed list"),
-                awaitItemPrecededBy(BreedViewState(isLoading = true), BreedViewState(isEmpty = true))
+                BreedViewState.Error(error = "Unable to download breed list"),
+                awaitItemPrecededBy(BreedViewState.Initial, BreedViewState.Empty())
             )
         }
     }
@@ -192,12 +198,12 @@ class BreedViewModelTest {
         viewModel.breedState.test {
             assertEquals(
                 breedViewStateSuccessNoFavorite,
-                awaitItemPrecededBy(BreedViewState(isLoading = true))
+                awaitItemPrecededBy(BreedViewState.Initial)
             )
             expectNoEvents()
 
             ktorApi.prepareResult(ktorApi.successResult())
-            viewModel.refreshBreeds().join()
+            viewModel.refreshBreeds()
 
             assertEquals(
                 breedViewStateSuccessNoFavorite,
@@ -213,12 +219,12 @@ class BreedViewModelTest {
         viewModel.breedState.test {
             assertEquals(
                 breedViewStateSuccessNoFavorite,
-                awaitItemPrecededBy(BreedViewState(isLoading = true), BreedViewState(isEmpty = true))
+                awaitItemPrecededBy(BreedViewState.Initial, BreedViewState.Empty())
             )
             expectNoEvents()
 
             ktorApi.throwOnCall(RuntimeException("Test error"))
-            viewModel.refreshBreeds().join()
+            viewModel.refreshBreeds()
 
             assertEquals(
                 breedViewStateSuccessNoFavorite,
@@ -233,13 +239,13 @@ class BreedViewModelTest {
         ktorApi.throwOnCall(RuntimeException("Test error"))
 
         viewModel.breedState.test {
-            assertEquals(BreedViewState(isEmpty = true), awaitItemPrecededBy(BreedViewState(isLoading = true)))
+            assertEquals(BreedViewState.Empty(), awaitItemPrecededBy(BreedViewState.Initial))
             expectNoEvents()
 
-            viewModel.refreshBreeds().join()
+            viewModel.refreshBreeds()
             assertEquals(
-                BreedViewState(error = "Unable to refresh breed list"),
-                awaitItemPrecededBy(BreedViewState(isEmpty = true, isLoading = true))
+                BreedViewState.Error(error = "Unable to refresh breed list"),
+                awaitItemPrecededBy(BreedViewState.Empty(isLoading = true))
             )
         }
     }

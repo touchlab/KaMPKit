@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: corretto
-          java-version: 11
+          java-version: 17
 
       - name: Build
         run: ./gradlew build

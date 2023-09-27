@@ -49,6 +49,10 @@ fun MainScreen(
     val dogsState by viewModel.breedState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
+    LaunchedEffect(viewModel) {
+        viewModel.activate()
+    }
+
     MainScreenContent(
         dogsState = dogsState,
         onRefresh = { scope.launch { viewModel.refreshBreeds() } },
@@ -74,22 +78,23 @@ fun MainScreenContent(
         val refreshState = rememberPullRefreshState(dogsState.isLoading, onRefresh)
 
         Box(Modifier.pullRefresh(refreshState)) {
-            if (dogsState.isEmpty) {
-                Empty()
-            }
-            val breeds = dogsState.breeds
-            if (breeds != null) {
-                LaunchedEffect(breeds) {
+            when (dogsState) {
+                is BreedViewState.Empty -> Empty()
+                is BreedViewState.Content -> {
+                    val breeds = dogsState.breeds
                     onSuccess(breeds)
+                    Success(successData = breeds, favoriteBreed = onFavorite)
                 }
-                Success(successData = breeds, favoriteBreed = onFavorite)
-            }
-            val error = dogsState.error
-            if (error != null) {
-                LaunchedEffect(error) {
+
+                is BreedViewState.Error -> {
+                    val error = dogsState.error
                     onError(error)
+                    Error(error)
                 }
-                Error(error)
+
+                BreedViewState.Initial -> {
+                    // no-op (just show spinner until first data is loaded)
+                }
             }
 
             PullRefreshIndicator(dogsState.isLoading, refreshState, Modifier.align(Alignment.TopCenter))
@@ -182,11 +187,29 @@ fun FavoriteIcon(breed: Breed) {
 @Composable
 fun MainScreenContentPreview_Success() {
     MainScreenContent(
-        dogsState = BreedViewState(
+        dogsState = BreedViewState.Content(
             breeds = listOf(
                 Breed(0, "appenzeller", false),
                 Breed(1, "australian", true)
             )
         )
     )
+}
+
+@Preview
+@Composable
+fun MainScreenContentPreview_Initial() {
+    MainScreenContent(dogsState = BreedViewState.Initial)
+}
+
+@Preview
+@Composable
+fun MainScreenContentPreview_Empty() {
+    MainScreenContent(dogsState = BreedViewState.Empty())
+}
+
+@Preview
+@Composable
+fun MainScreenContentPreview_Error() {
+    MainScreenContent(dogsState = BreedViewState.Error("Something went wrong!"))
 }

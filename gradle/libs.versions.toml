@@ -1,18 +1,18 @@
 [versions]
-kotlin = "1.8.21"
+kotlin = "1.9.0"
 
 ## SDK Versions
 minSdk = "21"
-targetSdk = "33"
-compileSdk = "33"
+targetSdk = "34"
+compileSdk = "34"
 
 # Dependencies
-android-gradle-plugin = "7.4.2"
+android-gradle-plugin = "8.0.2"
 ktlint-gradle = "11.4.2"
 gradle-versions = "0.47.0"
 
-compose = "1.4.3"
-composeCompiler = "1.4.7"
+compose = "1.5.0"
+composeCompiler = "1.5.2"
 
 android-desugaring = "2.0.3"
 androidx-core = "1.10.1"
@@ -29,11 +29,12 @@ ktor = "2.3.3"
 robolectric = "4.10.3"
 
 kermit = "2.0.0-RC3"
+skie = "0.4.18-preview"
 
-koin = "3.4.1"
+koin = "3.4.3"
 multiplatformSettings = "1.0.0"
 turbine = "1.0.0"
-sqlDelight = "2.0.0-rc01"
+sqlDelight = "2.0.0"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -82,6 +83,7 @@ sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sq
 
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 touchlab-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
+touchlab-skie-annotations = { module = "co.touchlab.skie:configuration-annotations", version.ref = "skie" }
 
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }

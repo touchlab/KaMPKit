@@ -2,13 +2,13 @@ package co.touchlab.kampkit.models
 
 import co.touchlab.kampkit.db.Breed
 import co.touchlab.kermit.Logger
-import kotlinx.coroutines.Job
+import co.touchlab.skie.configuration.annotations.DefaultArgumentInterop
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class BreedViewModel(
     private val breedRepository: BreedRepository,
@@ -16,11 +16,15 @@ class BreedViewModel(
 ) : ViewModel() {
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
-        MutableStateFlow(BreedViewState(isLoading = true))
+        MutableStateFlow(BreedViewState.Initial)
 
-    val breedState: StateFlow<BreedViewState> = mutableBreedState
+    val breedState: StateFlow<BreedViewState> = mutableBreedState.asStateFlow()
 
-    init {
+    /**
+     * Activates this viewModel so that `breedState` returns the current breed state. Suspends until cancelled, at
+     * which point `breedState` will no longer update.
+     */
+    suspend fun activate() {
         observeBreeds()
     }
 
@@ -28,7 +32,7 @@ class BreedViewModel(
         log.v("Clearing BreedViewModel")
     }
 
-    private fun observeBreeds() {
+    private suspend fun observeBreeds() {
         // Refresh breeds, and emit any exception that was thrown so we can handle it downstream
         val refreshFlow = flow<Throwable?> {
             try {
@@ -39,61 +43,85 @@ class BreedViewModel(
             }
         }
 
-        viewModelScope.launch {
-            combine(refreshFlow, breedRepository.getBreeds()) { throwable, breeds -> throwable to breeds }
-                .collect { (error, breeds) ->
-                    mutableBreedState.update { previousState ->
-                        val errorMessage = if (error != null) {
-                            "Unable to download breed list"
-                        } else {
-                            previousState.error
-                        }
-                        BreedViewState(
-                            isLoading = false,
-                            breeds = breeds.takeIf { it.isNotEmpty() },
-                            error = errorMessage.takeIf { breeds.isEmpty() },
-                            isEmpty = breeds.isEmpty() && errorMessage == null
-                        )
+        combine(
+            refreshFlow,
+            breedRepository.getBreeds()
+        ) { throwable, breeds -> throwable to breeds }
+            .collect { (error, breeds) ->
+                mutableBreedState.update { previousState ->
+                    val errorMessage = if (error != null) {
+                        "Unable to download breed list"
+                    } else if (previousState is BreedViewState.Error) {
+                        previousState.error
+                    } else {
+                        null
+                    }
+
+                    if (breeds.isNotEmpty()) {
+                        BreedViewState.Content(breeds)
+                    } else if (errorMessage != null) {
+                        BreedViewState.Error(errorMessage)
+                    } else {
+                        BreedViewState.Empty()
                     }
                 }
-        }
+            }
     }
 
-    fun refreshBreeds(): Job {
+    suspend fun refreshBreeds() {
         // Set loading state, which will be cleared when the repository re-emits
-        mutableBreedState.update { it.copy(isLoading = true) }
-        return viewModelScope.launch {
-            log.v { "refreshBreeds" }
-            try {
-                breedRepository.refreshBreeds()
-            } catch (exception: Exception) {
-                handleBreedError(exception)
+        mutableBreedState.update {
+            when (it) {
+                is BreedViewState.Initial -> it
+                is BreedViewState.Content -> it.copy(isLoading = true)
+                is BreedViewState.Empty -> it.copy(isLoading = true)
+                is BreedViewState.Error -> it.copy(isLoading = true)
             }
         }
+
+        log.v { "refreshBreeds" }
+        try {
+            breedRepository.refreshBreeds()
+        } catch (exception: Exception) {
+            handleBreedError(exception)
+        }
     }
 
-    fun updateBreedFavorite(breed: Breed): Job {
-        return viewModelScope.launch {
-            breedRepository.updateBreedFavorite(breed)
-        }
+    suspend fun updateBreedFavorite(breed: Breed) {
+        breedRepository.updateBreedFavorite(breed)
     }
 
     private fun handleBreedError(throwable: Throwable) {
         log.e(throwable) { "Error downloading breed list" }
         mutableBreedState.update {
-            if (it.breeds.isNullOrEmpty()) {
-                BreedViewState(error = "Unable to refresh breed list")
-            } else {
-                // Just let it fail silently if we have a cache
-                it.copy(isLoading = false)
+            when (it) {
+                is BreedViewState.Content -> it.copy(isLoading = false) // Just let it fail silently if we have a cache
+                is BreedViewState.Empty,
+                is BreedViewState.Error,
+                is BreedViewState.Initial -> BreedViewState.Error(error = "Unable to refresh breed list")
             }
         }
     }
 }
 
-data class BreedViewState(
-    val breeds: List<Breed>? = null,
-    val error: String? = null,
-    val isLoading: Boolean = false,
-    val isEmpty: Boolean = false
-)
+sealed class BreedViewState {
+    abstract val isLoading: Boolean
+
+    data object Initial : BreedViewState() {
+        override val isLoading: Boolean = true
+    }
+
+    data class Empty @DefaultArgumentInterop.Enabled constructor(
+        override val isLoading: Boolean = false
+    ) : BreedViewState()
+
+    data class Content @DefaultArgumentInterop.Enabled constructor(
+        val breeds: List<Breed>,
+        override val isLoading: Boolean = false
+    ) : BreedViewState()
+
+    data class Error @DefaultArgumentInterop.Enabled constructor(
+        val error: String,
+        override val isLoading: Boolean = false
+    ) : BreedViewState()
+}
