@@ -9,13 +9,13 @@
 
 ## Intro
 
-KaMP Kit started a little under 4 years ago with the goal of helping developers interested in Kotlin Multiplatform (aka KMP) get started
+KaMP Kit started in early 2020 with the goal of helping developers interested in Kotlin Multiplatform (aka KMP) get started
 quickly with a great set of libraries and patterns. At the time, there were not many sample apps and getting started
 was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been
 removed.
 
-Whereas KaMP Kit started with the goal of being a minimal sample, we now intend it to be less `getting started` and
-more `best practice model`. Watch this repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
+Whereas KaMP Kit started with the goal of being a minimal sample, we now intend it to be less "getting started" and
+more "best practice model". Watch this repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
 ### 2023 Update
 
@@ -101,7 +101,7 @@ If the app is building, it's a good time to take a break and get some background
 
 ### KMP Intro
 
-It's important to understand not just how to set up the platform, but to get a better perspective on what the tech can do and why we think it'll be very successful. KMP is distinct from other code sharing and `cross platform` systems, and understanding those distinctions is useful.
+It's important to understand not just how to set up the platform, but to get a better perspective on what the tech can do and why we think it'll be very successful. KMP is distinct from other code sharing and "cross platform" systems, and understanding those distinctions is useful.
 
 [Longer intro to KaMP Kit](docs/WHAT_AND_WHY.md) - Original version of this doc's intro. Cut because it was pretty long.
 
