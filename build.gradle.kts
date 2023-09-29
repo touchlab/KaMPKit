@@ -18,6 +18,7 @@ subprojects {
     apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.0.0")
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {

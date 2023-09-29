@@ -19,12 +19,11 @@ class DatabaseHelper(
 ) {
     private val dbRef: KaMPKitDb = KaMPKitDb(sqlDriver)
 
-    fun selectAllItems(): Flow<List<Breed>> =
-        dbRef.tableQueries
-            .selectAll()
-            .asFlow()
-            .mapToList(Dispatchers.Default)
-            .flowOn(backgroundDispatcher)
+    fun selectAllItems(): Flow<List<Breed>> = dbRef.tableQueries
+        .selectAll()
+        .asFlow()
+        .mapToList(Dispatchers.Default)
+        .flowOn(backgroundDispatcher)
 
     suspend fun insertBreeds(breeds: List<String>) {
         log.d { "Inserting ${breeds.size} breeds into database" }
@@ -35,12 +34,11 @@ class DatabaseHelper(
         }
     }
 
-    fun selectById(id: Long): Flow<List<Breed>> =
-        dbRef.tableQueries
-            .selectById(id)
-            .asFlow()
-            .mapToList(Dispatchers.Default)
-            .flowOn(backgroundDispatcher)
+    fun selectById(id: Long): Flow<List<Breed>> = dbRef.tableQueries
+        .selectById(id)
+        .asFlow()
+        .mapToList(Dispatchers.Default)
+        .flowOn(backgroundDispatcher)
 
     suspend fun deleteAll() {
         log.i { "Database Cleared" }

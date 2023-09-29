@@ -12,6 +12,11 @@ import co.touchlab.kampkit.response.BreedResult
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import com.russhwolf.settings.MapSettings
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.hours
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,11 +24,6 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import kotlinx.datetime.Clock
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.time.Duration.Companion.hours
 
 class BreedViewModelTest {
     private var kermit = Logger(StaticConfig())
@@ -39,7 +39,8 @@ class BreedViewModelTest {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
-    private val repository: BreedRepository = BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
+    private val repository: BreedRepository =
+        BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
 
     private val viewModel by lazy {
         BreedViewModel(repository, kermit)
@@ -96,10 +97,15 @@ class BreedViewModelTest {
 
     @Test
     fun `Get updated breeds with cache and preserve favorites`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            clock.currentInstant.toEpochMilliseconds()
+        )
 
         val successResult = ktorApi.successResult()
-        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
+        val resultWithExtraBreed = successResult.copy(
+            message = successResult.message + ("extra" to emptyList())
+        )
         ktorApi.prepareResult(resultWithExtraBreed)
 
         dbHelper.insertBreeds(breedNames)
@@ -112,7 +118,9 @@ class BreedViewModelTest {
             viewModel.refreshBreeds()
             // id is 5 here because it incremented twice when trying to insert duplicate breeds
             assertEquals(
-                BreedViewState.Content(breedViewStateSuccessFavorite.breeds + Breed(5, "extra", false)),
+                BreedViewState.Content(
+                    breedViewStateSuccessFavorite.breeds + Breed(5, "extra", false)
+                ),
                 awaitItemPrecededBy(breedViewStateSuccessFavorite.copy(isLoading = true))
             )
         }
@@ -120,10 +128,15 @@ class BreedViewModelTest {
 
     @Test
     fun `Get updated breeds when stale and preserve favorites`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            (clock.currentInstant - 2.hours).toEpochMilliseconds()
+        )
 
         val successResult = ktorApi.successResult()
-        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
+        val resultWithExtraBreed = successResult.copy(
+            message = successResult.message + ("extra" to emptyList())
+        )
         ktorApi.prepareResult(resultWithExtraBreed)
 
         dbHelper.insertBreeds(breedNames)
@@ -132,7 +145,9 @@ class BreedViewModelTest {
         viewModel.breedState.test {
             // id is 5 here because it incremented twice when trying to insert duplicate breeds
             assertEquals(
-                BreedViewState.Content(breedViewStateSuccessFavorite.breeds + Breed(5, "extra", false)),
+                BreedViewState.Content(
+                    breedViewStateSuccessFavorite.breeds + Breed(5, "extra", false)
+                ),
                 awaitItemPrecededBy(BreedViewState.Initial, breedViewStateSuccessFavorite)
             )
         }
@@ -140,7 +155,10 @@ class BreedViewModelTest {
 
     @Test
     fun `Toggle favorite cached breed`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            clock.currentInstant.toEpochMilliseconds()
+        )
 
         dbHelper.insertBreeds(breedNames)
         dbHelper.updateFavorite(australianLike.id, true)
@@ -159,12 +177,18 @@ class BreedViewModelTest {
 
     @Test
     fun `No web call if data is not stale`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            clock.currentInstant.toEpochMilliseconds()
+        )
         ktorApi.prepareResult(ktorApi.successResult())
         dbHelper.insertBreeds(breedNames)
 
         viewModel.breedState.test {
-            assertEquals(breedViewStateSuccessNoFavorite, awaitItemPrecededBy(BreedViewState.Initial))
+            assertEquals(
+                breedViewStateSuccessNoFavorite,
+                awaitItemPrecededBy(BreedViewState.Initial)
+            )
             assertEquals(0, ktorApi.calledCount)
             expectNoEvents()
 
@@ -192,7 +216,10 @@ class BreedViewModelTest {
     @Test
     fun `Ignore API error with cache`() = runTest {
         dbHelper.insertBreeds(breedNames)
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            (clock.currentInstant - 2.hours).toEpochMilliseconds()
+        )
         ktorApi.throwOnCall(RuntimeException("Test error"))
 
         viewModel.breedState.test {
@@ -235,7 +262,10 @@ class BreedViewModelTest {
 
     @Test
     fun `Show API error on refresh without cache`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            clock.currentInstant.toEpochMilliseconds()
+        )
         ktorApi.throwOnCall(RuntimeException("Test error"))
 
         viewModel.breedState.test {
@@ -253,7 +283,9 @@ class BreedViewModelTest {
 
 // There's a race condition where intermediate states can get missed if the next state comes too fast.
 // This function addresses that by awaiting an item that may or may not be preceded by the specified other items
-private suspend fun ReceiveTurbine<BreedViewState>.awaitItemPrecededBy(vararg items: BreedViewState): BreedViewState {
+private suspend fun ReceiveTurbine<BreedViewState>.awaitItemPrecededBy(
+    vararg items: BreedViewState
+): BreedViewState {
     var nextItem = awaitItem()
     for (item in items) {
         if (item == nextItem) {
