@@ -1,4 +1,4 @@
-
+@file:Suppress("UnstableApiUsage")
 
 plugins {
     kotlin("multiplatform")
@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("com.android.library")
     id("app.cash.sqldelight")
+    id("co.touchlab.skie") version "0.5.0"
 }
 
 android {
@@ -25,12 +26,17 @@ android {
         abortOnError = true
     }
     namespace = "co.touchlab.kampkit"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 version = "1.2"
 
 kotlin {
-    android()
+    androidTarget()
     ios()
     // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
     iosSimulatorArm64()
@@ -52,6 +58,7 @@ kotlin {
                 implementation(libs.bundles.ktor.common)
                 implementation(libs.multiplatformSettings.common)
                 implementation(libs.kotlinx.dateTime)
+                implementation(libs.touchlab.skie.annotations)
                 api(libs.touchlab.kermit)
             }
         }
@@ -88,11 +95,6 @@ kotlin {
         }
     }
 
-    sourceSets.matching { it.name.endsWith("Test") }
-        .configureEach {
-            languageSettings.optIn("kotlin.time.ExperimentalTime")
-        }
-
     cocoapods {
         summary = "Common library for the KaMP starter kit"
         homepage = "https://github.com/touchlab/KaMPKit"
@@ -101,7 +103,6 @@ kotlin {
             linkerOpts("-lsqlite3")
             export(libs.touchlab.kermit.simple)
         }
-        ios.deploymentTarget = "12.4"
         podfile = project.file("../ios/Podfile")
     }
 }

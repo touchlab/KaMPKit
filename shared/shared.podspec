@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     spec.summary                  = 'Common library for the KaMP starter kit'
     spec.vendored_frameworks      = 'build/cocoapods/framework/shared.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '12.4'
+                
                 
                 
     spec.pod_target_xcconfig = {
