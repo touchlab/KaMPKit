@@ -1,37 +1,36 @@
 [versions]
-kotlin = "1.9.0"
-
 ## SDK Versions
 minSdk = "21"
 targetSdk = "34"
 compileSdk = "34"
 
 # Dependencies
-android-gradle-plugin = "8.0.2"
-ktlint-gradle = "11.4.2"
-gradle-versions = "0.47.0"
+kotlin = "1.9.10"
 
-compose = "1.5.0"
-composeCompiler = "1.5.2"
+android-gradle-plugin = "8.1.1"
+ktlint-gradle = "11.4.2"
+
+compose = "1.5.2"
+composeCompiler = "1.5.3"
 
 android-desugaring = "2.0.3"
-androidx-core = "1.10.1"
+androidx-core = "1.12.0"
 androidx-test-junit = "1.1.5"
 androidx-activity-compose = "1.7.2"
-androidx-lifecycle = "2.6.1"
+androidx-lifecycle = "2.6.2"
 
 junit = "4.13.2"
 
 coroutines = "1.7.3"
-kotlinx-datetime = "0.4.0"
-ktor = "2.3.3"
+kotlinx-datetime = "0.4.1"
+ktor = "2.3.4"
 
 robolectric = "4.10.3"
 
-kermit = "2.0.0-RC3"
+kermit = "2.0.1"
 skie = "0.5.0"
 
-koin = "3.4.3"
+koin = "3.5.0"
 multiplatformSettings = "1.0.0"
 turbine = "1.0.0"
 sqlDelight = "2.0.0"
@@ -90,7 +89,11 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotl
 
 [plugins]
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
-gradleVersions = { id = "com.github.ben-manes.versions", version.ref = "gradle-versions" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+skie = { id = "co.touchlab.skie", version.ref = "skie" }
 
 [bundles]
 app-ui = [
