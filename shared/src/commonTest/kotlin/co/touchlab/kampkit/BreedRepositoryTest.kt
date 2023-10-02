@@ -8,14 +8,14 @@ import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import com.russhwolf.settings.MapSettings
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.test.runTest
-import kotlinx.datetime.Clock
 import kotlin.test.AfterTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 import kotlin.time.Duration.Companion.hours
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.test.runTest
+import kotlinx.datetime.Clock
 
 class BreedRepositoryTest {
 
@@ -32,7 +32,8 @@ class BreedRepositoryTest {
     // Need to start at non-zero time because the default value for db timestamp is 0
     private val clock = ClockMock(Clock.System.now())
 
-    private val repository: BreedRepository = BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
+    private val repository: BreedRepository =
+        BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
 
     companion object {
         private val appenzeller = Breed(1, "appenzeller", false)
@@ -60,7 +61,9 @@ class BreedRepositoryTest {
     @Test
     fun `Get updated breeds with cache and preserve favorites`() = runTest {
         val successResult = ktorApi.successResult()
-        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
+        val resultWithExtraBreed = successResult.copy(
+            message = successResult.message + ("extra" to emptyList())
+        )
         ktorApi.prepareResult(resultWithExtraBreed)
 
         dbHelper.insertBreeds(breedNames)
@@ -78,10 +81,15 @@ class BreedRepositoryTest {
 
     @Test
     fun `Get updated breeds when stale and preserve favorites`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            (clock.currentInstant - 2.hours).toEpochMilliseconds()
+        )
 
         val successResult = ktorApi.successResult()
-        val resultWithExtraBreed = successResult.copy(message = successResult.message + ("extra" to emptyList()))
+        val resultWithExtraBreed = successResult.copy(
+            message = successResult.message + ("extra" to emptyList())
+        )
         ktorApi.prepareResult(resultWithExtraBreed)
 
         dbHelper.insertBreeds(breedNames)
@@ -110,7 +118,10 @@ class BreedRepositoryTest {
 
     @Test
     fun `No web call if data is not stale`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, clock.currentInstant.toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            clock.currentInstant.toEpochMilliseconds()
+        )
         ktorApi.prepareResult(ktorApi.successResult())
 
         repository.refreshBreedsIfStale()
@@ -132,7 +143,10 @@ class BreedRepositoryTest {
 
     @Test
     fun `Rethrow on API error when stale`() = runTest {
-        settings.putLong(BreedRepository.DB_TIMESTAMP_KEY, (clock.currentInstant - 2.hours).toEpochMilliseconds())
+        settings.putLong(
+            BreedRepository.DB_TIMESTAMP_KEY,
+            (clock.currentInstant - 2.hours).toEpochMilliseconds()
+        )
         ktorApi.throwOnCall(RuntimeException("Test error"))
 
         val throwable = assertFails {

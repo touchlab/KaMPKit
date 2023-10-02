@@ -13,10 +13,10 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
-import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlinx.coroutines.test.runTest
 
 class DogApiTest {
     private val emptyLogger = Logger(
@@ -32,8 +32,13 @@ class DogApiTest {
         val engine = MockEngine {
             assertEquals("https://dog.ceo/api/breeds/list/all", it.url.toString())
             respond(
-                content = """{"message":{"affenpinscher":[],"african":["shepherd"]},"status":"success"}""",
-                headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                content = """
+                    {"message":{"affenpinscher":[],"african":["shepherd"]},"status":"success"}
+                """.trimIndent(),
+                headers = headersOf(
+                    HttpHeaders.ContentType,
+                    ContentType.Application.Json.toString()
+                )
             )
         }
         val dogApi = DogApiImpl(emptyLogger, engine)

@@ -8,7 +8,7 @@ compileSdk = "34"
 kotlin = "1.9.10"
 
 android-gradle-plugin = "8.1.1"
-ktlint-gradle = "11.4.2"
+ktlint-gradle = "11.6.0"
 
 compose = "1.5.2"
 composeCompiler = "1.5.3"
