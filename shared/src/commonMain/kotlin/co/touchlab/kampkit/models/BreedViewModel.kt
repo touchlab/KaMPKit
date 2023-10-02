@@ -95,10 +95,14 @@ class BreedViewModel(
         log.e(throwable) { "Error downloading breed list" }
         mutableBreedState.update {
             when (it) {
-                is BreedViewState.Content -> it.copy(isLoading = false) // Just let it fail silently if we have a cache
+                is BreedViewState.Content -> it.copy(
+                    isLoading = false
+                ) // Just let it fail silently if we have a cache
                 is BreedViewState.Empty,
                 is BreedViewState.Error,
-                is BreedViewState.Initial -> BreedViewState.Error(error = "Unable to refresh breed list")
+                is BreedViewState.Initial -> BreedViewState.Error(
+                    error = "Unable to refresh breed list"
+                )
             }
         }
     }

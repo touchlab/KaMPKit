@@ -1,14 +1,10 @@
-
-// https://youtrack.jetbrains.com/issue/KTIJ-19369
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    alias(libs.plugins.gradleVersions)
     alias(libs.plugins.ktlint) apply false
-
-    kotlin("multiplatform") version libs.versions.kotlin.get() apply false
-    kotlin("plugin.serialization") version libs.versions.kotlin.get() apply false
-    id("app.cash.sqldelight") version libs.versions.sqlDelight.get() apply false
-    id("com.android.library") version libs.versions.android.gradle.plugin.get() apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.sqlDelight) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
+    alias(libs.plugins.skie) apply false
 }
 
 allprojects {
@@ -19,11 +15,10 @@ allprojects {
 }
 
 subprojects {
-    // TODO libs doesn't resolve if we do this
-    // apply(plugin = libs.plugins.ktlint.get().pluginId)
-    apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.0.0")
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {

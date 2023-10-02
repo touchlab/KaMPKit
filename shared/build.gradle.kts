@@ -1,15 +1,18 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.library")
     id("app.cash.sqldelight")
-    id("co.touchlab.skie") version "0.5.0"
+    id("co.touchlab.skie")
 }
 
 android {
+    namespace = "co.touchlab.kampkit"
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
@@ -25,17 +28,21 @@ android {
         warningsAsErrors = true
         abortOnError = true
     }
-    namespace = "co.touchlab.kampkit"
-
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 version = "1.2"
 
 kotlin {
+    @Suppress("OPT_IN_USAGE")
+    targetHierarchy.default()
     androidTarget()
     ios()
     // Note: iosSimulatorArm64 target requires that all dependencies have M1 support
@@ -86,13 +93,6 @@ kotlin {
                 api(libs.touchlab.kermit.simple)
             }
         }
-        val iosTest by getting
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosSimulatorArm64Test by getting {
-            dependsOn(iosTest)
-        }
     }
 
     cocoapods {
@@ -103,6 +103,7 @@ kotlin {
             linkerOpts("-lsqlite3")
             export(libs.touchlab.kermit.simple)
         }
+        extraSpecAttributes["swift_version"] = "\"5.0\"" // <- SKIE Needs this!
         podfile = project.file("../ios/Podfile")
     }
 }

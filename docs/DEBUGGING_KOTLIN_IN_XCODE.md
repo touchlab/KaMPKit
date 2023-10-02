@@ -1,5 +1,7 @@
 # Debugging Kotlin in Xcode
 
+> Note that if there is a [known issue](https://github.com/touchlab/xcode-kotlin/issues/95) with `xcode-kotlin` plugin on Xcode 15
+
 By this point you should be able to build and run KaMP Kit in iOS using Xcode. Great! Maybe you've
 changed a variable and want to see if it actually updated successfully, but how do you do that? Well
 we at Touchlab have actually created a way to **debug kotlin code in Xcode**.
