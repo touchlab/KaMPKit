@@ -35,9 +35,11 @@ cocoapods {
     homepage = "https://github.com/touchlab/KaMPKit"
     framework {
         isStatic = false
-        export(Deps.kermit)
-        transitiveExport = true
+        linkerOpts("-lsqlite3")
+        export(libs.touchlab.kermit.simple)       
     }
+    extraSpecAttributes["swift_version"] = "\"5.0\"" // <- SKIE Needs this!
+    podfile = project.file("../ios/Podfile")
 }
 ```
 Note that you need to apply the `native.cocoapods` plugin.

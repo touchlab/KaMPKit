@@ -1,24 +1,20 @@
 plugins {
     alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.sqlDelight) apply false
     alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.skie) apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
+    alias(libs.plugins.cocoapods) apply false
 }
 
 subprojects {
     apply(plugin = rootProject.libs.plugins.ktlint.get().pluginId)
 
     configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        version.set("1.0.0")
+        version.set("1.1.1")
         enableExperimentalRules.set(true)
         verbose.set(true)
         filter {
@@ -34,5 +30,5 @@ subprojects {
 }
 
 tasks.register<Delete>("clean") {
-    delete(rootProject.buildDir)
+    delete(rootProject.layout.buildDirectory)
 }

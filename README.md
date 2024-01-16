@@ -11,7 +11,7 @@
 
 KaMP Kit started in early 2020 with the goal of helping developers interested in Kotlin Multiplatform (aka KMP) get started
 quickly with a great set of libraries and patterns. At the time, there were not many sample apps and getting started
-was not trivial. The KMM situation has improved considerably since then, and various barriers to entry have been
+was not trivial. The KMP situation has improved considerably since then, and various barriers to entry have been
 removed.
 
 Whereas KaMP Kit started with the goal of being a minimal sample, we now intend it to be less "getting started" and
@@ -23,7 +23,7 @@ We updated `KaMPKit` to make sure of Touchlab's new [SKIE](https://skie.touchlab
 
 > ## Subscribe!
 >
-> We build solutions that get teams started smoothly with Kotlin Multiplatform and ensure their success in production. Join our community to learn how your peers are adopting KMM.
+> We build solutions that get teams started smoothly with Kotlin Multiplatform and ensure their success in production. Join our community to learn how your peers are adopting KMP.
  [Sign up here](https://go.touchlab.co/newsletter-gh)!
 
 ## Getting Help
@@ -47,7 +47,7 @@ KaMP Kit is designed to get you past that primary stumbling block. You should be
 
 #### *Very Important Message!!!*
 
-This kit exists because the info you may find from Google about KMM and KMP is likely to be outdated or conflicting with the config here. It is highly recommended that you reach out directly if you run into issues.
+This kit exists because the info you may find from Google about KMP is likely to be outdated or conflicting with the config here. It is highly recommended that you reach out directly if you run into issues.
 
 ### Audience
 

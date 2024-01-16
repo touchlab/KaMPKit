@@ -4,7 +4,7 @@
 Before you build the app you will require these items:
 
 * JVM 17
-- Android SDK and the latest stable Android Studio (2022.3+) or IntelliJ(2023.2+)
+- Android SDK and the latest stable Android Studio (2023.1+) or IntelliJ(2023.3+)
 - Mac with Xcode 14+ for the iOS build
 
 For more details, check out the [DETAILED_DEV_SETUP](DETAILED_DEV_SETUP.md) document.
