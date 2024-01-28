@@ -7,7 +7,7 @@ compileSdk = "34"
 # Dependencies
 kotlin = "1.9.22"
 
-android-gradle-plugin = "8.2.1"
+android-gradle-plugin = "8.2.2"
 ktlint-gradle = "12.1.0"
 
 compose = "1.5.4"
