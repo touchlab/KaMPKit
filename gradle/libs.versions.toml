@@ -5,35 +5,35 @@ targetSdk = "34"
 compileSdk = "34"
 
 # Dependencies
-kotlin = "1.9.10"
+kotlin = "1.9.22"
 
-android-gradle-plugin = "8.1.1"
-ktlint-gradle = "11.6.0"
+android-gradle-plugin = "8.2.2"
+ktlint-gradle = "12.1.0"
 
-compose = "1.5.2"
-composeCompiler = "1.5.3"
+compose = "1.5.4"
+composeCompiler = "1.5.8"
 
-android-desugaring = "2.0.3"
+android-desugaring = "2.0.4"
 androidx-core = "1.12.0"
 androidx-test-junit = "1.1.5"
-androidx-activity-compose = "1.7.2"
-androidx-lifecycle = "2.6.2"
+androidx-activity-compose = "1.8.2"
+androidx-lifecycle = "2.7.0"
 
 junit = "4.13.2"
 
 coroutines = "1.7.3"
-kotlinx-datetime = "0.4.1"
-ktor = "2.3.4"
+kotlinx-datetime = "0.5.0"
+ktor = "2.3.7"
 
 robolectric = "4.10.3"
 
-kermit = "2.0.1"
-skie = "0.5.0"
+kermit = "2.0.2"
+skie = "0.6.1"
 
-koin = "3.5.0"
-multiplatformSettings = "1.0.0"
+koin = "3.5.3"
+multiplatformSettings = "1.1.1"
 turbine = "1.0.0"
-sqlDelight = "2.0.0"
+sqlDelight = "2.0.1"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
@@ -78,7 +78,6 @@ sqlDelight-android = { module = "app.cash.sqldelight:android-driver", version.re
 sqlDelight-jvm = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "sqlDelight" }
 sqlDelight-coroutinesExt = { module = "app.cash.sqldelight:coroutines-extensions", version.ref = "sqlDelight" }
 sqlDelight-native = { module = "app.cash.sqldelight:native-driver", version.ref = "sqlDelight" }
-sqlDelight-runtime = { module = "app.cash.sqldelight:runtime", version.ref = "sqlDelight" }
 
 touchlab-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 touchlab-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
@@ -89,11 +88,14 @@ kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotl
 
 [plugins]
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 sqlDelight = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
+cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 
 [bundles]
 app-ui = [

@@ -42,10 +42,7 @@ import co.touchlab.kermit.Logger
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen(
-    viewModel: BreedViewModel,
-    log: Logger
-) {
+fun MainScreen(viewModel: BreedViewModel, log: Logger) {
     val dogsState by viewModel.breedState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
 
@@ -97,7 +94,11 @@ fun MainScreenContent(
                 }
             }
 
-            PullRefreshIndicator(dogsState.isLoading, refreshState, Modifier.align(Alignment.TopCenter))
+            PullRefreshIndicator(
+                dogsState.isLoading,
+                refreshState,
+                Modifier.align(Alignment.TopCenter)
+            )
         }
     }
 }
@@ -129,10 +130,7 @@ fun Error(error: String) {
 }
 
 @Composable
-fun Success(
-    successData: List<Breed>,
-    favoriteBreed: (Breed) -> Unit
-) {
+fun Success(successData: List<Breed>, favoriteBreed: (Breed) -> Unit) {
     DogList(breeds = successData, favoriteBreed)
 }
 
@@ -167,7 +165,8 @@ fun FavoriteIcon(breed: Breed) {
         animationSpec = TweenSpec(
             durationMillis = 500,
             easing = FastOutSlowInEasing
-        )
+        ),
+        label = "CrossFadeFavoriteIcon"
     ) { fav ->
         if (fav) {
             Image(

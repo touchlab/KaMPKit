@@ -27,6 +27,7 @@
     "osx": null,
     "ios": null,
     "tvos": null,
+    "visionos": null,
     "watchos": null
   },
   "swift_version": "5.0"

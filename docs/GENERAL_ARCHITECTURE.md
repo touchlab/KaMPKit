@@ -4,7 +4,7 @@
 
 * [Structure of the Project](#Structure-of-the-Project)
 * [Overall Architecture](#Overall-Architecture)
-* [Coroutines and Ktor](#Coroutines-and-Ktor)
+* [Kotlinx Coroutines](#kotlinx-Coroutines)
 * [Libraries and Dependencies](#Libraries-and-Dependencies)
   * [SKIE](#SKIE) - Swift-friendly API generator
   * [Kermit](#Kermit) - Logging

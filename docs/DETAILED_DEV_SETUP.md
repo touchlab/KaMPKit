@@ -17,7 +17,7 @@ Some alternative options, if desired:
 ## Install the IDE(s)
 
 You'll also need either Android Studio, IntelliJ, or both. Android Studio is an Android development
-focused skin of IntelliJ, which is more platform agnostic. There is a built-in KMM plugin in the
+focused skin of IntelliJ, which is more platform agnostic. There is a built-in KMP plugin in the
 Android Studio, which enables you to run and debug the iOS part of your application on iOS targets
 straight from Android Studio. IntelliJ IDEA has a newer Kotlin API platform and gets bugfixes
 sooner, but it has an older version of Android Gradle Plugin. If you don't have either, we recommend

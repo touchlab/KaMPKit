@@ -17,6 +17,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.hours
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -42,6 +43,7 @@ class BreedViewModelTest {
     private val repository: BreedRepository =
         BreedRepository(dbHelper, settings, ktorApi, kermit, clock)
 
+    @OptIn(DelicateCoroutinesApi::class)
     private val viewModel by lazy {
         BreedViewModel(repository, kermit)
             .also { GlobalScope.launch { it.activate() } }
