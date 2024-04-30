@@ -24,7 +24,7 @@ We updated `KaMPKit` to make sure of Touchlab's new [SKIE](https://skie.touchlab
 > ## Subscribe!
 >
 > We build solutions that get teams started smoothly with Kotlin Multiplatform and ensure their success in production. Join our community to learn how your peers are adopting KMP.
- [Sign up here](https://form.typeform.com/to/MJTpmm?typeform-source=touchlab.co)!
+ [Sign up here](https://touchlab.co/?s=shownewsletter)!
 
 ## Getting Help
 
