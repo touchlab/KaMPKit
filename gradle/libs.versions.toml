@@ -5,13 +5,13 @@ targetSdk = "34"
 compileSdk = "34"
 
 # Dependencies
-kotlin = "1.9.22"
+kotlin = "2.0.0"
 
 android-gradle-plugin = "8.2.2"
 ktlint-gradle = "12.1.0"
 
-compose = "1.5.4"
-composeCompiler = "1.5.8"
+compose = "1.6.7"
+composeCompiler = "1.5.14"
 
 android-desugaring = "2.0.4"
 androidx-core = "1.12.0"
@@ -21,14 +21,14 @@ androidx-lifecycle = "2.7.0"
 
 junit = "4.13.2"
 
-coroutines = "1.7.3"
-kotlinx-datetime = "0.5.0"
-ktor = "2.3.7"
+coroutines = "1.8.0"
+kotlinx-datetime = "0.6.0"
+ktor = "2.3.9"
 
 robolectric = "4.10.3"
 
-kermit = "2.0.2"
-skie = "0.6.1"
+kermit = "2.0.3"
+skie = "0.8.0"
 
 koin = "3.5.3"
 multiplatformSettings = "1.1.1"
@@ -95,7 +95,6 @@ android-application = { id = "com.android.application", version.ref = "android-g
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 
 [bundles]
 app-ui = [
