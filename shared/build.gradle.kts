@@ -57,7 +57,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            isStatic = false
+            isStatic = true
             linkerOpts("-lsqlite3")
             export(libs.touchlab.kermit.simple)
         }

@@ -12,3 +12,4 @@
 *.xcbkptlist
 !/.idea/codeStyles/*
 !/.idea/inspectionProfiles/*
+.kotlin
