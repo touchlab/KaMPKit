@@ -24,13 +24,13 @@ jobs:
           distribution: corretto
           java-version: 17
 
-      - name: Build
+      - name: Run tests
         run: ./gradlew :shared:iosX64Test
 
       - name: Build
         uses: sersoft-gmbh/xcodebuild-action@v1
         with:
-          workspace: ios/KaMPKitiOS.xcworkspace
+          workspace: ios/KaMPKitiOS.xcodeproj
           scheme: KaMPKitiOS
           destination: name=iPhone 8
           sdk: iphoneos
