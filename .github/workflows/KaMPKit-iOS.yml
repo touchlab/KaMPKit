@@ -28,9 +28,9 @@ jobs:
         run: ./gradlew :shared:iosX64Test
 
       - name: Build
-        uses: sersoft-gmbh/xcodebuild-action@v1
+        uses: sersoft-gmbh/xcodebuild-action@v3
         with:
-          workspace: ios/KaMPKitiOS.xcodeproj
+          project: ios/KaMPKitiOS.xcodeproj
           scheme: KaMPKitiOS
           destination: name=iPhone 8
           sdk: iphoneos
