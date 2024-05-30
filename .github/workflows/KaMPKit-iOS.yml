@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew :shared:iosX64Test
 
       - name: Build
-        uses: sersoft-gmbh/xcodebuild-action@v3
+        uses: sersoft-gmbh/xcodebuild-action@v1
         with:
           project: ios/KaMPKitiOS.xcodeproj
           scheme: KaMPKitiOS
