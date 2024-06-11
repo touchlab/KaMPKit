@@ -72,8 +72,8 @@ The central part of the "Kit" is the starter app. It includes a set of libraries
 You will need the following:
 
 - JVM 17
-- Android SDK and the latest stable Android Studio (2022.3+) or IntelliJ(2023.2+)
-- Mac with Xcode 14+ for the iOS build
+- Android SDK and the latest stable Android Studio (2023.3+) or IntelliJ(2024.1+)
+- Mac with Xcode 15+ for the iOS build
 
 For a more detailed guide targeted at iOS developers, see [DETAILED_DEV_SETUP](docs/DETAILED_DEV_SETUP.md).
 

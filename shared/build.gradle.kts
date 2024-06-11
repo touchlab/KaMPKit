@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    alias(libs.plugins.cocoapods)
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
@@ -52,9 +51,17 @@ kotlin {
         @Suppress("OPT_IN_USAGE")
         unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            isStatic = false
+            linkerOpts("-lsqlite3")
+            export(libs.touchlab.kermit.simple)
+        }
+    }
 
     sourceSets {
         all {
@@ -91,18 +98,6 @@ kotlin {
             implementation(libs.ktor.client.ios)
             api(libs.touchlab.kermit.simple)
         }
-    }
-
-    cocoapods {
-        summary = "Common library for the KaMP starter kit"
-        homepage = "https://github.com/touchlab/KaMPKit"
-        framework {
-            isStatic = false // SwiftUI preview requires dynamic framework
-            linkerOpts("-lsqlite3")
-            export(libs.touchlab.kermit.simple)
-        }
-        extraSpecAttributes["swift_version"] = "\"5.0\"" // <- SKIE Needs this!
-        podfile = project.file("../ios/Podfile")
     }
 }
 

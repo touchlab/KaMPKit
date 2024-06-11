@@ -5,30 +5,30 @@ targetSdk = "34"
 compileSdk = "34"
 
 # Dependencies
-kotlin = "1.9.22"
+kotlin = "2.0.0"
 
-android-gradle-plugin = "8.2.2"
+android-gradle-plugin = "8.2.0"
 ktlint-gradle = "12.1.0"
 
-compose = "1.5.4"
-composeCompiler = "1.5.8"
+compose = "1.6.7"
 
 android-desugaring = "2.0.4"
-androidx-core = "1.12.0"
+androidx-core = "1.13.1"
 androidx-test-junit = "1.1.5"
-androidx-activity-compose = "1.8.2"
+androidx-activity-compose = "1.9.0"
+# TODO: Update to 2.8.+ when updating to Compose 1.7.+
 androidx-lifecycle = "2.7.0"
 
 junit = "4.13.2"
 
-coroutines = "1.7.3"
-kotlinx-datetime = "0.5.0"
-ktor = "2.3.7"
+coroutines = "1.8.1"
+kotlinx-datetime = "0.6.0"
+ktor = "2.3.11"
 
 robolectric = "4.10.3"
 
-kermit = "2.0.2"
-skie = "0.6.1"
+kermit = "2.0.3"
+skie = "0.8.0"
 
 koin = "3.5.3"
 multiplatformSettings = "1.1.1"
@@ -43,7 +43,6 @@ androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmode
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-test-junit = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-junit" }
 
-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeCompiler" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
@@ -95,11 +94,10 @@ android-application = { id = "com.android.application", version.ref = "android-g
 android-library = { id = "com.android.library", version.ref = "android-gradle-plugin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 [bundles]
 app-ui = [
-    "compose-compiler",
     "androidx-core",
     "androidx-lifecycle-runtime",
     "androidx-lifecycle-viewmodel",
@@ -125,4 +123,3 @@ shared-androidTest = [
     "roboelectric",
     "sqlDelight-jvm"
 ]
-

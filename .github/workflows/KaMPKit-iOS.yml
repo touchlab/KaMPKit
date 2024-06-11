@@ -24,18 +24,17 @@ jobs:
           distribution: corretto
           java-version: 17
 
-      - name: Build
+      - name: Run tests
         run: ./gradlew :shared:iosX64Test
 
       - name: Build
         uses: sersoft-gmbh/xcodebuild-action@v1
         with:
-          workspace: ios/KaMPKitiOS.xcworkspace
+          project: ios/KaMPKitiOS.xcodeproj
           scheme: KaMPKitiOS
           destination: name=iPhone 8
           sdk: iphoneos
           configuration: Debug
           action: build
-
-
-
+          use-xcpretty: false
+          build-settings: CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO
