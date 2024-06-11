@@ -37,4 +37,4 @@ jobs:
           configuration: Debug
           action: build
           use-xcpretty: false
-          build-settings: CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+          build-settings: CODE_SIGN_IDENTITY= CODE_SIGNING_REQUIRED=NO
