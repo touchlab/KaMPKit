@@ -36,6 +36,4 @@ jobs:
           sdk: iphoneos
           configuration: Debug
           action: build
-
-
-
+          use-xcpretty: false
