@@ -484,8 +484,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"c++\"",
-					"-framework",
-					"\"shared\"",
 					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.kampkit.ios;
@@ -512,8 +510,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-l\"c++\"",
-					"-framework",
-					"\"shared\"",
 					"-lsqlite3",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = co.touchlab.kampkit.ios;
