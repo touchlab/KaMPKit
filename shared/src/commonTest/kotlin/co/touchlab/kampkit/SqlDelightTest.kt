@@ -72,7 +72,7 @@ class SqlDelightTest {
         dbHelper.deleteAll()
 
         assertTrue(
-            dbHelper.selectAllItems().first().count() == 0,
+            dbHelper.selectAllItems().first().isEmpty(),
             "Delete All did not work"
         )
     }

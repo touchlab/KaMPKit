@@ -13,7 +13,6 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -27,11 +26,6 @@ android {
     }
     compileOptions {
         isCoreLibraryDesugaringEnabled = true
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
     lint {
         warningsAsErrors = false
@@ -44,12 +38,15 @@ android {
     }
 }
 
+kotlin {
+    jvmToolchain(11)
+}
+
 dependencies {
-    implementation(project(":shared"))
+    implementation(projects.shared)
     implementation(libs.bundles.app.ui)
     implementation(libs.multiplatformSettings.common)
     implementation(libs.kotlinx.dateTime)
     coreLibraryDesugaring(libs.android.desugaring)
     implementation(libs.koin.android)
-    testImplementation(libs.junit)
 }
