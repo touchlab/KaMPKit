@@ -36,11 +36,10 @@ android {
         compose = true
         buildConfig = true
     }
-    java {
-        toolchain {
-            languageVersion = JavaLanguageVersion.of(11)
-        }
-    }
+}
+
+kotlin {
+    jvmToolchain(11)
 }
 
 dependencies {
