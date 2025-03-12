@@ -65,6 +65,7 @@ kotlin {
 
         commonMain.dependencies {
             implementation(libs.koin.core)
+            implementation(libs.koin.view.model)
             implementation(libs.coroutines.core)
             implementation(libs.sqlDelight.coroutinesExt)
             implementation(libs.bundles.ktor.common)
