@@ -7,7 +7,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import co.touchlab.kermit.Logger
 import kotlin.test.AfterTest
 import kotlin.test.Test
-import org.junit.experimental.categories.Category
 import org.junit.runner.RunWith
 import org.koin.core.context.stopKoin
 import org.koin.core.parameter.parametersOf
