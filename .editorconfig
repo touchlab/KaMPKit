@@ -1,4 +1,23 @@
-# noinspection EditorConfigKeyCorrectness
+# .editorconfig
+root = true
+
 [*.{kt,kts}]
+end_of_line = lf
+ij_kotlin_packages_to_use_import_on_demand = true
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+ij_kotlin_imports_layout = *
+ij_kotlin_indent_before_arrow_on_new_line = false
+ij_kotlin_line_break_after_multiline_when_entry = true
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+ktlint_argument_list_wrapping_ignore_when_parameter_count_greater_or_equal_than = 8
+ktlint_chain_method_rule_force_multiline_when_chain_operator_count_greater_or_equal_than = 4
 ktlint_code_style = android_studio
-ktlint_function_naming_ignore_when_annotated_with=Composable
+ktlint_enum_entry_name_casing = upper_or_camel_cases
+ktlint_function_naming_ignore_when_annotated_with = Composable
+ktlint_function_signature_body_expression_wrapping = default
+ktlint_ignore_back_ticked_identifier = false
+max_line_length = 140
+parameter-list-wrapping = true

@@ -15,16 +15,12 @@ import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 import platform.Foundation.NSUserDefaults
 
-fun initKoinIos(
-    userDefaults: NSUserDefaults,
-    appInfo: AppInfo,
-    doOnStartup: () -> Unit
-): KoinApplication = initKoin(
+fun initKoinIos(userDefaults: NSUserDefaults, appInfo: AppInfo, doOnStartup: () -> Unit): KoinApplication = initKoin(
     module {
         single<Settings> { NSUserDefaultsSettings(userDefaults) }
         single { appInfo }
         single { doOnStartup }
-    }
+    },
 )
 
 actual val platformModule = module {

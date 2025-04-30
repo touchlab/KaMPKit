@@ -24,7 +24,7 @@ class DogApiTest {
             override val logWriterList: List<LogWriter> = emptyList()
             override val minSeverity: Severity = Severity.Assert
         },
-        tag = ""
+        tag = "",
     )
 
     @Test
@@ -37,8 +37,8 @@ class DogApiTest {
                 """.trimIndent(),
                 headers = headersOf(
                     HttpHeaders.ContentType,
-                    ContentType.Application.Json.toString()
-                )
+                    ContentType.Application.Json.toString(),
+                ),
             )
         }
         val dogApi = DogApiImpl(emptyLogger, engine)
@@ -48,11 +48,11 @@ class DogApiTest {
             BreedResult(
                 mapOf(
                     "affenpinscher" to emptyList(),
-                    "african" to listOf("shepherd")
+                    "african" to listOf("shepherd"),
                 ),
-                "success"
+                "success",
             ),
-            result
+            result,
         )
     }
 
@@ -61,7 +61,7 @@ class DogApiTest {
         val engine = MockEngine {
             respond(
                 content = "",
-                status = HttpStatusCode.NotFound
+                status = HttpStatusCode.NotFound,
             )
         }
         val dogApi = DogApiImpl(emptyLogger, engine)

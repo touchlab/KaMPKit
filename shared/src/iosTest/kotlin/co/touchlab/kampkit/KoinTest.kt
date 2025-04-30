@@ -14,7 +14,7 @@ class KoinTest {
         initKoinIos(
             userDefaults = NSUserDefaults.standardUserDefaults,
             appInfo = TestAppInfo,
-            doOnStartup = { }
+            doOnStartup = { },
         ).checkModules {
             withParameters<Logger> { parametersOf("TestTag") }
         }

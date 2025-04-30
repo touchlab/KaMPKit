@@ -22,7 +22,7 @@ fun initKoin(appModule: Module): KoinApplication {
         modules(
             appModule,
             platformModule,
-            coreModule
+            coreModule,
         )
     }
 
@@ -45,13 +45,13 @@ private val coreModule = module {
         DatabaseHelper(
             get(),
             getWith("DatabaseHelper"),
-            Dispatchers.Default
+            Dispatchers.Default,
         )
     }
     single<DogApi> {
         DogApiImpl(
             getWith("DogApiImpl"),
-            get()
+            get(),
         )
     }
     single<Clock> {
@@ -72,14 +72,12 @@ private val coreModule = module {
             get(),
             get(),
             getWith("BreedRepository"),
-            get()
+            get(),
         )
     }
 }
 
-internal inline fun <reified T> Scope.getWith(vararg params: Any?): T {
-    return get(parameters = { parametersOf(*params) })
-}
+internal inline fun <reified T> Scope.getWith(vararg params: Any?): T = get(parameters = { parametersOf(*params) })
 
 // Simple function to clean up the syntax a bit
 fun KoinComponent.injectLogger(tag: String): Lazy<Logger> = inject { parametersOf(tag) }

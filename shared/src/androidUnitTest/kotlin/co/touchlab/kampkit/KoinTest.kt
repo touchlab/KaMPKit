@@ -26,7 +26,7 @@ class KoinTest {
                 single { get<Context>().getSharedPreferences("TEST", Context.MODE_PRIVATE) }
                 single<AppInfo> { TestAppInfo }
                 single { {} }
-            }
+            },
         ).checkModules {
             withParameters<Logger> { parametersOf("TestTag") }
         }

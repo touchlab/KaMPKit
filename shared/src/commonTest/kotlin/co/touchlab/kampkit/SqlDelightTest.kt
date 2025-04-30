@@ -23,7 +23,7 @@ class SqlDelightTest {
         dbHelper = DatabaseHelper(
             testDbConnection(),
             Logger(StaticConfig()),
-            Dispatchers.Default
+            Dispatchers.Default,
         )
         dbHelper.deleteAll()
         dbHelper.insertBreed("Beagle")
@@ -34,7 +34,7 @@ class SqlDelightTest {
         val breeds = dbHelper.selectAllItems().first()
         assertNotNull(
             breeds.find { it.name == "Beagle" },
-            "Could not retrieve Breed"
+            "Could not retrieve Breed",
         )
     }
 
@@ -44,7 +44,7 @@ class SqlDelightTest {
         val firstBreed = breeds.first()
         assertNotNull(
             dbHelper.selectById(firstBreed.id),
-            "Could not retrieve Breed by Id"
+            "Could not retrieve Breed by Id",
         )
     }
 
@@ -56,11 +56,11 @@ class SqlDelightTest {
         val newBreed = dbHelper.selectById(firstBreed.id).first().first()
         assertNotNull(
             newBreed,
-            "Could not retrieve Breed by Id"
+            "Could not retrieve Breed by Id",
         )
         assertTrue(
             newBreed.favorite,
-            "Favorite Did Not Save"
+            "Favorite Did Not Save",
         )
     }
 
@@ -73,7 +73,7 @@ class SqlDelightTest {
 
         assertTrue(
             dbHelper.selectAllItems().first().isEmpty(),
-            "Delete All did not work"
+            "Delete All did not work",
         )
     }
 }
