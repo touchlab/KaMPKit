@@ -23,7 +23,7 @@ skie = "0.10.1"
 koin = "4.0.2"
 multiplatformSettings = "1.3.0"
 turbine = "1.2.0"
-sqlDelight = "2.0.2"
+sqlDelight = "2.1.0"
 
 [libraries]
 android-desugaring = { module = "com.android.tools:desugar_jdk_libs", version.ref = "android-desugaring" }
