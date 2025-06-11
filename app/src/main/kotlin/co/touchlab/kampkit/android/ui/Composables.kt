@@ -55,7 +55,7 @@ fun MainScreen(viewModel: BreedViewModel, log: Logger) {
         onRefresh = { scope.launch { viewModel.refreshBreeds() } },
         onSuccess = { data -> log.v { "View updating with ${data.size} breeds" } },
         onError = { exception -> log.e { "Displaying error: $exception" } },
-        onFavorite = { scope.launch { viewModel.updateBreedFavorite(it) } }
+        onFavorite = { scope.launch { viewModel.updateBreedFavorite(it) } },
     )
 }
 
@@ -66,11 +66,11 @@ fun MainScreenContent(
     onRefresh: () -> Unit = {},
     onSuccess: (List<Breed>) -> Unit = {},
     onError: (String) -> Unit = {},
-    onFavorite: (Breed) -> Unit = {}
+    onFavorite: (Breed) -> Unit = {},
 ) {
     Surface(
         color = MaterialTheme.colors.background,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         val refreshState = rememberPullRefreshState(dogsState.isLoading, onRefresh)
 
@@ -97,7 +97,7 @@ fun MainScreenContent(
             PullRefreshIndicator(
                 dogsState.isLoading,
                 refreshState,
-                Modifier.align(Alignment.TopCenter)
+                Modifier.align(Alignment.TopCenter),
             )
         }
     }
@@ -110,7 +110,7 @@ fun Empty() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(stringResource(R.string.empty_breeds))
     }
@@ -123,7 +123,7 @@ fun Error(error: String) {
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = error)
     }
@@ -151,7 +151,7 @@ fun DogRow(breed: Breed, onClick: (Breed) -> Unit) {
     Row(
         Modifier
             .clickable { onClick(breed) }
-            .padding(10.dp)
+            .padding(10.dp),
     ) {
         Text(breed.name, Modifier.weight(1F))
         FavoriteIcon(breed)
@@ -164,19 +164,19 @@ fun FavoriteIcon(breed: Breed) {
         targetState = !breed.favorite,
         animationSpec = TweenSpec(
             durationMillis = 500,
-            easing = FastOutSlowInEasing
+            easing = FastOutSlowInEasing,
         ),
-        label = "CrossFadeFavoriteIcon"
+        label = "CrossFadeFavoriteIcon",
     ) { fav ->
         if (fav) {
             Image(
                 painter = painterResource(id = R.drawable.ic_favorite_border_24px),
-                contentDescription = stringResource(R.string.favorite_breed, breed.name)
+                contentDescription = stringResource(R.string.favorite_breed, breed.name),
             )
         } else {
             Image(
                 painter = painterResource(id = R.drawable.ic_favorite_24px),
-                contentDescription = stringResource(R.string.unfavorite_breed, breed.name)
+                contentDescription = stringResource(R.string.unfavorite_breed, breed.name),
             )
         }
     }
@@ -189,9 +189,9 @@ fun MainScreenContentPreview_Success() {
         dogsState = BreedViewState.Content(
             breeds = listOf(
                 Breed(0, "appenzeller", false),
-                Breed(1, "australian", true)
-            )
-        )
+                Breed(1, "australian", true),
+            ),
+        ),
     )
 }
 

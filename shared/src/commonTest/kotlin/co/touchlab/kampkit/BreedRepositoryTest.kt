@@ -24,7 +24,7 @@ class BreedRepositoryTest {
     private var dbHelper = DatabaseHelper(
         testDbConnection,
         kermit,
-        Dispatchers.Default
+        Dispatchers.Default,
     )
     private val settings = MapSettings()
     private val ktorApi = DogApiMock()
@@ -62,7 +62,7 @@ class BreedRepositoryTest {
     fun `Get updated breeds with cache and preserve favorites`() = runTest {
         val successResult = ktorApi.successResult()
         val resultWithExtraBreed = successResult.copy(
-            message = successResult.message + ("extra" to emptyList())
+            message = successResult.message + ("extra" to emptyList()),
         )
         ktorApi.prepareResult(resultWithExtraBreed)
 
@@ -83,12 +83,12 @@ class BreedRepositoryTest {
     fun `Get updated breeds when stale and preserve favorites`() = runTest {
         settings.putLong(
             BreedRepository.DB_TIMESTAMP_KEY,
-            (clock.currentInstant - 2.hours).toEpochMilliseconds()
+            (clock.currentInstant - 2.hours).toEpochMilliseconds(),
         )
 
         val successResult = ktorApi.successResult()
         val resultWithExtraBreed = successResult.copy(
-            message = successResult.message + ("extra" to emptyList())
+            message = successResult.message + ("extra" to emptyList()),
         )
         ktorApi.prepareResult(resultWithExtraBreed)
 
@@ -120,7 +120,7 @@ class BreedRepositoryTest {
     fun `No web call if data is not stale`() = runTest {
         settings.putLong(
             BreedRepository.DB_TIMESTAMP_KEY,
-            clock.currentInstant.toEpochMilliseconds()
+            clock.currentInstant.toEpochMilliseconds(),
         )
         ktorApi.prepareResult(ktorApi.successResult())
 
@@ -145,7 +145,7 @@ class BreedRepositoryTest {
     fun `Rethrow on API error when stale`() = runTest {
         settings.putLong(
             BreedRepository.DB_TIMESTAMP_KEY,
-            (clock.currentInstant - 2.hours).toEpochMilliseconds()
+            (clock.currentInstant - 2.hours).toEpochMilliseconds(),
         )
         ktorApi.throwOnCall(RuntimeException("Test error"))
 

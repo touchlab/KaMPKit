@@ -13,7 +13,7 @@ class BreedRepository(
     private val settings: Settings,
     private val dogApi: DogApi,
     log: Logger,
-    private val clock: Clock
+    private val clock: Clock,
 ) {
 
     private val log = log.withTag("BreedModel")

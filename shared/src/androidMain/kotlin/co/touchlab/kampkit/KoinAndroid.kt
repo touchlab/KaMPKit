@@ -14,7 +14,7 @@ actual val platformModule: Module = module {
         AndroidSqliteDriver(
             KaMPKitDb.Schema,
             get(),
-            "KampkitDb"
+            "KampkitDb",
         )
     }
 
