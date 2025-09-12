@@ -6,6 +6,9 @@ updates:
       interval: "weekly"
       day: monday
     labels: ["dependencies"]
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-patch"]
+    groups:
+      minor:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
