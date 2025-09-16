@@ -7,7 +7,7 @@ compileSdk = "35"
 # Dependencies
 kotlin = "2.1.10"
 android-gradle-plugin = "8.9.0"
-ktlint-gradle = "12.2.0"
+ktlint-gradle = "13.1.0"
 compose = "1.7.8"
 android-desugaring = "2.1.5"
 androidx-core = "1.15.0"
