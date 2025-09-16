@@ -7,8 +7,9 @@ updates:
       day: monday
     labels: ["dependencies"]
     ignore:
-     - dependency-name: "org.jetbrains.kotlin.*"
-     - dependency-name: "kotlin-test"
+      - dependency-name: "org.jetbrains.kotlin:*"
+      - dependency-name: "org.jetbrains.kotlin.*"
+      - dependency-name: "org.jetbrains.kotlinx:*"
     groups:
       minor:
         applies-to: version-updates
