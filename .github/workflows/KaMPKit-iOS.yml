@@ -34,7 +34,6 @@ jobs:
         with:
           project: ios/KaMPKitiOS.xcodeproj
           scheme: KaMPKitiOS
-          destination: name=iPhone 8
           sdk: iphoneos
           configuration: Debug
           action: build
