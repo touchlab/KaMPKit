@@ -16,6 +16,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.time.Clock.System
 import kotlin.time.Duration.Companion.hours
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +25,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kotlinx.datetime.Clock
 
 class BreedViewModelTest {
     private var kermit = Logger(StaticConfig())
@@ -38,7 +38,7 @@ class BreedViewModelTest {
     private val ktorApi = DogApiMock()
 
     // Need to start at non-zero time because the default value for db timestamp is 0
-    private val clock = ClockMock(Clock.System.now())
+    private val clock = ClockMock(System.now())
 
     private val repository: BreedRepository =
         BreedRepository(dbHelper, settings, ktorApi, kermit, clock)

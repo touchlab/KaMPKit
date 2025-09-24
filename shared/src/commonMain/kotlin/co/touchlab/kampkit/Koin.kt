@@ -6,8 +6,8 @@ import co.touchlab.kampkit.models.BreedRepository
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.StaticConfig
 import co.touchlab.kermit.platformLogWriter
+import kotlin.time.Clock
 import kotlinx.coroutines.Dispatchers
-import kotlinx.datetime.Clock
 import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
