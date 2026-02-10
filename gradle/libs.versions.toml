@@ -5,7 +5,7 @@ targetSdk = "35"
 compileSdk = "36"
 
 # Dependencies
-kotlin = "2.2.10"
+kotlin = "2.3.0"
 android-gradle-plugin = "8.11.2"
 ktlint-gradle = "14.0.1"
 compose = "1.9.1"
