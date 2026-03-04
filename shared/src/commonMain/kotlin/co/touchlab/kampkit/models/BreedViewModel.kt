@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 
-class BreedViewModel(private val breedRepository: BreedRepository, private val log: Logger) : ViewModel() {
+class BreedViewModel(private val breedRepository: IBreedRepository, private val log: Logger) : ViewModel() {
 
     private val mutableBreedState: MutableStateFlow<BreedViewState> =
         MutableStateFlow(BreedViewState.Initial)

@@ -1,0 +1,11 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "KaMPKit OHOS minimal run - BreedListPage only.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "libkuikly_entry.so": "file:./src/main/cpp/types/kuikly_entry"
+  }
+}

@@ -54,6 +54,17 @@ kotlin {
         }
     }
 
+    // HarmonyOS / OpenHarmony: 业务逻辑共享于 commonMain，OHOS 必须依赖 shared（见 docs/OHOS_SHARED_BUSINESS_LOGIC.md）
+    // 方案一：Kotlin/JS 作为 Platform Main（当前用于 jsMain 层）
+    js(org.jetbrains.kotlin.gradle.plugin.KotlinJsCompilerType.IR) {
+        browser()
+        binaries.executable()
+    }
+    // 方案二：Kotlin-OHOS 产出 libshared.so 供 NAPI 链接（接入后取消注释并配置 repo）
+    // harmonyOSArm64 {
+    //     binaries.sharedLib { baseName = "shared" }
+    // }
+
     sourceSets {
         all {
             languageSettings.apply {
@@ -89,6 +100,10 @@ kotlin {
             implementation(libs.sqlDelight.native)
             implementation(libs.ktor.client.ios)
             api(libs.touchlab.kermit.simple)
+        }
+        // jsMain = HarmonyOS Platform Main（华为 Common + Platform Main 思路）
+        getByName("jsMain").dependencies {
+            implementation(libs.ktor.client.js)
         }
     }
 }

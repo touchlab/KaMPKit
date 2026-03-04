@@ -14,7 +14,7 @@ class BreedRepository(
     private val dogApi: DogApi,
     log: Logger,
     private val clock: Clock,
-) {
+) : IBreedRepository {
 
     private val log = log.withTag("BreedModel")
 
@@ -22,15 +22,15 @@ class BreedRepository(
         internal const val DB_TIMESTAMP_KEY = "DbTimestampKey"
     }
 
-    fun getBreeds(): Flow<List<Breed>> = dbHelper.selectAllItems()
+    override fun getBreeds(): Flow<List<Breed>> = dbHelper.selectAllItems()
 
-    suspend fun refreshBreedsIfStale() {
+    override suspend fun refreshBreedsIfStale() {
         if (isBreedListStale()) {
             refreshBreeds()
         }
     }
 
-    suspend fun refreshBreeds() {
+    override suspend fun refreshBreeds() {
         val breedResult = dogApi.getJsonFromApi()
         log.v { "Breed network result: ${breedResult.status}" }
         val breedList = breedResult.message.keys.sorted().toList()
@@ -42,7 +42,7 @@ class BreedRepository(
         }
     }
 
-    suspend fun updateBreedFavorite(breed: Breed) {
+    override suspend fun updateBreedFavorite(breed: Breed) {
         dbHelper.updateFavorite(breed.id, !breed.favorite)
     }
 
