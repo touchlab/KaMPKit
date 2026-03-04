@@ -17,6 +17,10 @@ removed.
 Whereas KaMP Kit started with the goal of being a minimal sample, we now intend it to be less "getting started" and
 more "best practice model". Watch this repo and follow [@TouchlabHQ](https://twitter.com/TouchlabHQ) for updates!
 
+### 2026 Update
+Supported Ohos
+![KaMP Kit Image](docs/ohos.jpg)
+
 ### 2023 Update
 
 We updated `KaMPKit` to make sure of Touchlab's new [SKIE](https://skie.touchlab.co/) tool. SKIE allowed use to remove a lot of boilerplate code related to `ViewModel` sharing, and also we can now use Kotlin sealed classes as Swift enums in iOS code. Take a look at our detailed [migration case study](https://touchlabpro.touchlab.dev/touchlab/training/skie-architecture/migrating-kampkit-to-skie)
