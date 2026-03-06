@@ -30,7 +30,8 @@ struct BreedListPage {
       if (this.viewState.isLoading) {
         Text('Loading...')
           .fontSize(14)
-          .margin({ top: 12 });
+          .margin({ top: 12 })
+          .align(Alignment.Center);
       }
 
       if (this.viewState.kind === 'Empty') {
@@ -40,7 +41,7 @@ struct BreedListPage {
       } else if (this.viewState.kind === 'Error') {
         Text(this.viewState.error)
           .fontSize(16)
-          .fontColor(Color.Red)
+          .fontColor(Color.Black)
           .margin({ top: 48 });
       } else if (this.viewState.kind === 'Content') {
         List() {
@@ -51,19 +52,26 @@ struct BreedListPage {
                   .fontSize(16)
                   .layoutWeight(1)
                   .padding({ left: 12, right: 8, top: 10, bottom: 10 });
-                Text(breed.favorite ? '♥' : '♡')
-                  .fontSize(22)
-                  .fontColor(breed.favorite ? Color.Red : Color.Gray)
-                  .padding({ left: 8, right: 12 })
-                  .onClick(() => this.toggleFavorite(breed));
+                if (breed.favorite) {
+                  Image($r('app.media.heart_fill')) // 实心爱心
+                    .width(32)
+                    .height(32)
+                } else {
+                  Image($r('app.media.heart')) // 空心爱心
+                    .width(32)
+                    .height(32)
+                }
               }
+              .padding({ left: 8, right: 12 })
+              .onClick(() => this.toggleFavorite(breed))
               .width('100%')
             }
             .onClick(() => this.toggleFavorite(breed));
           }, (breed: Breed) => `${breed.id}_${breed.favorite}`);
         }
         .layoutWeight(1)
-        .divider({ strokeWidth: 1, color: '#eee' });
+        .divider({ strokeWidth: 1, color: '#eee' })
+        .margin(30)
       }
 
       Button('Refresh')
