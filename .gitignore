@@ -13,3 +13,5 @@
 !/.idea/codeStyles/*
 !/.idea/inspectionProfiles/*
 .kotlin
+ios/Pods
+ios/KaMPKitiOS.xcworkspace

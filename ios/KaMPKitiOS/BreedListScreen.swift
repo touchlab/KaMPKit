@@ -99,41 +99,43 @@ struct BreedRowView: View {
         Button(action: onTap) {
             HStack {
                 Text(breed.name)
+                    .foregroundColor(.black)
                     .padding(4.0)
                 Spacer()
                 Image(systemName: (!breed.favorite) ? "heart" : "heart.fill")
+                    .foregroundColor(.black)
                     .padding(4.0)
             }
         }
     }
 }
-
-struct BreedListScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            BreedListContent(
-                state: .Content(breeds: [
-                    Breed(id: 0, name: "appenzeller", favorite: false),
-                    Breed(id: 1, name: "australian", favorite: true)
-                ]),
-                onBreedFavorite: { _ in },
-                refresh: {}
-            )
-            BreedListContent(
-                state: .Initial.shared,
-                onBreedFavorite: { _ in },
-                refresh: {}
-            )
-            BreedListContent(
-                state: .Empty(),
-                onBreedFavorite: { _ in },
-                refresh: {}
-            )
-            BreedListContent(
-                state: .Error(error: "Something went wrong!"),
-                onBreedFavorite: { _ in },
-                refresh: {}
-            )
-        }
-    }
-}
+//
+//struct BreedListScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        Group {
+//            BreedListContent(
+//                state: .Content(breeds: [
+//                    Breed(id: 0, name: "appenzeller", favorite: false),
+//                    Breed(id: 1, name: "australian", favorite: true)
+//                ]),
+//                onBreedFavorite: { _ in },
+//                refresh: {}
+//            )
+//            BreedListContent(
+//                state: .Initial.shared,
+//                onBreedFavorite: { _ in },
+//                refresh: {}
+//            )
+//            BreedListContent(
+//                state: .Empty(),
+//                onBreedFavorite: { _ in },
+//                refresh: {}
+//            )
+//            BreedListContent(
+//                state: .Error(error: "Something went wrong!"),
+//                onBreedFavorite: { _ in },
+//                refresh: {}
+//            )
+//        }
+//    }
+//}
