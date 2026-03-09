@@ -1,9 +1,4 @@
-/*
- * KaMPKit OHOS - 完整数据请求与展示：通过 BreedListBridge 使用 HTTP 数据源（或注入 NAPI）。
- * 流程：Loading → 请求 dog.ceo API → 解析 → Content 列表展示；支持刷新与收藏。
- */
-
-import { breedListBridge, Breed, BreedViewState, BreedViewStateInitial } from '../bridge/BreedListBridge';
+import { dogApiDataSource, Breed, BreedViewState, BreedViewStateInitial } from '../data/DogApiDataSource';
 
 @Entry
 @Component
@@ -11,18 +6,10 @@ struct BreedListPage {
   @State viewState: BreedViewState = { kind: 'Initial', isLoading: true } as BreedViewStateInitial;
 
   aboutToAppear(): void {
-    breedListBridge.setStateCallback((state: BreedViewState) => {
+    dogApiDataSource.setStateCallback((state: BreedViewState) => {
       this.viewState = state;
     });
-    breedListBridge.init();
-  }
-
-  private refresh(): void {
-    breedListBridge.refresh();
-  }
-
-  private toggleFavorite(breed: Breed): void {
-    breedListBridge.updateFavorite(breed);
+    dogApiDataSource.load();
   }
 
   build() {
@@ -53,20 +40,19 @@ struct BreedListPage {
                   .layoutWeight(1)
                   .padding({ left: 12, right: 8, top: 10, bottom: 10 });
                 if (breed.favorite) {
-                  Image($r('app.media.heart_fill')) // 实心爱心
+                  Image($r('app.media.heart_fill'))
                     .width(32)
                     .height(32)
                 } else {
-                  Image($r('app.media.heart')) // 空心爱心
+                  Image($r('app.media.heart'))
                     .width(32)
                     .height(32)
                 }
               }
               .padding({ left: 8, right: 12 })
-              .onClick(() => this.toggleFavorite(breed))
               .width('100%')
             }
-            .onClick(() => this.toggleFavorite(breed));
+            .onClick(() => dogApiDataSource.updateFavorite(breed.id, breed.name, !breed.favorite));
           }, (breed: Breed) => `${breed.id}_${breed.favorite}`);
         }
         .layoutWeight(1)
@@ -76,7 +62,7 @@ struct BreedListPage {
 
       Button('Refresh')
         .margin(16)
-        .onClick(() => this.refresh());
+        .onClick(() => dogApiDataSource.refresh());
     }
     .width('100%')
     .height('100%');

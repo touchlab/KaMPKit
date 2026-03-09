@@ -1,10 +1,12 @@
 /**
- * KaMPKit OHOS NAPI - 严格按 KuiklyBase 架构。
- * initKuikly：Kuikly 标准入口，链接 libshared.so 时调用并返回非 0。
- * 以下为 BreedList 最小可运行 stub（无 libshared 时使用）。
+ * KaMPKit OHOS — network-layer bridge to Kotlin/Native (libshared.so).
+ *
+ * httpResponse(body)        Raw HTTP response body → Kotlin business logic
+ * httpError(json)           {"error":"..."} → Kotlin business logic
+ * action(type, payload)     Lifecycle/user action → Kotlin  (type is app-defined, payload is JSON)
+ * subscribeEvents(callback) Kotlin pushes JSON events → ArkTS  e.g. {"type":"state","payload":{...}}
  */
-export function initKuikly(): number;
-export function initBreedList(): void;
-export function subscribeBreedState(callback: (stateJson: string) => void): void;
-export function refreshBreeds(): void;
-export function updateBreedFavorite(id: number, name: string, favorite: boolean): void;
+export function httpResponse(body: string): void;
+export function httpError(errorJson: string): void;
+export function action(type: string, payload: string): void;
+export function subscribeEvents(callback: (eventJson: string) => void): void;
