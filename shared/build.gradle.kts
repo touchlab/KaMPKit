@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -7,25 +6,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.sqlDelight)
     alias(libs.plugins.skie)
-}
-
-android {
-    namespace = "co.touchlab.kampkit"
-    compileSdk = libs.versions.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
-    }
-    @Suppress("UnstableApiUsage")
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
-
-    lint {
-        warningsAsErrors = true
-        abortOnError = true
-    }
 }
 
 version = "1.2"
@@ -38,9 +18,17 @@ kotlin {
     compilerOptions {
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
-    androidTarget {
-        @Suppress("OPT_IN_USAGE")
-        unitTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
+    android {
+        namespace = "co.touchlab.kampkit"
+        compileSdk = libs.versions.compileSdk.get().toInt()
+        minSdk = libs.versions.minSdk.get().toInt()
+        withHostTestBuilder {}.configure {
+            isIncludeAndroidResources = true
+        }
+        lint {
+            warningsAsErrors = true
+            abortOnError = true
+        }
     }
     listOf(
         iosX64(),
@@ -59,7 +47,6 @@ kotlin {
             languageSettings.apply {
                 optIn("kotlin.RequiresOptIn")
                 optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
-                optIn("kotlin.time.ExperimentalTime")
             }
         }
 
@@ -82,7 +69,7 @@ kotlin {
             implementation(libs.sqlDelight.android)
             implementation(libs.ktor.client.okHttp)
         }
-        getByName("androidUnitTest").dependencies {
+        getByName("androidHostTest").dependencies {
             implementation(libs.bundles.shared.androidTest)
         }
         iosMain.dependencies {

@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
 }
 
@@ -36,10 +35,10 @@ android {
         compose = true
         buildConfig = true
     }
-}
 
-kotlin {
-    jvmToolchain(11)
+    kotlin {
+        jvmToolchain(11)
+    }
 }
 
 dependencies {
