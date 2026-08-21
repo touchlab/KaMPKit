@@ -29,7 +29,7 @@ git clone https://github.com/touchlab/KaMPKit.git
    1. Open a Terminal window or use the one at the bottom of Android Studio/IntelliJ.
    2. Navigate to the project's root directory (`KaMPKit/` - not `KaMPKit/ios/` - which is iOS project's root directory).
    3. Run the command `./gradlew build` which will build the shared library.
-2. Open Xcode **workspace** project in the `ios/` folder: `KaMPKitiOS.xcworkspace`.
+2. Open Xcode **workspace** project in the `ios/` folder: `KaMPKitiOS.xcodeproj`.
 3. Run the iOS app on either the Simulator or a phone. If the app builds correctly, you should see this:
 
 ![](Screenshots/kampScreenshotiOS.png)
