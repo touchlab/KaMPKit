@@ -5,8 +5,8 @@ import co.touchlab.kampkit.db.Breed
 import co.touchlab.kampkit.ktor.DogApi
 import co.touchlab.kermit.Logger
 import com.russhwolf.settings.Settings
+import kotlin.time.Clock
 import kotlinx.coroutines.flow.Flow
-import kotlinx.datetime.Clock
 
 class BreedRepository(
     private val dbHelper: DatabaseHelper,
