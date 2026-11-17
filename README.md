@@ -95,7 +95,35 @@ Take a walk through the app's code and libraries. Make changes, recompile. See h
 
 [GENERAL_ARCHITECTURE](docs/GENERAL_ARCHITECTURE.md)
 
-## 4) Background Education
+## 4) Make It Yours
+
+Once the sample builds, you'll want your own package name, app name, and bundle IDs instead of
+`co.touchlab.kampkit` / `KaMP Kit`. The easiest way is the interactive wizard:
+
+```bash
+./scripts/rename-wizard.sh
+```
+
+It asks for your names, previews and applies the rename, swaps out Touchlab's Apple signing team,
+verifies both builds, points `origin` at your own GitHub repo, and commits. It remembers your
+answers and picks up where you left off, so it's safe to stop and re-run at any point.
+
+Prefer flags over prompts? The wizard drives this script, which you can run directly:
+
+```bash
+./scripts/rename.sh --package com.example.myapp --project MyApp --app-name "My App" --dry-run
+```
+
+Run this to get to know about more options that the script provides:
+
+```bash
+./scripts/rename.sh --help
+```
+
+...or feed [RENAME_PROJECT](docs/RENAME_PROJECT.md) to your AI. The same steps written out, so you can hand the file
+to a coding agent or run the commands yourself.
+
+## 5) Background Education
 
 If the app is building, it's a good time to take a break and get some background information.
 
@@ -121,7 +149,7 @@ KaMPKit can help you demonstrate to management and other stakeholders the value 
 
 For information on how to debug Kotlin in Xcode, check out the [Debugging Kotlin In Xcode](docs/DEBUGGING_KOTLIN_IN_XCODE.md) doc.
 
-## 5) Integrating 'shared' With Existing Apps
+## 6) Integrating 'shared' With Existing Apps
 
 As part of your evaluation, you'll need to decide if you're going to integrate KMP into existing apps. Some teams feel integrating with their production apps is a better demonstration of KMP's viability. While KMP's interop is great, relative to other technologies, **integrating *anything* into a production app build process can be a difficult task**. Once integrated, development is generally smooth, but modifying production build systems can be a time consuming task.
 
