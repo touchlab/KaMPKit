@@ -98,7 +98,17 @@ Take a walk through the app's code and libraries. Make changes, recompile. See h
 ## 4) Make It Yours
 
 Once the sample builds, you'll want your own package name, app name, and bundle IDs instead of
-`co.touchlab.kampkit` / `KaMP Kit`. There are two ways to get there:
+`co.touchlab.kampkit` / `KaMP Kit`. The easiest way is the interactive wizard:
+
+```bash
+./scripts/rename-wizard.sh
+```
+
+It asks for your names, previews and applies the rename, swaps out Touchlab's Apple signing team,
+verifies both builds, points `origin` at your own GitHub repo, and commits. It remembers your
+answers and picks up where you left off, so it's safe to stop and re-run at any point.
+
+Prefer flags over prompts? The wizard drives this script, which you can run directly:
 
 ```bash
 ./scripts/rename.sh --package com.example.myapp --project MyApp --app-name "My App" --dry-run
@@ -110,7 +120,7 @@ Run this to get to know about more options that the script provides:
 ./scripts/rename.sh --help
 ```
 
-...or [RENAME_PROJECT](docs/RENAME_PROJECT.md), the same steps written out, so you can hand the file
+...or feed [RENAME_PROJECT](docs/RENAME_PROJECT.md) to your AI. The same steps written out, so you can hand the file
 to a coding agent or run the commands yourself.
 
 ## 5) Background Education

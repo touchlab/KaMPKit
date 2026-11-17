@@ -27,6 +27,10 @@ build; it should not cost more than a couple of tool calls.
 
 **No agent?** Every step below is a copy-pasteable shell command. Run them yourself in order.
 
+**Want to be walked through it?** `./scripts/rename-wizard.sh` asks for your names, runs the
+rename, then handles what comes after: replacing anything from Touchlab to your needs,
+verifying the builds, reopening the IDEs, pointing `origin` at your own repo, and committing.
+
 **Just want it done?** `scripts/rename.sh` is these same steps with argument checking and a
 dry-run mode:
 
